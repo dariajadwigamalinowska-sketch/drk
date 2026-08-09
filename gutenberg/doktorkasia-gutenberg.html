@@ -1,0 +1,1210 @@
+<!--
+=====================================================================================
+ DoktorKasia.pl — strona pediatry w NATYWNYCH BLOKACH GUTENBERGA
+-------------------------------------------------------------------------------------
+ JAK WKLEIĆ (30 sekund):
+   1. WordPress → Strony → Dodaj nową
+   2. Menu ⋮ (prawy górny róg) → "Edytor kodu"  (skrót: Ctrl + Shift + Alt + M)
+   3. Wklej CAŁĄ zawartość tego pliku
+   4. Wróć do "Edytora wizualnego" tym samym skrótem
+   5. Ustaw szablon strony na pełną szerokość i opublikuj
+
+ Po wklejeniu WSZYSTKO jest edytowalne klikiem w edytorze: nagłówki, akapity,
+ kolumny, przyciski, listy, FAQ. Tylko 3 elementy są w bloku "HTML własny",
+ bo wymagają kodu: arkusz stylów, kalkulator dawek i mapa Google.
+
+ MIEJSCA DO UZUPEŁNIENIA są oznaczone: UZUPEŁNIJ
+=====================================================================================
+-->
+
+
+<!-- ================================================================
+     1. STYLE — blok "HTML własny". Zostaw go na samej górze strony.
+        W edytorze jest niewidoczny, na stronie nic nie zajmuje.
+     ================================================================ -->
+<!-- wp:html -->
+<style id="dk-styles">
+/* ---------- Zmienne motywu: zmień kolory tutaj, w jednym miejscu ---------- */
+:root{
+  --dk-teal:#0f6f66;
+  --dk-teal-dark:#0a544d;
+  --dk-teal-soft:#e6f4f1;
+  --dk-mint:#f4faf8;
+  --dk-sun:#f2a53c;
+  --dk-sun-soft:#fdf1de;
+  --dk-ink:#12211f;
+  --dk-body:#4a5c59;
+  --dk-line:#dfe9e6;
+  --dk-radius:18px;
+  --dk-shadow:0 10px 30px rgba(15,111,102,.08);
+  --dk-shadow-lg:0 24px 60px rgba(15,111,102,.14);
+}
+
+/* ---------- Typografia sekcji ---------- */
+.dk-eyebrow{
+  display:inline-block;font-size:.78rem !important;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dk-teal);background:var(--dk-teal-soft);
+  padding:7px 14px;border-radius:999px;line-height:1.4;
+}
+.dk-h1{font-size:clamp(2rem,1.3rem + 3vw,3.35rem) !important;line-height:1.12 !important;letter-spacing:-.03em;color:var(--dk-ink);}
+.dk-h2{font-size:clamp(1.6rem,1.2rem + 1.8vw,2.4rem) !important;line-height:1.18 !important;letter-spacing:-.025em;color:var(--dk-ink);}
+.dk-h3{font-size:1.18rem !important;line-height:1.3 !important;color:var(--dk-ink);}
+.dk-lead{font-size:1.06rem !important;line-height:1.7;max-width:62ch;color:var(--dk-body);}
+.dk-small{font-size:.9rem !important;color:#6a7a77;}
+.dk-accent{color:var(--dk-teal);}
+
+/* ---------- Przyciski (blok "Przyciski") ---------- */
+.dk-btn .wp-block-button__link{
+  border-radius:999px !important;padding:14px 28px !important;font-weight:600 !important;
+  font-size:1rem !important;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.dk-btn .wp-block-button__link:hover{transform:translateY(-2px);}
+.dk-btn--primary .wp-block-button__link{background:var(--dk-teal) !important;color:#fff !important;box-shadow:0 10px 24px rgba(15,111,102,.28);}
+.dk-btn--primary .wp-block-button__link:hover{background:var(--dk-teal-dark) !important;}
+.dk-btn--sun .wp-block-button__link{background:var(--dk-sun) !important;color:#3a2400 !important;box-shadow:0 10px 24px rgba(242,165,60,.3);}
+.dk-btn--ghost .wp-block-button__link{background:transparent !important;color:var(--dk-teal) !important;border:1.5px solid var(--dk-line) !important;}
+.dk-btn--ghost .wp-block-button__link:hover{border-color:var(--dk-teal) !important;}
+.dk-btn--light .wp-block-button__link{background:transparent !important;color:#fff !important;border:1.5px solid rgba(255,255,255,.55) !important;}
+.dk-btn--light .wp-block-button__link:hover{background:rgba(255,255,255,.12) !important;}
+
+/* ---------- Karty (kolumny z klasą .dk-card) ---------- */
+.dk-card{
+  background:#fff;border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+  padding:30px 26px !important;box-shadow:var(--dk-shadow);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.dk-card:hover{transform:translateY(-4px);box-shadow:var(--dk-shadow-lg);}
+.dk-card p{color:var(--dk-body);}
+.dk-ico{font-size:1.6rem !important;line-height:1 !important;width:54px;height:54px;border-radius:15px;
+  background:var(--dk-teal-soft);display:flex;align-items:center;justify-content:center;margin-bottom:6px !important;}
+
+/* ---------- Odstępy w kolumnach ---------- */
+.dk-cols{gap:22px !important;}
+.dk-cols-lg{gap:clamp(28px,4vw,60px) !important;}
+
+/* ---------- Statystyki ---------- */
+.dk-stat{background:#fff;border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+  padding:24px 22px !important;box-shadow:var(--dk-shadow);text-align:center;}
+.dk-stat-num{font-size:1.85rem !important;font-weight:800;color:var(--dk-teal);line-height:1.1 !important;letter-spacing:-.03em;margin-bottom:4px !important;}
+.dk-stat p:last-child{font-size:.92rem !important;color:var(--dk-body);}
+
+/* ---------- Listy z „ptaszkami” ---------- */
+.dk-ticks{list-style:none !important;padding-left:0 !important;margin-left:0 !important;display:grid;gap:9px;}
+.dk-ticks li{position:relative;padding-left:30px;font-size:.97rem;color:var(--dk-body);}
+.dk-ticks li::before{
+  content:"✓";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;
+  background:var(--dk-teal-soft);color:var(--dk-teal);font-size:.7rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.dk-dashes{list-style:none !important;padding-left:0 !important;margin-left:0 !important;display:grid;gap:6px;font-size:.92rem;}
+.dk-dashes li{position:relative;padding-left:16px;color:var(--dk-body);}
+.dk-dashes li::before{content:"–";position:absolute;left:0;color:var(--dk-teal);font-weight:700;}
+
+/* ---------- Zastępcze miejsce na zdjęcie ---------- */
+.dk-photo{
+  border-radius:26px;overflow:hidden;min-height:420px;box-shadow:var(--dk-shadow-lg);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:
+    radial-gradient(circle at 30% 25%,rgba(255,255,255,.75) 0 22%,transparent 22.5%),
+    radial-gradient(circle at 72% 68%,rgba(242,165,60,.28) 0 18%,transparent 18.5%),
+    linear-gradient(140deg,var(--dk-teal-soft),#d8ece8);
+}
+.dk-photo p{color:var(--dk-teal-dark) !important;font-weight:600;}
+.dk-photo img,.dk-photo .wp-block-image{border-radius:26px;}
+
+/* ---------- Wyróżnik / plakietka ---------- */
+.dk-badge{background:#fff;border-radius:16px;box-shadow:var(--dk-shadow-lg);padding:16px 20px !important;margin-top:-38px !important;
+  position:relative;z-index:2;max-width:300px;}
+.dk-badge p{margin:0 !important;}
+
+/* ---------- Kwalifikacje ---------- */
+.dk-qual{background:#fff;border:1px solid var(--dk-line);border-radius:12px;padding:15px 18px !important;}
+.dk-qual p{margin:0 !important;color:var(--dk-body);}
+.dk-qual p:first-child{color:var(--dk-ink);font-weight:600;font-size:.97rem !important;}
+.dk-qual p:last-child{font-size:.9rem !important;}
+
+/* ---------- Wpisy / porady ---------- */
+.dk-post{background:#fff;border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+  overflow:hidden;box-shadow:var(--dk-shadow);padding:0 !important;transition:transform .2s ease,box-shadow .2s ease;}
+.dk-post:hover{transform:translateY(-4px);box-shadow:var(--dk-shadow-lg);}
+.dk-post-img{background:linear-gradient(140deg,var(--dk-teal-soft),#dcefeb);padding:38px 0 !important;text-align:center;font-size:2.2rem !important;margin:0 !important;}
+.dk-post-body{padding:22px 24px 28px !important;}
+.dk-tag{font-size:.76rem !important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dk-sun);margin-bottom:6px !important;}
+
+/* ---------- Opinie ---------- */
+.dk-quote{background:#fff;border:1px solid var(--dk-line) !important;border-left:1px solid var(--dk-line) !important;
+  border-radius:var(--dk-radius);padding:28px 26px !important;box-shadow:var(--dk-shadow);font-style:normal;}
+.dk-quote p{font-size:.98rem !important;font-style:normal;color:var(--dk-body);}
+.dk-quote cite{display:block;margin-top:16px;padding-top:14px;border-top:1px solid var(--dk-line);
+  font-style:normal;font-weight:600;color:var(--dk-ink);font-size:.9rem;}
+.dk-stars{color:var(--dk-sun);letter-spacing:2px;margin-bottom:10px !important;}
+
+/* ---------- FAQ (blok „Szczegóły”) ---------- */
+.dk-faq{background:#fff;border:1px solid var(--dk-line);border-radius:12px;padding:0 !important;margin-bottom:12px;overflow:hidden;}
+.dk-faq summary{padding:18px 22px;font-weight:600;color:var(--dk-ink);cursor:pointer;list-style:none;}
+.dk-faq summary::-webkit-details-marker{display:none;}
+.dk-faq summary::after{content:"+";float:right;color:var(--dk-teal);font-size:1.35rem;line-height:1;}
+.dk-faq[open] summary::after{content:"–";}
+.dk-faq[open] summary{background:var(--dk-teal-soft);}
+.dk-faq p{padding:16px 22px 20px;margin:0 !important;color:var(--dk-body);}
+
+/* ---------- Kontakt ---------- */
+.dk-info p{margin:0 0 4px !important;}
+.dk-box{background:#fff;border:1px solid var(--dk-line);border-radius:var(--dk-radius);padding:24px 26px !important;box-shadow:var(--dk-shadow);}
+.dk-hours{list-style:none !important;padding-left:0 !important;margin-left:0 !important;}
+.dk-hours li{display:flex;justify-content:space-between;gap:16px;padding:8px 0;font-size:.94rem;border-bottom:1px dashed var(--dk-line);color:var(--dk-body);}
+.dk-hours li:last-child{border-bottom:0;}
+.dk-code{background:var(--dk-mint);border:1px dashed var(--dk-line);border-radius:10px;padding:12px 14px !important;font-size:.9rem !important;}
+
+/* ---------- Sekcja CTA ---------- */
+.dk-cta{border-radius:26px;background:linear-gradient(135deg,var(--dk-teal) 0%,#12857a 100%);}
+.dk-cta h2,.dk-cta p{color:#fff !important;}
+
+/* ---------- Stopka ---------- */
+.dk-footer p,.dk-footer li{color:#a9bcb8;font-size:.94rem;}
+.dk-footer h2,.dk-footer h3,.dk-footer h4{color:#fff !important;}
+.dk-footer a{color:#a9bcb8;}
+.dk-footer a:hover{color:#fff;}
+.dk-footer ul{list-style:none !important;padding-left:0 !important;margin-left:0 !important;display:grid;gap:8px;}
+
+/* ---------- KALKULATOR ---------- */
+.dk-calc{background:#fff;border:1px solid var(--dk-line);border-radius:24px;box-shadow:var(--dk-shadow-lg);
+  overflow:hidden;display:grid;grid-template-columns:1fr 1fr;}
+.dk-calc *,.dk-calc *::before,.dk-calc *::after{box-sizing:border-box;}
+.dk-calc__form{padding:clamp(26px,3.4vw,40px);}
+.dk-calc__out{padding:clamp(26px,3.4vw,40px);background:var(--dk-mint);border-left:1px solid var(--dk-line);}
+@media (max-width:781px){
+  .dk-calc{grid-template-columns:1fr;}
+  .dk-calc__out{border-left:0;border-top:1px solid var(--dk-line);}
+}
+.dk-calc .dk-field{margin-bottom:20px;}
+.dk-calc label,.dk-calc .dk-legend{display:block;font-weight:600;color:var(--dk-ink);font-size:.95rem;margin-bottom:9px;}
+.dk-calc small{display:block;font-size:.83rem;margin-top:6px;color:#7b8b88;line-height:1.5;}
+.dk-calc input[type=number],.dk-calc select{
+  width:100%;padding:13px 15px;border:1.5px solid var(--dk-line);border-radius:12px;background:#fff;
+  color:var(--dk-ink);font-size:1rem;font-family:inherit;transition:border-color .15s ease,box-shadow .15s ease;}
+.dk-calc input[type=number]:focus,.dk-calc select:focus{outline:none;border-color:var(--dk-teal);box-shadow:0 0 0 4px rgba(15,111,102,.12);}
+.dk-seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.dk-seg input{position:absolute;opacity:0;pointer-events:none;}
+.dk-seg label{text-align:center;padding:13px 10px;border:1.5px solid var(--dk-line);border-radius:12px;
+  cursor:pointer;font-weight:600;font-size:.95rem;color:var(--dk-body);background:#fff;margin:0;transition:all .15s ease;}
+.dk-seg input:checked + label{border-color:var(--dk-teal);background:var(--dk-teal-soft);color:var(--dk-teal-dark);}
+.dk-seg input:focus-visible + label{box-shadow:0 0 0 4px rgba(15,111,102,.15);}
+.dk-res-label{font-size:.8rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--dk-teal);}
+.dk-res-dose{font-size:clamp(2.4rem,1.6rem + 3vw,3.4rem);font-weight:800;color:var(--dk-ink);
+  letter-spacing:-.04em;line-height:1.05;margin:8px 0 2px;}
+.dk-res-dose span{font-size:.42em;font-weight:700;color:var(--dk-teal);}
+.dk-res-sub{font-size:.98rem;margin:0 0 22px;color:var(--dk-body);}
+.dk-rows{display:grid;gap:1px;background:var(--dk-line);border:1px solid var(--dk-line);border-radius:14px;overflow:hidden;}
+.dk-row{display:flex;justify-content:space-between;gap:14px;background:#fff;padding:13px 16px;font-size:.94rem;color:var(--dk-body);}
+.dk-row b{color:var(--dk-ink);text-align:right;}
+.dk-alert{margin-top:12px;border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.55;
+  background:var(--dk-sun-soft);border:1px solid #f3d9ac;color:#6b4a11;}
+.dk-alert b{display:block;margin-bottom:3px;color:#5a3d08;}
+.dk-alert--stop{background:#fdeceb;border-color:#f5c6c2;color:#7d2a22;}
+.dk-alert--stop b{color:#6d221b;}
+.dk-disclaimer{margin-top:24px !important;font-size:.85rem;line-height:1.6;color:#6a7a77;
+  border-left:3px solid var(--dk-teal);padding-left:15px;}
+
+/* ---------- Mapa ---------- */
+.dk-map{border-radius:var(--dk-radius);overflow:hidden;border:1px solid var(--dk-line);box-shadow:var(--dk-shadow);}
+.dk-map iframe{display:block;width:100%;height:100%;min-height:460px;border:0;}
+
+/* ---------- Kotwice pod przyklejonym menu motywu ---------- */
+.dk-anchor{scroll-margin-top:100px;}
+
+@media (prefers-reduced-motion:reduce){
+  .dk-card:hover,.dk-post:hover,.dk-btn .wp-block-button__link:hover{transform:none;}
+}
+</style>
+<!-- /wp:html -->
+
+
+<!-- ================================================================
+     2. HERO
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-anchor","anchor":"start","style":{"color":{"background":"#f4faf8"},"spacing":{"padding":{"top":"clamp(48px,6vw,84px)","bottom":"clamp(56px,7vw,92px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-anchor has-background" id="start" style="background-color:#f4faf8;padding-top:clamp(48px,6vw,84px);padding-right:24px;padding-bottom:clamp(56px,7vw,92px);padding-left:24px">
+
+<!-- wp:columns {"verticalAlignment":"center","className":"dk-cols-lg"} -->
+<div class="wp-block-columns are-vertically-aligned-center dk-cols-lg">
+
+<!-- wp:column {"verticalAlignment":"center","width":"55%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:55%">
+
+<!-- wp:paragraph {"className":"dk-eyebrow"} -->
+<p class="dk-eyebrow">Miechów · Kraków · okolice</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1,"className":"dk-h1","style":{"spacing":{"margin":{"top":"16px","bottom":"18px"}}}} -->
+<h1 class="wp-block-heading dk-h1" style="margin-top:16px;margin-bottom:18px">Spokojna opieka pediatryczna <span class="dk-accent">dla Twojego dziecka</span></h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"dk-lead"} -->
+<p class="dk-lead">Nazywam się Katarzyna Bator i jestem lekarzem specjalistą pediatrii. Konsultuję dzieci od pierwszych dni życia — bez pośpiechu, z wyjaśnieniem każdej decyzji i planem, który da się zrealizować w domu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"28px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:28px">
+<!-- wp:button {"className":"dk-btn dk-btn--primary"} -->
+<div class="wp-block-button dk-btn dk-btn--primary"><a class="wp-block-button__link wp-element-button" href="#kontakt">Umów konsultację</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"dk-btn dk-btn--ghost"} -->
+<div class="wp-block-button dk-btn dk-btn--ghost"><a class="wp-block-button__link wp-element-button" href="#kalkulator">Kalkulator dawek syropu</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:list {"className":"dk-ticks","style":{"spacing":{"margin":{"top":"28px"}}}} -->
+<ul class="wp-block-list dk-ticks" style="margin-top:28px"><!-- wp:list-item -->
+<li>Wizyty stacjonarne, domowe i teleporady</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Bilanse zdrowia i szczepienia</li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li>Opieka nad noworodkiem od pierwszych dni</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"45%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%">
+
+<!-- UZUPEŁNIJ: usuń poniższą grupę „dk-photo” i wstaw w to miejsce blok Obraz
+     ze swoim zdjęciem (format pionowy 4:5, min. 900×1125 px). -->
+<!-- wp:group {"className":"dk-photo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-photo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center"><strong>Tu wstaw swoje zdjęcie</strong><br>Blok „Obraz” · format pionowy 4:5</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"dk-badge","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-badge">
+<!-- wp:paragraph -->
+<p>🏅 <strong>Pediatra Roku</strong></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"dk-small"} -->
+<p class="dk-small">1. miejsce w powiecie miechowskim — plebiscyt Hipokrates Małopolski</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     3. PASEK ZAUFANIA — UZUPEŁNIJ liczby zgodnie ze stanem faktycznym
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"clamp(40px,5vw,60px)","bottom":"clamp(40px,5vw,60px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull has-background" style="background-color:#ffffff;padding-top:clamp(40px,5vw,60px);padding-right:24px;padding-bottom:clamp(40px,5vw,60px);padding-left:24px">
+
+<!-- wp:columns {"className":"dk-cols"} -->
+<div class="wp-block-columns dk-cols">
+
+<!-- wp:column {"className":"dk-stat"} -->
+<div class="wp-block-column dk-stat">
+<!-- wp:paragraph {"align":"center","className":"dk-stat-num"} -->
+<p class="has-text-align-center dk-stat-num">15+</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">lat pracy z dziećmi</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-stat"} -->
+<div class="wp-block-column dk-stat">
+<!-- wp:paragraph {"align":"center","className":"dk-stat-num"} -->
+<p class="has-text-align-center dk-stat-num">0–18</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">lat — wiek małych pacjentów</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-stat"} -->
+<div class="wp-block-column dk-stat">
+<!-- wp:paragraph {"align":"center","className":"dk-stat-num"} -->
+<p class="has-text-align-center dk-stat-num">ERC · AHA</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">instruktor EPALS, ALS, PALS</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-stat"} -->
+<div class="wp-block-column dk-stat">
+<!-- wp:paragraph {"align":"center","className":"dk-stat-num"} -->
+<p class="has-text-align-center dk-stat-num">30 min</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">tyle trwa pierwsza wizyta</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     4. O MNIE
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-anchor","anchor":"o-mnie","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-anchor has-background" id="o-mnie" style="background-color:#ffffff;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:columns {"className":"dk-cols-lg"} -->
+<div class="wp-block-columns dk-cols-lg">
+
+<!-- wp:column {"width":"42%"} -->
+<div class="wp-block-column" style="flex-basis:42%">
+<!-- UZUPEŁNIJ: podmień na blok Obraz ze zdjęciem gabinetu lub drugim portretem -->
+<!-- wp:group {"className":"dk-photo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-photo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center"><strong>Zdjęcie gabinetu</strong><br>lub drugi portret</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"58%"} -->
+<div class="wp-block-column" style="flex-basis:58%">
+
+<!-- wp:paragraph {"className":"dk-eyebrow"} -->
+<p class="dk-eyebrow">O mnie</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"16px"}}}} -->
+<h2 class="wp-block-heading dk-h2" style="margin-top:16px;margin-bottom:16px">Lekarz, do którego wracacie z każdym pytaniem</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Jestem absolwentką kierunku lekarskiego na Wydziale Wojskowo-Lekarskim Uniwersytetu Medycznego w Łodzi. Doświadczenie zdobywałam przez lata pracy na Oddziale Intensywnej Terapii Noworodka Uniwersyteckiego Szpitala Dziecięcego w Krakowie, w Klinice Chorób Dzieci oraz na oddziałach pediatrii i neonatologii.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Na co dzień prowadzę gabinet w Miechowie i konsultuję dzieci w Krakowie i okolicach. Dobra wizyta to dla mnie taka, po której rodzic wie <strong>co się dzieje</strong>, <strong>co robić w domu</strong> i <strong>kiedy wrócić</strong>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"className":"dk-qual","style":{"spacing":{"margin":{"top":"24px"},"blockGap":"2px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-qual" style="margin-top:24px">
+<!-- wp:paragraph -->
+<p>🎓 Specjalizacja z pediatrii</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>Uniwersytet Medyczny w Łodzi, Wydział Wojskowo-Lekarski</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"dk-qual","style":{"spacing":{"margin":{"top":"12px"},"blockGap":"2px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-qual" style="margin-top:12px">
+<!-- wp:paragraph -->
+<p>🚑 Instruktor resuscytacji</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>Europejska Rada Resuscytacji (EPALS, ALS) oraz AHA (PALS)</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"dk-qual","style":{"spacing":{"margin":{"top":"12px"},"blockGap":"2px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-qual" style="margin-top:12px">
+<!-- wp:paragraph -->
+<p>👶 Intensywna terapia noworodka</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>Uniwersytecki Szpital Dziecięcy w Krakowie</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"dk-qual","style":{"spacing":{"margin":{"top":"12px"},"blockGap":"2px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-qual" style="margin-top:12px">
+<!-- wp:paragraph -->
+<p>🎤 Szkolenia z pierwszej pomocy</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>Kursy dla rodziców, opiekunów i personelu medycznego</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     5. OFERTA
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-anchor","anchor":"oferta","style":{"color":{"background":"#f4faf8"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-anchor has-background" id="oferta" style="background-color:#f4faf8;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"dk-eyebrow"} -->
+<p class="has-text-align-center dk-eyebrow">Oferta</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center","className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"14px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center dk-h2" style="margin-top:16px;margin-bottom:14px">W czym mogę pomóc</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
+<p class="has-text-align-center" style="margin-bottom:44px">Opieka nad dzieckiem od okresu noworodkowego aż po wiek nastoletni — w gabinecie, w domu i online.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"className":"dk-cols"} -->
+<div class="wp-block-columns dk-cols">
+
+<!-- wp:column {"className":"dk-card"} -->
+<div class="wp-block-column dk-card">
+<!-- wp:paragraph {"className":"dk-ico"} -->
+<p class="dk-ico">🩺</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Konsultacja pediatryczna</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Pełne badanie dziecka, diagnostyka infekcji i chorób przewlekłych, jasny plan leczenia na piśmie.</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"className":"dk-dashes"} -->
+<ul class="wp-block-list dk-dashes"><!-- wp:list-item --><li>infekcje dróg oddechowych</li><!-- /wp:list-item --><!-- wp:list-item --><li>bóle brzucha, biegunki, wymioty</li><!-- /wp:list-item --><!-- wp:list-item --><li>wysypki i alergie</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-card"} -->
+<div class="wp-block-column dk-card">
+<!-- wp:paragraph {"className":"dk-ico"} -->
+<p class="dk-ico">👶</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Opieka nad noworodkiem</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Pierwsze tygodnie życia: karmienie, przyrosty masy, ulewanie, żółtaczka, pielęgnacja.</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"className":"dk-dashes"} -->
+<ul class="wp-block-list dk-dashes"><!-- wp:list-item --><li>wizyta patronażowa</li><!-- /wp:list-item --><!-- wp:list-item --><li>ocena przyrostów i rozwoju</li><!-- /wp:list-item --><!-- wp:list-item --><li>wsparcie w laktacji</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-card"} -->
+<div class="wp-block-column dk-card">
+<!-- wp:paragraph {"className":"dk-ico"} -->
+<p class="dk-ico">💉</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Bilanse i szczepienia</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Ocena rozwoju psychoruchowego, kwalifikacja do szczepień i indywidualny kalendarz szczepień.</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"className":"dk-dashes"} -->
+<ul class="wp-block-list dk-dashes"><!-- wp:list-item --><li>bilanse zdrowia dziecka</li><!-- /wp:list-item --><!-- wp:list-item --><li>szczepienia obowiązkowe i zalecane</li><!-- /wp:list-item --><!-- wp:list-item --><li>plan dla dzieci z opóźnieniami</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"className":"dk-cols","style":{"spacing":{"margin":{"top":"22px"}}}} -->
+<div class="wp-block-columns dk-cols" style="margin-top:22px">
+
+<!-- wp:column {"className":"dk-card"} -->
+<div class="wp-block-column dk-card">
+<!-- wp:paragraph {"className":"dk-ico"} -->
+<p class="dk-ico">🏠</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Wizyty domowe</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Gdy dziecko gorączkuje i podróż do gabinetu jest złym pomysłem — przyjeżdżam do Was.</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"className":"dk-dashes"} -->
+<ul class="wp-block-list dk-dashes"><!-- wp:list-item --><li>Miechów i okolice</li><!-- /wp:list-item --><!-- wp:list-item --><li>badanie w warunkach domowych</li><!-- /wp:list-item --><!-- wp:list-item --><li>recepta i zalecenia od ręki</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-card"} -->
+<div class="wp-block-column dk-card">
+<!-- wp:paragraph {"className":"dk-ico"} -->
+<p class="dk-ico">💬</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Teleporada</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Kontynuacja leczenia, omówienie wyników badań, konsultacja gdy potrzebna jest szybka decyzja.</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"className":"dk-dashes"} -->
+<ul class="wp-block-list dk-dashes"><!-- wp:list-item --><li>rozmowa telefoniczna lub wideo</li><!-- /wp:list-item --><!-- wp:list-item --><li>e-recepta i e-skierowanie</li><!-- /wp:list-item --><!-- wp:list-item --><li>omówienie wyników badań</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-card"} -->
+<div class="wp-block-column dk-card">
+<!-- wp:paragraph {"className":"dk-ico"} -->
+<p class="dk-ico">🫀</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Kursy pierwszej pomocy</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Szkolenia dla rodziców, opiekunów i placówek — resuscytacja dziecka, zadławienie, drgawki gorączkowe.</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"className":"dk-dashes"} -->
+<ul class="wp-block-list dk-dashes"><!-- wp:list-item --><li>zajęcia praktyczne na fantomach</li><!-- /wp:list-item --><!-- wp:list-item --><li>grupy indywidualne i firmowe</li><!-- /wp:list-item --><!-- wp:list-item --><li>materiały do zabrania do domu</li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     6. KALKULATOR DAWEK — blok "HTML własny" (wymaga skryptu)
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-anchor","anchor":"kalkulator","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-anchor has-background" id="kalkulator" style="background-color:#ffffff;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"dk-eyebrow"} -->
+<p class="has-text-align-center dk-eyebrow">Narzędzie dla rodziców</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center","className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"14px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center dk-h2" style="margin-top:16px;margin-bottom:14px">Kalkulator dawki syropu przeciwgorączkowego</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"bottom":"40px"}}}} -->
+<p class="has-text-align-center" style="margin-bottom:40px">Najczęstsze pytanie, jakie słyszę o 3 w nocy: „ile leku mogę bezpiecznie podać?”. Wpisz masę ciała dziecka i wybierz preparat — kalkulator policzy dawkę jednorazową, odstęp między dawkami i maksymalną dawkę dobową.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<div class="dk-calc">
+  <form class="dk-calc__form" id="dk-calc-form" novalidate>
+    <div class="dk-field">
+      <span class="dk-legend">Substancja czynna</span>
+      <div class="dk-seg">
+        <input type="radio" name="dk-drug" id="dk-drug-par" value="par" checked>
+        <label for="dk-drug-par">Paracetamol</label>
+        <input type="radio" name="dk-drug" id="dk-drug-ibu" value="ibu">
+        <label for="dk-drug-ibu">Ibuprofen</label>
+      </div>
+    </div>
+
+    <div class="dk-field">
+      <label for="dk-weight">Masa ciała dziecka (kg)</label>
+      <input type="number" id="dk-weight" inputmode="decimal" min="2" max="60" step="0.1" placeholder="np. 12,5">
+      <small>Podaj aktualną masę ciała — dawki liczy się z wagi, nie z wieku.</small>
+    </div>
+
+    <div class="dk-field">
+      <label for="dk-age">Wiek dziecka (miesiące)</label>
+      <input type="number" id="dk-age" inputmode="numeric" min="0" max="216" step="1" placeholder="np. 18">
+      <small>Potrzebny tylko do ostrzeżeń wiekowych — możesz zostawić puste.</small>
+    </div>
+
+    <div class="dk-field">
+      <label for="dk-conc">Stężenie preparatu</label>
+      <select id="dk-conc"></select>
+      <small>Sprawdź na opakowaniu — zwykle w formie „100 mg / 5 ml”.</small>
+    </div>
+  </form>
+
+  <div class="dk-calc__out" id="dk-calc-out" aria-live="polite">
+    <span class="dk-res-label">Dawka jednorazowa</span>
+    <div class="dk-res-dose" id="dk-dose-ml">— <span>ml</span></div>
+    <p class="dk-res-sub" id="dk-dose-mg">Wpisz masę ciała, aby obliczyć dawkę.</p>
+
+    <div class="dk-rows">
+      <div class="dk-row"><span>Odstęp między dawkami</span><b id="dk-interval">—</b></div>
+      <div class="dk-row"><span>Maksymalnie na dobę</span><b id="dk-maxday">—</b></div>
+      <div class="dk-row"><span>Maksymalna dawka dobowa</span><b id="dk-maxmg">—</b></div>
+      <div class="dk-row"><span>Przelicznik</span><b id="dk-perkg">—</b></div>
+    </div>
+
+    <div id="dk-warnings"></div>
+
+    <p class="dk-disclaimer"><strong>To narzędzie ma charakter wyłącznie informacyjny i nie zastępuje porady lekarskiej.</strong> Wyliczenia oparte są na typowym dawkowaniu (paracetamol 15 mg/kg, ibuprofen 10 mg/kg) i nie uwzględniają chorób przewlekłych, niewydolności nerek lub wątroby, odwodnienia ani innych przyjmowanych leków. Zawsze sprawdź ulotkę swojego preparatu i skonsultuj się z lekarzem lub farmaceutą. W razie niepokojących objawów zadzwoń pod numer alarmowy <strong>112</strong>.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var form = document.getElementById("dk-calc-form");
+  if (!form || form.dataset.dkInit === "1") return;
+  form.dataset.dkInit = "1";
+
+  /* Założenia (typowe dawkowanie pediatryczne):
+       paracetamol : 15 mg/kg na dawkę, co 4–6 h, maks. 4 dawki/dobę, maks. 60 mg/kg/dobę (do 4000 mg)
+       ibuprofen   : 10 mg/kg na dawkę, co 6–8 h, maks. 3 dawki/dobę, maks. 30 mg/kg/dobę (do 1200 mg)
+     Ostateczne dawkowanie zawsze ustala lekarz. */
+  var DRUGS = {
+    par: {
+      name: "paracetamol", perKg: 15, maxPerKgDay: 60, absMaxDay: 4000, absMaxDose: 1000,
+      interval: "co 4–6 godzin", dosesPerDay: 4,
+      concs: [
+        { label: "120 mg / 5 ml (syrop dla dzieci)", mgPerMl: 24 },
+        { label: "150 mg / 5 ml", mgPerMl: 30 },
+        { label: "250 mg / 5 ml (forte)", mgPerMl: 50 },
+        { label: "100 mg / 1 ml (zawiesina skoncentrowana)", mgPerMl: 100 }
+      ]
+    },
+    ibu: {
+      name: "ibuprofen", perKg: 10, maxPerKgDay: 30, absMaxDay: 1200, absMaxDose: 400,
+      interval: "co 6–8 godzin", dosesPerDay: 3,
+      concs: [
+        { label: "100 mg / 5 ml (zawiesina dla dzieci)", mgPerMl: 20 },
+        { label: "200 mg / 5 ml (forte)", mgPerMl: 40 },
+        { label: "40 mg / 1 ml (krople)", mgPerMl: 40 }
+      ]
+    }
+  };
+
+  var elWeight = document.getElementById("dk-weight");
+  var elAge    = document.getElementById("dk-age");
+  var elConc   = document.getElementById("dk-conc");
+  var outMl    = document.getElementById("dk-dose-ml");
+  var outMg    = document.getElementById("dk-dose-mg");
+  var outInt   = document.getElementById("dk-interval");
+  var outMax   = document.getElementById("dk-maxday");
+  var outMaxMg = document.getElementById("dk-maxmg");
+  var outPerKg = document.getElementById("dk-perkg");
+  var outWarn  = document.getElementById("dk-warnings");
+
+  function currentDrug() {
+    var checked = form.querySelector('input[name="dk-drug"]:checked');
+    return DRUGS[checked ? checked.value : "par"];
+  }
+
+  function fillConcentrations() {
+    var drug = currentDrug();
+    elConc.innerHTML = "";
+    drug.concs.forEach(function (c, i) {
+      var o = document.createElement("option");
+      o.value = String(c.mgPerMl);
+      o.textContent = c.label;
+      if (i === 0) o.selected = true;
+      elConc.appendChild(o);
+    });
+  }
+
+  function fmt(n, dec) {
+    return n.toFixed(dec === undefined ? 1 : dec).replace(".", ",");
+  }
+
+  function warn(text, stop) {
+    var d = document.createElement("div");
+    d.className = "dk-alert" + (stop ? " dk-alert--stop" : "");
+    d.innerHTML = text;
+    outWarn.appendChild(d);
+  }
+
+  function reset(msg) {
+    outMl.innerHTML = "— <span>ml</span>";
+    outMg.textContent = msg;
+    outInt.textContent = "—";
+    outMax.textContent = "—";
+    outMaxMg.textContent = "—";
+    outPerKg.textContent = "—";
+  }
+
+  function calculate() {
+    var drug    = currentDrug();
+    var weight  = parseFloat(String(elWeight.value).replace(",", "."));
+    var age     = elAge.value === "" ? null : parseInt(elAge.value, 10);
+    var mgPerMl = parseFloat(elConc.value);
+
+    outWarn.innerHTML = "";
+
+    if (!weight || isNaN(weight) || weight <= 0) {
+      reset("Wpisz masę ciała, aby obliczyć dawkę.");
+      return;
+    }
+    if (weight < 2 || weight > 60) {
+      reset("Podaj masę ciała z zakresu 2–60 kg.");
+      warn("<b>Poza zakresem kalkulatora</b>Przy masie ciała poniżej 2 kg lub powyżej 60 kg dawkowanie ustala lekarz indywidualnie.", true);
+      return;
+    }
+
+    var doseMg = Math.min(weight * drug.perKg, drug.absMaxDose);
+    var doseMl = doseMg / mgPerMl;
+    var maxDayMg = Math.min(weight * drug.maxPerKgDay, drug.absMaxDay);
+
+    outMl.innerHTML = fmt(doseMl, 1) + " <span>ml</span>";
+    outMg.textContent = "≈ " + fmt(doseMg, 0) + " mg (" + drug.name + ") jednorazowo, " + drug.interval + ".";
+    outInt.textContent = drug.interval;
+    outMax.textContent = drug.dosesPerDay + " dawki (" + fmt(doseMl * drug.dosesPerDay, 1) + " ml)";
+    outMaxMg.textContent = fmt(maxDayMg, 0) + " mg / dobę";
+    outPerKg.textContent = drug.perKg + " mg/kg · " + fmt(mgPerMl, 0) + " mg/ml";
+
+    if (drug === DRUGS.ibu) {
+      if ((age !== null && age < 3) || weight < 5) {
+        warn("<b>Nie podawaj bez konsultacji z lekarzem</b>Ibuprofenu nie stosuje się u niemowląt poniżej 3. miesiąca życia ani poniżej 5 kg masy ciała.", true);
+      }
+      warn("<b>Podawaj w trakcie lub po posiłku</b>Ibuprofen może podrażniać żołądek. Zachowaj ostrożność u dziecka odwodnionego, z wymiotami lub przy podejrzeniu ospy wietrznej — w tych sytuacjach zapytaj lekarza.");
+    }
+
+    if (drug === DRUGS.par && age !== null && age < 3) {
+      warn("<b>Wiek poniżej 3 miesięcy</b>U tak małych niemowląt każdą gorączkę należy skonsultować z lekarzem — nie podawaj leku „na własną rękę”.", true);
+    }
+
+    if (age !== null && age < 3) {
+      warn("<b>Gorączka u noworodka i małego niemowlęcia to stan pilny</b>Temperatura ≥ 38 °C u dziecka poniżej 3. miesiąca życia wymaga pilnej oceny lekarskiej, niezależnie od podanego leku.", true);
+    }
+
+    if (doseMg >= drug.absMaxDose) {
+      warn("<b>Dawka ograniczona do maksymalnej</b>Wyliczenie z masy ciała przekroczyłoby " + drug.absMaxDose + " mg, dlatego pokazano dawkę maksymalną.");
+    }
+
+    warn("<b>Pamiętaj</b>Nie łącz preparatów zawierających tę samą substancję czynną i nie podawaj leku dłużej niż 3 dni bez konsultacji. Odmierzaj dawkę strzykawką lub miarką z opakowania — nie łyżeczką.");
+  }
+
+  form.addEventListener("input", calculate);
+  form.addEventListener("change", function (e) {
+    if (e.target.name === "dk-drug") fillConcentrations();
+    calculate();
+  });
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+  fillConcentrations();
+  calculate();
+})();
+</script>
+<!-- /wp:html -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     7. PORADY / MATERIAŁY
+     UZUPEŁNIJ: podmień odnośniki na własne wpisy bloga lub filmy.
+     Możesz też usunąć te 3 kolumny i wstawić blok „Najnowsze wpisy”.
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-anchor","anchor":"porady","style":{"color":{"background":"#f4faf8"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-anchor has-background" id="porady" style="background-color:#f4faf8;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"dk-eyebrow"} -->
+<p class="has-text-align-center dk-eyebrow">Porady i materiały</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center","className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"14px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center dk-h2" style="margin-top:16px;margin-bottom:14px">Wiedza, która przydaje się w domu</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
+<p class="has-text-align-center" style="margin-bottom:44px">Krótkie materiały wideo i artykuły — o tym, co najczęściej niepokoi rodziców.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"className":"dk-cols"} -->
+<div class="wp-block-columns dk-cols">
+
+<!-- wp:column {"className":"dk-post"} -->
+<div class="wp-block-column dk-post">
+<!-- wp:paragraph {"align":"center","className":"dk-post-img"} -->
+<p class="has-text-align-center dk-post-img">🌡️</p>
+<!-- /wp:paragraph -->
+<!-- wp:group {"className":"dk-post-body","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-post-body">
+<!-- wp:paragraph {"className":"dk-tag"} -->
+<p class="dk-tag">Gorączka</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3"><a href="#kontakt">Gorączka u dziecka — kiedy leczyć, a kiedy obserwować</a></h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Jak mierzyć temperaturę, kiedy podać lek i jakie objawy oznaczają pilną wizytę.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-post"} -->
+<div class="wp-block-column dk-post">
+<!-- wp:paragraph {"align":"center","className":"dk-post-img"} -->
+<p class="has-text-align-center dk-post-img">🫁</p>
+<!-- /wp:paragraph -->
+<!-- wp:group {"className":"dk-post-body","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-post-body">
+<!-- wp:paragraph {"className":"dk-tag"} -->
+<p class="dk-tag">Pierwsza pomoc</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3"><a href="#kontakt">Zadławienie u niemowlaka — instrukcja krok po kroku</a></h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Co robić w pierwszych sekundach i czego absolutnie nie robić.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"dk-post"} -->
+<div class="wp-block-column dk-post">
+<!-- wp:paragraph {"align":"center","className":"dk-post-img"} -->
+<p class="has-text-align-center dk-post-img">💧</p>
+<!-- /wp:paragraph -->
+<!-- wp:group {"className":"dk-post-body","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-post-body">
+<!-- wp:paragraph {"className":"dk-tag"} -->
+<p class="dk-tag">Infekcje</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3"><a href="#kontakt">Wymioty i biegunka — jak nawadniać dziecko w domu</a></h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Ile płynu, jak często i po czym poznać odwodnienie.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     8. OPINIE — UZUPEŁNIJ prawdziwymi opiniami (za zgodą pacjentów)
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull has-background" style="background-color:#ffffff;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"dk-eyebrow"} -->
+<p class="has-text-align-center dk-eyebrow">Opinie</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center","className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"14px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center dk-h2" style="margin-top:16px;margin-bottom:14px">Co mówią rodzice</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","className":"dk-small","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
+<p class="has-text-align-center dk-small" style="margin-bottom:44px">Poniższe wpisy to treści przykładowe — podmień je na prawdziwe opinie pacjentów.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"className":"dk-cols"} -->
+<div class="wp-block-columns dk-cols">
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"dk-quote"} -->
+<blockquote class="wp-block-quote dk-quote"><!-- wp:paragraph {"className":"dk-stars"} -->
+<p class="dk-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„Przykładowa opinia — wpisz tu prawdziwą treść. Pani doktor poświęciła nam mnóstwo czasu i wszystko dokładnie wytłumaczyła.”</p>
+<!-- /wp:paragraph --><cite>Imię pacjenta — Miechów</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"dk-quote"} -->
+<blockquote class="wp-block-quote dk-quote"><!-- wp:paragraph {"className":"dk-stars"} -->
+<p class="dk-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„Przykładowa opinia — wpisz tu prawdziwą treść. Wizyta domowa w niedzielę, spokojne podejście do przestraszonego dziecka.”</p>
+<!-- /wp:paragraph --><cite>Imię pacjenta — Kraków</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"dk-quote"} -->
+<blockquote class="wp-block-quote dk-quote"><!-- wp:paragraph {"className":"dk-stars"} -->
+<p class="dk-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„Przykładowa opinia — wpisz tu prawdziwą treść. Po wizycie dostaliśmy zalecenia na piśmie, dzięki czemu nic nam nie umknęło.”</p>
+<!-- /wp:paragraph --><cite>Imię pacjenta — Słomniki</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     9. FAQ — bloki „Szczegóły” (WordPress 6.4+)
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"#f4faf8"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"820px"}} -->
+<section class="wp-block-group alignfull has-background" style="background-color:#f4faf8;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"dk-eyebrow"} -->
+<p class="has-text-align-center dk-eyebrow">FAQ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center","className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"40px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center dk-h2" style="margin-top:16px;margin-bottom:40px">Najczęstsze pytania</h2>
+<!-- /wp:heading -->
+
+<!-- wp:details {"showContent":true,"summary":"Jak umówić wizytę?","className":"dk-faq"} -->
+<details class="wp-block-details dk-faq" open><summary>Jak umówić wizytę?</summary><!-- wp:paragraph -->
+<p>Telefonicznie lub przez formularz kontaktowy. Potwierdzenie terminu wysyłam SMS-em. <!-- UZUPEŁNIJ: opisz swój faktyczny sposób rezerwacji --></p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy przyjmujesz na NFZ?","className":"dk-faq"} -->
+<details class="wp-block-details dk-faq"><summary>Czy przyjmujesz na NFZ?</summary><!-- wp:paragraph -->
+<p>Gabinet działa w ramach praktyki prywatnej. <!-- UZUPEŁNIJ: informacja o NFZ i cenniku --></p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Ile trwa wizyta i co zabrać ze sobą?","className":"dk-faq"} -->
+<details class="wp-block-details dk-faq"><summary>Ile trwa wizyta i co zabrać ze sobą?</summary><!-- wp:paragraph -->
+<p>Pierwsza wizyta trwa około 30 minut. Weź książeczkę zdrowia dziecka, wyniki ostatnich badań oraz listę przyjmowanych leków.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy jeździsz na wizyty domowe?","className":"dk-faq"} -->
+<details class="wp-block-details dk-faq"><summary>Czy jeździsz na wizyty domowe?</summary><!-- wp:paragraph -->
+<p>Tak — na terenie Miechowa i okolic, w miarę dostępnych terminów. O zakres dojazdu zapytaj telefonicznie.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy kalkulator dawek zastępuje konsultację?","className":"dk-faq"} -->
+<details class="wp-block-details dk-faq"><summary>Czy kalkulator dawek zastępuje konsultację?</summary><!-- wp:paragraph -->
+<p>Nie. To pomoc w przeliczeniu typowej dawki na masę ciała. O tym, czy lek jest wskazany, decyduje lekarz — zwłaszcza u niemowląt poniżej 3. miesiąca życia, u dzieci z chorobami przewlekłymi i przy gorączce trwającej dłużej niż 3 dni.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     10. KONTAKT — UZUPEŁNIJ telefon, e-mail i godziny
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-anchor","anchor":"kontakt","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-anchor has-background" id="kontakt" style="background-color:#ffffff;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:columns {"className":"dk-cols-lg"} -->
+<div class="wp-block-columns dk-cols-lg">
+
+<!-- wp:column {"width":"46%"} -->
+<div class="wp-block-column" style="flex-basis:46%">
+
+<!-- wp:paragraph {"className":"dk-eyebrow"} -->
+<p class="dk-eyebrow">Kontakt</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"dk-h2","style":{"spacing":{"margin":{"top":"16px","bottom":"14px"}}}} -->
+<h2 class="wp-block-heading dk-h2" style="margin-top:16px;margin-bottom:14px">Gabinet w Miechowie</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Zadzwoń albo napisz — odpowiadam osobiście, zwykle tego samego dnia.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"className":"dk-info","style":{"spacing":{"margin":{"top":"24px"},"blockGap":"14px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-info" style="margin-top:24px">
+<!-- wp:paragraph -->
+<p>📍 <strong>Adres</strong><br>ul. Adama Mickiewicza 3, 32-200 Miechów</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>📞 <strong>Telefon</strong><br><a href="tel:+48000000000">+48 000 000 000</a> <!-- UZUPEŁNIJ --></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>✉️ <strong>E-mail</strong><br><a href="mailto:kontakt@doktorkasia.pl">kontakt@doktorkasia.pl</a> <!-- UZUPEŁNIJ --></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>💙 <strong>Facebook</strong><br><a href="https://www.facebook.com/doktorkasiapediatra" target="_blank" rel="noreferrer noopener">facebook.com/doktorkasiapediatra</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"dk-box","style":{"spacing":{"margin":{"top":"24px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-box" style="margin-top:24px">
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Godziny przyjęć</h3>
+<!-- /wp:heading -->
+<!-- wp:list {"className":"dk-hours"} -->
+<ul class="wp-block-list dk-hours"><!-- wp:list-item --><li><span>Poniedziałek – Piątek</span><strong>15:00 – 19:00</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li><span>Sobota</span><strong>9:00 – 13:00</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li><span>Niedziela</span><strong>tylko wizyty domowe</strong></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"dk-box","style":{"spacing":{"margin":{"top":"22px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-box" style="margin-top:22px">
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Formularz kontaktowy</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"className":"dk-small"} -->
+<p class="dk-small">W tym miejscu wstaw blok „Shortcode” z formularzem swojej wtyczki (Contact Form 7, WPForms lub Forminator). Zwykły formularz HTML w WordPressie nie wyśle wiadomości — potrzebna jest wtyczka.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"dk-code"} -->
+<p class="dk-code"><code>[contact-form-7 id="123" title="Kontakt"]</code> ← UZUPEŁNIJ</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"dk-small"} -->
+<p class="dk-small">Uwaga: nie przesyłaj przez formularz danych o stanie zdrowia dziecka — opisz je dopiero na wizycie.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"54%"} -->
+<div class="wp-block-column" style="flex-basis:54%">
+<!-- wp:html -->
+<div class="dk-map">
+  <!-- UZUPEŁNIJ: adres w parametrze q= — mapa działa bez klucza API -->
+  <iframe
+    src="https://www.google.com/maps?q=Adama%20Mickiewicza%203,%2032-200%20Miech%C3%B3w&output=embed"
+    title="Mapa dojazdu do gabinetu — ul. Adama Mickiewicza 3, Miechów"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     11. SEKCJA CTA
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","style":{"color":{"background":"#ffffff"},"spacing":{"padding":{"top":"0","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull has-background" style="background-color:#ffffff;padding-top:0;padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:group {"className":"dk-cta","style":{"spacing":{"padding":{"top":"clamp(34px,5vw,62px)","bottom":"clamp(34px,5vw,62px)","right":"clamp(24px,4vw,54px)","left":"clamp(24px,4vw,54px)"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group dk-cta" style="padding-top:clamp(34px,5vw,62px);padding-right:clamp(24px,4vw,54px);padding-bottom:clamp(34px,5vw,62px);padding-left:clamp(24px,4vw,54px)">
+
+<!-- wp:heading {"textAlign":"center","className":"dk-h2"} -->
+<h2 class="wp-block-heading has-text-align-center dk-h2">Potrzebujesz konsultacji dla dziecka?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"14px","bottom":"28px"}}}} -->
+<p class="has-text-align-center" style="margin-top:14px;margin-bottom:28px">Umów wizytę stacjonarną, domową albo teleporadę. Jeśli nie odbiorę — oddzwaniam między wizytami.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"dk-btn dk-btn--sun"} -->
+<div class="wp-block-button dk-btn dk-btn--sun"><a class="wp-block-button__link wp-element-button" href="tel:+48000000000">Zadzwoń: +48 000 000 000</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"dk-btn dk-btn--light"} -->
+<div class="wp-block-button dk-btn dk-btn--light"><a class="wp-block-button__link wp-element-button" href="mailto:kontakt@doktorkasia.pl">Napisz e-mail</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+</div>
+<!-- /wp:group -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ================================================================
+     12. STOPKA — jeśli Twój motyw ma własną stopkę, możesz tę usunąć
+     ================================================================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"dk-footer","style":{"color":{"background":"#12211f"},"spacing":{"padding":{"top":"clamp(44px,5vw,64px)","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1160px"}} -->
+<section class="wp-block-group alignfull dk-footer has-background" style="background-color:#12211f;padding-top:clamp(44px,5vw,64px);padding-right:24px;padding-bottom:32px;padding-left:24px">
+
+<!-- wp:columns {"className":"dk-cols-lg"} -->
+<div class="wp-block-columns dk-cols-lg">
+
+<!-- wp:column {"width":"50%"} -->
+<div class="wp-block-column" style="flex-basis:50%">
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Doktor Kasia</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Katarzyna Bator — lekarz specjalista pediatrii. Gabinet w Miechowie, konsultacje w Krakowie i okolicach.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"dk-small"} -->
+<p class="dk-small">Treści na tej stronie mają charakter informacyjny i edukacyjny. Nie stanowią porady medycznej ani nie zastępują konsultacji z lekarzem. W stanie zagrożenia życia dzwoń pod numer 112.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"25%"} -->
+<div class="wp-block-column" style="flex-basis:25%">
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Strona</h3>
+<!-- /wp:heading -->
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="#o-mnie">O mnie</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="#oferta">Oferta</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="#kalkulator">Kalkulator dawek</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="#porady">Porady</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="#kontakt">Kontakt</a></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"25%"} -->
+<div class="wp-block-column" style="flex-basis:25%">
+<!-- wp:heading {"level":3,"className":"dk-h3"} -->
+<h3 class="wp-block-heading dk-h3">Kontakt</h3>
+<!-- /wp:heading -->
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li>ul. Adama Mickiewicza 3<br>32-200 Miechów</li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="tel:+48000000000">+48 000 000 000</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="mailto:kontakt@doktorkasia.pl">kontakt@doktorkasia.pl</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:separator {"className":"is-style-wide","style":{"color":{"background":"#2b3a37"}}} -->
+<hr class="wp-block-separator has-text-color has-alpha-channel-opacity has-background is-style-wide" style="background-color:#2b3a37;color:#2b3a37"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph {"align":"center","className":"dk-small"} -->
+<p class="has-text-align-center dk-small">© 2026 DoktorKasia.pl — wszelkie prawa zastrzeżone.</p>
+<!-- /wp:paragraph -->
+
+</section>
+<!-- /wp:group -->
