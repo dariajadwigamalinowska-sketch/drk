@@ -81,7 +81,9 @@ oznaczone jako przykładowe — nie publikuj ich w obecnej formie.
 
 Plik: `wordpress/nauka4future-edycja3-gutenberg.html` — jedna strona do wklejenia
 w **Edytorze kodu** Gutenberga (blok „HTML własny”), w kolorystyce Politechniki
-Krakowskiej (kolor podstawowy znaku PK: PANTONE 288 / RGB 0-53-113 / `#003571`).
+Krakowskiej (kolor podstawowy znaku PK: PANTONE 288 / RGB 0-53-113 / `#003571`)
+z żółtym akcentem `#F2B233` przeniesionym z grafiki promocyjnej III edycji.
+Warstwa wizualna jest płaska — bez cieni, poświat i gradientów.
 
 ## Co jest na stronie
 
@@ -111,16 +113,46 @@ tablicy `DEFAULT_EVENTS` w kodzie strony, żeby program był widoczny publicznie
 Zdjęcia wgrane z dysku zapisują się jako `data:URI` (limit 1,2 MB na plik);
 do publikacji lepiej wgrać je do biblioteki mediów WordPressa i wkleić adresy.
 
+## Logotypy — co i gdzie wstawić
+
+Na stronie są dwie belki logotypowe. W obu miejsce na plik to blok
+`<span class="n3-logoslot">` z przerywaną ramką — zamień go na obrazek
+z biblioteki mediów, np.:
+
+```html
+<img src="/wp-content/uploads/2026/09/logo-pk.png"
+     alt="Politechnika Krakowska im. Tadeusza Kościuszki">
+```
+
+**Belka górna** (ciemna, nad hero): Politechnika Krakowska i FutureLab PK —
+tak jak w nagłówku strony referencyjnej.
+
+**Belka dolna** (biała, na końcu strony) — logotypy finansujące. Kolejność
+i zasady wynikają z wymogów programu i są opisane w komentarzu w kodzie:
+
+1. **Ministerstwo Nauki i Szkolnictwa Wyższego** (znak z godłem) — pierwszy
+   od lewej, nie mniejszy od pozostałych znaków,
+2. **Społeczna Odpowiedzialność Nauki III** — znak programu,
+3. **Politechnika Krakowska im. Tadeusza Kościuszki**,
+4. **FutureLab Politechnika Krakowska**.
+
+Belka ma białe tło celowo — godło państwowe musi stać na jasnym, spokojnym
+podłożu i nie wolno go zniekształcać ani przebarwiać. Nad logotypami jest
+informacja o dofinansowaniu; kwoty (`[DO UZUPEŁNIENIA] zł`) przepisz z umowy.
+
 ## Co trzeba uzupełnić przed publikacją
 
 W pliku oznaczone jako `[DO UZUPEŁNIENIA]` i `[DO POTWIERDZENIA]`:
 
-- **daty III edycji** — w kodzie są robocze terminy (29.09, 6.10, 13.10, 20.10.2026),
-  wzorowane na rytmie II edycji (wrzesień–październik),
+- **daty wydarzeń III edycji** — w kodzie są robocze terminy (29.09, 6.10, 13.10,
+  20.10.2026), wzorowane na rytmie II edycji (wrzesień–październik). Termin
+  zgłoszeń — **15 września 2026** — pochodzi z grafiki promocyjnej i jest już wpisany,
 - **nazwiska prowadzących** przy wykładach i warsztatach,
 - **sale i budynki**,
 - **link do formularza zgłoszeniowego** (przycisk w sekcji „Zapisy”),
-- **zdjęcia i filmy** z poprzednich edycji.
+- **zdjęcia i filmy** z poprzednich edycji,
+- **pliki logotypów** w obu belkach (patrz sekcja wyżej),
+- **kwoty dofinansowania** w białej belce na dole.
 
 Treści opisowe (opisy wykładów i warsztatów) są propozycją napisaną na podstawie
 publicznie dostępnych informacji o projekcie — przed publikacją wymagają

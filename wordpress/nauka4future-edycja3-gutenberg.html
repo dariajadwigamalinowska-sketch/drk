@@ -54,6 +54,8 @@
     --pk-mid:#0B4C8F;
     --sky-lt:#86D0FF;
     --ice:#C6E4FA;
+    --yellow:#F2B233;      /* akcent z grafiki promocyjnej III edycji */
+    --yellow-dk:#8A5E00;   /* ta sama żółć czytelna na białym tle */
     --danger:#E0616B;
     --line:rgba(255,255,255,.10);
     --line-strong:rgba(255,255,255,.18);
@@ -62,7 +64,6 @@
     --r:20px;
     --r-lg:28px;
     --max:1180px;
-    --grad:linear-gradient(100deg,#86D0FF 0%,#4EA8E8 48%,#2E86D6 100%);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     color:var(--ink);
     background:var(--bg);
@@ -89,11 +90,7 @@
   /* ---------- warstwa tła całej strony ---------- */
   #n4f3::before {
     content:""; position:absolute; inset:0; z-index:-3;
-    background:
-      radial-gradient(70% 50% at 15% 0%, rgba(11,76,143,.55) 0%, transparent 60%),
-      radial-gradient(60% 45% at 90% 12%, rgba(78,168,232,.16) 0%, transparent 62%),
-      radial-gradient(80% 60% at 50% 100%, rgba(134,208,255,.12) 0%, transparent 70%),
-      linear-gradient(180deg,var(--bg) 0%, var(--bg2) 55%, var(--bg) 100%);
+    background:var(--bg);
   }
   #n4f3::after {
     content:""; position:absolute; inset:0; z-index:-2; pointer-events:none;
@@ -114,30 +111,66 @@
     padding:7px 14px; border:1px solid var(--line-strong); border-radius:100px;
     background:rgba(78,168,232,.06);
   }
-  .n3-eyebrow::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--sky); box-shadow:0 0 10px var(--sky); }
+  .n3-eyebrow::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--yellow); }
   .n3-h2 { font-size:clamp(2rem,4.4vw,3.2rem); margin:20px 0 14px; }
   .n3-lead { color:var(--soft); font-size:clamp(1rem,1.5vw,1.12rem); max-width:64ch; }
-  .n3-grad { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .n3-grad { color:var(--yellow); }
 
   #n4f3 .n3-btn {
     display:inline-flex; align-items:center; justify-content:center; gap:10px;
     padding:14px 26px; border-radius:100px; border:0;
     font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.98rem;
-    background:var(--grad); color:#00102A;
-    box-shadow:0 12px 34px rgba(78,168,232,.30);
-    transition:transform .18s ease, box-shadow .18s ease;
+    background:var(--yellow); color:#00102A;
+    transition:background .18s ease, border-color .18s ease;
   }
-  #n4f3 .n3-btn:hover { transform:translateY(-2px); box-shadow:0 18px 44px rgba(78,168,232,.42); text-decoration:none; }
+  #n4f3 .n3-btn:hover { background:#FFC64F; text-decoration:none; }
   #n4f3 .n3-btn--ghost {
-    background:transparent; color:var(--ink); border:1px solid var(--line-strong); box-shadow:none;
+    background:transparent; color:var(--ink); border:1px solid var(--line-strong);
   }
-  #n4f3 .n3-btn--ghost:hover { background:var(--card-hi); box-shadow:none; }
+  #n4f3 .n3-btn--ghost:hover { background:var(--card-hi); border-color:var(--yellow); }
   #n4f3 .n3-btn--sm { padding:9px 16px; font-size:.86rem; }
-  #n4f3 .n3-btn--danger { background:rgba(224,97,107,.14); color:var(--danger); border:1px solid rgba(224,97,107,.38); box-shadow:none; }
+  #n4f3 .n3-btn--danger { background:rgba(224,97,107,.14); color:var(--danger); border:1px solid rgba(224,97,107,.38); }
+
+  /* ---------- BELKI LOGOTYPOWE ---------- */
+  .n3-brandbar { position:relative; z-index:5; border-bottom:1px solid var(--line); background:var(--bg); }
+  .n3-brandbar-in { display:flex; align-items:center; gap:clamp(16px,3vw,34px); padding:14px 0; flex-wrap:wrap; }
+  .n3-brandbar-tag {
+    margin-left:auto; font-family:'Space Grotesk',sans-serif; font-size:.72rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--soft);
+  }
+  .n3-brandbar-tag b { color:var(--yellow); font-weight:600; }
+  #n4f3 a.n3-logo { display:inline-flex; align-items:center; color:inherit; }
+  #n4f3 a.n3-logo:hover { text-decoration:none; opacity:.85; }
+  .n3-logo img { height:clamp(36px,4.2vw,52px); width:auto; }
+
+  /* miejsce na plik logotypu — do podmiany na <img> z biblioteki mediów */
+  .n3-logoslot {
+    display:flex; flex-direction:column; justify-content:center; gap:3px;
+    min-width:148px; min-height:50px; padding:9px 14px;
+    border:1px dashed var(--line-strong); border-radius:10px;
+  }
+  .n3-logoslot b { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.82rem; line-height:1.2; color:var(--ink); }
+  .n3-logoslot small { font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+
+  /* biała belka z logotypami finansującymi — godło i znak programu muszą stać na jasnym tle */
+  .n3-funding { background:#FFFFFF; color:#16202B; padding:28px 0 30px; }
+  .n3-funding-note {
+    max-width:760px; margin:0 auto 22px; text-align:center;
+    font-size:.84rem; line-height:1.55; color:#3C4855;
+  }
+  .n3-funding-note strong { color:#16202B; }
+  .n3-funding-row {
+    display:flex; align-items:center; justify-content:center;
+    gap:clamp(20px,4vw,52px); flex-wrap:wrap;
+  }
+  .n3-funding-row img { height:clamp(42px,5vw,60px); width:auto; }
+  .n3-logoslot--light { border-color:#C6D0DA; }
+  .n3-logoslot--light b { color:#16202B; }
+  .n3-logoslot--light small { color:#75838F; }
 
   /* ---------- HERO + GÓRA ---------- */
   .n3-hero {
-    position:relative; min-height:clamp(640px,98vh,980px);
+    position:relative; min-height:clamp(600px,88vh,920px);
     display:flex; flex-direction:column; justify-content:center;
     /* dolny margines odsuwa tekst od grani, żeby znaczniki szczytów nie wchodziły na przyciski */
     padding:80px 0 clamp(110px,17vh,210px);
@@ -153,21 +186,22 @@
   @keyframes n3twinkle { 0%,100%{opacity:.25} 50%{opacity:.95} }
 
   .n3-hero-copy { position:relative; z-index:2; text-align:center; }
-  .n3-hero-copy::before {
-    content:""; position:absolute; z-index:-1; inset:-60px -40px -40px;
-    background:radial-gradient(58% 62% at 50% 45%, rgba(0,16,42,.80) 0%, rgba(0,16,42,.55) 45%, transparent 78%);
-    pointer-events:none;
-  }
   .n3-hero h1 {
-    font-size:clamp(2.6rem,7.4vw,5.6rem); margin:24px auto 18px; max-width:16ch;
+    font-size:clamp(2.6rem,7.4vw,5.6rem); margin:24px auto 18px; max-width:18ch;
+    font-weight:700;
   }
-  .n3-hero-sub { color:var(--soft); font-size:clamp(1rem,1.7vw,1.22rem); max-width:60ch; margin:0 auto; }
+  .n3-hero h1 .n3-tagline {
+    display:block; margin-top:.42em;
+    font-size:.30em; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    line-height:1.3;
+  }
+  .n3-hero-sub { color:var(--soft); font-size:clamp(1rem,1.7vw,1.22rem); max-width:60ch; margin:16px auto 0; }
   .n3-hero-cta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
   .n3-hero-meta {
     margin-top:44px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
     font-size:.86rem; color:var(--dim);
   }
-  .n3-hero-meta span { padding:8px 16px; border:1px solid var(--line); border-radius:100px; background:rgba(0,16,42,.55); backdrop-filter:blur(8px); }
+  .n3-hero-meta span { padding:8px 16px; border:1px solid var(--line); border-radius:100px; background:var(--bg2); }
 
   /* znaczniki szczytów */
   .n3-peaks { position:absolute; inset:0; z-index:4; pointer-events:none; }
@@ -176,13 +210,13 @@
     background:none; border:0; padding:0; display:flex; flex-direction:column; align-items:center; gap:8px;
   }
   .n3-peak-dot {
-    width:16px; height:16px; border-radius:50%; background:var(--sky);
-    box-shadow:0 0 0 6px rgba(78,168,232,.16), 0 0 20px rgba(78,168,232,.8);
+    width:18px; height:18px; border-radius:50%; background:var(--yellow);
+    border:3px solid var(--bg);
     position:relative; transition:transform .25s ease;
   }
   .n3-peak-dot::after {
     content:""; position:absolute; inset:-6px; border-radius:50%;
-    border:1px solid rgba(78,168,232,.5); animation:n3pulse 2.6s ease-out infinite;
+    border:1px solid var(--yellow); animation:n3pulse 2.6s ease-out infinite;
   }
   @keyframes n3pulse { 0%{transform:scale(.8); opacity:.9} 100%{transform:scale(2.4); opacity:0} }
   .n3-peak-label {
@@ -194,7 +228,7 @@
   }
   .n3-peak:hover .n3-peak-dot, .n3-peak.is-on .n3-peak-dot { transform:scale(1.35); }
   .n3-peak:hover .n3-peak-label, .n3-peak:focus-visible .n3-peak-label, .n3-peak.is-on .n3-peak-label { opacity:1; transform:translateY(0); }
-  .n3-peak.is-on .n3-peak-dot { background:var(--sky-lt); box-shadow:0 0 0 6px rgba(134,208,255,.18), 0 0 22px rgba(134,208,255,.85); }
+  .n3-peak.is-on .n3-peak-dot { background:#FFFFFF; border-color:var(--yellow); }
 
   .n3-scrollhint {
     position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:3;
@@ -220,7 +254,7 @@
   .n3-list li { display:flex; gap:14px; align-items:flex-start; color:var(--soft); }
   .n3-list li::before {
     content:""; flex:0 0 auto; width:9px; height:9px; margin-top:9px; border-radius:2px;
-    background:var(--grad); transform:rotate(45deg);
+    background:var(--yellow); transform:rotate(45deg);
   }
 
   /* ---------- ŚCIEŻKI TEMATYCZNE ---------- */
@@ -232,10 +266,10 @@
     transition:border-color .2s ease, transform .2s ease, background .2s ease;
   }
   .n3-track:hover { transform:translateY(-4px); border-color:var(--line-strong); background:var(--card-hi); }
-  .n3-track.is-on { border-color:transparent; box-shadow:0 0 0 1.5px var(--sky), 0 18px 44px rgba(78,168,232,.14); }
+  .n3-track.is-on { border-color:var(--yellow); background:var(--card-hi); }
   .n3-track::before {
     content:""; position:absolute; inset:auto auto 0 0; height:3px; width:100%;
-    background:var(--grad); opacity:0; transition:opacity .2s ease;
+    background:var(--yellow); opacity:0; transition:opacity .2s ease;
   }
   .n3-track:hover::before, .n3-track.is-on::before { opacity:1; }
   .n3-track-num { font-family:'Space Grotesk',sans-serif; font-size:.76rem; letter-spacing:.16em; color:var(--dim); }
@@ -260,7 +294,7 @@
     content:""; position:absolute; top:3px; left:3px; width:19px; height:19px; border-radius:50%;
     background:#fff; transition:transform .2s ease;
   }
-  .n3-switch input:checked + i { background:var(--grad); }
+  .n3-switch input:checked + i { background:var(--yellow); }
   .n3-switch input:checked + i::after { transform:translateX(19px); }
   .n3-switch input:focus-visible + i { outline:2px solid var(--sky); outline-offset:3px; }
   .n3-editonly { display:none; }
@@ -291,10 +325,10 @@
   #n4f3 .n3-day.is-out { opacity:.28; }
   #n4f3 .n3-day.is-today { color:var(--ink); border-color:rgba(78,168,232,.5); }
   #n4f3 .n3-day.has-ev { color:var(--ink); background:rgba(78,168,232,.15); border-color:rgba(78,168,232,.45); font-weight:600; }
-  #n4f3 .n3-day.is-sel { box-shadow:0 0 0 2px var(--sky); background:rgba(78,168,232,.14); border-color:transparent; color:var(--ink); }
+  #n4f3 .n3-day.is-sel { background:rgba(242,178,51,.16); border-color:var(--yellow); color:var(--ink); }
   .n3-dots { display:flex; gap:3px; height:5px; }
   .n3-dots i { width:5px; height:5px; border-radius:50%; background:var(--sky); }
-  .n3-dots i.t2 { background:var(--sky-lt); } .n3-dots i.t3 { background:var(--ice); }
+  .n3-dots i.t2 { background:var(--yellow); } .n3-dots i.t3 { background:var(--ice); }
   #n4f3 .n3-day-add {
     position:absolute; top:3px; right:4px; width:20px; height:20px; border-radius:6px;
     border:1px solid var(--line-strong); background:rgba(0,16,42,.75); line-height:1;
@@ -321,7 +355,7 @@
     background:transparent; color:var(--soft); font-size:.85rem; transition:all .18s ease;
   }
   #n4f3 .n3-chip:hover { border-color:var(--line-strong); color:var(--ink); }
-  #n4f3 .n3-chip.is-on { background:var(--grad); color:#00102A; border-color:transparent; font-weight:600; }
+  #n4f3 .n3-chip.is-on { background:var(--yellow); color:#00102A; border-color:var(--yellow); font-weight:600; }
 
   .n3-daygroup { margin-bottom:34px; }
   .n3-daygroup-head { display:flex; align-items:baseline; gap:14px; padding-bottom:12px; border-bottom:1px solid var(--line); margin-bottom:16px; flex-wrap:wrap; }
@@ -338,7 +372,7 @@
   .n3-ev-sub { color:var(--dim); font-size:.84rem; margin-top:4px; display:flex; flex-wrap:wrap; gap:6px 14px; }
   .n3-tag { font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; padding:4px 10px; border-radius:100px; border:1px solid var(--line-strong); color:var(--soft); }
   .n3-tag.t-wyklad { color:#BFE2FF; border-color:rgba(78,168,232,.4); background:rgba(78,168,232,.08); }
-  .n3-tag.t-warsztat { color:#BEE3FF; border-color:rgba(134,208,255,.4); background:rgba(134,208,255,.08); }
+  .n3-tag.t-warsztat { color:var(--yellow); border-color:rgba(242,178,51,.45); background:rgba(242,178,51,.10); }
   .n3-tag.t-pokaz { color:#DCEEFB; border-color:rgba(198,228,250,.4); background:rgba(198,228,250,.08); }
   .n3-tag.t-inne { color:#9FC4E6; border-color:rgba(159,196,230,.35); background:rgba(159,196,230,.10); }
   .n3-ev-chev { width:32px; height:32px; border-radius:50%; border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; transition:transform .25s ease; flex:0 0 auto; }
@@ -389,7 +423,7 @@
   .n3-modal-box {
     position:relative; width:min(100%,620px); max-height:88vh; overflow:auto;
     background:#001C3D; border:1px solid var(--line-strong); border-radius:var(--r-lg);
-    padding:clamp(22px,3vw,32px); box-shadow:0 40px 90px rgba(0,0,0,.6);
+    padding:clamp(22px,3vw,32px);
   }
   .n3-modal-box h3 { font-size:1.35rem; margin-bottom:20px; }
   #n4f3 .n3-modal-close { position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%; border:1px solid var(--line-strong); background:transparent; }
@@ -412,7 +446,7 @@
   /* ---------- ZAPISY / STOPKA ---------- */
   .n3-cta {
     border-radius:var(--r-lg); border:1px solid var(--line-strong); padding:clamp(30px,5vw,56px);
-    background:linear-gradient(135deg, rgba(0,53,113,.20), rgba(78,168,232,.10) 55%, rgba(134,208,255,.14));
+    background:var(--bg2);
     text-align:center;
   }
   .n3-foot { border-top:1px solid var(--line); padding:34px 0 46px; color:var(--dim); font-size:.86rem; }
@@ -431,6 +465,8 @@
   }
   @media (max-width:640px) {
     .n3-hero { min-height:88vh; }
+    /* niższe pasmo na wąskim ekranie — inaczej „slice" powiększa góry i szczyty wchodzą na treść */
+    .n3-range { height:clamp(140px,24vh,220px); }
     .n3-peak-label { display:none; }
     .n3-day { min-height:42px; font-size:.82rem; border-radius:11px; }
     .n3-row2 { grid-template-columns:1fr; }
@@ -444,70 +480,65 @@
 </style>
 
 
+<!--
+  BELKA LOGOTYPOWA — PK i FutureLab.
+  Każdy blok .n3-logoslot zamień na obrazek z biblioteki mediów, np.:
+      <img src="/wp-content/uploads/2026/09/logo-pk.png" alt="Politechnika Krakowska im. Tadeusza Kościuszki">
+  Logotypy Ministerstwa i programu „Społeczna odpowiedzialność nauki" NIE idą tutaj —
+  ich miejsce jest w białej belce dofinansowania na dole strony.
+-->
+<div class="n3-brandbar">
+  <div class="n3-wrap n3-brandbar-in">
+    <a class="n3-logo" href="https://pk.edu.pl/" target="_blank" rel="noopener">
+      <span class="n3-logoslot"><b>Politechnika Krakowska</b><small>wstaw logo</small></span>
+    </a>
+    <a class="n3-logo" href="https://futurelab.pk.edu.pl/" target="_blank" rel="noopener">
+      <span class="n3-logoslot"><b>FutureLab PK</b><small>wstaw logo</small></span>
+    </a>
+    <span class="n3-brandbar-tag">#nauka<b>4</b>future · edycja III</span>
+  </div>
+</div>
+
 <!-- ============================ HERO + GÓRA ============================ -->
 <header class="n3-hero" id="n3-top">
   <div class="n3-mountain" aria-hidden="true">
     <!-- niebo: gwiazdy i słońce -->
     <svg class="n3-sky" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" role="presentation">
-      <defs>
-        <radialGradient id="n3g-sun" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#86D0FF" stop-opacity=".42"/>
-          <stop offset="52%" stop-color="#4EA8E8" stop-opacity=".20"/>
-          <stop offset="100%" stop-color="#4EA8E8" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="n3g-disc" cx="50%" cy="45%" r="55%">
-          <stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#86D0FF"/>
-        </radialGradient>
-      </defs>
       <g class="n3-layer n3-stars" data-depth="4" id="n3-stars"></g>
-      <circle class="n3-layer" data-depth="6" cx="1112" cy="252" r="230" fill="url(#n3g-sun)"/>
-      <circle class="n3-layer" data-depth="6" cx="1112" cy="252" r="46" fill="url(#n3g-disc)" opacity=".9"/>
+      <circle class="n3-layer" data-depth="6" cx="1112" cy="252" r="46" fill="#F2B233"/>
+      <circle class="n3-layer" data-depth="6" cx="1112" cy="252" r="74" fill="none" stroke="#F2B233" stroke-width="1.5" opacity=".45"/>
     </svg>
 
     <!-- pasma górskie: warstwy o rosnącej głębi -->
     <svg class="n3-range" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax meet" role="presentation">
-      <defs>
-        <linearGradient id="n3g-far" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#124480"/><stop offset="100%" stop-color="#062A57"/>
-        </linearGradient>
-        <linearGradient id="n3g-mid" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0A3A72"/><stop offset="100%" stop-color="#04203F"/>
-        </linearGradient>
-        <linearGradient id="n3g-near" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#07223F"/><stop offset="100%" stop-color="#00102A"/>
-        </linearGradient>
-        <linearGradient id="n3g-trail" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stop-color="#0B4C8F"/><stop offset="45%" stop-color="#4EA8E8"/><stop offset="100%" stop-color="#DCEEFB"/>
-        </linearGradient>
-      </defs>
 
       <!-- całe pasmo spłaszczone w pionie: y' = 0.62·y + 159.6 (patrz RANGE_K/RANGE_B w skrypcie) -->
       <g transform="translate(0 159.6) scale(1 0.62)">
 
       <!-- pasmo dalekie -->
-      <path class="n3-layer" data-depth="12" fill="url(#n3g-far)" opacity=".92"
+      <path class="n3-layer" data-depth="12" fill="#1A4A82"
         d="M0 232 L130 152 L215 192 L330 92 L430 176 L540 106 L640 190 L760 80 L880 196 L980 130 L1105 212 L1210 140 L1320 216 L1440 162 L1440 420 L0 420 Z"/>
-      <path class="n3-layer" data-depth="12" fill="#DCEEFB" opacity=".30"
+      <path class="n3-layer" data-depth="12" fill="#FFFFFF" opacity=".55"
         d="M760 80 L800 118 L772 126 L744 116 L724 126 Z M330 92 L368 130 L342 138 L316 128 Z M1210 140 L1244 174 L1220 180 L1196 170 Z"/>
 
       <!-- szlak na szczyt -->
-      <path class="n3-layer" id="n3-trail" data-depth="20" fill="none" stroke="url(#n3g-trail)" stroke-width="2.4"
+      <path class="n3-layer" id="n3-trail" data-depth="20" fill="none" stroke="#F2B233" stroke-width="2.4"
         stroke-linecap="round" stroke-dasharray="8 12" opacity=".78" vector-effect="non-scaling-stroke"
         d="M60 404 C 200 386, 262 336, 340 302 S 452 262, 520 222 S 622 190, 682 152 S 734 112, 760 84"/>
 
       <!-- pasmo średnie -->
-      <path class="n3-layer" data-depth="28" fill="url(#n3g-mid)"
+      <path class="n3-layer" data-depth="28" fill="#0F3364"
         d="M0 300 L120 226 L250 282 L370 160 L470 246 L600 136 L720 252 L840 160 L960 266 L1090 190 L1200 272 L1320 206 L1440 276 L1440 420 L0 420 Z"/>
       <path class="n3-layer" data-depth="28" fill="#BFE2FF" opacity=".26"
         d="M600 136 L634 172 L610 178 L586 168 L568 176 Z M840 160 L874 196 L850 202 L826 192 Z M370 160 L404 196 L380 202 L356 192 Z M1090 190 L1120 222 L1098 228 L1076 218 Z"/>
 
       <!-- pasmo bliskie -->
-      <path class="n3-layer" data-depth="44" fill="url(#n3g-near)"
+      <path class="n3-layer" data-depth="44" fill="#072041"
         d="M0 372 L160 306 L300 358 L430 278 L560 350 L700 282 L820 356 L960 292 L1100 358 L1240 300 L1360 366 L1440 328 L1440 420 L0 420 Z"/>
 
       <!-- mgła w dolinach -->
-      <ellipse class="n3-layer" data-depth="36" cx="430" cy="352" rx="440" ry="26" fill="#4EA8E8" opacity=".10"/>
-      <ellipse class="n3-layer" data-depth="52" cx="1030" cy="384" rx="500" ry="24" fill="#003571" opacity=".13"/>
+      
+      
       </g>
     </svg>
   </div>
@@ -515,14 +546,15 @@
 
   <div class="n3-wrap n3-hero-copy">
     <span class="n3-eyebrow">FutureLab PK · edycja III</span>
-    <h1>#nauka4future<br><span class="n3-grad">wejdź na szczyt nauki</span></h1>
+    <h1>#nauka<span class="n3-grad">4</span>future<span class="n3-tagline">wejdź na <span class="n3-grad">szczyt</span> nauki</span></h1>
     <p class="n3-hero-sub">Bezpłatne wykłady, warsztaty i pokazy Politechniki Krakowskiej dla uczennic i uczniów szkół średnich. Pięć ścieżek tematycznych, prawdziwe laboratoria i ludzie, którzy robią naukę na co dzień.</p>
     <div class="n3-hero-cta">
-      <a class="n3-btn" href="#n3-zapisy">Zapisz klasę</a>
+      <a class="n3-btn" href="#n3-zapisy">Zgłoś klasę</a>
       <a class="n3-btn n3-btn--ghost" href="#n3-kalendarz">Zobacz kalendarz</a>
     </div>
     <div class="n3-hero-meta">
-      <span>wrzesień – październik 2026 <em>[DO POTWIERDZENIA]</em></span>
+      <span>zgłoszenia do <strong style="color:var(--yellow)">15 września 2026</strong></span>
+      <span>wydarzenia: wrzesień – październik 2026 <em>[DO POTWIERDZENIA]</em></span>
       <span>Kampus PK, Warszawska 24</span>
       <span>udział bezpłatny</span>
     </div>
@@ -609,7 +641,7 @@
         <div class="n3-grid" id="n3-grid" role="grid" aria-label="Kalendarz wydarzeń"></div>
         <div class="n3-legend">
           <span><i style="background:var(--sky)"></i> wykład</span>
-          <span><i style="background:var(--sky-lt)"></i> warsztat</span>
+          <span><i style="background:var(--yellow)"></i> warsztat</span>
           <span><i style="background:var(--ice)"></i> pokaz / wystawa</span>
           <span><i style="background:var(--pk-mid)"></i> inne</span>
         </div>
@@ -642,25 +674,24 @@
     <div class="n3-cta">
       <span class="n3-eyebrow">Zapisy</span>
       <h2 class="n3-h2" style="margin-top:18px">Przyjedź z klasą</h2>
-      <p class="n3-lead" style="margin:0 auto 26px">Zgłoszenia przyjmujemy od nauczycieli — jedno zgłoszenie na grupę. Liczba miejsc jest ograniczona, o udziale decyduje kolejność zgłoszeń.</p>
+      <p class="n3-lead" style="margin:0 auto 26px">Zgłoszenia przyjmujemy od nauczycieli — jedno zgłoszenie na grupę — <strong style="color:var(--yellow)">do 15 września 2026 roku</strong>. Liczba miejsc jest ograniczona, o udziale decyduje kolejność zgłoszeń.</p>
       <div class="n3-hero-cta">
         <a class="n3-btn" href="#" id="n3-signup-link">Formularz zgłoszeniowy [DO UZUPEŁNIENIA]</a>
         <a class="n3-btn n3-btn--ghost" href="mailto:futurelab@pk.edu.pl">futurelab@pk.edu.pl</a>
       </div>
-      <p class="n3-hint" style="margin-top:22px">Termin zgłoszeń i link do formularza uzupełnij po ogłoszeniu III edycji.</p>
+      <p class="n3-hint" style="margin-top:22px">Link do formularza uzupełnij po jego uruchomieniu przez FutureLab PK.</p>
     </div>
   </div>
 </section>
 
 <!-- ============================ STOPKA ============================ -->
-<footer class="n3-sec" style="padding-bottom:0">
+<footer class="n3-sec" style="padding:clamp(40px,5vw,70px) 0 0">
   <div class="n3-wrap">
     <div class="n3-foot">
       <div class="n3-foot-grid">
         <div>
           <b>#nauka4future — III edycja</b>
           <p>Projekt realizowany przez FutureLab Politechniki Krakowskiej — interdyscyplinarną jednostkę wspierającą kreatywnych i ambitnych studentów.</p>
-          <p style="margin-top:12px">Dofinansowano z budżetu państwa — Minister Nauki i Szkolnictwa Wyższego, program „Społeczna odpowiedzialność nauki”.</p>
         </div>
         <div>
           <b>Kontakt</b>
@@ -750,6 +781,38 @@
 
 <div class="n3-lb" id="n3-lb"><button id="n3-lb-close" aria-label="Zamknij">✕</button><img id="n3-lb-img" alt=""></div>
 <div class="n3-toast" id="n3-toast" role="status" aria-live="polite"></div>
+
+<!--
+  ============================================================================
+  BELKA DOFINANSOWANIA — kolejność i zasady wynikają z wymogów programu.
+  1) Logotyp Ministerstwa Nauki i Szkolnictwa Wyższego (z godłem) stoi PIERWSZY
+     od lewej i nie może być mniejszy od pozostałych znaków.
+  2) Drugi jest znak programu „Społeczna Odpowiedzialność Nauki III".
+  3) Dalej znaki beneficjenta: Politechnika Krakowska, potem FutureLab PK.
+  4) Godła nie wolno zniekształcać, obracać ani zmieniać jego barw; belka ma
+     białe tło właśnie po to, żeby godło stało na jasnym, spokojnym podłożu.
+  5) Obok logotypów musi być informacja o dofinansowaniu — kwoty [DO UZUPEŁNIENIA]
+     przepisz z umowy.
+  Każdy blok .n3-logoslot podmień na obrazek z biblioteki mediów, np.:
+     <img src="/wp-content/uploads/2026/09/mnisw.png" alt="Ministerstwo Nauki i Szkolnictwa Wyższego">
+  ============================================================================
+-->
+<div class="n3-funding">
+  <div class="n3-wrap">
+    <p class="n3-funding-note">
+      <strong>Dofinansowano ze środków budżetu państwa.</strong> Projekt „#nauka4future” realizowany przez
+      FutureLab Politechniki Krakowskiej w ramach programu Ministra Nauki i Szkolnictwa Wyższego
+      „Społeczna odpowiedzialność nauki III”. Kwota dofinansowania: <strong>[DO UZUPEŁNIENIA] zł</strong>,
+      całkowita wartość projektu: <strong>[DO UZUPEŁNIENIA] zł</strong>.
+    </p>
+    <div class="n3-funding-row">
+      <span class="n3-logoslot n3-logoslot--light"><b>Ministerstwo Nauki<br>i Szkolnictwa Wyższego</b><small>wstaw logo z godłem</small></span>
+      <span class="n3-logoslot n3-logoslot--light"><b>Społeczna Odpowiedzialność<br>Nauki III</b><small>wstaw logo programu</small></span>
+      <span class="n3-logoslot n3-logoslot--light"><b>Politechnika Krakowska<br>im. Tadeusza Kościuszki</b><small>wstaw logo</small></span>
+      <span class="n3-logoslot n3-logoslot--light"><b>FutureLab<br>Politechnika Krakowska</b><small>wstaw logo</small></span>
+    </div>
+  </div>
+</div>
 
 </div><!-- /#n4f3 -->
 
