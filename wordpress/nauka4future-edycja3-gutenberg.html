@@ -1,0 +1,1623 @@
+<!-- wp:html -->
+<!--
+  ============================================================================
+  #nauka4future — III EDYCJA · strona do wklejenia w Gutenbergu
+  ============================================================================
+  JAK WSTAWIĆ:
+  1) Strony → Dodaj nową (albo edytuj istniejącą).
+  2) Menu ⋮ w prawym górnym rogu → „Edytor kodu" (Ctrl+Shift+Alt+M).
+  3) Wklej CAŁY ten plik — razem z pierwszą i ostatnią linią (wp:html).
+  4) Ctrl+Shift+Alt+M, żeby wrócić do edytora wizualnego.
+  5) Ustaw szablon pełnej szerokości i opublikuj.
+
+  Wymagania: konto z uprawnieniem `unfiltered_html` (administrator).
+  Jeśli widzisz gołą treść bez stylów — to właśnie kwestia tego uprawnienia.
+
+  CO TU JEST INTERAKTYWNE:
+  - „Interaktywna góra" — warstwowa scena SVG reagująca na scroll i kursor,
+    z pięcioma szczytami = pięć ścieżek tematycznych (klik filtruje program).
+  - Kalendarz — miesięczna siatka; w trybie edycji dodajesz/edytujesz/usuwasz
+    wydarzenia, klik w dzień filtruje harmonogram.
+  - Harmonogram — te same dane w układzie listy; każdy wykład/warsztat
+    rozwija się i przyjmuje opis, dokumentację wideo i zdjęciową.
+  - Dane trzymane są w przeglądarce (localStorage) + eksport/import JSON.
+    UWAGA: to nie jest baza serwerowa — patrz sekcja „Jak zapisać program"
+    w README repozytorium.
+
+  DO UZUPEŁNIENIA (oznaczone [DO POTWIERDZENIA] w treści):
+  - dokładne daty III edycji, godziny i sale
+  - nazwiska prowadzących
+  - link do formularza rejestracji
+  - zdjęcia i filmy z poprzednich edycji
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="n4f3" id="n4f3">
+
+<style>
+  #n4f3 {
+    /* Paleta Politechniki Krakowskiej.
+       Kolor podstawowy znaku PK: PANTONE 288 / RGB 0-53-113 / #003571.
+       Reszta to jego rozjaśnienia i przyciemnienia — bez kolorów spoza identyfikacji.
+       Jedyny wyjątek: --danger, używany wyłącznie przy akcjach usuwania. */
+    --pk:#003571;
+    --bg:#00102A;
+    --bg2:#001C3D;
+    --ink:#EAF2FB;
+    --soft:#A6C3DF;
+    --dim:#7A9BBC;
+    --sky:#4EA8E8;
+    --pk-mid:#0B4C8F;
+    --sky-lt:#86D0FF;
+    --ice:#C6E4FA;
+    --danger:#E0616B;
+    --line:rgba(255,255,255,.10);
+    --line-strong:rgba(255,255,255,.18);
+    --card:rgba(255,255,255,.045);
+    --card-hi:rgba(255,255,255,.075);
+    --r:20px;
+    --r-lg:28px;
+    --max:1180px;
+    --grad:linear-gradient(100deg,#86D0FF 0%,#4EA8E8 48%,#2E86D6 100%);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    position:relative;
+    isolation:isolate;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  #n4f3 *, #n4f3 *::before, #n4f3 *::after { box-sizing:border-box; }
+  #n4f3 img { max-width:100%; display:block; }
+  #n4f3 button { font:inherit; color:inherit; cursor:pointer; }
+  #n4f3 input, #n4f3 textarea, #n4f3 select { font:inherit; }
+  #n4f3 h1, #n4f3 h2, #n4f3 h3, #n4f3 h4 {
+    font-family:'Space Grotesk','Inter',sans-serif;
+    line-height:1.1; margin:0; letter-spacing:-.02em; font-weight:600;
+  }
+  #n4f3 p { margin:0; }
+  #n4f3 a { color:var(--sky); text-decoration:none; }
+  #n4f3 a:hover { text-decoration:underline; }
+  #n4f3 a.n3-btn:hover { text-decoration:none; }
+  #n4f3 :focus-visible { outline:2px solid var(--sky); outline-offset:3px; border-radius:6px; }
+
+  /* ---------- warstwa tła całej strony ---------- */
+  #n4f3::before {
+    content:""; position:absolute; inset:0; z-index:-3;
+    background:
+      radial-gradient(70% 50% at 15% 0%, rgba(11,76,143,.55) 0%, transparent 60%),
+      radial-gradient(60% 45% at 90% 12%, rgba(78,168,232,.16) 0%, transparent 62%),
+      radial-gradient(80% 60% at 50% 100%, rgba(134,208,255,.12) 0%, transparent 70%),
+      linear-gradient(180deg,var(--bg) 0%, var(--bg2) 55%, var(--bg) 100%);
+  }
+  #n4f3::after {
+    content:""; position:absolute; inset:0; z-index:-2; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 85%);
+    -webkit-mask-image:radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 85%);
+  }
+
+  .n3-wrap { width:min(100% - 40px, var(--max)); margin-inline:auto; }
+  .n3-sec { padding:clamp(64px,9vw,120px) 0; position:relative; }
+  .n3-eyebrow {
+    display:inline-flex; align-items:center; gap:9px;
+    font-family:'Space Grotesk',sans-serif; font-size:.74rem; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--sky);
+    padding:7px 14px; border:1px solid var(--line-strong); border-radius:100px;
+    background:rgba(78,168,232,.06);
+  }
+  .n3-eyebrow::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--sky); box-shadow:0 0 10px var(--sky); }
+  .n3-h2 { font-size:clamp(2rem,4.4vw,3.2rem); margin:20px 0 14px; }
+  .n3-lead { color:var(--soft); font-size:clamp(1rem,1.5vw,1.12rem); max-width:64ch; }
+  .n3-grad { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  #n4f3 .n3-btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:14px 26px; border-radius:100px; border:0;
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.98rem;
+    background:var(--grad); color:#00102A;
+    box-shadow:0 12px 34px rgba(78,168,232,.30);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  #n4f3 .n3-btn:hover { transform:translateY(-2px); box-shadow:0 18px 44px rgba(78,168,232,.42); text-decoration:none; }
+  #n4f3 .n3-btn--ghost {
+    background:transparent; color:var(--ink); border:1px solid var(--line-strong); box-shadow:none;
+  }
+  #n4f3 .n3-btn--ghost:hover { background:var(--card-hi); box-shadow:none; }
+  #n4f3 .n3-btn--sm { padding:9px 16px; font-size:.86rem; }
+  #n4f3 .n3-btn--danger { background:rgba(224,97,107,.14); color:var(--danger); border:1px solid rgba(224,97,107,.38); box-shadow:none; }
+
+  /* ---------- HERO + GÓRA ---------- */
+  .n3-hero {
+    position:relative; min-height:clamp(640px,98vh,980px);
+    display:flex; flex-direction:column; justify-content:center;
+    /* dolny margines odsuwa tekst od grani, żeby znaczniki szczytów nie wchodziły na przyciski */
+    padding:80px 0 clamp(110px,17vh,210px);
+  }
+  .n3-mountain { position:absolute; inset:0; z-index:-1; overflow:hidden; }
+  .n3-sky { position:absolute; inset:0; width:100%; height:100%; }
+  .n3-range {
+    position:absolute; bottom:-1px; left:0; width:100%;
+    height:clamp(260px,42vh,460px);
+  }
+  .n3-layer { will-change:transform; transition:transform .45s cubic-bezier(.22,.61,.36,1); }
+  .n3-stars circle { animation:n3twinkle 4s ease-in-out infinite; }
+  @keyframes n3twinkle { 0%,100%{opacity:.25} 50%{opacity:.95} }
+
+  .n3-hero-copy { position:relative; z-index:2; text-align:center; }
+  .n3-hero-copy::before {
+    content:""; position:absolute; z-index:-1; inset:-60px -40px -40px;
+    background:radial-gradient(58% 62% at 50% 45%, rgba(0,16,42,.80) 0%, rgba(0,16,42,.55) 45%, transparent 78%);
+    pointer-events:none;
+  }
+  .n3-hero h1 {
+    font-size:clamp(2.6rem,7.4vw,5.6rem); margin:24px auto 18px; max-width:16ch;
+  }
+  .n3-hero-sub { color:var(--soft); font-size:clamp(1rem,1.7vw,1.22rem); max-width:60ch; margin:0 auto; }
+  .n3-hero-cta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+  .n3-hero-meta {
+    margin-top:44px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+    font-size:.86rem; color:var(--dim);
+  }
+  .n3-hero-meta span { padding:8px 16px; border:1px solid var(--line); border-radius:100px; background:rgba(0,16,42,.55); backdrop-filter:blur(8px); }
+
+  /* znaczniki szczytów */
+  .n3-peaks { position:absolute; inset:0; z-index:4; pointer-events:none; }
+  #n4f3 .n3-peak {
+    position:absolute; transform:translate(-50%,-50%); pointer-events:auto;
+    background:none; border:0; padding:0; display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .n3-peak-dot {
+    width:16px; height:16px; border-radius:50%; background:var(--sky);
+    box-shadow:0 0 0 6px rgba(78,168,232,.16), 0 0 20px rgba(78,168,232,.8);
+    position:relative; transition:transform .25s ease;
+  }
+  .n3-peak-dot::after {
+    content:""; position:absolute; inset:-6px; border-radius:50%;
+    border:1px solid rgba(78,168,232,.5); animation:n3pulse 2.6s ease-out infinite;
+  }
+  @keyframes n3pulse { 0%{transform:scale(.8); opacity:.9} 100%{transform:scale(2.4); opacity:0} }
+  .n3-peak-label {
+    font-family:'Space Grotesk',sans-serif; font-size:.72rem; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; white-space:nowrap;
+    padding:6px 12px; border-radius:100px; border:1px solid var(--line-strong);
+    background:rgba(0,16,42,.72); backdrop-filter:blur(10px); color:var(--ink);
+    opacity:0; transform:translateY(6px); transition:opacity .25s ease, transform .25s ease;
+  }
+  .n3-peak:hover .n3-peak-dot, .n3-peak.is-on .n3-peak-dot { transform:scale(1.35); }
+  .n3-peak:hover .n3-peak-label, .n3-peak:focus-visible .n3-peak-label, .n3-peak.is-on .n3-peak-label { opacity:1; transform:translateY(0); }
+  .n3-peak.is-on .n3-peak-dot { background:var(--sky-lt); box-shadow:0 0 0 6px rgba(134,208,255,.18), 0 0 22px rgba(134,208,255,.85); }
+
+  .n3-scrollhint {
+    position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:3;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+  }
+  .n3-scrollhint i { width:1px; height:38px; background:linear-gradient(180deg,var(--sky),transparent); animation:n3drop 1.9s ease-in-out infinite; }
+  @keyframes n3drop { 0%{transform:scaleY(.2); transform-origin:top} 50%{transform:scaleY(1); transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(.2); transform-origin:bottom} }
+
+  /* ---------- LICZBY / O WYDARZENIU ---------- */
+  .n3-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; margin-top:44px; }
+  .n3-stat { padding:26px 22px; border:1px solid var(--line); border-radius:var(--r); background:var(--card); }
+  .n3-stat b { display:block; font-family:'Space Grotesk',sans-serif; font-size:2.3rem; line-height:1; margin-bottom:8px; }
+  .n3-stat span { color:var(--soft); font-size:.9rem; }
+
+  .n3-two { display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,5vw,64px); align-items:start; }
+  .n3-note {
+    padding:22px 24px; border-radius:var(--r); border:1px solid var(--line);
+    background:var(--card); color:var(--soft); font-size:.95rem;
+  }
+  .n3-note strong { color:var(--ink); }
+  .n3-list { list-style:none; padding:0; margin:22px 0 0; display:grid; gap:14px; }
+  .n3-list li { display:flex; gap:14px; align-items:flex-start; color:var(--soft); }
+  .n3-list li::before {
+    content:""; flex:0 0 auto; width:9px; height:9px; margin-top:9px; border-radius:2px;
+    background:var(--grad); transform:rotate(45deg);
+  }
+
+  /* ---------- ŚCIEŻKI TEMATYCZNE ---------- */
+  .n3-tracks { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:44px; }
+  @media (min-width:1100px) { .n3-tracks { grid-template-columns:repeat(5,1fr); } }
+  #n4f3 .n3-track {
+    text-align:left; padding:26px 24px 24px; border-radius:var(--r-lg);
+    border:1px solid var(--line); background:var(--card); position:relative; overflow:hidden;
+    transition:border-color .2s ease, transform .2s ease, background .2s ease;
+  }
+  .n3-track:hover { transform:translateY(-4px); border-color:var(--line-strong); background:var(--card-hi); }
+  .n3-track.is-on { border-color:transparent; box-shadow:0 0 0 1.5px var(--sky), 0 18px 44px rgba(78,168,232,.14); }
+  .n3-track::before {
+    content:""; position:absolute; inset:auto auto 0 0; height:3px; width:100%;
+    background:var(--grad); opacity:0; transition:opacity .2s ease;
+  }
+  .n3-track:hover::before, .n3-track.is-on::before { opacity:1; }
+  .n3-track-num { font-family:'Space Grotesk',sans-serif; font-size:.76rem; letter-spacing:.16em; color:var(--dim); }
+  .n3-track h3 { font-size:1.22rem; margin:12px 0 10px; }
+  .n3-track p { color:var(--soft); font-size:.92rem; }
+  .n3-track-count { margin-top:16px; font-size:.8rem; color:var(--sky); font-family:'Space Grotesk',sans-serif; letter-spacing:.06em; }
+
+  /* ---------- PASEK NARZĘDZI (tryb edycji) ---------- */
+  .n3-toolbar {
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+    padding:16px 20px; border:1px solid var(--line); border-radius:var(--r);
+    background:var(--card); margin-bottom:24px;
+  }
+  .n3-toolbar-group { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .n3-switch { display:inline-flex; align-items:center; gap:10px; font-size:.9rem; color:var(--soft); cursor:pointer; }
+  .n3-switch input { position:absolute; opacity:0; width:0; height:0; }
+  .n3-switch i {
+    width:44px; height:25px; border-radius:100px; background:rgba(255,255,255,.12);
+    position:relative; transition:background .2s ease; flex:0 0 auto;
+  }
+  .n3-switch i::after {
+    content:""; position:absolute; top:3px; left:3px; width:19px; height:19px; border-radius:50%;
+    background:#fff; transition:transform .2s ease;
+  }
+  .n3-switch input:checked + i { background:var(--grad); }
+  .n3-switch input:checked + i::after { transform:translateX(19px); }
+  .n3-switch input:focus-visible + i { outline:2px solid var(--sky); outline-offset:3px; }
+  .n3-editonly { display:none; }
+  #n4f3.n3-editing .n3-editonly { display:inline-flex; }
+  #n4f3.n3-editing .n3-editonly.n3-block { display:block; }
+
+  /* ---------- KALENDARZ ---------- */
+  .n3-calwrap { display:grid; grid-template-columns:1.35fr .65fr; gap:22px; align-items:start; }
+  .n3-panel { border:1px solid var(--line); border-radius:var(--r-lg); background:var(--card); padding:clamp(18px,2.4vw,26px); }
+  .n3-calhead { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
+  .n3-calhead h3 { font-size:1.3rem; text-transform:capitalize; }
+  #n4f3 .n3-navbtn {
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line-strong);
+    background:transparent; display:inline-flex; align-items:center; justify-content:center;
+    transition:background .18s ease;
+  }
+  #n4f3 .n3-navbtn:hover { background:var(--card-hi); }
+  .n3-dow { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:6px; }
+  .n3-dow span { text-align:center; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); padding:6px 0; }
+  .n3-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  #n4f3 .n3-day {
+    position:relative; aspect-ratio:1/1; min-height:52px; border-radius:14px;
+    border:1px solid var(--line); background:rgba(255,255,255,.02);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    font-size:.92rem; color:var(--soft); transition:all .18s ease;
+  }
+  #n4f3 .n3-day:hover { background:var(--card-hi); border-color:var(--line-strong); color:var(--ink); }
+  #n4f3 .n3-day.is-out { opacity:.28; }
+  #n4f3 .n3-day.is-today { color:var(--ink); border-color:rgba(78,168,232,.5); }
+  #n4f3 .n3-day.has-ev { color:var(--ink); background:rgba(78,168,232,.15); border-color:rgba(78,168,232,.45); font-weight:600; }
+  #n4f3 .n3-day.is-sel { box-shadow:0 0 0 2px var(--sky); background:rgba(78,168,232,.14); border-color:transparent; color:var(--ink); }
+  .n3-dots { display:flex; gap:3px; height:5px; }
+  .n3-dots i { width:5px; height:5px; border-radius:50%; background:var(--sky); }
+  .n3-dots i.t2 { background:var(--sky-lt); } .n3-dots i.t3 { background:var(--ice); }
+  #n4f3 .n3-day-add {
+    position:absolute; top:3px; right:4px; width:20px; height:20px; border-radius:6px;
+    border:1px solid var(--line-strong); background:rgba(0,16,42,.75); line-height:1;
+    font-size:.85rem; display:none; align-items:center; justify-content:center; padding:0; color:var(--sky);
+  }
+  #n4f3.n3-editing .n3-day:hover .n3-day-add, #n4f3.n3-editing .n3-day:focus-within .n3-day-add { display:flex; }
+  .n3-legend { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; font-size:.8rem; color:var(--dim); }
+  .n3-legend span { display:inline-flex; align-items:center; gap:7px; }
+  .n3-legend i { width:8px; height:8px; border-radius:50%; }
+
+  .n3-side h4 { font-size:1.05rem; margin-bottom:6px; }
+  .n3-side-date { color:var(--sky); font-size:.85rem; font-family:'Space Grotesk',sans-serif; letter-spacing:.05em; }
+  .n3-mini { list-style:none; padding:0; margin:18px 0 0; display:grid; gap:10px; }
+  .n3-mini li { border:1px solid var(--line); border-radius:14px; padding:12px 14px; background:rgba(255,255,255,.03); }
+  .n3-mini b { display:block; font-size:.92rem; font-weight:600; }
+  .n3-mini small { color:var(--dim); font-size:.78rem; }
+  #n4f3 .n3-mini button { background:none; border:0; padding:0; text-align:left; width:100%; }
+  .n3-empty { color:var(--dim); font-size:.9rem; margin-top:18px; }
+
+  /* ---------- HARMONOGRAM ---------- */
+  .n3-filters { display:flex; flex-wrap:wrap; gap:8px; margin:28px 0 24px; }
+  #n4f3 .n3-chip {
+    padding:8px 16px; border-radius:100px; border:1px solid var(--line);
+    background:transparent; color:var(--soft); font-size:.85rem; transition:all .18s ease;
+  }
+  #n4f3 .n3-chip:hover { border-color:var(--line-strong); color:var(--ink); }
+  #n4f3 .n3-chip.is-on { background:var(--grad); color:#00102A; border-color:transparent; font-weight:600; }
+
+  .n3-daygroup { margin-bottom:34px; }
+  .n3-daygroup-head { display:flex; align-items:baseline; gap:14px; padding-bottom:12px; border-bottom:1px solid var(--line); margin-bottom:16px; flex-wrap:wrap; }
+  .n3-daygroup-head h3 { font-size:1.35rem; }
+  .n3-daygroup-head span { color:var(--dim); font-size:.85rem; }
+
+  .n3-ev { border:1px solid var(--line); border-radius:var(--r); background:var(--card); margin-bottom:10px; overflow:hidden; transition:border-color .18s ease; }
+  .n3-ev:hover { border-color:var(--line-strong); }
+  .n3-ev.is-open { border-color:rgba(78,168,232,.42); background:var(--card-hi); }
+  #n4f3 .n3-ev-head { display:grid; grid-template-columns:96px 1fr auto; gap:16px; align-items:center; width:100%; padding:18px 20px; background:none; border:0; text-align:left; }
+  .n3-ev-time { font-family:'Space Grotesk',sans-serif; font-size:.92rem; color:var(--sky); letter-spacing:.02em; }
+  .n3-ev-time small { display:block; color:var(--dim); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; margin-top:3px; }
+  .n3-ev-title { font-family:'Space Grotesk',sans-serif; font-size:1.06rem; font-weight:600; }
+  .n3-ev-sub { color:var(--dim); font-size:.84rem; margin-top:4px; display:flex; flex-wrap:wrap; gap:6px 14px; }
+  .n3-tag { font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; padding:4px 10px; border-radius:100px; border:1px solid var(--line-strong); color:var(--soft); }
+  .n3-tag.t-wyklad { color:#BFE2FF; border-color:rgba(78,168,232,.4); background:rgba(78,168,232,.08); }
+  .n3-tag.t-warsztat { color:#BEE3FF; border-color:rgba(134,208,255,.4); background:rgba(134,208,255,.08); }
+  .n3-tag.t-pokaz { color:#DCEEFB; border-color:rgba(198,228,250,.4); background:rgba(198,228,250,.08); }
+  .n3-tag.t-inne { color:#9FC4E6; border-color:rgba(159,196,230,.35); background:rgba(159,196,230,.10); }
+  .n3-ev-chev { width:32px; height:32px; border-radius:50%; border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; transition:transform .25s ease; flex:0 0 auto; }
+  .n3-ev.is-open .n3-ev-chev { transform:rotate(180deg); background:var(--card-hi); }
+  .n3-ev-body { display:none; padding:0 20px 22px; border-top:1px solid var(--line); margin-top:2px; }
+  .n3-ev.is-open .n3-ev-body { display:block; }
+  .n3-ev-body h5 { font-family:'Space Grotesk',sans-serif; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--dim); margin:22px 0 10px; font-weight:600; }
+  .n3-ev-desc { color:var(--soft); white-space:pre-wrap; }
+  .n3-ev-desc:empty::before { content:"Brak opisu — dodaj go w trybie edycji."; color:var(--dim); font-style:italic; }
+
+  .n3-media { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+  .n3-video { position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#000; aspect-ratio:16/9; }
+  .n3-video iframe, .n3-video video { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .n3-photos { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .n3-photo { position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); aspect-ratio:4/3; background:rgba(255,255,255,.04); padding:0; }
+  .n3-photo img { width:100%; height:100%; object-fit:cover; transition:transform .3s ease; }
+  .n3-photo:hover img { transform:scale(1.06); }
+  .n3-photo figcaption { position:absolute; inset:auto 0 0 0; padding:8px 10px; font-size:.74rem; background:linear-gradient(0deg,rgba(0,0,0,.82),transparent); color:#fff; text-align:left; }
+  #n4f3 .n3-mediadel {
+    position:absolute; top:6px; right:6px; width:26px; height:26px; border-radius:8px; z-index:2;
+    background:rgba(0,16,42,.85); border:1px solid var(--line-strong); color:var(--danger);
+    display:none; align-items:center; justify-content:center; padding:0; font-size:.9rem; line-height:1;
+  }
+  #n4f3.n3-editing .n3-mediadel { display:flex; }
+  .n3-mediaempty { color:var(--dim); font-size:.9rem; font-style:italic; }
+
+  /* ---------- FORMULARZE ---------- */
+  .n3-field { display:grid; gap:6px; margin-bottom:14px; }
+  .n3-field label { font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); font-family:'Space Grotesk',sans-serif; }
+  .n3-field input, .n3-field textarea, .n3-field select {
+    width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line-strong);
+    background:rgba(255,255,255,.05); color:var(--ink); font-size:.95rem;
+  }
+  .n3-field textarea { min-height:120px; resize:vertical; }
+  .n3-field select option { background:#001C3D; color:var(--ink); }
+  .n3-field input::placeholder, .n3-field textarea::placeholder { color:var(--dim); }
+  .n3-row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .n3-inline { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px; }
+  .n3-inline input { flex:1 1 220px; padding:10px 12px; border-radius:10px; border:1px solid var(--line-strong); background:rgba(255,255,255,.05); color:var(--ink); font-size:.9rem; }
+  .n3-hint { font-size:.8rem; color:var(--dim); }
+  .n3-filebtn { position:relative; overflow:hidden; }
+  .n3-filebtn input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+
+  /* ---------- MODAL ---------- */
+  .n3-modal { position:fixed; inset:0; z-index:99999; display:none; align-items:center; justify-content:center; padding:20px; }
+  .n3-modal.is-open { display:flex; }
+  .n3-modal-bg { position:absolute; inset:0; background:rgba(0,10,26,.80); backdrop-filter:blur(6px); border:0; }
+  .n3-modal-box {
+    position:relative; width:min(100%,620px); max-height:88vh; overflow:auto;
+    background:#001C3D; border:1px solid var(--line-strong); border-radius:var(--r-lg);
+    padding:clamp(22px,3vw,32px); box-shadow:0 40px 90px rgba(0,0,0,.6);
+  }
+  .n3-modal-box h3 { font-size:1.35rem; margin-bottom:20px; }
+  #n4f3 .n3-modal-close { position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%; border:1px solid var(--line-strong); background:transparent; }
+  .n3-modal-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+
+  /* ---------- LIGHTBOX ---------- */
+  .n3-lb { position:fixed; inset:0; z-index:100000; display:none; align-items:center; justify-content:center; background:rgba(0,10,26,.94); padding:24px; }
+  .n3-lb.is-open { display:flex; }
+  .n3-lb img { max-width:min(96vw,1200px); max-height:88vh; border-radius:14px; }
+  #n4f3 .n3-lb button { position:absolute; top:22px; right:22px; width:42px; height:42px; border-radius:50%; border:1px solid var(--line-strong); background:rgba(0,16,42,.7); }
+
+  /* ---------- TOAST ---------- */
+  .n3-toast {
+    position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:100001;
+    padding:12px 22px; border-radius:100px; background:#001C3D; border:1px solid var(--line-strong);
+    color:var(--ink); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+  }
+  .n3-toast.is-on { opacity:1; transform:translate(-50%,0); }
+
+  /* ---------- ZAPISY / STOPKA ---------- */
+  .n3-cta {
+    border-radius:var(--r-lg); border:1px solid var(--line-strong); padding:clamp(30px,5vw,56px);
+    background:linear-gradient(135deg, rgba(0,53,113,.20), rgba(78,168,232,.10) 55%, rgba(134,208,255,.14));
+    text-align:center;
+  }
+  .n3-foot { border-top:1px solid var(--line); padding:34px 0 46px; color:var(--dim); font-size:.86rem; }
+  .n3-foot-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; }
+  .n3-foot b { color:var(--ink); display:block; margin-bottom:10px; font-family:'Space Grotesk',sans-serif; }
+  .n3-foot p + p { margin-top:6px; }
+
+  /* ---------- ANIMACJE WEJŚCIA ---------- */
+  .n3-rise { opacity:0; transform:translateY(26px); transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  .n3-rise.is-in { opacity:1; transform:none; }
+
+  /* ---------- RWD ---------- */
+  @media (max-width:960px) {
+    .n3-two, .n3-calwrap, .n3-foot-grid { grid-template-columns:1fr; }
+    .n3-ev-head { grid-template-columns:78px 1fr auto; gap:12px; padding:16px; }
+  }
+  @media (max-width:640px) {
+    .n3-hero { min-height:88vh; }
+    .n3-peak-label { display:none; }
+    .n3-day { min-height:42px; font-size:.82rem; border-radius:11px; }
+    .n3-row2 { grid-template-columns:1fr; }
+    .n3-ev-head { grid-template-columns:1fr auto; }
+    .n3-ev-time { order:2; grid-column:1/-1; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    #n4f3 *, #n4f3 *::before, #n4f3 *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; }
+    .n3-rise { opacity:1; transform:none; }
+  }
+</style>
+
+
+<!-- ============================ HERO + GÓRA ============================ -->
+<header class="n3-hero" id="n3-top">
+  <div class="n3-mountain" aria-hidden="true">
+    <!-- niebo: gwiazdy i słońce -->
+    <svg class="n3-sky" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" role="presentation">
+      <defs>
+        <radialGradient id="n3g-sun" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#86D0FF" stop-opacity=".42"/>
+          <stop offset="52%" stop-color="#4EA8E8" stop-opacity=".20"/>
+          <stop offset="100%" stop-color="#4EA8E8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="n3g-disc" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#86D0FF"/>
+        </radialGradient>
+      </defs>
+      <g class="n3-layer n3-stars" data-depth="4" id="n3-stars"></g>
+      <circle class="n3-layer" data-depth="6" cx="1112" cy="252" r="230" fill="url(#n3g-sun)"/>
+      <circle class="n3-layer" data-depth="6" cx="1112" cy="252" r="46" fill="url(#n3g-disc)" opacity=".9"/>
+    </svg>
+
+    <!-- pasma górskie: warstwy o rosnącej głębi -->
+    <svg class="n3-range" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax meet" role="presentation">
+      <defs>
+        <linearGradient id="n3g-far" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#124480"/><stop offset="100%" stop-color="#062A57"/>
+        </linearGradient>
+        <linearGradient id="n3g-mid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0A3A72"/><stop offset="100%" stop-color="#04203F"/>
+        </linearGradient>
+        <linearGradient id="n3g-near" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#07223F"/><stop offset="100%" stop-color="#00102A"/>
+        </linearGradient>
+        <linearGradient id="n3g-trail" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0B4C8F"/><stop offset="45%" stop-color="#4EA8E8"/><stop offset="100%" stop-color="#DCEEFB"/>
+        </linearGradient>
+      </defs>
+
+      <!-- całe pasmo spłaszczone w pionie: y' = 0.62·y + 159.6 (patrz RANGE_K/RANGE_B w skrypcie) -->
+      <g transform="translate(0 159.6) scale(1 0.62)">
+
+      <!-- pasmo dalekie -->
+      <path class="n3-layer" data-depth="12" fill="url(#n3g-far)" opacity=".92"
+        d="M0 232 L130 152 L215 192 L330 92 L430 176 L540 106 L640 190 L760 80 L880 196 L980 130 L1105 212 L1210 140 L1320 216 L1440 162 L1440 420 L0 420 Z"/>
+      <path class="n3-layer" data-depth="12" fill="#DCEEFB" opacity=".30"
+        d="M760 80 L800 118 L772 126 L744 116 L724 126 Z M330 92 L368 130 L342 138 L316 128 Z M1210 140 L1244 174 L1220 180 L1196 170 Z"/>
+
+      <!-- szlak na szczyt -->
+      <path class="n3-layer" id="n3-trail" data-depth="20" fill="none" stroke="url(#n3g-trail)" stroke-width="2.4"
+        stroke-linecap="round" stroke-dasharray="8 12" opacity=".78" vector-effect="non-scaling-stroke"
+        d="M60 404 C 200 386, 262 336, 340 302 S 452 262, 520 222 S 622 190, 682 152 S 734 112, 760 84"/>
+
+      <!-- pasmo średnie -->
+      <path class="n3-layer" data-depth="28" fill="url(#n3g-mid)"
+        d="M0 300 L120 226 L250 282 L370 160 L470 246 L600 136 L720 252 L840 160 L960 266 L1090 190 L1200 272 L1320 206 L1440 276 L1440 420 L0 420 Z"/>
+      <path class="n3-layer" data-depth="28" fill="#BFE2FF" opacity=".26"
+        d="M600 136 L634 172 L610 178 L586 168 L568 176 Z M840 160 L874 196 L850 202 L826 192 Z M370 160 L404 196 L380 202 L356 192 Z M1090 190 L1120 222 L1098 228 L1076 218 Z"/>
+
+      <!-- pasmo bliskie -->
+      <path class="n3-layer" data-depth="44" fill="url(#n3g-near)"
+        d="M0 372 L160 306 L300 358 L430 278 L560 350 L700 282 L820 356 L960 292 L1100 358 L1240 300 L1360 366 L1440 328 L1440 420 L0 420 Z"/>
+
+      <!-- mgła w dolinach -->
+      <ellipse class="n3-layer" data-depth="36" cx="430" cy="352" rx="440" ry="26" fill="#4EA8E8" opacity=".10"/>
+      <ellipse class="n3-layer" data-depth="52" cx="1030" cy="384" rx="500" ry="24" fill="#003571" opacity=".13"/>
+      </g>
+    </svg>
+  </div>
+  <div class="n3-peaks" id="n3-peaks"></div>
+
+  <div class="n3-wrap n3-hero-copy">
+    <span class="n3-eyebrow">FutureLab PK · edycja III</span>
+    <h1>#nauka4future<br><span class="n3-grad">wejdź na szczyt nauki</span></h1>
+    <p class="n3-hero-sub">Bezpłatne wykłady, warsztaty i pokazy Politechniki Krakowskiej dla uczennic i uczniów szkół średnich. Pięć ścieżek tematycznych, prawdziwe laboratoria i ludzie, którzy robią naukę na co dzień.</p>
+    <div class="n3-hero-cta">
+      <a class="n3-btn" href="#n3-zapisy">Zapisz klasę</a>
+      <a class="n3-btn n3-btn--ghost" href="#n3-kalendarz">Zobacz kalendarz</a>
+    </div>
+    <div class="n3-hero-meta">
+      <span>wrzesień – październik 2026 <em>[DO POTWIERDZENIA]</em></span>
+      <span>Kampus PK, Warszawska 24</span>
+      <span>udział bezpłatny</span>
+    </div>
+  </div>
+
+  <div class="n3-scrollhint" aria-hidden="true"><span>przewiń</span><i></i></div>
+</header>
+
+<!-- ============================ O WYDARZENIU ============================ -->
+<section class="n3-sec" id="n3-o-projekcie">
+  <div class="n3-wrap">
+    <div class="n3-two n3-rise">
+      <div>
+        <span class="n3-eyebrow">O wydarzeniu</span>
+        <h2 class="n3-h2">Trzecia wyprawa w stronę <span class="n3-grad">nauk przyszłości</span></h2>
+        <p class="n3-lead">#nauka4future to cykl bezpłatnych wydarzeń popularnonaukowych organizowanych przez FutureLab Politechniki Krakowskiej. Kierujemy je do uczennic i uczniów liceów oraz techników — zwłaszcza klas maturalnych, które wybierają swoją drogę na studia.</p>
+        <ul class="n3-list">
+          <li>Wykłady prowadzone przez naukowczynie i naukowców PK oraz ekspertów z firm.</li>
+          <li>Warsztaty i pokazy w laboratoriach — w małych grupach, z rękami przy sprzęcie.</li>
+          <li>Studenci z kół naukowych i zespołów projektowych FutureLab jako przewodnicy.</li>
+          <li>Wystawy prac, prototypów i projektów studenckich.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="n3-note">
+          <strong>Jak wygląda dzień z #nauka4future</strong><br>
+          <span style="color:var(--soft)">10:00–14:00 — blok wykładowy w auli (do 180 osób).<br>
+          od 14:00 — warsztaty i pokazy w laboratoriach (grupy do 15 osób).</span>
+        </div>
+        <div class="n3-stats">
+          <div class="n3-stat"><b class="n3-grad">5</b><span>ścieżek tematycznych</span></div>
+          <div class="n3-stat"><b class="n3-grad">180</b><span>miejsc na bloku wykładowym</span></div>
+          <div class="n3-stat"><b class="n3-grad">15</b><span>osób w grupie warsztatowej</span></div>
+          <div class="n3-stat"><b class="n3-grad">0 zł</b><span>koszt udziału</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ŚCIEŻKI ============================ -->
+<section class="n3-sec" id="n3-sciezki">
+  <div class="n3-wrap n3-rise">
+    <span class="n3-eyebrow">Ścieżki tematyczne</span>
+    <h2 class="n3-h2">Pięć szczytów do zdobycia</h2>
+    <p class="n3-lead">Każdy szczyt na naszej górze to jeden obszar tematyczny. Kliknij, żeby zobaczyć w kalendarzu i harmonogramie tylko te wydarzenia.</p>
+    <div class="n3-tracks" id="n3-tracks"></div>
+  </div>
+</section>
+
+<!-- ============================ KALENDARZ ============================ -->
+<section class="n3-sec" id="n3-kalendarz">
+  <div class="n3-wrap n3-rise">
+    <span class="n3-eyebrow">Kalendarz</span>
+    <h2 class="n3-h2">Wybierz swój dzień</h2>
+    <p class="n3-lead">Podświetlone dni to dni wydarzeń. Kliknij dzień, żeby zobaczyć jego program — a w trybie edycji dodaj własne wydarzenie prosto z siatki.</p>
+
+    <div class="n3-toolbar" style="margin-top:32px">
+      <label class="n3-switch">
+        <input type="checkbox" id="n3-edit-toggle">
+        <i aria-hidden="true"></i>
+        <span>Tryb edycji programu</span>
+      </label>
+      <div class="n3-toolbar-group">
+        <button class="n3-btn n3-btn--sm n3-editonly" id="n3-add-ev">+ Dodaj wydarzenie</button>
+        <button class="n3-btn n3-btn--ghost n3-btn--sm" id="n3-export">Eksport JSON</button>
+        <label class="n3-btn n3-btn--ghost n3-btn--sm n3-filebtn" tabindex="0">Import JSON
+          <input type="file" id="n3-import-file" accept="application/json,.json">
+        </label>
+        <button class="n3-btn n3-btn--danger n3-btn--sm n3-editonly" id="n3-reset">Przywróć program domyślny</button>
+      </div>
+    </div>
+
+    <div class="n3-calwrap">
+      <div class="n3-panel">
+        <div class="n3-calhead">
+          <button class="n3-navbtn" id="n3-prev" aria-label="Poprzedni miesiąc">‹</button>
+          <h3 id="n3-monthlabel">—</h3>
+          <button class="n3-navbtn" id="n3-next" aria-label="Następny miesiąc">›</button>
+        </div>
+        <div class="n3-dow" aria-hidden="true">
+          <span>pon</span><span>wt</span><span>śr</span><span>czw</span><span>pt</span><span>sob</span><span>ndz</span>
+        </div>
+        <div class="n3-grid" id="n3-grid" role="grid" aria-label="Kalendarz wydarzeń"></div>
+        <div class="n3-legend">
+          <span><i style="background:var(--sky)"></i> wykład</span>
+          <span><i style="background:var(--sky-lt)"></i> warsztat</span>
+          <span><i style="background:var(--ice)"></i> pokaz / wystawa</span>
+          <span><i style="background:var(--pk-mid)"></i> inne</span>
+        </div>
+      </div>
+
+      <aside class="n3-panel n3-side">
+        <span class="n3-side-date" id="n3-side-date">Wybierz dzień</span>
+        <h4 id="n3-side-title">Program dnia</h4>
+        <div id="n3-side-list"></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HARMONOGRAM ============================ -->
+<section class="n3-sec" id="n3-harmonogram">
+  <div class="n3-wrap n3-rise">
+    <span class="n3-eyebrow">Harmonogram</span>
+    <h2 class="n3-h2">Program godzina po godzinie</h2>
+    <p class="n3-lead">Ten sam program co w kalendarzu, tylko rozpisany liniowo. Rozwiń dowolną pozycję, żeby przeczytać opis oraz obejrzeć dokumentację wideo i zdjęciową.</p>
+
+    <div class="n3-filters" id="n3-filters"></div>
+    <div id="n3-schedule"></div>
+  </div>
+</section>
+
+<!-- ============================ ZAPISY ============================ -->
+<section class="n3-sec" id="n3-zapisy">
+  <div class="n3-wrap n3-rise">
+    <div class="n3-cta">
+      <span class="n3-eyebrow">Zapisy</span>
+      <h2 class="n3-h2" style="margin-top:18px">Przyjedź z klasą</h2>
+      <p class="n3-lead" style="margin:0 auto 26px">Zgłoszenia przyjmujemy od nauczycieli — jedno zgłoszenie na grupę. Liczba miejsc jest ograniczona, o udziale decyduje kolejność zgłoszeń.</p>
+      <div class="n3-hero-cta">
+        <a class="n3-btn" href="#" id="n3-signup-link">Formularz zgłoszeniowy [DO UZUPEŁNIENIA]</a>
+        <a class="n3-btn n3-btn--ghost" href="mailto:futurelab@pk.edu.pl">futurelab@pk.edu.pl</a>
+      </div>
+      <p class="n3-hint" style="margin-top:22px">Termin zgłoszeń i link do formularza uzupełnij po ogłoszeniu III edycji.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STOPKA ============================ -->
+<footer class="n3-sec" style="padding-bottom:0">
+  <div class="n3-wrap">
+    <div class="n3-foot">
+      <div class="n3-foot-grid">
+        <div>
+          <b>#nauka4future — III edycja</b>
+          <p>Projekt realizowany przez FutureLab Politechniki Krakowskiej — interdyscyplinarną jednostkę wspierającą kreatywnych i ambitnych studentów.</p>
+          <p style="margin-top:12px">Dofinansowano z budżetu państwa — Minister Nauki i Szkolnictwa Wyższego, program „Społeczna odpowiedzialność nauki”.</p>
+        </div>
+        <div>
+          <b>Kontakt</b>
+          <p><a href="mailto:futurelab@pk.edu.pl">futurelab@pk.edu.pl</a></p>
+          <p>tel. 512 688 272</p>
+          <p>ul. Warszawska 24, Kraków</p>
+        </div>
+        <div>
+          <b>Linki</b>
+          <p><a href="https://futurelab.pk.edu.pl/" target="_blank" rel="noopener">futurelab.pk.edu.pl</a></p>
+          <p><a href="https://pk.edu.pl/" target="_blank" rel="noopener">pk.edu.pl</a></p>
+          <p><a href="#n3-top">Wróć na górę</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ MODAL: WYDARZENIE ============================ -->
+<div class="n3-modal" id="n3-modal" role="dialog" aria-modal="true" aria-labelledby="n3-modal-title">
+  <button class="n3-modal-bg" id="n3-modal-bg" aria-label="Zamknij"></button>
+  <div class="n3-modal-box">
+    <button class="n3-modal-close" id="n3-modal-close" aria-label="Zamknij">✕</button>
+    <h3 id="n3-modal-title">Nowe wydarzenie</h3>
+    <form id="n3-form">
+      <div class="n3-field">
+        <label for="n3-f-title">Tytuł</label>
+        <input id="n3-f-title" name="title" required placeholder="np. Sztuczna inteligencja w inżynierii">
+      </div>
+      <div class="n3-row2">
+        <div class="n3-field">
+          <label for="n3-f-type">Typ</label>
+          <select id="n3-f-type" name="type">
+            <option value="wyklad">wykład</option>
+            <option value="warsztat">warsztat</option>
+            <option value="pokaz">pokaz / wystawa</option>
+            <option value="inne">inne</option>
+          </select>
+        </div>
+        <div class="n3-field">
+          <label for="n3-f-track">Ścieżka tematyczna</label>
+          <select id="n3-f-track" name="track"></select>
+        </div>
+      </div>
+      <div class="n3-row2">
+        <div class="n3-field">
+          <label for="n3-f-date">Data</label>
+          <input id="n3-f-date" name="date" type="date" required>
+        </div>
+        <div class="n3-field">
+          <label for="n3-f-place">Miejsce</label>
+          <input id="n3-f-place" name="place" placeholder="np. Aula, budynek W-2">
+        </div>
+      </div>
+      <div class="n3-row2">
+        <div class="n3-field">
+          <label for="n3-f-start">Początek</label>
+          <input id="n3-f-start" name="start" type="time" value="10:00">
+        </div>
+        <div class="n3-field">
+          <label for="n3-f-end">Koniec</label>
+          <input id="n3-f-end" name="end" type="time" value="11:00">
+        </div>
+      </div>
+      <div class="n3-row2">
+        <div class="n3-field">
+          <label for="n3-f-lecturer">Prowadzenie</label>
+          <input id="n3-f-lecturer" name="lecturer" placeholder="np. dr inż. [DO UZUPEŁNIENIA]">
+        </div>
+        <div class="n3-field">
+          <label for="n3-f-capacity">Limit miejsc</label>
+          <input id="n3-f-capacity" name="capacity" placeholder="np. 15">
+        </div>
+      </div>
+      <div class="n3-field">
+        <label for="n3-f-desc">Opis</label>
+        <textarea id="n3-f-desc" name="desc" placeholder="Co się wydarzy, dla kogo, czego uczestnicy się dowiedzą…"></textarea>
+      </div>
+      <div class="n3-modal-actions">
+        <button type="submit" class="n3-btn">Zapisz</button>
+        <button type="button" class="n3-btn n3-btn--ghost" id="n3-form-cancel">Anuluj</button>
+        <button type="button" class="n3-btn n3-btn--danger" id="n3-form-delete" style="margin-left:auto">Usuń wydarzenie</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="n3-lb" id="n3-lb"><button id="n3-lb-close" aria-label="Zamknij">✕</button><img id="n3-lb-img" alt=""></div>
+<div class="n3-toast" id="n3-toast" role="status" aria-live="polite"></div>
+
+</div><!-- /#n4f3 -->
+
+<script>
+(function () {
+  'use strict';
+  try {
+    var root = document.getElementById('n4f3');
+    if (!root || root.dataset.n3Init === '1') { return; }
+    root.dataset.n3Init = '1';
+
+    var STORE = 'n4f3-program-v1';
+    var $  = function (s, c) { return (c || root).querySelector(s); };
+    var $$ = function (s, c) { return Array.prototype.slice.call((c || root).querySelectorAll(s)); };
+    var esc = function (s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    };
+    var uid = function () { return 'e' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); };
+
+    /* =====================================================================
+       1. ŚCIEŻKI TEMATYCZNE + POZYCJE SZCZYTÓW NA GÓRZE (układ SVG 1440x760)
+       ===================================================================== */
+    var TRACKS = [
+      { id:'tech',   name:'Nowoczesne technologie', short:'Technologie', x:760, y:80,
+        desc:'Sztuczna inteligencja, robotyka, druk 3D i automatyka — technologie, które już dziś zmieniają inżynierię.' },
+      { id:'chem',   name:'Chemia',                 short:'Chemia',      x:600, y:136,
+        desc:'Materiały przyszłości, chemia w laboratorium i eksperymenty, których nie zrobisz w szkolnej pracowni.' },
+      { id:'arch',   name:'Architektura i budownictwo', short:'Architektura', x:840, y:160,
+        desc:'Jak projektuje się budynki, które mają przetrwać stulecie — od modelu 3D po badania wytrzymałości.' },
+      { id:'design', name:'Design',                 short:'Design',      x:370, y:160,
+        desc:'Wzornictwo przemysłowe, projektowanie produktu i to, dlaczego dobre rzeczy są dobre także w użyciu.' },
+      { id:'smart',  name:'Smart city',             short:'Smart city',  x:1090, y:190,
+        desc:'Miasto jako system: transport, dane, energia i ludzie — inżynieria, która dzieje się na ulicy.' }
+    ];
+    /* spłaszczenie pasma z atrybutu transform na <g> w SVG */
+    var RANGE_K = 0.62, RANGE_B = 159.6;
+    var TRACK_MAP = {}; TRACKS.forEach(function (t) { TRACK_MAP[t.id] = t; });
+
+    var TYPES = {
+      wyklad:   { label:'wykład',          cls:'t-wyklad'   },
+      warsztat: { label:'warsztat',        cls:'t-warsztat' },
+      pokaz:    { label:'pokaz / wystawa', cls:'t-pokaz'    },
+      inne:     { label:'inne',            cls:'t-inne'     }
+    };
+
+    /* =====================================================================
+       2. PROGRAM DOMYŚLNY — [DO POTWIERDZENIA] daty, sale i prowadzący
+       ===================================================================== */
+    function ev(date, start, end, type, track, title, place, lecturer, capacity, desc) {
+      return { id: uid(), date:date, start:start, end:end, type:type, track:track, title:title,
+               place:place, lecturer:lecturer, capacity:capacity, desc:desc, videos:[], photos:[] };
+    }
+    var DEFAULT_EVENTS = [
+      /* --- dzień 1 --- */
+      ev('2026-09-29','10:00','10:15','inne','tech','Otwarcie III edycji #nauka4future','Aula, budynek W-2','Zespół FutureLab PK','180',
+        'Powitanie uczestników, przedstawienie programu dnia i zasad poruszania się po kampusie. Krótko o tym, czym jest FutureLab i jak można do niego trafić jako student.'),
+      ev('2026-09-29','10:15','11:00','wyklad','tech','Sztuczna inteligencja w inżynierii','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Gdzie w codziennej pracy inżyniera realnie pojawia się uczenie maszynowe: od projektowania konstrukcji, przez diagnostykę materiałów, po planowanie ruchu. Bez wzorów — z przykładami z rzeczywistych projektów.'),
+      ev('2026-09-29','11:15','12:00','wyklad','tech','Roboty, które uczą się same','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Jak buduje się robota mobilnego i co znaczy, że „uczy się” otoczenia. Pokaz sterowania na żywo oraz omówienie błędów, które popełnia każdy początkujący konstruktor.'),
+      ev('2026-09-29','12:15','13:00','wyklad','smart','Miasto, które myśli','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Czujniki, dane i decyzje: jak wygląda zarządzanie ruchem, energią i odpadami w mieście, które chce być „smart”. Co z tego działa, a co jest na razie marketingiem.'),
+      ev('2026-09-29','14:00','16:00','warsztat','tech','Druk 3D — od pomysłu do modelu','Laboratorium druku 3D','[DO UZUPEŁNIENIA]','15',
+        'Zaprojektuj prosty element w programie CAD i zobacz, jak powstaje na drukarce. Omawiamy dobór materiału, tolerancje i typowe wady wydruku.'),
+      ev('2026-09-29','14:00','16:00','warsztat','tech','Programowanie robota mobilnego','Laboratorium robotyki','[DO UZUPEŁNIENIA]','15',
+        'Napiszesz program, który przeprowadzi robota przez tor przeszkód. Pracujemy w parach, na gotowych platformach — wcześniejsze doświadczenie nie jest potrzebne.'),
+
+      /* --- dzień 2 --- */
+      ev('2026-10-06','10:00','10:45','wyklad','chem','Materiały, których jeszcze nie ma','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Kompozyty, polimery i materiały samonaprawiające się. Skąd biorą się pomysły na nowe materiały i ile lat mija od laboratorium do produktu na półce.'),
+      ev('2026-10-06','11:00','11:45','wyklad','chem','Chemia, która ratuje wodę','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Uzdatnianie i oczyszczanie wody od strony procesów chemicznych — co dzieje się z wodą, zanim wypłynie z kranu, i co po tym, jak zniknie w odpływie.'),
+      ev('2026-10-06','12:00','12:45','pokaz','chem','Pokaz doświadczeń chemicznych','Laboratorium chemii','Koło naukowe PK','180',
+        'Seria efektownych, ale w pełni wytłumaczalnych doświadczeń — z komentarzem, co dokładnie zachodzi w każdej reakcji.'),
+      ev('2026-10-06','14:00','16:00','warsztat','chem','Laboratorium na własnych rękach','Laboratorium chemii','[DO UZUPEŁNIENIA]','15',
+        'Praca w fartuchu i okularach: przygotowanie roztworów, miareczkowanie i analiza próbki. Warsztat prowadzony w małej grupie, z pełnym instruktażem BHP.'),
+      ev('2026-10-06','14:00','16:00','warsztat','smart','Dane miejskie w praktyce','Sala komputerowa','[DO UZUPEŁNIENIA]','15',
+        'Otwarte dane Krakowa: pobierzemy prawdziwy zbiór, zwizualizujemy go i spróbujemy odpowiedzieć na pytanie, które zadałby urzędnik.'),
+
+      /* --- dzień 3 --- */
+      ev('2026-10-13','10:00','10:45','wyklad','arch','Jak stoi wieżowiec','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Statyka bez matematyki: siły, które działają na budynek, i rozwiązania konstrukcyjne, dzięki którym budynek ich nie zauważa.'),
+      ev('2026-10-13','11:00','11:45','wyklad','arch','Architektura wobec klimatu','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Projektowanie budynków w czasach upałów i suszy — od orientacji względem słońca po materiały i zieleń na dachu.'),
+      ev('2026-10-13','12:00','12:45','wyklad','design','Design to nie tylko wygląd','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Proces projektowy od badań użytkowników do prototypu. Dlaczego najładniejszy projekt bywa najgorszym i jak to sprawdzić przed produkcją.'),
+      ev('2026-10-13','14:00','16:00','warsztat','arch','Makieta w skali — warsztat modelarski','Pracownia modelarska','[DO UZUPEŁNIENIA]','15',
+        'Zbudujesz fragment makiety architektonicznej: dobór skali, cięcie, klejenie i prezentacja projektu.'),
+      ev('2026-10-13','14:00','16:00','warsztat','arch','Beton pod obciążeniem','Laboratorium wytrzymałości','[DO UZUPEŁNIENIA]','15',
+        'Zgniatamy próbki na maszynie wytrzymałościowej i sprawdzamy, przy jakiej sile pękają. Zobaczysz, jak wygląda badanie, które decyduje o dopuszczeniu materiału do budowy.'),
+
+      /* --- dzień 4 --- */
+      ev('2026-10-20','10:00','10:45','wyklad','design','Produkt, który chce się wziąć do ręki','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Wzornictwo przemysłowe od kuchni: ergonomia, materiał, koszt i kompromisy, na które projektant musi się zgodzić.'),
+      ev('2026-10-20','11:00','11:45','wyklad','smart','Transport przyszłości','Aula, budynek W-2','[DO UZUPEŁNIENIA]','180',
+        'Kolej, autonomiczne pojazdy i mikromobilność — jak planuje się system transportowy dla miasta, które dopiero powstanie.'),
+      ev('2026-10-20','12:00','13:00','pokaz','design','Wystawa prac studenckich','Galeria PK','Studenci PK','180',
+        'Przegląd projektów zrealizowanych w kołach naukowych i zespołach FutureLab — prototypy, makiety i projekty dyplomowe, z autorami na miejscu.'),
+      ev('2026-10-20','14:00','16:00','warsztat','design','Szybkie prototypowanie produktu','Pracownia wzornictwa','[DO UZUPEŁNIENIA]','15',
+        'Od szkicu do modelu z pianki i kartonu w dwie godziny. Warsztat pokazuje, jak testować pomysł, zanim wyda się na niego pieniądze.'),
+      ev('2026-10-20','16:15','17:00','inne','tech','Zakończenie III edycji','Aula, budynek W-2','Zespół FutureLab PK','180',
+        'Podsumowanie edycji, rozdanie certyfikatów uczestnictwa i zaproszenie do dalszej współpracy z FutureLab PK.')
+    ];
+
+    /* =====================================================================
+       3. DANE — odczyt i zapis
+       ===================================================================== */
+    var events = [];
+    function load() {
+      try {
+        var raw = window.localStorage.getItem(STORE);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) { events = parsed.map(normalize); return; }
+        }
+      } catch (e) { /* brak localStorage albo uszkodzone dane — lecimy dalej */ }
+      events = DEFAULT_EVENTS.map(normalize);
+    }
+    function normalize(e) {
+      return {
+        id: e.id || uid(),
+        date: e.date || '', start: e.start || '', end: e.end || '',
+        type: TYPES[e.type] ? e.type : 'inne',
+        track: TRACK_MAP[e.track] ? e.track : TRACKS[0].id,
+        title: e.title || 'Bez tytułu', place: e.place || '', lecturer: e.lecturer || '',
+        capacity: e.capacity || '', desc: e.desc || '',
+        videos: Array.isArray(e.videos) ? e.videos : [],
+        photos: Array.isArray(e.photos) ? e.photos : []
+      };
+    }
+    function save() {
+      try {
+        window.localStorage.setItem(STORE, JSON.stringify(events));
+      } catch (e) {
+        toast('Nie udało się zapisać — pamięć przeglądarki jest pełna. Usuń część zdjęć albo dodawaj je jako adresy URL.');
+      }
+    }
+    function byId(id) { for (var i = 0; i < events.length; i++) { if (events[i].id === id) return events[i]; } return null; }
+    function sorted(list) {
+      return list.slice().sort(function (a, b) {
+        if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+        if (a.start !== b.start) return a.start < b.start ? -1 : 1;
+        return a.title.localeCompare(b.title, 'pl');
+      });
+    }
+
+    /* =====================================================================
+       4. DROBIAZGI UI
+       ===================================================================== */
+    var toastEl = $('#n3-toast'), toastT = null;
+    function toast(msg) {
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add('is-on');
+      window.clearTimeout(toastT);
+      toastT = window.setTimeout(function () { toastEl.classList.remove('is-on'); }, 3600);
+    }
+    var MONTHS = ['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień'];
+    var MONTHS_GEN = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
+    var DAYS = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
+    function parseISO(iso) { var p = String(iso).split('-'); return new Date(+p[0], (+p[1]) - 1, +p[2]); }
+    function toISO(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    /* polska odmiana: 1 wydarzenie, 2-4 wydarzenia, 5+ wydarzeń (z wyjątkiem 12-14) */
+    function plural(n, one, few, many) {
+      n = Math.abs(n);
+      if (n === 1) return one;
+      var d = n % 10, s = n % 100;
+      return (d >= 2 && d <= 4 && !(s >= 12 && s <= 14)) ? few : many;
+    }
+    function longDate(iso) {
+      var d = parseISO(iso);
+      return d.getDate() + ' ' + MONTHS_GEN[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    /* =====================================================================
+       5. INTERAKTYWNA GÓRA — gwiazdy, szczyty, paralaksa
+       ===================================================================== */
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var svg = $('.n3-range');
+    var peaksBox = $('#n3-peaks');
+    var layers = $$('.n3-layer');
+
+    (function stars() {
+      var g = $('#n3-stars');
+      if (!g) return;
+      var frag = '';
+      for (var i = 0; i < 70; i++) {
+        var x = Math.round(Math.random() * 1440);
+        var y = Math.round(Math.random() * 400);
+        var r = (Math.random() * 1.4 + 0.5).toFixed(2);
+        var d = (Math.random() * 4).toFixed(2);
+        frag += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#EAF2FB" style="animation-delay:' + d + 's"></circle>';
+      }
+      g.innerHTML = frag;
+    })();
+
+    /* znaczniki szczytów — pozycje liczone z układu współrzędnych SVG */
+    function buildPeaks() {
+      if (!peaksBox) return;
+      peaksBox.innerHTML = TRACKS.map(function (t) {
+        return '<button class="n3-peak" type="button" data-track="' + t.id + '" data-x="' + t.x + '" data-y="' + t.y + '"' +
+               ' aria-label="Ścieżka: ' + esc(t.name) + '">' +
+               '<span class="n3-peak-label">' + esc(t.short) + '</span>' +
+               '<span class="n3-peak-dot" aria-hidden="true"></span>' +
+               '</button>';
+      }).join('');
+      placePeaks();
+      $$('.n3-peak', peaksBox).forEach(function (b) {
+        b.addEventListener('click', function () {
+          setTrackFilter(activeTrack === b.dataset.track ? 'all' : b.dataset.track);
+          var el = $('#n3-harmonogram');
+          if (el) el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        });
+      });
+    }
+    function placePeaks() {
+      if (!svg || !peaksBox || !peaksBox.parentNode) return;
+      var host = peaksBox.parentNode;
+      var sr = svg.getBoundingClientRect();
+      var mr = host.getBoundingClientRect();
+      if (!sr.width || !sr.height) return;
+      /* „slice" skaluje jednolicie największym współczynnikiem,
+         kadruje po bokach i wyrównuje do dołu (xMidYMax) */
+      var k  = Math.max(sr.width / 1440, sr.height / 420);
+      var ox = (sr.width  - 1440 * k) / 2;
+      var oy = (sr.height -  420 * k);
+      $$('.n3-peak', peaksBox).forEach(function (b) {
+        b.style.left = ((+b.dataset.x) * k + ox + (sr.left - mr.left)) + 'px';
+        b.style.top  = (((+b.dataset.y) * RANGE_K + RANGE_B) * k + oy + (sr.top - mr.top)) + 'px';
+      });
+    }
+
+    /* paralaksa: kursor + scroll, jedna pętla rAF */
+    var mx = 0, my = 0, tmx = 0, tmy = 0, scrollP = 0, ticking = false;
+    function applyParallax() {
+      ticking = false;
+      mx += (tmx - mx) * 0.08;
+      my += (tmy - my) * 0.08;
+      layers.forEach(function (el) {
+        var d = (+el.getAttribute('data-depth') || 0) / 10;
+        var tx = mx * d * 5;
+        var ty = my * d * 2.6 - scrollP * d * 7;
+        el.style.transform = 'translate3d(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px,0)';
+      });
+      if (peaksBox) {
+        var dp = 2.6; /* ten sam „poziom głębi” co pasmo środkowe */
+        peaksBox.style.transform = 'translate3d(' + (mx * dp * 5).toFixed(2) + 'px,' +
+          (my * dp * 2.6 - scrollP * dp * 7).toFixed(2) + 'px,0)';
+      }
+      if (Math.abs(tmx - mx) > 0.001 || Math.abs(tmy - my) > 0.001) { requestTick(); }
+    }
+    function requestTick() { if (!ticking) { ticking = true; window.requestAnimationFrame(applyParallax); } }
+
+    if (!reduceMotion) {
+      window.addEventListener('mousemove', function (e) {
+        var h = $('.n3-hero');
+        if (!h) return;
+        var r = h.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        tmx = (e.clientX / window.innerWidth) * 2 - 1;
+        tmy = (e.clientY / window.innerHeight) * 2 - 1;
+        requestTick();
+      }, { passive: true });
+
+      window.addEventListener('scroll', function () {
+        var h = $('.n3-hero');
+        if (!h) return;
+        scrollP = Math.max(0, Math.min(1, window.scrollY / Math.max(1, h.offsetHeight)));
+        requestTick();
+      }, { passive: true });
+
+      /* „wspinaczka” po szlaku — marsz kropek */
+      var trail = $('#n3-trail'), off = 0;
+      if (trail) {
+        window.setInterval(function () {
+          off = (off - 1) % 22;
+          trail.style.strokeDashoffset = off;
+        }, 60);
+      }
+    }
+    window.addEventListener('resize', function () { placePeaks(); requestTick(); }, { passive: true });
+    if (svg && svg.complete !== false) { window.setTimeout(placePeaks, 60); }
+
+    /* =====================================================================
+       6. ŚCIEŻKI TEMATYCZNE — kafle + filtr
+       ===================================================================== */
+    var activeTrack = 'all';
+    function renderTracks() {
+      var box = $('#n3-tracks');
+      if (!box) return;
+      box.innerHTML = TRACKS.map(function (t, i) {
+        var n = events.filter(function (e) { return e.track === t.id; }).length;
+        return '<button class="n3-track' + (activeTrack === t.id ? ' is-on' : '') + '" type="button" data-track="' + t.id + '">' +
+          '<span class="n3-track-num">0' + (i + 1) + ' / SZCZYT</span>' +
+          '<h3>' + esc(t.name) + '</h3>' +
+          '<p>' + esc(t.desc) + '</p>' +
+          '<div class="n3-track-count">' + n + ' ' + plural(n, 'wydarzenie', 'wydarzenia', 'wydarzeń') + ' w programie →</div>' +
+          '</button>';
+      }).join('');
+      $$('.n3-track', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          setTrackFilter(activeTrack === b.dataset.track ? 'all' : b.dataset.track);
+          var el = $('#n3-harmonogram');
+          if (el) el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        });
+      });
+    }
+    function setTrackFilter(id) {
+      activeTrack = id;
+      $$('.n3-track').forEach(function (b) { b.classList.toggle('is-on', b.dataset.track === id); });
+      $$('.n3-peak').forEach(function (b) { b.classList.toggle('is-on', b.dataset.track === id); });
+      $$('.n3-chip').forEach(function (b) { b.classList.toggle('is-on', b.dataset.track === id); });
+      renderSchedule();
+      renderCalendar();
+    }
+    function renderFilters() {
+      var box = $('#n3-filters');
+      if (!box) return;
+      var items = [{ id:'all', name:'Wszystko' }].concat(TRACKS.map(function (t) { return { id:t.id, name:t.name }; }));
+      box.innerHTML = items.map(function (t) {
+        return '<button class="n3-chip' + (activeTrack === t.id ? ' is-on' : '') + '" type="button" data-track="' + t.id + '">' + esc(t.name) + '</button>';
+      }).join('');
+      $$('.n3-chip', box).forEach(function (b) {
+        b.addEventListener('click', function () { setTrackFilter(b.dataset.track); });
+      });
+    }
+    function visibleEvents() {
+      return sorted(activeTrack === 'all' ? events : events.filter(function (e) { return e.track === activeTrack; }));
+    }
+
+    /* =====================================================================
+       7. KALENDARZ
+       ===================================================================== */
+    var cursor = null, selectedDay = null;
+    function initCursor() {
+      var s = sorted(events)[0];
+      var d = s ? parseISO(s.date) : new Date();
+      cursor = new Date(d.getFullYear(), d.getMonth(), 1);
+    }
+    function renderCalendar() {
+      var grid = $('#n3-grid'), label = $('#n3-monthlabel');
+      if (!grid || !cursor) return;
+      label.textContent = MONTHS[cursor.getMonth()] + ' ' + cursor.getFullYear();
+
+      var list = visibleEvents();
+      var byDate = {};
+      list.forEach(function (e) { (byDate[e.date] = byDate[e.date] || []).push(e); });
+
+      var first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+      var offset = (first.getDay() + 6) % 7; /* tydzień od poniedziałku */
+      var start = new Date(first); start.setDate(first.getDate() - offset);
+      var todayISO = toISO(new Date());
+      var html = '';
+
+      for (var i = 0; i < 42; i++) {
+        var d = new Date(start); d.setDate(start.getDate() + i);
+        var iso = toISO(d);
+        var out = d.getMonth() !== cursor.getMonth();
+        var evs = byDate[iso] || [];
+        var cls = 'n3-day' + (out ? ' is-out' : '') + (evs.length ? ' has-ev' : '') +
+                  (iso === todayISO ? ' is-today' : '') + (iso === selectedDay ? ' is-sel' : '');
+        var types = {};
+        evs.forEach(function (e) { types[e.type] = true; });
+        var dots = '';
+        if (types.wyklad)   dots += '<i></i>';
+        if (types.warsztat) dots += '<i class="t2"></i>';
+        if (types.pokaz)    dots += '<i class="t3"></i>';
+        if (types.inne)     dots += '<i style="background:var(--pk-mid)"></i>';
+        html += '<button type="button" class="' + cls + '" data-date="' + iso + '"' +
+                ' aria-label="' + d.getDate() + ' ' + MONTHS_GEN[d.getMonth()] + ', wydarzeń: ' + evs.length + '">' +
+                '<span>' + d.getDate() + '</span>' +
+                '<span class="n3-dots">' + dots + '</span>' +
+                '<span class="n3-day-add" data-add="' + iso + '" role="button" tabindex="0" title="Dodaj wydarzenie tego dnia">+</span>' +
+                '</button>';
+      }
+      grid.innerHTML = html;
+
+      $$('.n3-day', grid).forEach(function (b) {
+        b.addEventListener('click', function (e) {
+          var add = e.target.closest('[data-add]');
+          if (add && root.classList.contains('n3-editing')) {
+            e.preventDefault(); e.stopPropagation();
+            openForm(null, add.getAttribute('data-add'));
+            return;
+          }
+          selectDay(b.dataset.date);
+        });
+      });
+      renderSide();
+    }
+    function selectDay(iso) {
+      selectedDay = (selectedDay === iso) ? null : iso;
+      renderCalendar();
+      renderSchedule();
+      if (selectedDay) {
+        var g = $('[data-daygroup="' + selectedDay + '"]');
+        if (g) g.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      }
+    }
+    function renderSide() {
+      var box = $('#n3-side-list'), dateEl = $('#n3-side-date'), titleEl = $('#n3-side-title');
+      if (!box) return;
+      if (!selectedDay) {
+        dateEl.textContent = 'Wybierz dzień';
+        titleEl.textContent = 'Program dnia';
+        var total = visibleEvents().length;
+        box.innerHTML = '<p class="n3-empty">Kliknij podświetlony dzień w kalendarzu, żeby zobaczyć jego program. ' +
+          'W programie jest teraz <strong>' + total + '</strong> ' + (total === 1 ? 'wydarzenie' : 'wydarzeń') + '.</p>';
+        return;
+      }
+      var d = parseISO(selectedDay);
+      dateEl.textContent = DAYS[d.getDay()];
+      titleEl.textContent = longDate(selectedDay);
+      var list = visibleEvents().filter(function (e) { return e.date === selectedDay; });
+      if (!list.length) {
+        box.innerHTML = '<p class="n3-empty">Tego dnia nie ma jeszcze wydarzeń' +
+          (activeTrack === 'all' ? '' : ' w wybranej ścieżce') + '.</p>' +
+          '<button class="n3-btn n3-btn--sm n3-editonly" type="button" data-addday="' + selectedDay + '" style="margin-top:14px">+ Dodaj wydarzenie</button>';
+      } else {
+        box.innerHTML = '<ul class="n3-mini">' + list.map(function (e) {
+          return '<li><button type="button" data-goto="' + e.id + '">' +
+            '<b>' + esc(e.title) + '</b>' +
+            '<small>' + esc(e.start) + (e.end ? '–' + esc(e.end) : '') + ' · ' + esc(TYPES[e.type].label) +
+            (e.place ? ' · ' + esc(e.place) : '') + '</small></button></li>';
+        }).join('') + '</ul>' +
+        '<button class="n3-btn n3-btn--sm n3-editonly" type="button" data-addday="' + selectedDay + '" style="margin-top:14px">+ Dodaj wydarzenie</button>';
+      }
+      $$('[data-goto]', box).forEach(function (b) {
+        b.addEventListener('click', function () { openEvent(b.getAttribute('data-goto')); });
+      });
+      $$('[data-addday]', box).forEach(function (b) {
+        b.addEventListener('click', function () { openForm(null, b.getAttribute('data-addday')); });
+      });
+    }
+
+    /* =====================================================================
+       8. MEDIA — osadzanie wideo i galeria zdjęć
+       ===================================================================== */
+    function videoEmbed(url, title) {
+      var u = String(url || '').trim();
+      var yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+      var vm = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+      if (yt) {
+        return '<iframe src="https://www.youtube-nocookie.com/embed/' + esc(yt[1]) + '" title="' + esc(title || 'Wideo') +
+               '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+      }
+      if (vm) {
+        return '<iframe src="https://player.vimeo.com/video/' + esc(vm[1]) + '" title="' + esc(title || 'Wideo') +
+               '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+      }
+      if (/\.(mp4|webm|ogv|mov)(\?|$)/i.test(u)) {
+        return '<video controls preload="metadata" src="' + esc(u) + '"></video>';
+      }
+      return '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center">' +
+             '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(title || u) + '</a></div>';
+    }
+
+    /* =====================================================================
+       9. HARMONOGRAM
+       ===================================================================== */
+    var openIds = {};
+    function renderSchedule() {
+      var box = $('#n3-schedule');
+      if (!box) return;
+      var list = visibleEvents();
+      if (selectedDay) { list = list.filter(function (e) { return e.date === selectedDay; }); }
+
+      if (!list.length) {
+        box.innerHTML = '<p class="n3-empty">Brak wydarzeń dla wybranych filtrów. ' +
+          '<button class="n3-chip" type="button" id="n3-clearfilters">Wyczyść filtry</button></p>';
+        var cf = $('#n3-clearfilters');
+        if (cf) cf.addEventListener('click', function () { selectedDay = null; setTrackFilter('all'); });
+        return;
+      }
+
+      var groups = [], map = {};
+      list.forEach(function (e) {
+        if (!map[e.date]) { map[e.date] = { date: e.date, items: [] }; groups.push(map[e.date]); }
+        map[e.date].items.push(e);
+      });
+
+      box.innerHTML = groups.map(function (g) {
+        var d = parseISO(g.date);
+        return '<div class="n3-daygroup" data-daygroup="' + g.date + '">' +
+          '<div class="n3-daygroup-head">' +
+            '<h3>' + longDate(g.date) + '</h3>' +
+            '<span>' + DAYS[d.getDay()] + ' · ' + g.items.length + ' ' + plural(g.items.length, 'pozycja', 'pozycje', 'pozycji') + '</span>' +
+            '<button class="n3-btn n3-btn--sm n3-editonly" type="button" data-addday="' + g.date + '" style="margin-left:auto">+ Dodaj</button>' +
+          '</div>' +
+          g.items.map(evCardHtml).join('') +
+        '</div>';
+      }).join('');
+
+      $$('[data-addday]', box).forEach(function (b) {
+        b.addEventListener('click', function () { openForm(null, b.getAttribute('data-addday')); });
+      });
+      $$('.n3-ev-head', box).forEach(function (b) {
+        b.addEventListener('click', function () { toggleEvent(b.closest('.n3-ev')); });
+      });
+      /* przywróć rozwinięte pozycje */
+      Object.keys(openIds).forEach(function (id) {
+        var card = $('.n3-ev[data-id="' + id + '"]', box);
+        if (card && openIds[id]) { card.classList.add('is-open'); fillBody(card); }
+      });
+    }
+
+    function evCardHtml(e) {
+      var t = TYPES[e.type], tr = TRACK_MAP[e.track];
+      var sub = [];
+      if (tr) sub.push(esc(tr.name));
+      if (e.place) sub.push(esc(e.place));
+      if (e.lecturer) sub.push(esc(e.lecturer));
+      if (e.capacity) sub.push('limit: ' + esc(e.capacity));
+      var media = (e.videos.length ? '🎬 ' + e.videos.length : '') + (e.photos.length ? (e.videos.length ? ' · ' : '') + '📷 ' + e.photos.length : '');
+      if (media) sub.push(media);
+      return '<article class="n3-ev" data-id="' + e.id + '">' +
+        '<button class="n3-ev-head" type="button" aria-expanded="false">' +
+          '<span class="n3-ev-time">' + esc(e.start) + (e.end ? '–' + esc(e.end) : '') + '<small>' + esc(t.label) + '</small></span>' +
+          '<span><span class="n3-ev-title">' + esc(e.title) + '</span>' +
+            '<span class="n3-ev-sub">' + sub.map(function (s) { return '<span>' + s + '</span>'; }).join('') + '</span></span>' +
+          '<span style="display:flex;align-items:center;gap:10px">' +
+            '<span class="n3-tag ' + t.cls + '">' + esc(t.label) + '</span>' +
+            '<span class="n3-ev-chev" aria-hidden="true">⌄</span>' +
+          '</span>' +
+        '</button>' +
+        '<div class="n3-ev-body"></div>' +
+      '</article>';
+    }
+
+    function toggleEvent(card) {
+      if (!card) return;
+      var open = !card.classList.contains('is-open');
+      card.classList.toggle('is-open', open);
+      var head = $('.n3-ev-head', card);
+      if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      openIds[card.dataset.id] = open;
+      if (open) { fillBody(card); }
+    }
+
+    function openEvent(id) {
+      var card = $('.n3-ev[data-id="' + id + '"]');
+      if (!card) { selectedDay = null; setTrackFilter('all'); card = $('.n3-ev[data-id="' + id + '"]'); }
+      if (!card) return;
+      if (!card.classList.contains('is-open')) toggleEvent(card);
+      card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    }
+
+    /* treść rozwiniętej pozycji: opis + wideo + zdjęcia (+ formularze w trybie edycji) */
+    function fillBody(card) {
+      var e = byId(card.dataset.id);
+      var body = $('.n3-ev-body', card);
+      if (!e || !body) return;
+
+      var html = '';
+      html += '<h5>Opis</h5><div class="n3-ev-desc">' + esc(e.desc) + '</div>';
+      html += '<div class="n3-editonly n3-block" style="margin-top:12px">' +
+                '<div class="n3-field"><label for="d-' + e.id + '">Edytuj opis</label>' +
+                '<textarea id="d-' + e.id + '" data-desc="' + e.id + '" placeholder="Opis wydarzenia…">' + esc(e.desc) + '</textarea></div>' +
+                '<button class="n3-btn n3-btn--sm" type="button" data-savedesc="' + e.id + '">Zapisz opis</button> ' +
+                '<button class="n3-btn n3-btn--ghost n3-btn--sm" type="button" data-editev="' + e.id + '">Edytuj szczegóły</button>' +
+              '</div>';
+
+      html += '<h5>Dokumentacja wideo</h5>';
+      if (e.videos.length) {
+        html += '<div class="n3-media">' + e.videos.map(function (v, i) {
+          return '<div class="n3-video">' + videoEmbed(v.url, v.title) +
+                 '<button class="n3-mediadel" type="button" data-delvideo="' + e.id + '" data-i="' + i + '" title="Usuń wideo">✕</button></div>';
+        }).join('') + '</div>';
+      } else {
+        html += '<p class="n3-mediaempty">Nie dodano jeszcze materiałów wideo.</p>';
+      }
+      html += '<div class="n3-editonly n3-block" style="margin-top:12px">' +
+                '<div class="n3-inline">' +
+                  '<input type="url" data-vurl="' + e.id + '" placeholder="Link do YouTube, Vimeo lub pliku .mp4">' +
+                  '<input type="text" data-vtitle="' + e.id + '" placeholder="Podpis (opcjonalnie)">' +
+                  '<button class="n3-btn n3-btn--sm" type="button" data-addvideo="' + e.id + '">Dodaj wideo</button>' +
+                '</div>' +
+                '<p class="n3-hint">Najlepiej wgraj film na YouTube lub do biblioteki mediów WordPressa i wklej tutaj adres.</p>' +
+              '</div>';
+
+      html += '<h5>Dokumentacja zdjęciowa</h5>';
+      if (e.photos.length) {
+        html += '<div class="n3-photos">' + e.photos.map(function (p, i) {
+          return '<figure class="n3-photo">' +
+                   '<img src="' + esc(p.src) + '" alt="' + esc(p.caption || e.title) + '" loading="lazy" data-lb="' + esc(p.src) + '">' +
+                   (p.caption ? '<figcaption>' + esc(p.caption) + '</figcaption>' : '') +
+                   '<button class="n3-mediadel" type="button" data-delphoto="' + e.id + '" data-i="' + i + '" title="Usuń zdjęcie">✕</button>' +
+                 '</figure>';
+        }).join('') + '</div>';
+      } else {
+        html += '<p class="n3-mediaempty">Nie dodano jeszcze zdjęć.</p>';
+      }
+      html += '<div class="n3-editonly n3-block" style="margin-top:12px">' +
+                '<div class="n3-inline">' +
+                  '<input type="url" data-purl="' + e.id + '" placeholder="Adres zdjęcia (np. z biblioteki mediów)">' +
+                  '<input type="text" data-pcaption="' + e.id + '" placeholder="Podpis (opcjonalnie)">' +
+                  '<button class="n3-btn n3-btn--sm" type="button" data-addphoto="' + e.id + '">Dodaj zdjęcie</button>' +
+                  '<label class="n3-btn n3-btn--ghost n3-btn--sm n3-filebtn" tabindex="0">Wgraj z dysku' +
+                    '<input type="file" accept="image/*" multiple data-pfile="' + e.id + '"></label>' +
+                '</div>' +
+                '<p class="n3-hint">Zdjęcia wgrane z dysku zapisują się tylko w tej przeglądarce. Do publikacji użyj adresów z biblioteki mediów WordPressa.</p>' +
+              '</div>';
+
+      body.innerHTML = html;
+      bindBody(body, e);
+    }
+
+    function bindBody(body, e) {
+      var on = function (sel, fn) { $$(sel, body).forEach(function (el) { el.addEventListener('click', fn); }); };
+
+      on('[data-savedesc]', function () {
+        var ta = $('[data-desc="' + e.id + '"]', body);
+        e.desc = ta ? ta.value : e.desc;
+        save(); toast('Opis zapisany.'); renderSchedule();
+      });
+      on('[data-editev]', function () { openForm(e.id, null); });
+
+      on('[data-addvideo]', function () {
+        var u = $('[data-vurl="' + e.id + '"]', body), t = $('[data-vtitle="' + e.id + '"]', body);
+        if (!u || !u.value.trim()) { toast('Wklej adres filmu.'); return; }
+        e.videos.push({ url: u.value.trim(), title: (t && t.value.trim()) || '' });
+        save(); toast('Wideo dodane.'); renderSchedule();
+      });
+      on('[data-delvideo]', function (ev) {
+        var i = +ev.currentTarget.getAttribute('data-i');
+        e.videos.splice(i, 1); save(); toast('Wideo usunięte.'); renderSchedule();
+      });
+
+      on('[data-addphoto]', function () {
+        var u = $('[data-purl="' + e.id + '"]', body), c = $('[data-pcaption="' + e.id + '"]', body);
+        if (!u || !u.value.trim()) { toast('Wklej adres zdjęcia.'); return; }
+        e.photos.push({ src: u.value.trim(), caption: (c && c.value.trim()) || '' });
+        save(); toast('Zdjęcie dodane.'); renderSchedule();
+      });
+      on('[data-delphoto]', function (ev) {
+        var i = +ev.currentTarget.getAttribute('data-i');
+        e.photos.splice(i, 1); save(); toast('Zdjęcie usunięte.'); renderSchedule();
+      });
+      $$('[data-pfile]', body).forEach(function (input) {
+        input.addEventListener('change', function () {
+          var files = Array.prototype.slice.call(input.files || []);
+          if (!files.length) return;
+          var pending = files.length;
+          files.forEach(function (f) {
+            if (f.size > 1200000) {
+              toast('Pominięto „' + f.name + '" — plik większy niż 1,2 MB. Zmniejsz zdjęcie albo dodaj je przez adres URL.');
+              if (--pending === 0) { save(); renderSchedule(); }
+              return;
+            }
+            var fr = new FileReader();
+            fr.onload = function () {
+              e.photos.push({ src: fr.result, caption: f.name.replace(/\.[^.]+$/, '') });
+              if (--pending === 0) { save(); toast('Zdjęcia dodane.'); renderSchedule(); }
+            };
+            fr.onerror = function () { if (--pending === 0) { save(); renderSchedule(); } };
+            fr.readAsDataURL(f);
+          });
+        });
+      });
+
+      $$('[data-lb]', body).forEach(function (img) {
+        img.addEventListener('click', function () { openLightbox(img.getAttribute('data-lb'), img.alt); });
+      });
+    }
+
+    /* lightbox */
+    var lb = $('#n3-lb'), lbImg = $('#n3-lb-img');
+    function openLightbox(src, alt) {
+      if (!lb || !lbImg) return;
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.add('is-open');
+    }
+    function closeLightbox() { if (lb) { lb.classList.remove('is-open'); lbImg.src = ''; } }
+    if (lb) {
+      lb.addEventListener('click', function (e) { if (e.target === lb || e.target.id === 'n3-lb-close') closeLightbox(); });
+    }
+
+    /* =====================================================================
+       10. MODAL — dodawanie i edycja wydarzenia
+       ===================================================================== */
+    var modal = $('#n3-modal'), form = $('#n3-form'), editingId = null, lastFocus = null;
+    var F = {};
+    ['title','type','track','date','place','start','end','lecturer','capacity','desc'].forEach(function (k) {
+      F[k] = $('#n3-f-' + k);
+    });
+
+    (function fillTrackSelect() {
+      var sel = $('#n3-f-track');
+      if (sel) sel.innerHTML = TRACKS.map(function (t) { return '<option value="' + t.id + '">' + esc(t.name) + '</option>'; }).join('');
+    })();
+
+    function openForm(id, presetDate) {
+      if (!modal || !form) return;
+      editingId = id || null;
+      lastFocus = document.activeElement;
+      var e = id ? byId(id) : null;
+      $('#n3-modal-title').textContent = e ? 'Edytuj wydarzenie' : 'Nowe wydarzenie';
+      F.title.value    = e ? e.title : '';
+      F.type.value     = e ? e.type : 'wyklad';
+      F.track.value    = e ? e.track : (activeTrack !== 'all' ? activeTrack : TRACKS[0].id);
+      F.date.value     = e ? e.date : (presetDate || selectedDay || (cursor ? toISO(cursor) : toISO(new Date())));
+      F.place.value    = e ? e.place : '';
+      F.start.value    = e ? e.start : '10:00';
+      F.end.value      = e ? e.end : '11:00';
+      F.lecturer.value = e ? e.lecturer : '';
+      F.capacity.value = e ? e.capacity : '';
+      F.desc.value     = e ? e.desc : '';
+      $('#n3-form-delete').style.display = e ? 'inline-flex' : 'none';
+      modal.classList.add('is-open');
+      window.setTimeout(function () { form.title.focus(); }, 40);
+    }
+    function closeForm() {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      editingId = null;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    if (form) {
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var data = {
+          title: F.title.value.trim() || 'Bez tytułu',
+          type: F.type.value, track: F.track.value,
+          date: F.date.value, start: F.start.value, end: F.end.value,
+          place: F.place.value.trim(), lecturer: F.lecturer.value.trim(),
+          capacity: F.capacity.value.trim(), desc: F.desc.value
+        };
+        if (!data.date) { toast('Podaj datę wydarzenia.'); return; }
+        if (editingId) {
+          var e = byId(editingId);
+          if (e) { Object.keys(data).forEach(function (k) { e[k] = data[k]; }); }
+          toast('Wydarzenie zaktualizowane.');
+        } else {
+          var fresh = normalize(data); fresh.id = uid();
+          events.push(fresh);
+          openIds[fresh.id] = true;
+          toast('Wydarzenie dodane.');
+        }
+        save();
+        selectedDay = data.date;
+        if (cursor) { var d = parseISO(data.date); cursor = new Date(d.getFullYear(), d.getMonth(), 1); }
+        closeForm();
+        renderAll();
+      });
+    }
+    var delBtn = $('#n3-form-delete');
+    if (delBtn) {
+      delBtn.addEventListener('click', function () {
+        if (!editingId) return;
+        var e = byId(editingId);
+        if (!e) return;
+        if (!window.confirm('Usunąć wydarzenie „' + e.title + '"? Tej operacji nie da się cofnąć.')) return;
+        events = events.filter(function (x) { return x.id !== editingId; });
+        save(); closeForm(); renderAll(); toast('Wydarzenie usunięte.');
+      });
+    }
+    ['#n3-modal-bg', '#n3-modal-close', '#n3-form-cancel'].forEach(function (s) {
+      var el = $(s); if (el) el.addEventListener('click', closeForm);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (lb && lb.classList.contains('is-open')) { closeLightbox(); return; }
+      if (modal && modal.classList.contains('is-open')) closeForm();
+    });
+
+    /* =====================================================================
+       11. TRYB EDYCJI, EKSPORT, IMPORT, RESET
+       ===================================================================== */
+    var toggle = $('#n3-edit-toggle');
+    if (toggle) {
+      try { toggle.checked = window.sessionStorage.getItem('n4f3-edit') === '1'; } catch (err) { /* brak sessionStorage */ }
+      root.classList.toggle('n3-editing', toggle.checked);
+      toggle.addEventListener('change', function () {
+        root.classList.toggle('n3-editing', toggle.checked);
+        try { window.sessionStorage.setItem('n4f3-edit', toggle.checked ? '1' : '0'); } catch (err) {}
+        toast(toggle.checked
+          ? 'Tryb edycji włączony — zmiany zapisują się w tej przeglądarce. Zrób eksport JSON, żeby je zachować.'
+          : 'Tryb edycji wyłączony.');
+      });
+    }
+    var addBtn = $('#n3-add-ev');
+    if (addBtn) { addBtn.addEventListener('click', function () { openForm(null, null); }); }
+
+    var expBtn = $('#n3-export');
+    if (expBtn) {
+      expBtn.addEventListener('click', function () {
+        try {
+          var blob = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'nauka4future-edycja3-program.json';
+          document.body.appendChild(a); a.click();
+          window.setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+          toast('Plik JSON pobrany.');
+        } catch (err) { toast('Nie udało się wyeksportować pliku.'); }
+      });
+    }
+    var impInput = $('#n3-import-file');
+    if (impInput) {
+      impInput.addEventListener('change', function () {
+        var f = impInput.files && impInput.files[0];
+        if (!f) return;
+        var fr = new FileReader();
+        fr.onload = function () {
+          try {
+            var data = JSON.parse(fr.result);
+            if (!Array.isArray(data)) throw new Error('zły format');
+            events = data.map(normalize);
+            save(); initCursor(); selectedDay = null; renderAll();
+            toast('Wczytano program: ' + events.length + ' ' + plural(events.length, 'wydarzenie', 'wydarzenia', 'wydarzeń') + '.');
+          } catch (err) { toast('To nie jest poprawny plik programu (JSON).'); }
+          impInput.value = '';
+        };
+        fr.readAsText(f);
+      });
+    }
+    var resetBtn = $('#n3-reset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        if (!window.confirm('Przywrócić program domyślny? Wszystkie Twoje zmiany, opisy i dodane media zostaną usunięte.')) return;
+        events = DEFAULT_EVENTS.map(function (e) { return normalize(JSON.parse(JSON.stringify(e))); });
+        openIds = {}; selectedDay = null;
+        save(); initCursor(); renderAll();
+        toast('Przywrócono program domyślny.');
+      });
+    }
+
+    /* =====================================================================
+       12. ANIMACJE WEJŚCIA + START
+       ===================================================================== */
+    (function reveal() {
+      var items = $$('.n3-rise');
+      if (!('IntersectionObserver' in window) || reduceMotion) {
+        items.forEach(function (el) { el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+
+    var monthPrev = $('#n3-prev'), monthNext = $('#n3-next');
+    if (monthPrev) monthPrev.addEventListener('click', function () { cursor.setMonth(cursor.getMonth() - 1); renderCalendar(); });
+    if (monthNext) monthNext.addEventListener('click', function () { cursor.setMonth(cursor.getMonth() + 1); renderCalendar(); });
+
+    function renderAll() {
+      renderTracks();
+      renderFilters();
+      renderCalendar();
+      renderSchedule();
+    }
+
+    load();
+    initCursor();
+    buildPeaks();
+    renderAll();
+    window.addEventListener('load', function () { placePeaks(); requestTick(); });
+
+  } catch (err) {
+    if (window.console) { console.error('#nauka4future — błąd skryptu:', err); }
+  }
+})();
+</script>
+<!-- /wp:html -->

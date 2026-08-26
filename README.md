@@ -74,3 +74,54 @@ zaakceptował lekarz prowadzący stronę.**
 Teksty opisowe (biogram, oferta, FAQ) zostały napisane na podstawie ogólnodostępnych
 informacji o praktyce i wymagają weryfikacji przed publikacją. Opinie pacjentów są
 oznaczone jako przykładowe — nie publikuj ich w obecnej formie.
+
+---
+
+# #nauka4future — III edycja (FutureLab PK)
+
+Plik: `wordpress/nauka4future-edycja3-gutenberg.html` — jedna strona do wklejenia
+w **Edytorze kodu** Gutenberga (blok „HTML własny”), w kolorystyce Politechniki
+Krakowskiej (kolor podstawowy znaku PK: PANTONE 288 / RGB 0-53-113 / `#003571`).
+
+## Co jest na stronie
+
+| Sekcja | Co robi |
+|---|---|
+| **Interaktywna góra** | Warstwowa scena SVG (niebo, trzy pasma, szlak, mgła) reagująca na scroll i ruch kursora. Pięć świecących znaczników = pięć ścieżek tematycznych; kliknięcie filtruje program. Wyłącza się przy `prefers-reduced-motion`. |
+| **Ścieżki tematyczne** | Architektura i budownictwo, Chemia, Design, Nowoczesne technologie, Smart city — te same obszary co w poprzednich edycjach. |
+| **Kalendarz** | Miesięczna siatka od poniedziałku, kropki oznaczają typ zajęć, klik w dzień filtruje harmonogram. W trybie edycji `+` na kaflu dnia dodaje wydarzenie z tą datą. |
+| **Harmonogram** | Ten sam program w układzie listy, pogrupowany po dniach. |
+| **Rozwijane wydarzenia** | Każdy wykład/warsztat/pokaz rozwija się i przyjmuje **opis**, **dokumentację wideo** (YouTube, Vimeo, `.mp4`) i **dokumentację zdjęciową** (adres URL albo plik z dysku, z lightboxem). |
+
+## Tryb edycji i zapisywanie programu
+
+Przełącznik **„Tryb edycji programu”** odsłania formularze: dodawanie, edycję
+i usuwanie wydarzeń oraz pola na opisy i media.
+
+**Ważne:** program zapisuje się w `localStorage` przeglądarki, a nie na serwerze.
+Oznacza to, że:
+
+- zmiany widzi tylko ta przeglądarka, w której je wprowadzono — odwiedzający
+  zobaczą program domyślny wpisany w kodzie strony,
+- wyczyszczenie danych witryny kasuje zmiany.
+
+Dlatego po ułożeniu programu zrób **Eksport JSON**. Plik można potem wczytać
+przyciskiem **Import JSON** na innym komputerze, a docelowo — przenieść treść do
+tablicy `DEFAULT_EVENTS` w kodzie strony, żeby program był widoczny publicznie.
+Zdjęcia wgrane z dysku zapisują się jako `data:URI` (limit 1,2 MB na plik);
+do publikacji lepiej wgrać je do biblioteki mediów WordPressa i wkleić adresy.
+
+## Co trzeba uzupełnić przed publikacją
+
+W pliku oznaczone jako `[DO UZUPEŁNIENIA]` i `[DO POTWIERDZENIA]`:
+
+- **daty III edycji** — w kodzie są robocze terminy (29.09, 6.10, 13.10, 20.10.2026),
+  wzorowane na rytmie II edycji (wrzesień–październik),
+- **nazwiska prowadzących** przy wykładach i warsztatach,
+- **sale i budynki**,
+- **link do formularza zgłoszeniowego** (przycisk w sekcji „Zapisy”),
+- **zdjęcia i filmy** z poprzednich edycji.
+
+Treści opisowe (opisy wykładów i warsztatów) są propozycją napisaną na podstawie
+publicznie dostępnych informacji o projekcie — przed publikacją wymagają
+weryfikacji przez FutureLab PK.
