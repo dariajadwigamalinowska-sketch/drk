@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  PLIK IMPORTU WORDPRESSA (WXR 1.2)
+
+  JAK UZYC:
+  1. Kokpit → Narzedzia → Import → WordPress → "Uruchom importer".
+     (Za pierwszym razem WordPress poprosi o instalacje importera.)
+  2. Wybierz ten plik i kliknij "Wyslij plik i zaimportuj".
+  3. Przypisz autora do swojego konta. Pole "Pobierz i zaimportuj
+     zalaczniki" zostaw ODZNACZONE - pliki mediow wgrywasz osobno.
+  4. Strona pojawi sie w Strony jako SZKIC pod adresem pediatria.
+     Otworz ja, sprawdz i opublikuj.
+
+  WAZNE:
+  - Importuj z konta Administratora. Strona zawiera blok "HTML wlasny"
+    z arkuszem stylow; konto bez uprawnienia unfiltered_html straci go
+    przy zapisie i strona pokaze sama trescc bez formatowania.
+  - Pliki wideo i plakaty wgraj wczesniej do Biblioteki mediow, a potem
+    w edytorze kliknij kazdy blok wideo → "Zastap" i wskaz plik.
+    Alternatywnie popraw adresy /wp-content/uploads/... w kodzie.
+-->
+<rss version="2.0"
+  xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+  <title>Opieka Pediatryczna Doktor Kasi</title>
+  <link>https://przyklad.pl</link>
+  <description>Strona przygotowana do zaimportowania</description>
+  <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
+  <language>pl-PL</language>
+  <wp:wxr_version>1.2</wp:wxr_version>
+  <wp:base_site_url>https://przyklad.pl</wp:base_site_url>
+  <wp:base_blog_url>https://przyklad.pl</wp:base_blog_url>
+  <wp:author>
+    <wp:author_id>1</wp:author_id>
+    <wp:author_login><![CDATA[admin]]></wp:author_login>
+    <wp:author_email><![CDATA[admin@przyklad.pl]]></wp:author_email>
+    <wp:author_display_name><![CDATA[admin]]></wp:author_display_name>
+    <wp:author_first_name><![CDATA[]]></wp:author_first_name>
+    <wp:author_last_name><![CDATA[]]></wp:author_last_name>
+  </wp:author>
+  <generator>https://wordpress.org/?v=6.7</generator>
+
+  <item>
+    <title>Opieka Pediatryczna Doktor Kasi</title>
+    <link>https://przyklad.pl/pediatria/</link>
+    <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[admin]]></dc:creator>
+    <guid isPermaLink="false">https://przyklad.pl/?page_id=1001</guid>
+    <description></description>
+    <content:encoded><![CDATA[<!-- wp:html -->
+<!--
+  ===========================================================================
+  KATARZYNA BATOR — PRAKTYKA PEDIATRYCZNA
+  Wersja na natywnych blokach Gutenberga
+  ===========================================================================
+  JAK WSTAWIĆ DO WORDPRESSA
+  1) Utwórz nową stronę i otwórz ją w edytorze blokowym.
+  2) Opcje (trzy kropki w prawym górnym rogu) → "Edytor kodu".
+  3) Usuń całą zawartość edytora kodu i wklej ten plik w całości.
+  4) Kliknij ponownie "Edytor kodu" — zobaczysz gotową stronę złożoną
+     z klikalnych bloków.
+  5) Zapisz.
+
+  Jeśli po zapisaniu znika formatowanie, WordPress usunął arkusz stylów.
+  Dzieje się tak, gdy konto nie ma uprawnienia "unfiltered_html" —
+  publikuj z konta Administratora.
+
+  ---------------------------------------------------------------------------
+  UKŁAD TEJ STRONY — inny niż na stronie medycyny estetycznej
+  ---------------------------------------------------------------------------
+  Kolejność jest celowa. Rodzic wchodzi tu z konkretną potrzebą, więc
+  najpierw stoi KALKULATOR dawek, zaraz po nim KONTAKT, a dopiero potem
+  opis praktyki i filmy. Zdjęcie Pani Doktor jest po PRAWEJ, w miękkim
+  organicznym kształcie. Kontakt: karta i mapa OBOK siebie.
+
+  Filary i wyliczanki zostały wycięte celowo. Jeśli chcecie coś dołożyć,
+  dokładajcie po jednej sekcji.
+
+  ---------------------------------------------------------------------------
+  JAK EDYTOWAĆ (bez dotykania kodu)
+  ---------------------------------------------------------------------------
+  • TEKST      – kliknij i pisz.
+  • ZDJĘCIA    – kliknij szary prostokąt → "Biblioteka mediów".
+  • FILM       – kadr u góry to blok "Wideo" w formacie pionowym 9:16,
+                 z już wstawionym filmem. Żeby go podmienić, kliknij
+                 w blok → "Zastąp". Jeśli film jest na YouTube,
+                 usuń ten blok i wstaw blok "YouTube", a potem nadaj mu
+                 klasę CSS "kb-film-ramka" (panel po prawej → Zaawansowane).
+                 Format i szerokość zmienisz w arkuszu stylów — zmienne
+                 --kb-film-proporcje i --kb-film-szerokosc.
+  • FILMY PIONOWE – sekcja "Krótkie filmy" ma trzy puste bloki "Wideo"
+                 w formacie 9:16, czyli takim jak rolki na Instagramie.
+                 Klikasz i wgrywasz. Podpis pod filmem edytujesz klikając
+                 w tekst. Żeby dodać czwarty film, powiel kolumnę.
+                 Klasa dla pionu to "kb-film-pion".
+  • KOLEJNOŚĆ  – "Widok listy" (ikona po lewej u góry) → przeciągnij sekcję.
+  • IKONY      – zaznacz blok → panel po prawej → Zaawansowane →
+                 "Dodatkowa klasa CSS" → wpisz jedną z: kb-i-pin,
+                 kb-i-telefon, kb-i-zegar, kb-i-kalendarz, kb-i-ptaszek,
+                 kb-i-serce, kb-i-puls, kb-i-uwaga, kb-i-iskra, kb-i-kropla,
+                 kb-i-tarcza, kb-i-rozmowa, kb-i-dyplom, kb-i-liscie.
+  • KOLORY     – zmienne --kb-... w sekcji USTAWIENIA na początku arkusza.
+
+  ---------------------------------------------------------------------------
+  LINKI MIĘDZY STRONAMI
+  ---------------------------------------------------------------------------
+  W pasku na górze i w stopce jest odnośnik do drugiej strony. Adresy są
+  tymczasowe: PEDIATRIA = /pediatria/ , MEDYCYNA ESTETYCZNA = /medycyna-estetyczna/
+  Podmień je na faktyczne adresy podstron albo domen.
+
+  ---------------------------------------------------------------------------
+  DO UZUPEŁNIENIA NA TEJ STRONIE
+  ---------------------------------------------------------------------------
+  • logotyp praktyki (blok obrazka w pasku na górze)
+  • zdjęcie Pani Doktor (blok obrazka w sekcji powitalnej)
+  • trzy filmy w sekcji "Zanim przyjdziecie" (film powitalny jest już wstawiony)
+  • opis praktyki
+  • podstrona z polityką prywatności (odnośnik w stopce)
+
+  ---------------------------------------------------------------------------
+  UWAGA PRAWNA
+  ---------------------------------------------------------------------------
+  Art. 14 ustawy o działalności leczniczej pozwala podawać do wiadomości
+  publicznej informacje o zakresie i rodzajach udzielanych świadczeń, ale
+  ich treść i forma nie mogą mieć cech reklamy. Teksty na tej stronie są
+  celowo opisowe, bez superlatywów i obietnic efektu. Uzupełniając je,
+  trzymaj się tej samej konwencji — unikaj sformułowań w rodzaju
+  "najlepszy", "wyjątkowy", "gwarantujemy".
+  ===========================================================================
+-->
+
+<style>
+/* Czcionki Google. UWAGA RODO: ładowanie z serwerów Google przekazuje im
+   adres IP odwiedzającego. Docelowo warto wgrać pliki czcionek na własny
+   serwer (robi to za Ciebie wtyczka "OMGF") albo usunąć poniższą linię. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* =========================================================================
+   USTAWIENIA — zmiana wartości poniżej przebudowuje wygląd całej strony
+   ========================================================================= */
+:root{
+  /* --- kolory --- */
+  --kb-tlo:          #F6E3D6;   /* brzoskwiniowe tło główne              */
+  --kb-tlo-2:        #FBF0E7;   /* jaśniejszy odcień, co druga sekcja    */
+  --kb-blekit:       #8D96B4;   /* akcent jasny — poświata, gradienty    */
+  --kb-ciemny:       #5C6688;   /* ciemne pasy: atuty i stopka           */
+  --kb-ciemny-2:     #454E6B;   /* przycisk po najechaniu                */
+  --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
+  --kb-atrament-2:   #6B5C58;   /* akapity, podpisy                      */
+  --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
+  --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
+  --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule */
+  --kb-roz:          #D98F92;   /* różowa kreska ozdobna                 */
+  --kb-karta:        #FFFDFB;
+  --kb-zastepcze:    linear-gradient(150deg,var(--kb-blekit),var(--kb-roz));
+  --kb-linia:        rgba(59,47,48,.12);
+
+  /* --- kształty i odstępy --- */
+  --kb-promien:      22px;      /* miękkie zaokrąglenie kart             */
+  --kb-promien-luk:  0;         /* nieużywane — zdjęcie ma kształt kropli */
+  --kb-szerokosc:    1180px;
+  --kb-sekcja:       88px;
+
+  /* --- typografia --- */
+  --kb-font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --kb-font-naglowki: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+
+/* =========================================================================
+   SEKCJE
+   ========================================================================= */
+.kb-sekcja{
+  font-family:var(--kb-font); font-weight:400;
+  color:var(--kb-atrament); line-height:1.6;
+  background:var(--kb-tlo); padding:var(--kb-sekcja) 24px;
+  position:relative;
+}
+.kb-sekcja-cieplo{ background:var(--kb-tlo-2); }
+
+/* Poświata w sekcji powitalnej. Górna warstwa wygasza gradient tuż pod
+   paskiem nawigacji, żeby nie było widać szwu między pasami. */
+.kb-sekcja:first-of-type{
+  background:
+    linear-gradient(to bottom, var(--kb-tlo) 0, rgba(246,227,214,0) 190px),
+    radial-gradient(58% 52% at 14% 12%, rgba(141,150,180,.55) 0%, transparent 62%),
+    radial-gradient(52% 48% at 32% 24%, rgba(217,143,146,.45) 0%, transparent 66%),
+    radial-gradient(68% 58% at 80% 88%, rgba(239,207,196,.85) 0%, transparent 72%),
+    var(--kb-tlo);
+}
+
+.kb-sekcja    > .wp-block-group__inner-container,
+.kb-pasek     > .wp-block-group__inner-container,
+.kb-stopka    > .wp-block-group__inner-container,
+.kb-sekcja    > *,
+.kb-pasek     > *,
+.kb-stopka    > *{ max-width:var(--kb-szerokosc); margin-left:auto; margin-right:auto; }
+
+.kb-sekcja h1,.kb-sekcja h2,.kb-sekcja h3,.kb-stopka h2{
+  font-family:var(--kb-font-naglowki); font-weight:600;
+  color:var(--kb-atrament); line-height:1.14; text-wrap:balance;
+}
+.kb-sekcja p{ margin-top:0; }
+.kb-sekcja[id]{ scroll-margin-top:24px; }
+.kb-sekcja a{ color:inherit; }
+
+/* =========================================================================
+   TYPOGRAFIA
+   ========================================================================= */
+
+.kb-tytul{
+  font-size:clamp(2.3rem,4.6vw,3.6rem) !important; font-weight:600 !important;
+  margin:0 0 .4em !important;
+}
+.kb-tytul em{ font-style:italic; font-weight:300; color:var(--kb-akcent); }
+
+.kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 0 .5em !important; }
+.kb-naglowek-maly{ font-size:clamp(1.4rem,2.2vw,1.75rem) !important; margin:0 0 .5em !important; }
+
+.kb-lead{
+  font-size:1.08rem !important; color:var(--kb-atrament-2);
+  max-width:48ch; margin:0 0 26px !important;
+}
+.kb-tekst-srodek{ margin-left:auto !important; margin-right:auto !important; max-width:58ch; }
+.kb-tekst-luzno{ margin-bottom:56px !important; max-width:56ch; }
+.kb-tekst{ color:var(--kb-atrament-2); max-width:58ch; }
+.kb-drobne{
+  font-size:.88rem !important; color:var(--kb-atrament-2);
+  margin-top:28px !important; display:flex; align-items:center;
+}
+.kb-motto{
+  font-family:var(--kb-font-naglowki) !important; font-style:italic; font-weight:300;
+  font-size:1.15rem !important; color:var(--kb-ciemny); max-width:38ch;
+  margin:0 0 28px !important;
+}
+
+/* =========================================================================
+   IKONY
+   Dodaj blokowi klasę "kb-i-…" w panelu po prawej: Zaawansowane →
+   Dodatkowa klasa CSS. Ikona pojawi się przed tekstem.
+   ========================================================================= */
+[class*="kb-i-"]::before{
+  content:""; display:inline-block; flex:none; vertical-align:-.15em;
+  width:1.1em; height:1.1em; margin-right:.6em; background:currentColor;
+  -webkit-mask:var(--kb-ikona) center/contain no-repeat;
+          mask:var(--kb-ikona) center/contain no-repeat;
+}
+.kb-i-pin      { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z'/%3E%3Ccircle cx='12' cy='11' r='2.6'/%3E%3C/svg%3E"); }
+.kb-i-telefon  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='2' width='12' height='20' rx='3'/%3E%3Cpath d='M11 18h2'/%3E%3C/svg%3E"); }
+.kb-i-zegar    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E"); }
+.kb-i-kalendarz{ --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cpath d='M8 2v4M16 2v4M3 10h18'/%3E%3C/svg%3E"); }
+.kb-i-ptaszek  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E"); }
+.kb-i-serce    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5S3.5 15.4 3.5 9.7A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 8.5 2.1c0 5.7-8.5 10.8-8.5 10.8Z'/%3E%3C/svg%3E"); }
+.kb-i-puls     { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h4l2 8 4-16 2 8h4'/%3E%3C/svg%3E"); }
+.kb-i-uwaga    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 9v4M12 17h.01M10.3 3.9 2.15 18a1.5 1.5 0 0 0 1.3 2.25h17.1A1.5 1.5 0 0 0 21.85 18L13.7 3.9a1.5 1.5 0 0 0-2.6 0Z'/%3E%3C/svg%3E"); }
+.kb-i-iskra    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 3l1.8 4.7L17.5 9.5l-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8Z'/%3E%3C/svg%3E"); }
+.kb-i-kropla   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3s6.2 6.3 6.2 10.2a6.2 6.2 0 0 1-12.4 0C5.8 9.3 12 3 12 3Z'/%3E%3C/svg%3E"); }
+.kb-i-tarcza   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7.5 3v5.2c0 4.6-3.1 8.4-7.5 9.8-4.4-1.4-7.5-5.2-7.5-9.8V6Z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E"); }
+.kb-i-rozmowa  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 4H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v4l4.5-4H20a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Z'/%3E%3C/svg%3E"); }
+.kb-i-dyplom   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='9' r='5.5'/%3E%3Cpath d='M8.4 13.6 7 21.5l5-2.6 5 2.6-1.4-7.9'/%3E%3C/svg%3E"); }
+.kb-i-liscie   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20c0-8 5-13 16-13 0 9-5 13-11 13a5 5 0 0 1-5 0Z'/%3E%3C/svg%3E"); }
+.kb-i-play     { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M10 8.5l6 3.5-6 3.5Z'/%3E%3C/svg%3E"); }
+
+/* =========================================================================
+   PASEK NAWIGACJI
+   Bez rozwijanego menu — na telefonie linki się zawijają.
+   ========================================================================= */
+.kb-pasek{
+  background:var(--kb-tlo); border-bottom:1px solid var(--kb-linia);
+  padding:18px 24px !important; font-family:var(--kb-font);
+}
+.kb-logo{
+  font-family:var(--kb-font-naglowki) !important; font-weight:600;
+  font-size:1.35rem !important; margin:0 !important; color:var(--kb-atrament);
+}
+.kb-podpis{
+  display:block; font-family:var(--kb-font); font-size:.66rem; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--kb-ciemny); margin:5px 0 0 !important;
+}
+.kb-menu{
+  margin:0 !important; display:flex; flex-wrap:wrap; gap:10px 28px;
+  font-size:.9rem; font-weight:600;
+}
+.kb-menu a{ color:var(--kb-atrament-2); text-decoration:none; padding-bottom:2px; border-bottom:2px solid transparent; }
+.kb-menu a:hover{ color:var(--kb-atrament); border-bottom-color:var(--kb-roz); }
+.kb-menu a.kb-druga-strona{ color:var(--kb-ciemny); }
+
+/* =========================================================================
+   PRZYCISKI — pigułki, jak w pierwotnym projekcie
+   ========================================================================= */
+.kb-btn-glowny .wp-block-button__link,
+.kb-btn-obrys  .wp-block-button__link{
+  border-radius:100px; padding:15px 30px; font-family:var(--kb-font);
+  font-weight:600; font-size:.95rem; letter-spacing:0; text-transform:none;
+  border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.kb-btn-glowny .wp-block-button__link{ background:var(--kb-ciemny); color:#fff; }
+.kb-btn-glowny .wp-block-button__link:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.4); color:var(--kb-ciemny); border-color:var(--kb-ciemny); }
+.kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
+.wp-block-buttons{ gap:14px; }
+
+/* =========================================================================
+   FILM (pas u góry, format poziomy)
+   ========================================================================= */
+.kb-film-ramka{
+  --kb-film-proporcje: 9/16;   /* format pionowy, jak rolka */
+  --kb-film-szerokosc: 420px;  /* wąski kadr — film nie zagarnia całego
+                                  pierwszego ekranu. Dla filmu poziomego
+                                  ustaw proporcje 16/9 i szerokość 940px. */
+  max-width:var(--kb-film-szerokosc); margin:0 auto !important;
+}
+.kb-film-ramka video,
+.kb-film-ramka iframe,
+.kb-film-ramka .wp-block-embed__wrapper{
+  display:block; width:100%; aspect-ratio:var(--kb-film-proporcje);
+  height:auto; border:0; object-fit:cover; border-radius:var(--kb-promien);
+  box-shadow:0 34px 68px -40px rgba(59,47,48,.5);
+}
+.kb-film-ramka .wp-block-embed__wrapper iframe{ height:100%; }
+.kb-film-ramka figcaption{
+  margin-top:14px !important; text-align:center;
+  font-size:.85rem !important; color:var(--kb-atrament-2);
+}
+
+/* Film w sekcji powitalnej — ten sam język kształtu co zdjęcie portretowe:
+   miękka kropla, proporcja 4:5, pełna szerokość kolumny. Materiał jest
+   pionowy 9:16, więc object-fit przycina górę i dół, zostawiając środek. */
+.kb-film-luk{ max-width:none; margin:0 !important; }
+.kb-film-luk video{
+  width:100%; aspect-ratio:4/5; height:auto; object-fit:cover;
+  border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
+  box-shadow:0 34px 66px -32px rgba(59,47,48,.45);
+}
+
+
+/* =========================================================================
+   FILMY PIONOWE (9:16) — pas na krótkie klipy
+   Proporcje zmienia --kb-pion-proporcje. Blok wideo jest pusty:
+   w edytorze klikasz go i wgrywasz plik.
+   ========================================================================= */
+.kb-filmy-pion{ margin-top:44px !important; gap:26px !important; align-items:stretch !important; }
+.kb-film-pion{ margin:0 !important; }
+.kb-film-pion video,
+.kb-film-pion iframe,
+.kb-film-pion .wp-block-embed__wrapper{
+  --kb-pion-proporcje: 9/16;
+  display:block; width:100%; aspect-ratio:var(--kb-pion-proporcje);
+  height:auto; border:0; object-fit:cover; border-radius:var(--kb-promien);
+  box-shadow:0 34px 66px -42px rgba(0,0,0,.55);
+}
+.kb-film-pion figcaption{
+  margin-top:14px !important; text-align:center; font-size:.8rem !important;
+  color:var(--kb-atrament-2);
+}
+
+/* Puste miejsca na media — żeby przed wgraniem plików strona nie miała
+   dziur. Gutenberg zapisuje pusty blok wideo jako <figure> bez treści,
+   a pusty blok obrazka jako <img> bez atrybutu src. */
+.kb-film-ramka:empty::after,
+.kb-film-pion > figcaption:first-child::before{
+  display:flex; align-items:center; justify-content:center;
+  border-radius:var(--kb-promien); color:#fff; text-align:center;
+  font-size:.85rem; font-weight:600; letter-spacing:.02em;
+}
+.kb-film-ramka:empty::after{
+  content:"Miejsce na film pionowy"; aspect-ratio:var(--kb-film-proporcje); width:100%;
+  background:var(--kb-zastepcze);
+}
+.kb-film-pion > figcaption:first-child::before{
+  content:"Miejsce na film pionowy"; aspect-ratio:9/16; width:100%;
+  background:var(--kb-zastepcze); margin-bottom:14px;
+}
+.kb-foto img:not([src]),
+.kb-logotyp img:not([src]){
+  width:100%; background:var(--kb-zastepcze); min-height:80px;
+}
+.kb-logotyp img:not([src]){ aspect-ratio:22/7; max-height:74px; }
+
+/* Logotyp praktyki w pasku górnym — osobna klasa, żeby nie mieszać się
+   z logotypami patronackimi nad stopką. */
+.kb-logo-obraz{ margin:0 0 8px !important; }
+.kb-logo-obraz img{ max-height:54px; width:auto; }
+.kb-logo-obraz img:not([src]){
+  width:190px; aspect-ratio:19/5; background:var(--kb-zastepcze); border-radius:6px;
+}
+
+/* =========================================================================
+   ZDJĘCIA
+   kb-foto-luk    – portret w miękkim, organicznym kształcie (jak w oryginale)
+   kb-foto-prosta – zaokrąglony prostokąt
+   ========================================================================= */
+.kb-foto{ margin:0 !important; }
+.kb-foto img{ width:100%; display:block; object-fit:cover; }
+.kb-foto-luk img{
+  aspect-ratio:4/5;
+  border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
+  box-shadow:0 34px 66px -32px rgba(59,47,48,.45);
+}
+.kb-foto-prosta img{
+  aspect-ratio:3/3.6; border-radius:var(--kb-promien);
+  box-shadow:0 34px 66px -36px rgba(59,47,48,.45);
+}
+
+/* =========================================================================
+   PAS Z ATUTAMI
+   ========================================================================= */
+.kb-atuty{
+  background:var(--kb-ciemny) !important; color:#FBF1E8;
+  padding-top:44px !important; padding-bottom:44px !important;
+}
+.kb-atuty h2,.kb-atuty h3{ color:#FBF1E8; }
+.kb-atut{
+  margin:0 !important; font-size:.94rem !important; font-weight:500;
+  display:flex; align-items:flex-start; line-height:1.5;
+}
+.kb-atut::before{ color:#F0BFC1; margin-top:.15em; }
+
+/* =========================================================================
+   FILARY — miękkie kafelki
+   ========================================================================= */
+.kb-filary{ margin-top:34px !important; gap:18px !important; align-items:stretch !important; }
+.kb-filar{
+  background:rgba(255,255,255,.6); border:1px solid var(--kb-linia);
+  border-radius:16px; padding:22px !important;
+}
+.kb-filar h3{ font-size:1.05rem !important; margin:0 0 6px !important; }
+.kb-filar h3::before{ color:var(--kb-ciemny); }
+.kb-filar p{ font-size:.88rem !important; color:var(--kb-atrament-2); margin:0 !important; }
+
+/* =========================================================================
+   ZABIEGI I KROKI — nieużywane na tej stronie, style zostawione na wypadek,
+   gdyby ktoś przeniósł tu sekcję z drugiej strony
+   ========================================================================= */
+.kb-zabiegi{ margin-top:40px !important; gap:20px !important; align-items:stretch !important; }
+.kb-zabieg{
+  background:var(--kb-karta); border:1px solid var(--kb-linia);
+  border-radius:var(--kb-promien); padding:26px !important;
+  display:flex; flex-direction:column;
+}
+.kb-zabieg h3{ font-size:1.15rem !important; margin:0 0 8px !important; }
+.kb-zabieg h3::before{ display:block; margin:0 0 12px; width:1.5em; height:1.5em; color:var(--kb-ciemny); }
+.kb-zabieg p{ font-size:.9rem !important; color:var(--kb-atrament-2); margin:0 !important; }
+.kb-zabieg .kb-czas{
+  margin-top:auto !important; padding-top:14px; font-size:.72rem !important;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--kb-ciemny);
+  border-top:1px solid var(--kb-linia);
+}
+.kb-kroki{ margin-top:40px !important; gap:26px !important; counter-reset:kb-krok; align-items:stretch !important; }
+.kb-krok{ position:relative; padding-top:56px !important; }
+.kb-krok::before{
+  counter-increment:kb-krok; content:counter(kb-krok,decimal-leading-zero);
+  position:absolute; top:0; left:0;
+  font-family:var(--kb-font-naglowki); font-size:2.1rem; font-weight:600;
+  color:var(--kb-ciemny); line-height:1;
+}
+.kb-krok h3{ font-size:1.15rem !important; margin:0 0 8px !important; }
+.kb-krok p{ font-size:.9rem !important; color:var(--kb-atrament-2); margin:0 !important; }
+
+/* =========================================================================
+   KONTAKT
+   ========================================================================= */
+.kb-karta-kontakt{
+  background:var(--kb-karta); border:1px solid var(--kb-linia);
+  border-radius:var(--kb-promien); padding:40px 36px !important;
+}
+.kb-kontakt-pozycja{
+  margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
+  color:var(--kb-atrament); display:flex; align-items:center;
+}
+.kb-kontakt-pozycja::before{ color:var(--kb-ciemny); }
+.kb-kontakt-dane{
+  margin:0 0 22px !important; font-size:.95rem !important;
+  color:var(--kb-atrament-2); padding-left:1.7em;
+}
+.kb-kontakt-dane a{ color:inherit; text-decoration:none; border-bottom:1px solid var(--kb-linia); }
+.kb-kontakt-dane a:hover{ color:var(--kb-atrament); border-bottom-color:var(--kb-roz); }
+.kb-mapa-ramka{
+  border:1px solid var(--kb-linia); border-radius:var(--kb-promien);
+  overflow:hidden; height:100%; min-height:380px;
+}
+.kb-mapa-ramka iframe{ width:100%; height:100%; min-height:380px; border:0; display:block; }
+
+/* =========================================================================
+   STOPKA
+   ========================================================================= */
+.kb-stopka{
+  background:var(--kb-ciemny); color:#F6EFE8;
+  padding:56px 24px 28px !important; font-family:var(--kb-font);
+}
+.kb-stopka .kb-logo{ color:#fff; }
+.kb-stopka .kb-podpis{ color:#F0BFC1; }
+.kb-stopka-link{ margin:0 !important; font-size:.85rem !important; font-weight:600; }
+.kb-stopka-link a{ color:#F0BFC1; text-decoration:none; border-bottom:1px solid transparent; }
+.kb-stopka-link a:hover{ border-bottom-color:#F0BFC1; }
+.kb-stopka-dol{
+  font-size:.76rem !important; opacity:.75; margin:34px 0 0 !important;
+  text-align:center; padding-top:22px; border-top:1px solid rgba(255,255,255,.18);
+}
+.kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(255,255,255,.14); color:#fff; }
+.kb-stopka .wp-block-social-links .wp-social-link:hover{ background:var(--kb-roz); }
+
+/* =========================================================================
+   NOTA / ZASTRZEŻENIE
+   ========================================================================= */
+.kb-nota{
+  margin-top:36px !important; padding:20px 24px !important;
+  background:rgba(217,143,146,.16); border-radius:16px;
+  font-size:.85rem !important; color:var(--kb-atrament-2);
+  display:flex; align-items:flex-start;
+}
+.kb-nota::before{ color:var(--kb-ciemny); margin-top:.2em; }
+
+/* =========================================================================
+   TELEFONY I TABLETY
+   ========================================================================= */
+@media (max-width:781px){
+  :root{ --kb-sekcja:58px; }
+  .kb-karta-kontakt{ padding:26px 22px !important; }
+  .kb-logotypy{ gap:24px !important; }
+  .kb-logotyp img{ max-height:56px; }
+  .kb-motto{ font-size:1.05rem !important; }
+}
+</style>
+<!-- /wp:html -->
+
+<!-- wp:group {"className":"kb-pasek","align":"full"} -->
+<div class="wp-block-group alignfull kb-pasek">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%">
+<!-- LOGOTYP: kliknij szary prostokąt i wgraj plik z Biblioteki mediów
+     (PNG lub SVG z przezroczystym tłem). Jeśli wolisz sam napis,
+     zaznacz ten blok i usuń go klawiszem Backspace. -->
+<!-- wp:image {"className":"kb-logo-obraz"} -->
+<figure class="wp-block-image kb-logo-obraz"><img alt="Logotyp praktyki"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"className":"kb-logo"} -->
+<p class="kb-logo">Katarzyna Bator</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-podpis"} -->
+<p class="kb-podpis">Specjalista pediatra</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:paragraph {"className":"kb-menu"} -->
+<p class="kb-menu"><a href="#kb-o-praktyce">Praktyka</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-kontakt">Kontakt</a><a class="kb-druga-strona" href="/medycyna-estetyczna/">Medycyna estetyczna</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja","align":"full"} -->
+<div class="wp-block-group alignfull kb-sekcja">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
+
+<!-- wp:heading {"level":1,"className":"kb-tytul"} -->
+<h1 class="wp-block-heading kb-tytul">Uważne badanie.<br><em>Czas</em> dla dziecka i&nbsp;rodzica.</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-lead"} -->
+<p class="kb-lead">Ograniczona liczba wizyt dziennie — tyle konsultacji, ile pozwala zbadać dziecko bez pośpiechu i odpowiedzieć na pytania rodziców.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-motto"} -->
+<p class="kb-motto">„Pediatria to nie zawód, to powołanie.”</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"kb-btn-glowny"} -->
+<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="#kb-kontakt">Umów wizytę</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"kb-btn-obrys"} -->
+<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="#kb-kalkulator">Kalkulator dawek</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"className":"kb-drobne kb-i-pin"} -->
+<p class="kb-drobne kb-i-pin">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; Rejestracja SMS: 535 999 565</p>
+<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!--
+  FILM POWITALNY — pliki gotowe do wgrania leżą w repozytorium
+  w assets/wideo/: pediatria-mis.mp4 (0,37 MB) i pediatria-mis.jpg (plakat).
+  Wgraj oba do Biblioteki mediów, potem kliknij w blok → "Zastąp"
+  albo popraw dwa adresy poniżej.
+-->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka kb-film-luk"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-atuty","align":"full"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-atuty">
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph {"className":"kb-atut kb-i-zegar"} -->
+<p class="kb-atut kb-i-zegar">Badanie bez pośpiechu</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph {"className":"kb-atut kb-i-telefon"} -->
+<p class="kb-atut kb-i-telefon">Rejestracja SMS</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kalkulator"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kalkulator">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Kalkulator ibuprofenu&nbsp;/ paracetamolu</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","className":"kb-tekst kb-tekst-srodek kb-tekst-luzno"} -->
+<p class="has-text-align-center kb-tekst kb-tekst-srodek kb-tekst-luzno">Narzędzie poglądowe. Nie zastępuje konsultacji lekarskiej ani ulotki preparatu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<div class="kb-kalkulator">
+<style>
+.kb-kalkulator{
+  background:var(--kb-karta); border:1px solid var(--kb-linia);
+  border-radius:var(--kb-promien); padding:36px 34px;
+  max-width:760px; margin:0 auto;
+  font-family:var(--kb-font); color:var(--kb-atrament);
+  box-shadow:0 30px 60px -40px rgba(59,47,48,.45);
+}
+.kb-kalkulator *,.kb-kalkulator *::before{ box-sizing:border-box; }
+.kb-kalkulator :focus-visible{ outline:3px solid var(--kb-ciemny); outline-offset:2px; }
+
+.kb-przelacznik{
+  display:flex; gap:8px; background:var(--kb-tlo); border-radius:100px;
+  padding:6px; margin-bottom:26px;
+}
+.kb-przelacznik button{
+  flex:1; border:0; background:transparent; padding:13px 10px; border-radius:100px;
+  cursor:pointer; font-family:inherit; font-weight:600; font-size:.92rem;
+  color:var(--kb-atrament-2); transition:background .2s ease, color .2s ease;
+}
+.kb-przelacznik button[aria-pressed="true"]{ background:var(--kb-ciemny); color:#fff; }
+
+.kb-pola{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+.kb-pole label{
+  display:block; font-size:.82rem; font-weight:600;
+  color:var(--kb-atrament-2); margin-bottom:8px;
+}
+.kb-pole select,.kb-pole input{
+  width:100%; padding:13px 14px; border:1.5px solid var(--kb-linia);
+  border-radius:12px; background:#fff; font-family:inherit;
+  font-size:.95rem; color:var(--kb-atrament);
+}
+.kb-pole select:focus,.kb-pole input:focus{ border-color:var(--kb-ciemny); }
+
+.kb-kalkulator .kb-blad{
+  display:none; align-items:flex-start; margin:0 0 16px;
+  color:#8E2F26; font-size:.85rem; font-weight:600;
+}
+.kb-kalkulator .kb-blad.kb-on{ display:flex; }
+.kb-kalkulator .kb-blad::before{ color:#8E2F26; margin-top:.15em; }
+
+.kb-licz{
+  width:100%; margin-top:6px; padding:16px 28px; border:0; cursor:pointer;
+  border-radius:100px; background:var(--kb-ciemny); color:#fff;
+  font-family:inherit; font-weight:600; font-size:.95rem;
+  transition:background .2s ease, transform .2s ease;
+}
+.kb-licz:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
+
+.kb-kalkulator .kb-wynik{ display:none; margin-top:28px; }
+.kb-kalkulator .kb-wynik.kb-on{ display:block; }
+.kb-wynik-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:14px; margin-bottom:18px; }
+.kb-wynik-box{
+  background:linear-gradient(135deg,rgba(141,150,180,.18),rgba(217,143,146,.18));
+  border-radius:14px; padding:16px; text-align:center;
+}
+.kb-wynik-box b{
+  display:block; font-family:var(--kb-font-naglowki); font-weight:600;
+  font-size:clamp(1rem,1.6vw,1.3rem); line-height:1.2;
+  color:var(--kb-ciemny); white-space:nowrap;
+}
+.kb-wynik-box span{ display:block; font-size:.74rem; color:var(--kb-atrament-2); margin-top:4px; }
+.kb-kalkulator .kb-uwaga{
+  display:flex; align-items:flex-start; margin:0;
+  background:rgba(217,143,146,.2); border-radius:14px; padding:14px 16px;
+  font-size:.83rem; color:#6E3535; line-height:1.55;
+}
+.kb-kalkulator .kb-uwaga::before{ color:#B4676B; margin-top:.2em; }
+.kb-kalkulator .kb-uwaga + .kb-uwaga{ margin-top:12px; }
+
+@media (max-width:781px){
+  .kb-kalkulator{ padding:24px 20px; }
+  .kb-pola{ grid-template-columns:1fr; }
+}
+</style>
+
+  <div class="kb-przelacznik" role="group" aria-label="Wybór substancji czynnej">
+    <button type="button" id="kbBtnIbu"  aria-pressed="true">Ibuprofen</button>
+    <button type="button" id="kbBtnPara" aria-pressed="false">Paracetamol</button>
+  </div>
+
+  <div class="kb-pola">
+    <div class="kb-pole">
+      <label for="kbStezenie">Stężenie preparatu</label>
+      <select id="kbStezenie"></select>
+    </div>
+    <div class="kb-pole">
+      <label for="kbWaga">Masa ciała dziecka (kg)</label>
+      <input type="text" id="kbWaga" inputmode="decimal" autocomplete="off"
+             placeholder="np. 14" aria-describedby="kbBlad">
+    </div>
+  </div>
+
+  <p class="kb-blad kb-i-uwaga" id="kbBlad" role="alert"><span id="kbBladTresc">Podaj masę ciała dziecka w zakresie 3–60 kg.</span></p>
+
+  <button type="button" class="kb-licz" id="kbOblicz">Oblicz dawkę</button>
+
+  <div class="kb-wynik" id="kbWynik" aria-live="polite">
+    <div class="kb-wynik-grid">
+      <div class="kb-wynik-box"><b id="kbDawka">–</b><span>dawka jednorazowa</span></div>
+      <div class="kb-wynik-box"><b id="kbOdstep">–</b><span>minimalny odstęp</span></div>
+      <div class="kb-wynik-box"><b id="kbLiczba">–</b><span>maks. dawek na dobę</span></div>
+      <div class="kb-wynik-box"><b id="kbDoba">–</b><span>maks. na dobę łącznie</span></div>
+    </div>
+
+    <p class="kb-uwaga kb-i-uwaga"><span>Wynik ma charakter <strong>wyłącznie poglądowy</strong>. Przed podaniem leku zawsze zweryfikuj dawkę z ulotką konkretnego preparatu i skonsultuj się z lekarzem lub farmaceutą.</span></p>
+    <p class="kb-uwaga kb-i-uwaga" id="kbUwagaWiek" hidden><span>Przy tak niskiej masie ciała (poniżej 6 kg) dawkowanie <strong>zawsze</strong> ustala lekarz. Ibuprofenu nie podaje się dzieciom poniżej 3. miesiąca życia.</span></p>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =====================================================================
+     DANE DAWKOWANIA — jedyne miejsce, w którym zmienia się liczby
+     ---------------------------------------------------------------------
+     mgKgMin / mgKgMax  – zakres dawki jednorazowej w mg na kg masy ciała
+     maxJednorazowaMg   – górny limit pojedynczej dawki (dawka dorosłego)
+     maxDobowaMgKg      – limit dobowy w mg na kg
+     maxDobowaMg        – bezwzględny limit dobowy w mg
+     dawekNaDobe        – maksymalna liczba dawek w ciągu doby
+     odstep             – minimalny odstęp między dawkami (tekst)
+     stezenia           – warianty preparatu; "mg" = ile mg leku w 5 ml
+
+     Kalkulator liczy wyłącznie w przeglądarce odwiedzającego. Podana masa
+     ciała nigdzie nie jest wysyłana ani zapisywana — to celowe, bo dane
+     o zdrowiu podlegają art. 9 RODO i nie powinny opuszczać urządzenia.
+     ===================================================================== */
+  var LEKI = {
+    ibuprofen: {
+      mgKgMin: 5,  mgKgMax: 10,
+      maxJednorazowaMg: 400, maxDobowaMgKg: 30, maxDobowaMg: 1200,
+      dawekNaDobe: 3, odstep: '6–8 godz.',
+      stezenia: [
+        { etykieta: '100 mg / 5 ml', mg: 100 },
+        { etykieta: '200 mg / 5 ml', mg: 200 }
+      ]
+    },
+    paracetamol: {
+      mgKgMin: 10, mgKgMax: 15,
+      maxJednorazowaMg: 1000, maxDobowaMgKg: 60, maxDobowaMg: 4000,
+      dawekNaDobe: 4, odstep: '4–6 godz.',
+      stezenia: [
+        { etykieta: '120 mg / 5 ml', mg: 120 },
+        { etykieta: '250 mg / 5 ml', mg: 250 }
+      ]
+    }
+  };
+
+  var WAGA_MIN = 3;
+  var WAGA_MAX = 60;
+  var WAGA_OSTRZEZENIE = 6;
+
+  /* ================================================================= */
+
+  try {
+    var $ = function (id) { return document.getElementById(id); };
+    var selStez = $('kbStezenie'), inpWaga = $('kbWaga'), btnOblicz = $('kbOblicz');
+    if (!selStez || !inpWaga || !btnOblicz) { return; }
+
+    var btnIbu = $('kbBtnIbu'), btnPara = $('kbBtnPara');
+    var blad = $('kbBlad'), bladTresc = $('kbBladTresc'), wynik = $('kbWynik');
+    var uwagaWiek = $('kbUwagaWiek');
+    var outDawka = $('kbDawka'), outOdstep = $('kbOdstep'),
+        outLiczba = $('kbLiczba'), outDoba = $('kbDoba');
+
+    var aktywny = 'ibuprofen';
+    var policzono = false;
+
+    function pl(n) { return (Math.round(n * 10) / 10).toFixed(1).replace('.', ','); }
+
+    function odswiezStezenia() {
+      selStez.innerHTML = '';
+      LEKI[aktywny].stezenia.forEach(function (s) {
+        var opt = document.createElement('option');
+        opt.value = String(s.mg);
+        opt.textContent = s.etykieta;
+        selStez.appendChild(opt);
+      });
+    }
+
+    function ustawLek(nazwa) {
+      aktywny = nazwa;
+      btnIbu.setAttribute('aria-pressed',  nazwa === 'ibuprofen'   ? 'true' : 'false');
+      btnPara.setAttribute('aria-pressed', nazwa === 'paracetamol' ? 'true' : 'false');
+      odswiezStezenia();
+      if (policzono) { oblicz(); }
+    }
+
+    function oblicz() {
+      var waga = parseFloat(String(inpWaga.value).replace(',', '.').trim());
+
+      if (!isFinite(waga) || waga < WAGA_MIN || waga > WAGA_MAX) {
+        bladTresc.textContent = 'Podaj masę ciała dziecka w zakresie ' + WAGA_MIN + '–' + WAGA_MAX + ' kg.';
+        blad.classList.add('kb-on');
+        wynik.classList.remove('kb-on');
+        policzono = false;
+        return;
+      }
+      blad.classList.remove('kb-on');
+
+      var lek = LEKI[aktywny];
+      var mgW5ml = parseFloat(selStez.value);
+      if (!isFinite(mgW5ml) || mgW5ml <= 0) { return; }
+
+      var mgMin  = Math.min(lek.mgKgMin * waga, lek.maxJednorazowaMg);
+      var mgMax  = Math.min(lek.mgKgMax * waga, lek.maxJednorazowaMg);
+      var mgDoba = Math.min(lek.maxDobowaMgKg * waga, lek.maxDobowaMg);
+      var naMl   = function (mg) { return (mg / mgW5ml) * 5; };
+
+      outDawka.textContent  = pl(naMl(mgMin)) + '–' + pl(naMl(mgMax)) + ' ml';
+      outOdstep.textContent = lek.odstep;
+      outLiczba.textContent = lek.dawekNaDobe;
+      outDoba.textContent   = pl(naMl(mgDoba)) + ' ml';
+
+      if (uwagaWiek) { uwagaWiek.hidden = waga >= WAGA_OSTRZEZENIE; }
+
+      wynik.classList.add('kb-on');
+      policzono = true;
+    }
+
+    if (btnIbu && btnPara) {
+      btnIbu.addEventListener('click',  function () { ustawLek('ibuprofen'); });
+      btnPara.addEventListener('click', function () { ustawLek('paracetamol'); });
+    }
+    selStez.addEventListener('change', function () { if (policzono) { oblicz(); } });
+    btnOblicz.addEventListener('click', oblicz);
+    inpWaga.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); oblicz(); }
+    });
+
+    odswiezStezenia();
+
+  } catch (err) {
+    if (window.console && window.console.error) { window.console.error('kb-kalkulator:', err); }
+  }
+})();
+</script>
+<!-- /wp:html -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kontakt"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kontakt">
+<!-- wp:columns -->
+<div class="wp-block-columns">
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"className":"kb-karta-kontakt"} -->
+<div class="wp-block-group kb-karta-kontakt">
+
+<!-- wp:heading {"className":"kb-naglowek-maly"} -->
+<h2 class="wp-block-heading kb-naglowek-maly">Umów wizytę</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-pin"} -->
+<p class="kb-kontakt-pozycja kb-i-pin">Adres</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
+<p class="kb-kontakt-dane">ul. St. Daneckiej 4/U6, Miechów</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-telefon"} -->
+<p class="kb-kontakt-pozycja kb-i-telefon">Rejestracja SMS</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
+<p class="kb-kontakt-dane"><a href="sms:+48535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"kb-btn-glowny"} -->
+<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Napisz SMS</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"kb-btn-obrys"} -->
+<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="tel:+48535999565">Zadzwoń</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:html -->
+<div class="kb-mapa-ramka">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.99%2C50.345%2C20.05%2C50.375&layer=mapnik&marker=50.3608%2C20.0206"
+    loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="Mapa dojazdu do gabinetu — Miechów"></iframe>
+</div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-o-praktyce"} -->
+<div class="wp-block-group alignfull kb-sekcja" id="kb-o-praktyce">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+
+<!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%">
+<!-- PORTRET PANI DOKTOR — kliknij i wgraj zdjęcie z Biblioteki mediów -->
+<!-- wp:image {"className":"kb-foto kb-foto-luk"} -->
+<figure class="wp-block-image kb-foto kb-foto-luk"><img alt=""/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+
+<!-- wp:heading {"className":"kb-naglowek"} -->
+<h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor Kasi</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-tekst"} -->
+<p class="kb-tekst">[DO UZUPEŁNIENIA — 3–4 zdania: specjalizacja i rok jej uzyskania, od kiedy praktyka, czym Pani Doktor zajmuje się na co dzień, ile trwa wizyta i co obejmuje. Rzeczowo, bez superlatywów.]</p>
+<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-filmy"} -->
+<div class="wp-block-group alignfull kb-sekcja" id="kb-filmy">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Zanim przyjdziecie</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns {"className":"kb-filmy-pion"} -->
+<div class="wp-block-columns kb-filmy-pion">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:video {"className":"kb-film-pion"} -->
+<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Jak wygląda wizyta]</figcaption></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:video {"className":"kb-film-pion"} -->
+<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Kiedy zgłosić się pilnie]</figcaption></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:video {"className":"kb-film-pion"} -->
+<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Co zabrać na wizytę]</figcaption></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-stopka","align":"full"} -->
+<div class="wp-block-group alignfull kb-stopka">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:paragraph {"className":"kb-logo"} -->
+<p class="kb-logo">Katarzyna Bator</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-podpis"} -->
+<p class="kb-podpis">Specjalista pediatra</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:paragraph {"className":"kb-stopka-link"} -->
+<p class="kb-stopka-link">Drugi profil praktyki:<br><a href="/medycyna-estetyczna/">Medycyna estetyczna</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"22%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:22%">
+<!-- wp:social-links -->
+<ul class="wp-block-social-links">
+<!-- wp:social-link {"url":"https://www.facebook.com/doktorkasiapediatra","service":"facebook"} /-->
+<!-- wp:social-link {"url":"https://www.instagram.com/doktorkasiapediatra","service":"instagram"} /-->
+</ul>
+<!-- /wp:social-links -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:paragraph {"align":"center","className":"kb-stopka-dol"} -->
+<p class="has-text-align-center kb-stopka-dol">© Katarzyna Bator · ul. St. Daneckiej 4/U6, Miechów · Polityka prywatności [DO UZUPEŁNIENIA — podlinkuj podstronę]</p>
+<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:group -->
+]]></content:encoded>
+    <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+    <wp:post_id>1001</wp:post_id>
+    <wp:post_date><![CDATA[2026-08-29 12:00:00]]></wp:post_date>
+    <wp:post_date_gmt><![CDATA[2026-08-29 12:00:00]]></wp:post_date_gmt>
+    <wp:post_modified><![CDATA[2026-08-29 12:00:00]]></wp:post_modified>
+    <wp:post_modified_gmt><![CDATA[2026-08-29 12:00:00]]></wp:post_modified_gmt>
+    <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+    <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+    <wp:post_name><![CDATA[pediatria]]></wp:post_name>
+    <wp:status><![CDATA[draft]]></wp:status>
+    <wp:post_parent>0</wp:post_parent>
+    <wp:menu_order>0</wp:menu_order>
+    <wp:post_type><![CDATA[page]]></wp:post_type>
+    <wp:post_password><![CDATA[]]></wp:post_password>
+    <wp:is_sticky>0</wp:is_sticky>
+    <wp:postmeta>
+      <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+      <wp:meta_value><![CDATA[default]]></wp:meta_value>
+    </wp:postmeta>
+  </item>
+</channel>
+</rss>
