@@ -293,6 +293,12 @@
 
 /* Stopka */
 .estet-footer p,.estet-footer li{color:#B7B0A6 !important;font-size:.86rem !important;}
+/* Zastrzezenie prawne w stopce zlota czcionka — odroznia sie od danych
+   kontaktowych, a przy tym trzyma sie palety strony. */
+.estet-footer .e-small{
+  color:var(--e-gold-l) !important;font-size:.8rem !important;
+  letter-spacing:.02em;line-height:1.7;
+}
 .estet-footer h2,.estet-footer h3{color:#fff !important;}
 .estet-footer a{color:#B7B0A6 !important;}
 .estet-footer a:hover{color:var(--e-gold-l) !important;}
