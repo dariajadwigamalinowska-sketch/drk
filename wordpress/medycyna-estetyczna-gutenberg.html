@@ -99,7 +99,7 @@
 
 /* Zdjęcia */
 .estet .e-photo{
-  aspect-ratio:4/5;background:var(--e-cream-2);border:1px solid var(--e-line);
+  aspect-ratio:4/5;max-height:560px;background:var(--e-cream-2);border:1px solid var(--e-line);
   display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
 }
 .estet .e-photo p{margin:0 !important;font-size:.85rem !important;padding:20px;letter-spacing:.06em;}
@@ -112,7 +112,7 @@
   margin:0;border:1px solid var(--e-line);overflow:hidden;
   background:var(--e-cream-2) center/cover no-repeat;
 }
-.estet .e-video video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;}
+.estet .e-video video{display:block;width:100%;aspect-ratio:4/5;max-height:560px;object-fit:cover;}
 .estet .e-video figcaption{display:none;}
 /* [ŚCIEŻKI] — jeden raz podmień na adresy plakatów z Biblioteki mediów.
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
@@ -392,24 +392,21 @@
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">01</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja lekarska</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Ocena skóry i proporcji twarzy, omówienie oczekiwań, przygotowanie planu.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>wywiad i badanie</li><!-- /wp:list-item --><!-- wp:list-item --><li>plan na najbliższe miesiące</li><!-- /wp:list-item --><!-- wp:list-item --><li>[czas trwania — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+<!-- wp:paragraph --><p>Wywiad i badanie, ocena skóry oraz proporcji twarzy, omówienie oczekiwań i plan na najbliższe miesiące. [Czas trwania — uzupełnij.]</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">02</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Wypełniacze</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Zabiegi z kwasem hialuronowym — modelowanie i nawilżenie wybranych okolic.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>okolica ust</li><!-- /wp:list-item --><!-- wp:list-item --><li>bruzdy nosowo-wargowe</li><!-- /wp:list-item --><!-- wp:list-item --><li>[pozostałe okolice — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+<!-- wp:paragraph --><p>Kwas hialuronowy do modelowania i nawilżenia wybranych okolic twarzy — między innymi okolicy ust i bruzd nosowo-wargowych. [Pozostałe okolice — uzupełnij.]</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">03</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Mezoterapia igłowa</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Substancje odżywcze podawane w skórę właściwą — twarz, szyja, dekolt, skóra głowy.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>koktajle nawilżające</li><!-- /wp:list-item --><!-- wp:list-item --><li>skóra głowy</li><!-- /wp:list-item --><!-- wp:list-item --><li>seria zabiegów wg planu</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+<!-- wp:paragraph --><p>Substancje odżywcze podawane bezpośrednio w skórę właściwą — twarz, szyja, dekolt i skóra głowy. Koktajl dobieram do potrzeb, zwykle w serii zabiegów.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 </div>
@@ -421,24 +418,21 @@
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">04</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Stymulatory tkankowe</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Preparaty pobudzające skórę do pracy — stosowane w seriach, z efektem rozłożonym w czasie.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>ocena wskazań na konsultacji</li><!-- /wp:list-item --><!-- wp:list-item --><li>[rodzaje preparatów — uzupełnij]</li><!-- /wp:list-item --><!-- wp:list-item --><li>plan serii zabiegów</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+<!-- wp:paragraph --><p>Preparaty pobudzające skórę do pracy, stosowane w seriach, z efektem rozłożonym w czasie. Wskazania oceniam na konsultacji. [Rodzaje preparatów — uzupełnij.]</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">05</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Peelingi medyczne</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>trądzik i niedoskonałości</li><!-- /wp:list-item --><!-- wp:list-item --><li>przebarwienia</li><!-- /wp:list-item --><!-- wp:list-item --><li>[rodzaje peelingów — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+<!-- wp:paragraph --><p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku — trądzik, niedoskonałości, przebarwienia. [Rodzaje peelingów — uzupełnij.]</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">06</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Pielęgnacja i kontrola</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Dobór pielęgnacji domowej oraz kontrola efektów prowadzonej terapii.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>plan pielęgnacji</li><!-- /wp:list-item --><!-- wp:list-item --><li>zdjęcia kontrolne</li><!-- /wp:list-item --><!-- wp:list-item --><li>wizyty kontrolne</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+<!-- wp:paragraph --><p>Dobór pielęgnacji domowej, zdjęcia kontrolne i wizyty sprawdzające efekty prowadzonej terapii.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 </div>
