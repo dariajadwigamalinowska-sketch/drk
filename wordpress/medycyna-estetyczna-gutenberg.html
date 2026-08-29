@@ -95,17 +95,9 @@
 .estet .e-btn--gold .wp-block-button__link{background:var(--e-gold) !important;color:#fff !important;}
 .estet .e-btn--gold .wp-block-button__link:hover{background:var(--e-ink) !important;}
 
-/* Miejsce na logotyp */
-.estet .e-logo{
-  display:flex;align-items:center;justify-content:center;
-  min-height:84px;max-width:260px;margin-right:auto;padding:14px 22px;
-  border:1px dashed var(--e-line);background:var(--e-cream-2);
-}
-.estet .e-logo p{
-  margin:0 !important;font-size:.7rem !important;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--e-soft);
-}
-.estet .e-logo img{max-height:60px;width:auto;}
+/* Logotyp */
+.estet .e-logo-obraz{margin:0 !important;}
+.estet .e-logo-obraz img{max-height:64px;width:auto;display:block;}
 .estet .e-marka{
   font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
   letter-spacing:.14em;text-transform:uppercase;color:var(--e-ink);
@@ -267,13 +259,11 @@
 -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"26px","bottom":"6px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
 <section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FBF8F3;padding-top:26px;padding-right:24px;padding-bottom:6px;padding-left:24px">
-<!-- wp:group {"className":"e-logo","layout":{"type":"constrained"}} -->
-<div class="wp-block-group e-logo">
-<!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">[LOGOTYP]</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
+<!-- LOGOTYP. Plik: assets/grafika/logo-estetyczna.png (biel wycięta).
+     Podmieniasz klikając w obrazek → "Zastąp". -->
+<!-- wp:image {"url":"/wp-content/uploads/logo-estetyczna.png","className":"e-logo-obraz"} -->
+<figure class="wp-block-image e-logo-obraz"><img src="/wp-content/uploads/logo-estetyczna.png" alt="Doktor Kasia — logotyp"/></figure>
+<!-- /wp:image -->
 
 <!-- wp:paragraph {"className":"e-marka"} -->
 <p class="e-marka">Dr Kasia Aesthetic</p>

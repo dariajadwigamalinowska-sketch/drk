@@ -110,15 +110,15 @@
   ---------------------------------------------------------------------------
   DO UZUPEŁNIENIA NA TEJ STRONIE
   ---------------------------------------------------------------------------
-  • logotyp praktyki (blok obrazka w pasku na górze)
-  • zdjęcie Pani Doktor (blok obrazka w ramce na dole strony)
   • opis praktyki
   • podstrona z polityką prywatności (odnośnik w stopce)
 
-  PLIKI WIDEO — gotowe, leżą w repozytorium w assets/wideo/:
-    pediatria-mis.mp4 + .jpg         — sekcja powitalna   (0,37 MB)
-  Wgraj oba do Biblioteki mediów, potem kliknij w blok wideo
-  → "Zastąp" i wskaż plik.
+  PLIKI GRAFICZNE I WIDEO — gotowe, leżą w repozytorium:
+    assets/grafika/logo-pediatria.png   — logotyp, tło przezroczyste
+    assets/grafika/portret-kasia.jpg    — zdjęcie w ramce na dole
+    assets/wideo/pediatria-mis.mp4 + .jpg — sekcja powitalna   (0,69 MB)
+  Wgraj wszystko do Biblioteki mediów. Jeśli adresy się nie zgodzą,
+  kliknij w dany blok → "Zastąp" i wskaż plik z Biblioteki.
 
   ---------------------------------------------------------------------------
   UWAGA PRAWNA
@@ -387,7 +387,7 @@
 /* Logotyp praktyki w pasku górnym — osobna klasa, żeby nie mieszać się
    z logotypami patronackimi nad stopką. */
 .kb-logo-obraz{ margin:0 0 8px !important; }
-.kb-logo-obraz img{ max-height:54px; width:auto; }
+.kb-logo-obraz img{ max-height:72px; width:auto; }
 .kb-logo-obraz img:not([src]){
   width:190px; aspect-ratio:19/5; background:var(--kb-zastepcze); border-radius:6px;
 }
@@ -562,11 +562,12 @@
 <div class="wp-block-columns are-vertically-aligned-center">
 <!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%">
-<!-- LOGOTYP: kliknij szary prostokąt i wgraj plik z Biblioteki mediów
-     (PNG lub SVG z przezroczystym tłem). Jeśli wolisz sam napis,
-     zaznacz ten blok i usuń go klawiszem Backspace. -->
-<!-- wp:image {"className":"kb-logo-obraz"} -->
-<figure class="wp-block-image kb-logo-obraz"><img alt="Logotyp praktyki"/></figure>
+<!-- LOGOTYP praktyki. Plik: assets/wideo/../grafika/logo-pediatria.png
+     (biel wycięta, tło przezroczyste). Żeby go podmienić, kliknij
+     w obrazek → "Zastąp". Napis obok jest zapasem na wypadek, gdyby
+     ktoś oglądał stronę z wyłączonymi obrazkami — możesz go usunąć. -->
+<!-- wp:image {"url":"/wp-content/uploads/logo-pediatria.png","className":"kb-logo-obraz"} -->
+<figure class="wp-block-image kb-logo-obraz"><img src="/wp-content/uploads/logo-pediatria.png" alt="Doktor Kasia — logotyp praktyki"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"className":"kb-logo"} -->
@@ -1018,8 +1019,8 @@
 
 <!-- wp:group {"className":"kb-portret-ramka","layout":{"type":"constrained"}} -->
 <div class="wp-block-group kb-portret-ramka">
-<!-- wp:image {"className":"kb-portret"} -->
-<figure class="wp-block-image kb-portret"><img alt=""/></figure>
+<!-- wp:image {"url":"/wp-content/uploads/portret-kasia.jpg","className":"kb-portret"} -->
+<figure class="wp-block-image kb-portret"><img src="/wp-content/uploads/portret-kasia.jpg" alt="lek. Katarzyna Bator ze swoim misiem"/></figure>
 <!-- /wp:image -->
 <!-- wp:paragraph {"align":"center","className":"kb-portret-podpis"} -->
 <p class="has-text-align-center kb-portret-podpis">lek. Katarzyna Bator<br><span>specjalista pediatra</span></p>
