@@ -24,9 +24,11 @@
    (natywne, edytowalne klikiem)
    ustawione na: bez dźwięku, w pętli, autoodtwarzanie, bez kontrolek.
    Pliki gotowe do wgrania leżą w repozytorium w assets/wideo/:
-     estetyczna-01.mp4 + .jpg  — poczekalnia          (0,32 MB)
-     estetyczna-02.mp4 + .jpg  — lekarka z pacjentem  (0,41 MB)
-     estetyczna-03.mp4 + .jpg  — zabieg w trakcie     (0,52 MB)
+     estetyczna-01.mp4 + .jpg  — poczekalnia          (0,19 MB)
+     estetyczna-02.mp4 + .jpg  — lekarka z pacjentem  (0,25 MB)
+     estetyczna-03.mp4 + .jpg  — zabieg w trakcie     (0,28 MB)
+   Pętla powstaje przez przenikanie końca ujęcia w jego początek —
+   materiał nigdy nie jest odtwarzany wstecz.
    1. Wgraj wszystkie sześć plików do Biblioteki mediów.
    2. Kliknij w blok wideo → "Zastąp" → wybierz plik z Biblioteki.
       (Albo popraw adresy /wp-content/uploads/... w kodzie i w arkuszu stylów.)
@@ -55,6 +57,9 @@
   --e-ink:#111111;
   --e-soft:#5E574D;
   --e-gold:#B08D3F;
+  /* Zloto do napisow. Jasniejsze #B08D3F ma na kremie 2,95:1,
+     wiec nadaje sie na kreski i ramki, ale nie na tekst. */
+  --e-gold-t:#8A6D28;
   --e-gold-l:#C9A96A;
   --e-line:rgba(17,17,17,.14);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -74,7 +79,7 @@
   font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;line-height:1.16;color:var(--e-ink);
 }
 .estet h1{font-size:clamp(2.5rem,1.6rem + 3.8vw,4rem);font-weight:300;}
-.estet h1 em{font-style:italic;color:var(--e-gold);}
+.estet h1 em{font-style:italic;color:var(--e-gold-t);}
 .estet h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,2.8rem);font-weight:300;}
 .estet h3{font-size:1.35rem;}
 
@@ -96,7 +101,7 @@
    tylko etykieta — tam kreska tylko przeszkadza. */
 .estet .e-box h2::after,
 .estet.estet-footer h2::after{display:none;}
-.estet a{color:var(--e-gold);}
+.estet a{color:var(--e-gold-t);}
 .estet a:hover{color:var(--e-ink);}
 
 
@@ -108,7 +113,7 @@
   font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-size:.78rem !important;font-weight:500;
   letter-spacing:.2em;text-transform:uppercase;
-  color:var(--e-gold) !important;
+  color:var(--e-gold-t) !important;
 }
 .estet .e-small{font-size:.84rem !important;}
 
@@ -120,12 +125,12 @@
   transition:background .2s ease,color .2s ease,border-color .2s ease;
 }
 .estet .e-btn--solid .wp-block-button__link{background:var(--e-ink) !important;color:var(--e-cream) !important;}
-.estet .e-btn--solid .wp-block-button__link:hover{background:var(--e-gold) !important;color:#fff !important;}
+.estet .e-btn--solid .wp-block-button__link:hover{background:var(--e-gold-t) !important;color:#fff !important;}
 .estet .e-btn--ghost .wp-block-button__link{
   background:transparent !important;color:var(--e-ink) !important;border:1px solid var(--e-ink) !important;
 }
 .estet .e-btn--ghost .wp-block-button__link:hover{background:var(--e-ink) !important;color:var(--e-cream) !important;}
-.estet .e-btn--gold .wp-block-button__link{background:var(--e-gold) !important;color:#fff !important;}
+.estet .e-btn--gold .wp-block-button__link{background:var(--e-gold-t) !important;color:#fff !important;}
 .estet .e-btn--gold .wp-block-button__link:hover{background:var(--e-ink) !important;}
 
 /* Logotyp */
@@ -202,7 +207,7 @@
 .estet .e-card:hover{background:var(--e-white);}
 .estet .e-num{
   font-family:'Cormorant Garamond',serif;font-size:.85rem !important;letter-spacing:.22em;
-  color:var(--e-gold);margin-bottom:10px !important;
+  color:var(--e-gold-t);margin-bottom:10px !important;
 }
 .estet .e-card h3{margin-bottom:10px;}
 .estet .e-card p{font-size:.9rem !important;}
@@ -219,7 +224,7 @@
 .estet .e-step{border-top:1px solid var(--e-line);padding-top:24px !important;position:relative;}
 .estet .e-step::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:var(--e-gold);}
 .estet .e-step-num{
-  font-family:'Cormorant Garamond',serif;font-size:2.2rem !important;color:var(--e-gold-l);
+  font-family:'Cormorant Garamond',serif;font-size:2.2rem !important;color:var(--e-gold-t);
   line-height:1 !important;margin-bottom:10px !important;
 }
 .estet .e-step h3{font-size:1.2rem;margin-bottom:6px;}
@@ -233,7 +238,7 @@
 }
 .estet .e-price .n{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--e-ink);}
 .estet .e-price .n small{display:block;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--e-soft);margin-top:2px;}
-.estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--e-gold);white-space:nowrap;}
+.estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--e-gold-t);white-space:nowrap;}
 
 /* FAQ — bez tła, same włoskowe linie */
 .estet .e-faq{border-bottom:1px solid var(--e-line);}
@@ -245,7 +250,7 @@
 .estet .e-faq summary::-webkit-details-marker{display:none;}
 .estet .e-faq summary::after{
   content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
-  font-family:'Inter',sans-serif;font-weight:300;font-size:1.3rem;color:var(--e-gold);line-height:1;
+  font-family:'Inter',sans-serif;font-weight:300;font-size:1.3rem;color:var(--e-gold-t);line-height:1;
 }
 .estet .e-faq[open] summary::after{content:"–";}
 .estet .e-faq p{padding:0 40px 24px 0;margin:0 !important;font-size:.92rem !important;}
@@ -269,10 +274,12 @@
   font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
   letter-spacing:.14em;text-transform:uppercase;color:#fff !important;margin:0 !important;
 }
-/* Etykiety kolumn — ta sama miara drobnego pisma co w tresci strony */
+/* Etykiety kolumn — ta sama miara drobnego pisma co w tresci strony.
+   Tu tlo jest czarne, wiec zloto musi byc jasne: ciemniejszy odcien
+   do napisow na kremie dawalby na czerni tylko 3,9:1. */
 .estet .e-stopka-etykieta{
   margin:0 0 12px !important;font-size:.66rem !important;font-weight:600;
-  letter-spacing:.24em;text-transform:uppercase;color:var(--e-gold) !important;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--e-gold-l) !important;
 }
 /* Numer to najwazniejsza rzecz w stopce, wiec dostaje kroj naglowkowy */
 .estet .e-stopka-numer{

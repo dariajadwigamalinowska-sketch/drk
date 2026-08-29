@@ -80,10 +80,11 @@
   --kb-tlo:          #F6E3D6;   /* brzoskwiniowe tło główne              */
   --kb-tlo-2:        #FBF0E7;   /* jaśniejszy odcień, co druga sekcja    */
   --kb-blekit:       #9E9EB4;   /* akcent jasny — poświata, gradienty    */
-  --kb-ciemny:       #6B7492;   /* ciemne pasy: atuty i stopka           */
-  --kb-ciemny-2:     #565F7C;   /* przycisk po najechaniu                */
-  --kb-atrament:     #45383A;   /* tekst główny, nagłówki                */
-  --kb-atrament-2:   #736460;   /* akapity, podpisy                      */
+  --kb-ciemny:       #4F5578;   /* ciemne pasy, przyciski, ikony         */
+  --kb-ciemny-2:     #3E4664;   /* przycisk po najechaniu                */
+  --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
+  --kb-atrament-2:   #514541;   /* akapity, podpisy — ciemniejszy, bo
+                                   leza takze na gradiencie powitania    */
   --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
   --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
   --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule */
@@ -115,13 +116,15 @@
 /* Roznica miedzy sasiednimi sekcjami jest celowo minimalna — zamiast
    pasow w dwoch kolorach strona ma byc jednym, spokojnym tlem. */
 .kb-sekcja-cieplo{ background:var(--kb-tlo-2); }
-/* Miekkie przejscie miedzy sekcjami zamiast ostrej krawedzi. */
-.kb-sekcja + .kb-sekcja::before{
+/* Miekkie przejscie miedzy jasnymi sekcjami zamiast ostrej krawedzi.
+   Ciemne pasy sa z tego wylaczone — jasna woalka kladla sie na nich
+   i rozjasniala tlo pod bialym napisem az ponizej progu czytelnosci. */
+.kb-sekcja + .kb-sekcja:not(.kb-atuty)::before{
   content:""; position:absolute; left:0; right:0; top:0; height:90px;
   background:linear-gradient(to bottom, var(--kb-tlo), transparent);
   opacity:.55; pointer-events:none;
 }
-.kb-sekcja-cieplo + .kb-sekcja:not(.kb-sekcja-cieplo)::before{
+.kb-sekcja-cieplo + .kb-sekcja:not(.kb-sekcja-cieplo):not(.kb-atuty)::before{
   background:linear-gradient(to bottom, var(--kb-tlo-2), transparent);
 }
 
@@ -219,7 +222,7 @@
 }
 .kb-motto{
   font-family:var(--kb-font-naglowki) !important; font-style:italic; font-weight:300;
-  font-size:1.15rem !important; color:var(--kb-ciemny); max-width:38ch;
+  font-size:1.15rem !important; color:#454E6B; max-width:38ch;
   margin:0 0 28px !important;
 }
 
@@ -235,7 +238,7 @@
    ale bez krzykliwej ramki na gotowej stronie. */
 .kb-do-uzupelnienia{
   border-left:2px solid rgba(227,166,167,.55); padding-left:16px;
-  font-style:italic; color:#8A7873;
+  font-style:italic; color:#6E5F5A;
 }
 
 /* =========================================================================
@@ -362,11 +365,11 @@
   border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
 }
 .kb-btn-glowny .wp-block-button__link{
-  background:linear-gradient(105deg, var(--kb-ciemny), #8A8AA6); color:#fff;
+  background:linear-gradient(105deg, #454E6B, #5A5C80); color:#fff;
   box-shadow:0 10px 24px -14px rgba(69,62,90,.6);
 }
 .kb-btn-glowny .wp-block-button__link:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
-.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.45); color:var(--kb-ciemny-2); border-color:rgba(107,116,146,.45); }
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.72); color:#3E4664; border-color:rgba(62,70,100,.5); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
 
@@ -483,14 +486,11 @@
 /* =========================================================================
    PAS Z ATUTAMI
    ========================================================================= */
-/* Pas nie jest juz plaska, ostro odcieta plyta — ma lekko przezroczyste
-   tlo i wygaszone krawedzie, wiec wtapia sie w brzoskwiniowe tlo strony
-   zamiast je przecinac. */
+/* Pas jest krycy — przezroczystosc rozjasniala go tak, ze bialy napis
+   schodzil ponizej 3:1 i przestawal byc czytelny. Lagodnosc bierze sie
+   teraz z samego koloru i z gradientu, nie z przepuszczania tla. */
 .kb-atuty{
-  background:
-    linear-gradient(to bottom, rgba(246,227,214,.55), transparent 26px),
-    linear-gradient(to top,    rgba(251,240,231,.55), transparent 26px),
-    linear-gradient(100deg, rgba(107,116,146,.86), rgba(139,134,158,.86) 55%, rgba(158,140,152,.86)) !important;
+  background:linear-gradient(100deg, #3E4664, #43486C 55%, #4C4C74) !important;
   color:#FDF6EF;
   padding-top:30px !important; padding-bottom:30px !important;
 }
@@ -582,14 +582,12 @@
 /* =========================================================================
    STOPKA
    ========================================================================= */
-/* Stopka wchodzi z gory lagodnym przejsciem z tla strony, zamiast
-   zaczynac sie ostra pozioma krawedzia. */
+/* Stopka krycy — jak pas atutow. Napisy leza na niej bezposrednio,
+   wiec tlo nie moze przepuszczac jasnego tla strony. */
 .kb-stopka{
-  background:
-    linear-gradient(to bottom, rgba(251,240,231,.5), transparent 70px),
-    linear-gradient(100deg, var(--kb-ciemny), #7B7A99 60%, #8E8299);
+  background:linear-gradient(100deg, #3E4664, #43486C 60%, #4C4C74);
   color:#F4EDE6;
-  padding:64px 24px 26px !important; font-family:var(--kb-font);
+  padding:60px 24px 26px !important; font-family:var(--kb-font);
 }
 .kb-stopka .kb-logo{ color:#fff; margin:0 !important; }
 .kb-stopka .kb-podpis{ color:#F0BFC1; margin:2px 0 0 !important; }
@@ -597,13 +595,13 @@
 /* Etykiety kolumn — drobne wersaliki, ta sama miara co reszta drobnego pisma */
 .kb-stopka-etykieta{
   margin:0 0 12px !important; font-size:.68rem !important; font-weight:600;
-  letter-spacing:.2em; text-transform:uppercase; color:var(--kb-roz);
+  letter-spacing:.2em; text-transform:uppercase; color:#F0BFC1;
 }
 /* Numer jest w stopce najwazniejszy, wiec dostaje kroj naglowkowy i skale */
 .kb-stopka-numer{ margin:0 !important; font-family:var(--kb-font-naglowki); font-size:1.6rem !important; line-height:1.1 !important; }
 .kb-stopka-numer a{ color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.28); }
 .kb-stopka-numer a:hover{ border-bottom-color:#fff; }
-.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:#CFC3BC; }
+.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:#D3C8C1; }
 .kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:#EFE6DE; line-height:1.6; }
 
 .kb-stopka-link{ margin:0 0 8px !important; font-size:.92rem !important; }
@@ -622,13 +620,13 @@
 .kb-stopka-dol-wiersz{ margin:0 auto !important; }
 .kb-stopka-uwaga{
   margin:0 !important; max-width:62ch;
-  font-size:.82rem !important; line-height:1.75; color:#CFC3BC;
+  font-size:.82rem !important; line-height:1.75; color:#DFD5CE;
 }
 .kb-stopka-uwaga strong{ color:#F0BFC1; }
 
 .kb-stopka-dol{
   margin:0 !important; font-size:.74rem !important; line-height:1.7;
-  letter-spacing:.08em; color:rgba(239,230,222,.55);
+  letter-spacing:.08em; color:#D3C8C1;
 }
 .kb-spoleczne{ margin-top:18px !important; }
 .kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(255,255,255,.14); color:#fff; }
@@ -743,7 +741,9 @@
 <div class="wp-block-column is-vertically-aligned-center">
 <!--
   FILM POWITALNY — pliki gotowe do wgrania leżą w repozytorium
-  w assets/wideo/: pediatria-mis.mp4 (0,37 MB) i pediatria-mis.jpg (plakat).
+  w assets/wideo/: pediatria-mis.mp4 (0,25 MB) i pediatria-mis.jpg (plakat).
+  Petla powstaje przez przenikanie konca ujecia w jego poczatek —
+  material nigdy nie jest odtwarzany wstecz.
   Wgraj oba do Biblioteki mediów, potem kliknij w blok → "Zastąp"
   albo popraw dwa adresy poniżej.
 -->
@@ -1021,10 +1021,10 @@
 
   <div class="kb-wynik" id="kbWynik" aria-live="polite">
     <div class="kb-wynik-grid">
-      <div class="kb-wynik-box"><b id="kbDawka">–</b><span id="kbDawkaMg">maks. dawka jednorazowa</span></div>
-      <div class="kb-wynik-box"><b id="kbOdstep">–</b><span>minimalny odstęp</span></div>
-      <div class="kb-wynik-box"><b id="kbLiczba">–</b><span>maks. dawek na dobę</span></div>
-      <div class="kb-wynik-box"><b id="kbDoba">–</b><span id="kbDobaMg">maks. na dobę łącznie</span></div>
+      <div class="kb-wynik-box"><b id="kbDawka">–</b><span id="kbDawkaMg">dawka jednorazowa</span></div>
+      <div class="kb-wynik-box"><b id="kbOdstep">–</b><span>odstęp między dawkami</span></div>
+      <div class="kb-wynik-box"><b id="kbLiczba">–</b><span>dawek na dobę</span></div>
+      <div class="kb-wynik-box"><b id="kbDoba">–</b><span id="kbDobaMg">na dobę łącznie</span></div>
     </div>
 
     <p class="kb-uwaga kb-i-uwaga"><span>Wynik ma charakter <strong>wyłącznie poglądowy</strong>. Przed podaniem leku zawsze zweryfikuj dawkę z ulotką konkretnego preparatu i skonsultuj się z lekarzem lub farmaceutą.</span></p>
@@ -1138,13 +1138,16 @@
       var mgDoba  = mgDawka * lek.dawekNaDobe;
       var naMl    = function (mg) { return (mg / mgW5ml) * 5; };
 
-      outDawka.textContent  = 'do ' + pl(naMl(mgDawka)) + ' ml';
+      outDawka.textContent  = pl(naMl(mgDawka)) + ' ml';
       outOdstep.textContent = lek.odstep;
       outLiczba.textContent = lek.dawekNaDobe;
-      outDoba.textContent   = 'do ' + pl(naMl(mgDoba)) + ' ml';
+      outDoba.textContent   = pl(naMl(mgDoba)) + ' ml';
 
-      if (outDawkaMg) { outDawkaMg.textContent = 'maks. dawka jednorazowa · ' + Math.round(mgDawka) + ' mg'; }
-      if (outDobaMg)  { outDobaMg.textContent  = 'maks. na dobę łącznie · ' + Math.round(mgDoba) + ' mg'; }
+      /* Bez slowa "maks." przy wyniku — o limit dba sam kalkulator:
+         powyzej pewnej masy ciala dawka przestaje rosnac i suma dobowa
+         zatrzymuje sie na maxDobowaMg. */
+      if (outDawkaMg) { outDawkaMg.textContent = 'dawka jednorazowa · ' + Math.round(mgDawka) + ' mg'; }
+      if (outDobaMg)  { outDobaMg.textContent  = 'na dobę łącznie · ' + Math.round(mgDoba) + ' mg'; }
 
       if (uwagaWiek) { uwagaWiek.hidden = waga >= WAGA_OSTRZEZENIE; }
 
