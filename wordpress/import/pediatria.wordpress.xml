@@ -92,11 +92,6 @@
                  klasę CSS "kb-film-ramka" (panel po prawej → Zaawansowane).
                  Format i szerokość zmienisz w arkuszu stylów — zmienne
                  --kb-film-proporcje i --kb-film-szerokosc.
-  • FILMY PIONOWE – sekcja "Zanim przyjdziecie" ma jeden film w formacie
-                 9:16, czyli takim jak rolki na Instagramie. Żeby dodać
-                 kolejny, zaznacz kolumnę, powiel ją i wgraj w nią plik.
-                 Podpis pod filmem edytujesz klikając w tekst.
-                 Klasa dla pionu to "kb-film-pion".
   • KOLEJNOŚĆ  – "Widok listy" (ikona po lewej u góry) → przeciągnij sekcję.
   • IKONY      – zaznacz blok → panel po prawej → Zaawansowane →
                  "Dodatkowa klasa CSS" → wpisz jedną z: kb-i-pin,
@@ -122,8 +117,7 @@
 
   PLIKI WIDEO — gotowe, leżą w repozytorium w assets/wideo/:
     pediatria-mis.mp4 + .jpg         — sekcja powitalna   (0,37 MB)
-    pediatria-poczekalnia.mp4 + .jpg — "Zanim przyjdziecie" (0,32 MB)
-  Wgraj czwórkę do Biblioteki mediów, potem kliknij w blok wideo
+  Wgraj oba do Biblioteki mediów, potem kliknij w blok wideo
   → "Zastąp" i wskaż plik.
 
   ---------------------------------------------------------------------------
@@ -348,38 +342,14 @@
    Proporcje zmienia --kb-pion-proporcje. Blok wideo jest pusty:
    w edytorze klikasz go i wgrywasz plik.
    ========================================================================= */
-.kb-filmy-pion{ margin-top:44px !important; gap:26px !important; align-items:stretch !important;
-  max-width:360px; margin-left:auto !important; margin-right:auto !important; }
-.kb-film-pion{ margin:0 !important; }
-.kb-film-pion video,
-.kb-film-pion iframe,
-.kb-film-pion .wp-block-embed__wrapper{
-  --kb-pion-proporcje: 9/16;
-  display:block; width:100%; aspect-ratio:var(--kb-pion-proporcje);
-  height:auto; border:0; object-fit:cover; border-radius:var(--kb-promien);
-  box-shadow:0 34px 66px -42px rgba(0,0,0,.55);
-}
-.kb-film-pion figcaption{
-  margin-top:14px !important; text-align:center; font-size:.8rem !important;
-  color:var(--kb-atrament-2);
-}
 
 /* Puste miejsca na media — żeby przed wgraniem plików strona nie miała
    dziur. Gutenberg zapisuje pusty blok wideo jako <figure> bez treści,
    a pusty blok obrazka jako <img> bez atrybutu src. */
 .kb-film-ramka:empty::after,
-.kb-film-pion > figcaption:first-child::before{
-  display:flex; align-items:center; justify-content:center;
-  border-radius:var(--kb-promien); color:#fff; text-align:center;
-  font-size:.85rem; font-weight:600; letter-spacing:.02em;
-}
 .kb-film-ramka:empty::after{
   content:"Miejsce na film pionowy"; aspect-ratio:var(--kb-film-proporcje); width:100%;
   background:var(--kb-zastepcze);
-}
-.kb-film-pion > figcaption:first-child::before{
-  content:"Miejsce na film pionowy"; aspect-ratio:9/16; width:100%;
-  background:var(--kb-zastepcze); margin-bottom:14px;
 }
 .kb-foto img:not([src]),
 .kb-logotyp img:not([src]){
@@ -995,31 +965,6 @@
 </div>
 <!-- /wp:columns -->
 
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-filmy"} -->
-<div class="wp-block-group alignfull kb-sekcja" id="kb-filmy">
-
-<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
-<h2 class="wp-block-heading has-text-align-center kb-naglowek">Zanim przyjdziecie</h2>
-<!-- /wp:heading -->
-
-<!-- wp:columns {"className":"kb-filmy-pion"} -->
-<div class="wp-block-columns kb-filmy-pion">
-<!-- wp:column -->
-<div class="wp-block-column">
-<!--
-  FILM: poczekalnia (pediatria-poczekalnia.mp4 + .jpg w assets/wideo/).
-  Zeby dolozyc kolejny film, powiel te kolumne i wgraj w nia swoj plik.
--->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-poczekalnia.jpg","src":"/wp-content/uploads/pediatria-poczekalnia.mp4","className":"kb-film-pion"} -->
-<figure class="wp-block-video kb-film-pion"><video autoplay loop muted poster="/wp-content/uploads/pediatria-poczekalnia.jpg" src="/wp-content/uploads/pediatria-poczekalnia.mp4" playsinline></video><figcaption class="wp-element-caption">Tak wygląda poczekalnia</figcaption></figure>
-<!-- /wp:video -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
 </div>
 <!-- /wp:group -->
 

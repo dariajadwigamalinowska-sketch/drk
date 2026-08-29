@@ -183,35 +183,30 @@
    Wysokość ograniczona, szerokość wyliczana z proporcji, więc nic nie jest
    obcinane; na wąskich ekranach kadr rozciąga się na całą szerokość kolumny. */
 .estet .e-video{
-  margin:0 auto;border:0;overflow:hidden;
+  margin:0;border:0;overflow:hidden;
   background:var(--e-cream-2) center/cover no-repeat;
-  aspect-ratio:9/16;height:min(74vh,720px);width:auto;max-width:100%;
-  /* Boki wygaszone maska, zeby kadr wtapial sie w tlo zamiast konczyc
-     sie ostra krawedzia. Ramka zdjeta - obrys przy wygaszonym brzegu
-     wygladalby na urwany. */
-  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 10%,#000 90%,transparent 100%);
-  mask-image:linear-gradient(to right,transparent 0,#000 10%,#000 90%,transparent 100%);
+  /* Kadr wypelnia kolumne w proporcji 4:5 — wczesniej byl waskim slupkiem
+     9:16 z duza iloscia wolnego miejsca po bokach. */
+  width:100%;height:auto;aspect-ratio:4/5;max-width:none;
+  /* Wygaszone boki i gora, zeby kadr wtapial sie w tlo zamiast konczyc
+     sie ostra krawedzia. Dol zostaje ostry — kadr stoi na linii tekstu. */
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 10%,#000 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:
+    linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 10%,#000 100%);
+  mask-composite:intersect;
 }
 .estet .e-video video{display:block;width:100%;height:100%;object-fit:cover;}
 .estet .e-video figcaption{display:none;}
-@media (max-width:781px){
-  .estet .e-video{height:auto;width:100%;}
-}
 /* [ŚCIEŻKI] — jeden raz podmień na adresy plakatów z Biblioteki mediów.
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
    u osób, które w systemie wyłączyły animacje. */
 .estet .e-video--01{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
 .estet .e-video--02{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
-/* Kadr powitalny wypełnia kolumnę w proporcji 4:5 — tak jak zdjęcie
-   portretowe na stronie pediatrycznej. Wcześniej był wąskim pionowym
-   paskiem 9:16 obok dużego nagłówka i nie trzymał się z nim skalą.
-   Materiał jest pionowy, więc object-fit przycina górę i dół. */
-.estet .e-video--hero{
-  aspect-ratio:4/5; height:auto; width:100%; max-width:none; margin:0;
-}
-
-/* Kadr przy krokach jest nizszy — dopasowany do wysokosci siatki obok. */
-.estet .e-video--03{background-image:url('/wp-content/uploads/estetyczna-03.jpg');height:min(56vh,520px);}
+.estet .e-video--03{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
 @media (prefers-reduced-motion:reduce){
   .estet .e-video video{display:none;}
 }
@@ -334,8 +329,8 @@
 <!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"56px"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center">
 
-<!-- wp:column {"verticalAlignment":"center","width":"54%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:54%">
+<!-- wp:column {"verticalAlignment":"center","width":"48%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:48%">
 <!-- wp:heading {"level":1} -->
 <h1 class="wp-block-heading">Naturalny efekt,<br><em>medyczna</em> precyzja.</h1>
 <!-- /wp:heading -->
@@ -365,8 +360,8 @@
 </div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"center","width":"46%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:46%">
+<!-- wp:column {"verticalAlignment":"center","width":"52%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:52%">
 <!--
   WIDEO: lekarka z pacjentem (estetyczna-02.mp4).
   Po wgraniu plików do Biblioteki mediów kliknij w blok i podmień plik —
@@ -602,8 +597,8 @@
 <!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center">
 
-<!-- wp:column {"verticalAlignment":"center","width":"36%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:36%">
+<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
 <!-- WIDEO: zabieg w trakcie (estetyczna-03.mp4 + .jpg w assets/wideo/) -->
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-video--03"} -->
 <figure class="wp-block-video e-video e-video--03"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
