@@ -111,6 +111,15 @@
   text-transform:uppercase;color:var(--e-soft);
 }
 .estet .e-logo img{max-height:60px;width:auto;}
+.estet .e-marka{
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--e-ink);
+  margin:14px 0 2px !important;
+}
+.estet .e-marka-podpis{
+  font-size:.68rem !important;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--e-gold);margin:0 !important;
+}
 
 /* Zdjęcia */
 .estet .e-photo{
@@ -244,6 +253,14 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
+
+<!-- wp:paragraph {"className":"e-marka"} -->
+<p class="e-marka">Dr Kasia Aesthetic</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"e-marka-podpis"} -->
+<p class="e-marka-podpis">Medycyna estetyczna</p>
+<!-- /wp:paragraph -->
 </section>
 <!-- /wp:group -->
 
@@ -355,7 +372,7 @@
 <p class="e-eyebrow">O gabinecie</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading -->
-<h2 class="wp-block-heading">[Nazwa gabinetu]</h2>
+<h2 class="wp-block-heading">Dr Kasia Aesthetic</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
 <p>[DO UZUPEŁNIENIA — kim jesteś, jakie masz wykształcenie i doświadczenie, jakie stosujesz podejście. 3–4 zdania. Unikaj obietnic efektu; opisz sposób pracy.]</p>
@@ -395,7 +412,66 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 5. ZABIEGI ============================ -->
+<!-- ============================ 5. KONTAKT ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-kontakt","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-kontakt" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
+<div class="wp-block-columns">
+
+<!-- wp:column {"width":"48%"} -->
+<div class="wp-block-column" style="flex-basis:48%">
+<!-- wp:group {"className":"e-box","layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-box">
+<!-- wp:paragraph {"className":"e-eyebrow"} -->
+<p class="e-eyebrow">Kontakt</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Umów konsultację</h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-info" style="margin-top:30px">
+<!-- wp:paragraph --><p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48000000000">[+48 000 000 000]</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>E-mail</strong><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- FORMULARZ: wstaw tutaj blok "Shortcode" z formularzem wtyczki
+     (Contact Form 7 / WPForms). Sam HTML nie wyśle wiadomości. -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"30px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:30px">
+<!-- wp:button {"className":"e-btn e-btn--gold"} -->
+<div class="wp-block-button e-btn e-btn--gold"><a class="wp-block-button__link wp-element-button" href="tel:+48000000000">Zadzwoń</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"52%"} -->
+<div class="wp-block-column" style="flex-basis:52%">
+<!-- wp:html -->
+<div class="e-map">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.95%2C50.34%2C20.06%2C50.39&amp;layer=mapnik&amp;marker=50.3608%2C20.0206"
+    title="Mapa dojazdu do gabinetu — Miechów"
+    loading="lazy"></iframe>
+</div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 6. ZABIEGI ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
 <section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
 
@@ -465,7 +541,7 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 6. PRZEBIEG WIZYTY ============================ -->
+<!-- ============================ 7. PRZEBIEG WIZYTY ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
 <section class="wp-block-group alignfull estet has-background" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
 
@@ -513,7 +589,7 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 7. CENNIK ============================ -->
+<!-- ============================ 8. CENNIK ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-cennik","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"820px"}} -->
 <section class="wp-block-group alignfull estet has-background" id="es-cennik" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
 
@@ -553,7 +629,7 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 8. FAQ ============================ -->
+<!-- ============================ 9. FAQ ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
 <section class="wp-block-group alignfull estet has-background" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
 
@@ -598,65 +674,6 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 9. KONTAKT ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-kontakt","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-kontakt" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
-<div class="wp-block-columns">
-
-<!-- wp:column {"width":"48%"} -->
-<div class="wp-block-column" style="flex-basis:48%">
-<!-- wp:group {"className":"e-box","layout":{"type":"constrained"}} -->
-<div class="wp-block-group e-box">
-<!-- wp:paragraph {"className":"e-eyebrow"} -->
-<p class="e-eyebrow">Kontakt</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Umów konsultację</h2>
-<!-- /wp:heading -->
-
-<!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group e-info" style="margin-top:30px">
-<!-- wp:paragraph --><p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48000000000">[+48 000 000 000]</a></p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>E-mail</strong><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-
-<!-- FORMULARZ: wstaw tutaj blok "Shortcode" z formularzem wtyczki
-     (Contact Form 7 / WPForms). Sam HTML nie wyśle wiadomości. -->
-
-<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"30px"}}}} -->
-<div class="wp-block-buttons" style="margin-top:30px">
-<!-- wp:button {"className":"e-btn e-btn--gold"} -->
-<div class="wp-block-button e-btn e-btn--gold"><a class="wp-block-button__link wp-element-button" href="tel:+48000000000">Zadzwoń</a></div>
-<!-- /wp:button -->
-</div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column {"width":"52%"} -->
-<div class="wp-block-column" style="flex-basis:52%">
-<!-- wp:html -->
-<div class="e-map">
-  <iframe
-    src="https://www.openstreetmap.org/export/embed.html?bbox=19.95%2C50.34%2C20.06%2C50.39&amp;layer=mapnik&amp;marker=50.3608%2C20.0206"
-    title="Mapa dojazdu do gabinetu — Miechów"
-    loading="lazy"></iframe>
-</div>
-<!-- /wp:html -->
-</div>
-<!-- /wp:column -->
-
-</div>
-<!-- /wp:columns -->
-</section>
-<!-- /wp:group -->
-
-
 <!-- ============================ 10. STOPKA ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"56px","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
 <section class="wp-block-group alignfull estet estet-footer has-background" style="background-color:#111111;padding-top:56px;padding-right:24px;padding-bottom:32px;padding-left:24px">
@@ -665,7 +682,7 @@
 <!-- wp:column {"width":"55%"} -->
 <div class="wp-block-column" style="flex-basis:55%">
 <!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">[Nazwa gabinetu]</h3>
+<h3 class="wp-block-heading">Dr Kasia Aesthetic</h3>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
 <p>Medycyna estetyczna · ul. St. Daneckiej 4/U6, Miechów</p>
