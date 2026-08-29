@@ -32,8 +32,9 @@
   ---------------------------------------------------------------------------
   • TEKST      – kliknij i pisz.
   • ZDJĘCIA    – kliknij szary prostokąt → "Biblioteka mediów".
-  • FILM       – kadr u góry to pusty blok "Wideo" w formacie pionowym
-                 9:16: kliknij i wgraj plik. Jeśli film jest na YouTube,
+  • FILM       – kadr u góry to blok "Wideo" w formacie pionowym 9:16,
+                 z już wstawionym filmem. Żeby go podmienić, kliknij
+                 w blok → "Zastąp". Jeśli film jest na YouTube,
                  usuń ten blok i wstaw blok "YouTube", a potem nadaj mu
                  klasę CSS "kb-film-ramka" (panel po prawej → Zaawansowane).
                  Format i szerokość zmienisz w arkuszu stylów — zmienne
@@ -63,7 +64,7 @@
   ---------------------------------------------------------------------------
   • logotyp praktyki (blok obrazka w pasku na górze)
   • zdjęcie Pani Doktor (blok obrazka w sekcji powitalnej)
-  • film pionowy na górze oraz trzy filmy w sekcji "Zanim przyjdziecie"
+  • trzy filmy w sekcji "Zanim przyjdziecie" (film powitalny jest już wstawiony)
   • opis praktyki
   • podstrona z polityką prywatności (odnośnik w stopce)
 
@@ -501,8 +502,14 @@
 
 <!-- wp:group {"className":"kb-sekcja","align":"full"} -->
 <div class="wp-block-group alignfull kb-sekcja">
-<!-- wp:video {"className":"kb-film-ramka"} -->
-<figure class="wp-block-video kb-film-ramka"></figure>
+<!--
+  FILM POWITALNY — pliki gotowe do wgrania leżą w repozytorium
+  w assets/wideo/: pediatria-mis.mp4 (0,37 MB) i pediatria-mis.jpg (plakat).
+  Wgraj oba do Biblioteki mediów, potem kliknij w blok → "Zastąp"
+  albo popraw dwa adresy poniżej.
+-->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka"} -->
+<figure class="wp-block-video kb-film-ramka"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 
 <!-- wp:columns {"verticalAlignment":"center"} -->
