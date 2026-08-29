@@ -1,626 +1,710 @@
-<!-- wp:html -->
 <!--
-  ============================================================================
-  STRONA MEDYCYNY ESTETYCZNEJ — GOTOWE DO WKLEJENIA W EDYTORZE KODU GUTENBERGA
-  ============================================================================
-  Estetyka: biel / krem, czarne napisy, złoty akcent.
+=====================================================================================
+ STRONA MEDYCYNY ESTETYCZNEJ — NATYWNE BLOKI GUTENBERGA
+ Estetyka: biel / krem, czarna typografia, złoty akcent.
+-------------------------------------------------------------------------------------
+ JAK WSTAWIĆ:
+   1. Strony → Dodaj nową
+   2. Menu ⋮ (prawy górny róg) → "Edytor kodu"   (Ctrl + Shift + Alt + M)
+   3. Wklej całą zawartość tego pliku
+   4. Wróć do edytora wizualnego tym samym skrótem
+   5. Ustaw szablon pełnej szerokości i opublikuj
 
-  JAK WSTAWIĆ:
-  1) Otwórz stronę w edytorze blokowym WordPressa.
-  2) Trzy kropki w prawym górnym rogu (Opcje) → "Edytor kodu".
-  3) Usuń zawartość edytora kodu i wklej CAŁY ten plik — razem z pierwszą
-     i ostatnią linią, czyli znacznikami bloku „wp:html".
-  4) Kliknij ponownie "Edytor kodu", żeby wrócić do widoku wizualnego.
-  5) Zapisz / opublikuj.
+ FUNKCJONALNOŚĆ:
+   Strona nie zawiera ani jednej linijki JavaScriptu. Rozwijane pytania w FAQ
+   działają na bloku "Szczegóły" (natywny element <details>), więc działają
+   nawet przy wyłączonych skryptach. Bloku "HTML własny" użyto dwa razy:
+   na arkusz stylów i na mapę.
 
-  DO UZUPEŁNIENIA RĘCZNIE (oznaczone [W NAWIASACH]):
-  - nazwa gabinetu i imię lekarza (w nagłówku, stopce i sekcji "O mnie")
-  - zdjęcia: portret lekarza i wnętrze gabinetu
-  - adres, telefon, godziny przyjęć, link do mapy
-  - lista zabiegów i ceny — zostawiłem typowy zestaw do skorygowania
-  - opinie pacjentów (obecne są PRZYKŁADOWE — nie publikuj ich w tej formie)
+ NAWIGACJA:
+   Celowo bez własnego menu — użyj nagłówka motywu (Wygląd → Edytor → Nagłówek).
 
-  WAŻNE PRZED PUBLIKACJĄ:
-  W Polsce reklama produktów leczniczych wydawanych na receptę (m.in. toksyny
-  botulinowej) kierowana do pacjentów jest zabroniona, a reklama usług
-  medycznych jest ograniczona przepisami i zasadami etyki lekarskiej.
-  Nazwy handlowe preparatów i obietnice efektów zostały tu celowo pominięte.
-  Treść warto skonsultować z prawnikiem przed publikacją.
-  ============================================================================
+ DO UZUPEŁNIENIA — oznaczone [W NAWIASACH]
+
+ PRZED PUBLIKACJĄ:
+   W Polsce reklama produktów leczniczych wydawanych na receptę kierowana do
+   pacjentów jest zabroniona, a reklama usług medycznych ograniczona przepisami
+   i zasadami etyki lekarskiej. Nazwy handlowe preparatów i obietnice efektów
+   zostały tu celowo pominięte. Treść warto skonsultować z prawnikiem.
+=====================================================================================
 -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<div class="estet" id="estet-landing">
+<!-- ============================ 1. STYLE ============================ -->
+<!-- wp:html -->
+<style id="estet-styles">
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@400;500;600&display=swap');
 
-<style>
-  #estet-landing {
-    --es-cream: #FBF8F3;
-    --es-cream-2: #F4EFE6;
-    --es-white: #FFFFFF;
-    --es-ink: #111111;
-    --es-ink-soft: #5E574D;
-    --es-gold: #B08D3F;
-    --es-gold-light: #C9A96A;
-    --es-gold-pale: rgba(176,141,63,.12);
-    --es-line: rgba(17,17,17,.12);
-    --es-radius: 4px;
-    --es-max: 1180px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--es-ink);
-    line-height: 1.6;
-    position: relative;
-    isolation: isolate;
-    overflow-x: hidden;
-    background: var(--es-cream);
-  }
-  #estet-landing *, #estet-landing *::before, #estet-landing *::after { box-sizing: border-box; }
-  #estet-landing img { max-width: 100%; display: block; }
-  #estet-landing a { color: inherit; text-decoration: none; }
+.estet{
+  --e-cream:#FBF8F3;
+  --e-cream-2:#F4EFE6;
+  --e-white:#FFFFFF;
+  --e-ink:#111111;
+  --e-soft:#5E574D;
+  --e-gold:#B08D3F;
+  --e-gold-l:#C9A96A;
+  --e-line:rgba(17,17,17,.14);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--e-soft);
+  line-height:1.65;
+}
+.estet h1,.estet h2,.estet h3{
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;line-height:1.16;color:var(--e-ink);
+}
+.estet h1{font-size:clamp(2.5rem,1.6rem + 3.8vw,4rem);font-weight:300;}
+.estet h1 em{font-style:italic;color:var(--e-gold);}
+.estet h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,2.8rem);font-weight:300;}
+.estet h3{font-size:1.35rem;}
+.estet a{color:var(--e-gold);}
+.estet a:hover{color:var(--e-ink);}
 
-  #estet-landing h1, #estet-landing h2, #estet-landing h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; line-height: 1.15;
-    margin: 0 0 .5em; color: var(--es-ink); letter-spacing: .005em;
-  }
-  #estet-landing .es-eyebrow {
-    display: inline-flex; align-items: center; gap: .7em; font-size: .72rem; font-weight: 600;
-    letter-spacing: .22em; text-transform: uppercase; color: var(--es-gold);
-  }
-  #estet-landing .es-eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--es-gold); display: inline-block; }
-  #estet-landing .es-wrap { max-width: var(--es-max); margin: 0 auto; padding: 0 28px; position: relative; }
-  #estet-landing section { padding: 104px 0; }
-  #estet-landing .es-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 1.2rem; color: var(--es-ink-soft); margin: 16px 0 0; }
+/* Nadtytuł */
+.estet .e-eyebrow{
+  display:inline-flex;align-items:center;gap:.8em;font-size:.7rem !important;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--e-gold);margin-bottom:14px !important;
+}
+.estet .e-eyebrow::before{content:"";width:30px;height:1px;background:var(--e-gold);flex:0 0 auto;}
+.estet .has-text-align-center.e-eyebrow{justify-content:center;}
 
-  #estet-landing .es-btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: .6em;
-    padding: 16px 34px; font-weight: 500; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
-    border: 1px solid transparent; border-radius: var(--es-radius); cursor: pointer;
-    transition: background .2s ease, color .2s ease, border-color .2s ease;
-  }
-  #estet-landing .es-btn:focus-visible { outline: 2px solid var(--es-gold); outline-offset: 3px; }
-  #estet-landing .es-btn-primary { background: var(--es-ink); color: var(--es-cream); }
-  #estet-landing .es-btn-primary:hover { background: var(--es-gold); color: #fff; }
-  #estet-landing .es-btn-ghost { border-color: var(--es-ink); color: var(--es-ink); background: transparent; }
-  #estet-landing .es-btn-ghost:hover { background: var(--es-ink); color: var(--es-cream); }
-  #estet-landing .es-btn-gold { background: var(--es-gold); color: #fff; }
-  #estet-landing .es-btn-gold:hover { background: var(--es-ink); color: var(--es-cream); }
+.estet .e-lead{font-size:1.02rem !important;max-width:44ch;}
+.estet .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.2rem !important;color:var(--e-soft);}
+.estet .e-small{font-size:.84rem !important;}
 
-  /* ---------- Nagłówek ---------- */
-  #estet-landing .es-header { position: sticky; top: 0; z-index: 40; background: rgba(251,248,243,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--es-line); }
-  #estet-landing .es-header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; max-width: var(--es-max); margin: 0 auto; }
-  #estet-landing .es-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; letter-spacing: .16em; text-transform: uppercase; }
-  #estet-landing .es-logo span { color: var(--es-gold); }
-  #estet-landing .es-nav { display: flex; align-items: center; gap: 32px; }
-  #estet-landing .es-nav a.es-navlink { font-size: .78rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--es-ink-soft); }
-  #estet-landing .es-nav a.es-navlink:hover { color: var(--es-gold); }
-  #estet-landing .es-nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--es-ink); }
+/* Przyciski — prostokątne, bez zaokrągleń */
+.estet .e-btn .wp-block-button__link{
+  border-radius:2px !important;padding:16px 34px !important;
+  font-size:.76rem !important;font-weight:500 !important;
+  letter-spacing:.14em;text-transform:uppercase;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.estet .e-btn--solid .wp-block-button__link{background:var(--e-ink) !important;color:var(--e-cream) !important;}
+.estet .e-btn--solid .wp-block-button__link:hover{background:var(--e-gold) !important;color:#fff !important;}
+.estet .e-btn--ghost .wp-block-button__link{
+  background:transparent !important;color:var(--e-ink) !important;border:1px solid var(--e-ink) !important;
+}
+.estet .e-btn--ghost .wp-block-button__link:hover{background:var(--e-ink) !important;color:var(--e-cream) !important;}
+.estet .e-btn--gold .wp-block-button__link{background:var(--e-gold) !important;color:#fff !important;}
+.estet .e-btn--gold .wp-block-button__link:hover{background:var(--e-ink) !important;}
 
-  /* ---------- Hero ---------- */
-  #estet-landing .es-hero { padding-top: 84px; padding-bottom: 96px; }
-  #estet-landing .es-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
-  #estet-landing .es-hero h1 { font-size: clamp(2.6rem, 5vw, 4.2rem); font-weight: 300; }
-  #estet-landing .es-hero h1 em { font-style: italic; color: var(--es-gold); }
-  #estet-landing .es-hero p.es-lead { font-size: 1.02rem; color: var(--es-ink-soft); max-width: 44ch; margin: 22px 0 34px; }
-  #estet-landing .es-hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-  #estet-landing .es-hero-meta { display: flex; align-items: center; gap: 10px; margin-top: 32px; font-size: .84rem; color: var(--es-ink-soft); }
-  #estet-landing .es-hero-meta svg { width: 17px; height: 17px; flex-shrink: 0; color: var(--es-gold); }
-  #estet-landing .es-hero-art { position: relative; }
-  #estet-landing .es-hero-img {
-    aspect-ratio: 4/5; overflow: hidden; background: var(--es-cream-2);
-    display: flex; align-items: center; justify-content: center;
-  }
-  #estet-landing .es-hero-img img { width: 100%; height: 100%; object-fit: cover; }
-  #estet-landing .es-hero-art::after {
-    content: ""; position: absolute; inset: 18px -18px -18px 18px; border: 1px solid var(--es-gold); z-index: -1;
-  }
-  #estet-landing .es-hero-badge {
-    position: absolute; bottom: -26px; left: -26px; background: var(--es-white);
-    padding: 20px 24px; box-shadow: 0 24px 50px -30px rgba(17,17,17,.4);
-    display: flex; align-items: center; gap: 14px; max-width: 250px;
-  }
-  #estet-landing .es-hero-badge .es-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--es-gold); line-height: 1; }
-  #estet-landing .es-hero-badge .es-badge-txt { font-size: .76rem; color: var(--es-ink-soft); line-height: 1.35; }
+/* Zdjęcia */
+.estet .e-photo{
+  aspect-ratio:4/5;background:var(--e-cream-2);border:1px solid var(--e-line);
+  display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+}
+.estet .e-photo p{margin:0 !important;font-size:.85rem !important;padding:20px;letter-spacing:.06em;}
+.estet .e-photo img{width:100%;height:100%;object-fit:cover;}
+.estet figure.wp-block-image{margin:0;}
+.estet figure.wp-block-image img{width:100%;}
 
-  /* ---------- Pasek faktów ---------- */
-  #estet-landing .es-facts { background: var(--es-ink); color: var(--es-cream); padding: 32px 0; }
-  #estet-landing .es-facts-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; max-width: var(--es-max); margin: 0 auto; padding: 0 28px; }
-  #estet-landing .es-fact { display: flex; align-items: center; gap: 12px; font-size: .84rem; letter-spacing: .06em; }
-  #estet-landing .es-fact svg { width: 20px; height: 20px; color: var(--es-gold-light); flex-shrink: 0; }
+/* Pasek faktów */
+.estet-facts{background:var(--e-ink) !important;}
+.estet-facts p{color:var(--e-cream) !important;font-size:.82rem !important;margin:0 !important;letter-spacing:.06em;}
+.estet-facts strong{color:var(--e-gold-l);font-weight:400;}
 
-  /* ---------- Nagłówek sekcji ---------- */
-  #estet-landing .es-sec-head { max-width: 620px; margin: 0 auto 56px; text-align: center; }
-  #estet-landing .es-sec-head .es-eyebrow { justify-content: center; }
-  #estet-landing .es-sec-head h2 { font-size: clamp(2rem, 3.4vw, 2.9rem); font-weight: 300; margin-top: 14px; }
-  #estet-landing .es-sec-head p { color: var(--es-ink-soft); margin: 0; font-size: .96rem; }
+/* Karty zabiegów — siatka na włoskowych liniach */
+.estet .e-card{
+  background:var(--e-cream);border:1px solid var(--e-line);
+  padding:36px 30px !important;transition:background .2s ease;
+}
+.estet .e-card:hover{background:var(--e-white);}
+.estet .e-num{
+  font-family:'Cormorant Garamond',serif;font-size:.85rem !important;letter-spacing:.22em;
+  color:var(--e-gold);margin-bottom:10px !important;
+}
+.estet .e-card h3{margin-bottom:10px;}
+.estet .e-card p{font-size:.9rem !important;}
+.estet .e-card ul{list-style:none !important;padding-left:0 !important;margin:14px 0 0 !important;display:grid;gap:7px;}
+.estet .e-card li{font-size:.84rem;padding-left:18px;position:relative;}
+.estet .e-card li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--e-gold);}
 
-  /* ---------- O gabinecie ---------- */
-  #estet-landing .es-about { background: var(--es-white); }
-  #estet-landing .es-about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: center; }
-  #estet-landing .es-about-img { overflow: hidden; aspect-ratio: 3/3.6; background: var(--es-cream-2); }
-  #estet-landing .es-about-img img { width: 100%; height: 100%; object-fit: cover; }
-  #estet-landing .es-about h2 { font-size: clamp(2rem, 3.4vw, 2.9rem); font-weight: 300; margin-top: 14px; }
-  #estet-landing .es-about p { color: var(--es-ink-soft); max-width: 56ch; }
-  #estet-landing .es-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 40px; background: var(--es-line); border: 1px solid var(--es-line); }
-  #estet-landing .es-pillar { background: var(--es-white); padding: 24px 22px; }
-  #estet-landing .es-pillar svg { width: 24px; height: 24px; color: var(--es-gold); margin-bottom: 12px; }
-  #estet-landing .es-pillar h3 { font-size: 1.15rem; margin-bottom: 6px; }
-  #estet-landing .es-pillar p { font-size: .84rem; color: var(--es-ink-soft); margin: 0; }
+/* Filary */
+.estet .e-pillar{background:var(--e-white);border:1px solid var(--e-line);padding:26px 24px !important;}
+.estet .e-pillar h3{font-size:1.2rem;margin-bottom:6px;}
+.estet .e-pillar p{font-size:.85rem !important;margin:0 !important;}
 
-  /* ---------- Zabiegi ---------- */
-  #estet-landing .es-treatments { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--es-line); border: 1px solid var(--es-line); }
-  #estet-landing .es-treatment { background: var(--es-cream); padding: 40px 34px; transition: background .25s ease; position: relative; }
-  #estet-landing .es-treatment:hover { background: var(--es-white); }
-  #estet-landing .es-treatment .es-num { font-family: 'Cormorant Garamond', serif; font-size: .9rem; letter-spacing: .2em; color: var(--es-gold); }
-  #estet-landing .es-treatment h3 { font-size: 1.5rem; font-weight: 400; margin: 12px 0 10px; }
-  #estet-landing .es-treatment p { font-size: .9rem; color: var(--es-ink-soft); margin: 0 0 16px; }
-  #estet-landing .es-treatment ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
-  #estet-landing .es-treatment li { font-size: .84rem; color: var(--es-ink-soft); padding-left: 18px; position: relative; }
-  #estet-landing .es-treatment li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 1px; background: var(--es-gold); }
+/* Kroki */
+.estet .e-step{border-top:1px solid var(--e-line);padding-top:24px !important;position:relative;}
+.estet .e-step::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:var(--e-gold);}
+.estet .e-step-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.2rem !important;color:var(--e-gold-l);
+  line-height:1 !important;margin-bottom:10px !important;
+}
+.estet .e-step h3{font-size:1.2rem;margin-bottom:6px;}
+.estet .e-step p{font-size:.86rem !important;margin:0 !important;}
 
-  /* ---------- Przebieg wizyty ---------- */
-  #estet-landing .es-steps { background: var(--es-white); }
-  #estet-landing .es-steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; }
-  #estet-landing .es-step { position: relative; padding-top: 26px; border-top: 1px solid var(--es-line); }
-  #estet-landing .es-step::before { content: ""; position: absolute; top: -1px; left: 0; width: 44px; height: 1px; background: var(--es-gold); }
-  #estet-landing .es-step .es-step-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--es-gold-light); line-height: 1; display: block; margin-bottom: 12px; }
-  #estet-landing .es-step h3 { font-size: 1.25rem; font-weight: 400; margin-bottom: 8px; }
-  #estet-landing .es-step p { font-size: .87rem; color: var(--es-ink-soft); margin: 0; }
+/* Cennik */
+.estet .e-price{list-style:none !important;padding-left:0 !important;margin:0 !important;border-top:1px solid var(--e-line);}
+.estet .e-price li{
+  display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  padding:20px 4px;border-bottom:1px solid var(--e-line);
+}
+.estet .e-price .n{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--e-ink);}
+.estet .e-price .n small{display:block;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--e-soft);margin-top:2px;}
+.estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--e-gold);white-space:nowrap;}
 
-  /* ---------- Cennik ---------- */
-  #estet-landing .es-price-list { max-width: 820px; margin: 0 auto; }
-  #estet-landing .es-price-row { display: flex; align-items: baseline; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--es-line); }
-  #estet-landing .es-price-row:first-child { border-top: 1px solid var(--es-line); }
-  #estet-landing .es-price-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; white-space: nowrap; }
-  #estet-landing .es-price-desc { font-size: .82rem; color: var(--es-ink-soft); flex: 1; }
-  #estet-landing .es-price-dots { flex: 1; border-bottom: 1px dotted var(--es-line); min-width: 20px; }
-  #estet-landing .es-price-val { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--es-gold); white-space: nowrap; }
-  #estet-landing .es-price-note { text-align: center; font-size: .8rem; color: var(--es-ink-soft); margin-top: 26px; }
+/* Opinie */
+.estet .e-quote-card{
+  background:var(--e-white);border:1px solid var(--e-line) !important;border-left:1px solid var(--e-line) !important;
+  padding:34px 30px !important;font-style:normal;margin:0;
+}
+.estet .e-quote-card p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:1.1rem !important;color:var(--e-ink);line-height:1.5;
+}
+.estet .e-quote-card cite{
+  display:block;margin-top:20px;padding-top:16px;border-top:1px solid var(--e-line);
+  font-style:normal;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--e-soft);
+}
+.estet .e-stars{color:var(--e-gold);letter-spacing:4px;font-size:.78rem !important;margin-bottom:14px !important;}
 
-  /* ---------- Opinie ---------- */
-  #estet-landing .es-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  #estet-landing .es-qcard { background: var(--es-white); border: 1px solid var(--es-line); padding: 34px 30px; display: flex; flex-direction: column; }
-  #estet-landing .es-stars { color: var(--es-gold); letter-spacing: 4px; font-size: .8rem; margin-bottom: 16px; }
-  #estet-landing .es-qcard p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 1.1rem; color: var(--es-ink); margin: 0; flex: 1; line-height: 1.5; }
-  #estet-landing .es-qcard cite { display: block; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--es-line); font-style: normal; font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--es-ink-soft); }
+/* FAQ — bez tła, same włoskowe linie */
+.estet .e-faq{border-bottom:1px solid var(--e-line);}
+.estet .e-faq:first-of-type{border-top:1px solid var(--e-line);}
+.estet .e-faq summary{
+  padding:24px 52px 24px 0;cursor:pointer;list-style:none;position:relative;
+  font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--e-ink);
+}
+.estet .e-faq summary::-webkit-details-marker{display:none;}
+.estet .e-faq summary::after{
+  content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font-family:'Inter',sans-serif;font-weight:300;font-size:1.3rem;color:var(--e-gold);line-height:1;
+}
+.estet .e-faq[open] summary::after{content:"–";}
+.estet .e-faq p{padding:0 40px 24px 0;margin:0 !important;font-size:.92rem !important;}
 
-  /* ---------- FAQ ---------- */
-  #estet-landing .es-faq { max-width: 800px; margin: 0 auto; }
-  #estet-landing .es-faq details { border-bottom: 1px solid var(--es-line); }
-  #estet-landing .es-faq details:first-child { border-top: 1px solid var(--es-line); }
-  #estet-landing .es-faq summary { list-style: none; cursor: pointer; padding: 24px 54px 24px 0; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; position: relative; }
-  #estet-landing .es-faq summary::-webkit-details-marker { display: none; }
-  #estet-landing .es-faq summary::after { content: "+"; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--es-gold); line-height: 1; font-family: 'Inter', sans-serif; font-weight: 300; }
-  #estet-landing .es-faq details[open] summary::after { content: "–"; }
-  #estet-landing .es-faq .es-faq-a { padding: 0 40px 26px 0; font-size: .92rem; color: var(--es-ink-soft); }
+/* Kontakt */
+.estet .e-info p{margin:0 0 3px !important;}
+.estet .e-info strong{
+  display:block;color:var(--e-ink);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px;
+}
+.estet .e-box{background:var(--e-cream);border:1px solid var(--e-line);padding:40px 36px !important;}
+.estet .e-map{border:1px solid var(--e-line);overflow:hidden;height:100%;min-height:400px;filter:grayscale(1);}
+.estet .e-map iframe{display:block;width:100%;height:100%;min-height:400px;border:0;}
 
-  /* ---------- Kontakt ---------- */
-  #estet-landing .es-contact { background: var(--es-white); }
-  #estet-landing .es-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: stretch; }
-  #estet-landing .es-contact-card { background: var(--es-cream); padding: 48px 44px; border: 1px solid var(--es-line); }
-  #estet-landing .es-contact-card h2 { font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 300; margin-top: 12px; }
-  #estet-landing .es-contact-item { display: flex; gap: 16px; margin-bottom: 24px; }
-  #estet-landing .es-contact-item svg { width: 20px; height: 20px; color: var(--es-gold); flex-shrink: 0; margin-top: 3px; }
-  #estet-landing .es-contact-item strong { display: block; font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 3px; }
-  #estet-landing .es-contact-item span { font-size: .93rem; color: var(--es-ink-soft); }
-  #estet-landing .es-map-frame { overflow: hidden; min-height: 380px; border: 1px solid var(--es-line); filter: grayscale(1) contrast(1.05); }
-  #estet-landing .es-map-frame iframe { width: 100%; height: 100%; min-height: 380px; border: 0; }
+/* Stopka */
+.estet-footer p,.estet-footer li{color:#B7B0A6 !important;font-size:.86rem !important;}
+.estet-footer h2,.estet-footer h3{color:#fff !important;}
+.estet-footer a{color:#B7B0A6 !important;}
+.estet-footer a:hover{color:var(--e-gold-l) !important;}
+.estet-footer ul{list-style:none !important;padding-left:0 !important;margin:0 !important;display:grid;gap:7px;}
 
-  /* ---------- Stopka ---------- */
-  #estet-landing footer.es-footer { background: var(--es-ink); color: var(--es-cream); padding: 64px 0 32px; }
-  #estet-landing .es-footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 22px; }
-  #estet-landing .es-footer-social { display: flex; gap: 12px; }
-  #estet-landing .es-footer-social a { width: 40px; height: 40px; border: 1px solid rgba(251,248,243,.25); display: flex; align-items: center; justify-content: center; transition: background .2s ease, border-color .2s ease; }
-  #estet-landing .es-footer-social a:hover { background: var(--es-gold); border-color: var(--es-gold); }
-  #estet-landing .es-footer-social svg { width: 17px; height: 17px; }
-  #estet-landing .es-footer-bottom { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; opacity: .6; margin-top: 40px; text-align: center; }
-  #estet-landing .es-footer-note { font-size: .74rem; opacity: .5; margin: 12px auto 0; text-align: center; max-width: 680px; line-height: 1.6; }
+.estet[id]{scroll-margin-top:90px;}
 
-  #estet-landing .es-fade { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-  #estet-landing .es-fade.es-in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { #estet-landing .es-fade { opacity: 1; transform: none; transition: none; } }
-
-  @media (max-width: 980px) {
-    #estet-landing .es-treatments, #estet-landing .es-steps-grid, #estet-landing .es-quotes, #estet-landing .es-pillars { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 900px) {
-    #estet-landing .es-nav { position: fixed; inset: 66px 0 0 0; background: var(--es-cream); flex-direction: column; justify-content: flex-start; padding: 40px 28px; gap: 26px; transform: translateX(100%); transition: transform .25s ease; }
-    #estet-landing .es-nav.es-open { transform: translateX(0); }
-    #estet-landing .es-nav-toggle { display: block; }
-    #estet-landing .es-hero-grid, #estet-landing .es-about-grid, #estet-landing .es-contact-grid { grid-template-columns: 1fr; }
-    #estet-landing .es-hero-art { order: -1; max-width: 360px; margin: 0 auto 30px; }
-    #estet-landing .es-hero-badge { left: 0; bottom: -20px; }
-    #estet-landing .es-treatments, #estet-landing .es-steps-grid, #estet-landing .es-quotes, #estet-landing .es-pillars { grid-template-columns: 1fr; }
-    #estet-landing section { padding: 68px 0; }
-    #estet-landing .es-price-row { flex-wrap: wrap; }
-    #estet-landing .es-price-dots { display: none; }
-    #estet-landing .es-price-desc { flex-basis: 100%; order: 3; }
-  }
+@media (max-width:781px){
+  .estet .e-price li{flex-wrap:wrap;gap:6px;}
+}
 </style>
-
-  <header class="es-header">
-    <div class="es-header-inner">
-      <div class="es-logo">[Nazwa]<span>&nbsp;·&nbsp;</span>Estetica</div>
-      <button class="es-nav-toggle" id="esNavToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
-      <nav class="es-nav" id="esNav">
-        <a class="es-navlink" href="#es-o-gabinecie">O gabinecie</a>
-        <a class="es-navlink" href="#es-zabiegi">Zabiegi</a>
-        <a class="es-navlink" href="#es-cennik">Cennik</a>
-        <a class="es-navlink" href="#es-kontakt">Kontakt</a>
-        <a class="es-btn es-btn-primary" href="#es-kontakt">Umów konsultację</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="es-hero">
-    <div class="es-wrap es-hero-grid">
-      <div>
-        <span class="es-eyebrow">Medycyna estetyczna · [Miasto]</span>
-        <h1>Naturalny efekt,<br><em>medyczna</em> precyzja.</h1>
-        <p class="es-lead">Zabiegi dobierane indywidualnie, po rzetelnej konsultacji i ocenie twarzy jako całości. Zawsze zaczynamy od rozmowy o tym, co jest realne — i co ma sens dla Ciebie.</p>
-        <p class="es-quote">„Mniej znaczy więcej — pod warunkiem, że jest zrobione dobrze."</p>
-        <div class="es-hero-ctas" style="margin-top:30px">
-          <a href="#es-kontakt" class="es-btn es-btn-primary">Umów konsultację</a>
-          <a href="#es-zabiegi" class="es-btn es-btn-ghost">Zobacz zabiegi</a>
-        </div>
-        <div class="es-hero-meta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-          <span>[ul. Przykładowa 00, 00-000 Miasto] &nbsp;·&nbsp; [tel. 000 000 000]</span>
-        </div>
-      </div>
-      <div class="es-hero-art">
-        <div class="es-hero-img"><img src="[LINK-DO-ZDJĘCIA-LEKARZA]" alt="[Imię i nazwisko] — lekarz medycyny estetycznej"></div>
-        <div class="es-hero-badge">
-          <span class="es-badge-num">[00]</span>
-          <span class="es-badge-txt">lat doświadczenia w medycynie estetycznej</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="es-facts">
-    <div class="es-facts-inner">
-      <div class="es-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>Zabiegi wykonuje lekarz</div>
-      <div class="es-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Konsultacja przed każdym zabiegiem</div>
-      <div class="es-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.4 5.5 6 .5-4.5 4 1.3 5.9L12 15.8 6.8 18.9l1.3-5.9-4.5-4 6-.5Z"/></svg>Certyfikowane preparaty i sprzęt</div>
-      <div class="es-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Wizyta kontrolna w cenie</div>
-    </div>
-  </div>
-
-  <section class="es-about" id="es-o-gabinecie">
-    <div class="es-wrap es-about-grid es-fade">
-      <div class="es-about-img"><img src="[LINK-DO-ZDJĘCIA-GABINETU]" alt="Wnętrze gabinetu medycyny estetycznej"></div>
-      <div class="es-about">
-        <span class="es-eyebrow">O gabinecie</span>
-        <h2>[Nazwa gabinetu]</h2>
-        <p>[DO UZUPEŁNIENIA — kim jesteś, jakie masz wykształcenie i doświadczenie, jakie podejście stosujesz. 3–4 zdania. Unikaj obietnic efektu; opisz sposób pracy.]</p>
-        <p>[Opcjonalnie drugi akapit — o filozofii gabinetu, o tym, dlaczego konsultacja poprzedza każdy zabieg, o bezpieczeństwie i wizytach kontrolnych.]</p>
-        <div class="es-pillars">
-          <div class="es-pillar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 8h14M7 21h10"/></svg>
-            <h3>Konsultacja</h3>
-            <p>Plan zabiegowy powstaje po rozmowie i badaniu — nigdy „z katalogu".</p>
-          </div>
-          <div class="es-pillar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-            <h3>Bezpieczeństwo</h3>
-            <p>Sterylne warunki, certyfikowane preparaty, pełna dokumentacja.</p>
-          </div>
-          <div class="es-pillar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-            <h3>Kontrola</h3>
-            <p>Wizyta kontrolna po zabiegu — w cenie, bez dopłat.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="es-zabiegi">
-    <div class="es-wrap">
-      <div class="es-sec-head es-fade">
-        <span class="es-eyebrow">Zabiegi</span>
-        <h2>Zakres zabiegów</h2>
-        <p>Poniższa lista jest przykładowa — skoryguj ją zgodnie z faktyczną ofertą gabinetu.</p>
-      </div>
-      <div class="es-treatments es-fade">
-
-        <div class="es-treatment">
-          <span class="es-num">01</span>
-          <h3>Konsultacja lekarska</h3>
-          <p>Ocena skóry i proporcji twarzy, omówienie oczekiwań oraz przygotowanie planu zabiegowego.</p>
-          <ul>
-            <li>wywiad i badanie</li>
-            <li>plan na najbliższe miesiące</li>
-            <li>[czas trwania — uzupełnij]</li>
-          </ul>
-        </div>
-
-        <div class="es-treatment">
-          <span class="es-num">02</span>
-          <h3>Wypełniacze</h3>
-          <p>Zabiegi z użyciem kwasu hialuronowego — modelowanie i nawilżenie wybranych okolic twarzy.</p>
-          <ul>
-            <li>okolica ust</li>
-            <li>bruzdy nosowo-wargowe</li>
-            <li>[pozostałe okolice — uzupełnij]</li>
-          </ul>
-        </div>
-
-        <div class="es-treatment">
-          <span class="es-num">03</span>
-          <h3>Mezoterapia igłowa</h3>
-          <p>Podanie substancji odżywczych bezpośrednio w skórę właściwą — twarz, szyja, dekolt, skóra głowy.</p>
-          <ul>
-            <li>koktajle nawilżające</li>
-            <li>skóra głowy</li>
-            <li>seria zabiegów wg planu</li>
-          </ul>
-        </div>
-
-        <div class="es-treatment">
-          <span class="es-num">04</span>
-          <h3>Stymulatory tkankowe</h3>
-          <p>Preparaty pobudzające skórę do pracy — stosowane w seriach, z efektem rozłożonym w czasie.</p>
-          <ul>
-            <li>ocena wskazań na konsultacji</li>
-            <li>[rodzaje preparatów — uzupełnij]</li>
-            <li>plan serii zabiegów</li>
-          </ul>
-        </div>
-
-        <div class="es-treatment">
-          <span class="es-num">05</span>
-          <h3>Peelingi medyczne</h3>
-          <p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku.</p>
-          <ul>
-            <li>trądzik i niedoskonałości</li>
-            <li>przebarwienia</li>
-            <li>[rodzaje peelingów — uzupełnij]</li>
-          </ul>
-        </div>
-
-        <div class="es-treatment">
-          <span class="es-num">06</span>
-          <h3>Pielęgnacja i diagnostyka</h3>
-          <p>Dobór pielęgnacji domowej oraz kontrola efektów prowadzonej terapii.</p>
-          <ul>
-            <li>plan pielęgnacji</li>
-            <li>zdjęcia kontrolne</li>
-            <li>wizyty kontrolne</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="es-steps" id="es-przebieg">
-    <div class="es-wrap">
-      <div class="es-sec-head es-fade">
-        <span class="es-eyebrow">Przebieg</span>
-        <h2>Jak wygląda wizyta</h2>
-        <p>Cztery kroki — od pierwszego kontaktu do kontroli efektów.</p>
-      </div>
-      <div class="es-steps-grid es-fade">
-        <div class="es-step">
-          <span class="es-step-num">01</span>
-          <h3>Kontakt</h3>
-          <p>Umawiasz termin telefonicznie lub przez formularz. Dostajesz potwierdzenie i informacje przygotowawcze.</p>
-        </div>
-        <div class="es-step">
-          <span class="es-step-num">02</span>
-          <h3>Konsultacja</h3>
-          <p>Rozmowa, wywiad medyczny i ocena skóry. Ustalamy, co jest realne i czy zabieg w ogóle jest wskazany.</p>
-        </div>
-        <div class="es-step">
-          <span class="es-step-num">03</span>
-          <h3>Zabieg</h3>
-          <p>Po podpisaniu świadomej zgody. Otrzymujesz pisemne zalecenia pozabiegowe i kontakt na wypadek pytań.</p>
-        </div>
-        <div class="es-step">
-          <span class="es-step-num">04</span>
-          <h3>Kontrola</h3>
-          <p>Wizyta kontrolna w ustalonym terminie — ocena efektu i ewentualna korekta.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="es-cennik">
-    <div class="es-wrap">
-      <div class="es-sec-head es-fade">
-        <span class="es-eyebrow">Cennik</span>
-        <h2>Orientacyjne ceny</h2>
-        <p>[Uzupełnij faktycznymi cenami lub usuń tę sekcję, jeśli nie chcesz publikować cennika.]</p>
-      </div>
-      <div class="es-price-list es-fade">
-        <div class="es-price-row">
-          <span class="es-price-name">Konsultacja lekarska</span>
-          <span class="es-price-desc">rozliczana przy zabiegu w tym samym dniu</span>
-          <span class="es-price-dots"></span>
-          <span class="es-price-val">[000 zł]</span>
-        </div>
-        <div class="es-price-row">
-          <span class="es-price-name">Wypełniacze</span>
-          <span class="es-price-desc">cena zależna od okolicy i ilości preparatu</span>
-          <span class="es-price-dots"></span>
-          <span class="es-price-val">od [000 zł]</span>
-        </div>
-        <div class="es-price-row">
-          <span class="es-price-name">Mezoterapia igłowa</span>
-          <span class="es-price-desc">pojedynczy zabieg / pakiet</span>
-          <span class="es-price-dots"></span>
-          <span class="es-price-val">od [000 zł]</span>
-        </div>
-        <div class="es-price-row">
-          <span class="es-price-name">Stymulatory tkankowe</span>
-          <span class="es-price-desc">wycena po konsultacji</span>
-          <span class="es-price-dots"></span>
-          <span class="es-price-val">od [000 zł]</span>
-        </div>
-        <div class="es-price-row">
-          <span class="es-price-name">Peelingi medyczne</span>
-          <span class="es-price-desc">cena zależna od rodzaju peelingu</span>
-          <span class="es-price-dots"></span>
-          <span class="es-price-val">od [000 zł]</span>
-        </div>
-      </div>
-      <p class="es-price-note">Ceny mają charakter orientacyjny. Ostateczny koszt ustalany jest indywidualnie po konsultacji.</p>
-    </div>
-  </section>
-
-  <section id="es-opinie">
-    <div class="es-wrap">
-      <div class="es-sec-head es-fade">
-        <span class="es-eyebrow">Opinie</span>
-        <h2>Głosy pacjentek i pacjentów</h2>
-        <p>[PRZYKŁADOWE TREŚCI — podmień na prawdziwe opinie i nie publikuj tej sekcji w obecnej formie.]</p>
-      </div>
-      <div class="es-quotes es-fade">
-        <div class="es-qcard">
-          <div class="es-stars" aria-label="Ocena 5 na 5">★★★★★</div>
-          <p>„[Przykładowa opinia] Konsultacja bez presji — usłyszałam, że część zabiegów nie jest mi potrzebna."</p>
-          <cite>[Imię] — [Miasto]</cite>
-        </div>
-        <div class="es-qcard">
-          <div class="es-stars" aria-label="Ocena 5 na 5">★★★★★</div>
-          <p>„[Przykładowa opinia] Wszystko dokładnie wytłumaczone, łącznie z tym, czego się spodziewać po zabiegu."</p>
-          <cite>[Imię] — [Miasto]</cite>
-        </div>
-        <div class="es-qcard">
-          <div class="es-stars" aria-label="Ocena 5 na 5">★★★★★</div>
-          <p>„[Przykładowa opinia] Efekt naturalny, dokładnie taki, jak ustaliliśmy na konsultacji."</p>
-          <cite>[Imię] — [Miasto]</cite>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="es-faq">
-    <div class="es-wrap">
-      <div class="es-sec-head es-fade">
-        <span class="es-eyebrow">FAQ</span>
-        <h2>Najczęstsze pytania</h2>
-      </div>
-      <div class="es-faq es-fade">
-        <details open>
-          <summary>Czy konsultacja jest konieczna przed zabiegiem?</summary>
-          <div class="es-faq-a">Tak. Każdy zabieg poprzedza wywiad medyczny i ocena wskazań oraz przeciwwskazań. Zdarza się, że po konsultacji odradzam zabieg — to również jest wynik konsultacji.</div>
-        </details>
-        <details>
-          <summary>Jak przygotować się do wizyty?</summary>
-          <div class="es-faq-a">[DO UZUPEŁNIENIA — np. informacja o lekach przeciwkrzepliwych, alkoholu, aktywności fizycznej i makijażu przed zabiegiem.]</div>
-        </details>
-        <details>
-          <summary>Czy zabiegi bolą?</summary>
-          <div class="es-faq-a">[DO UZUPEŁNIENIA — opisz stosowane znieczulenie i odczucia w trakcie zabiegu, bez obiecywania całkowitej bezbolesności.]</div>
-        </details>
-        <details>
-          <summary>Jakie mogą wystąpić działania niepożądane?</summary>
-          <div class="es-faq-a">[DO UZUPEŁNIENIA — wymień typowe odczyny pozabiegowe: obrzęk, zaczerwienienie, siniaki, oraz sposób kontaktu w razie niepokojących objawów. Ta sekcja jest istotna także z punktu widzenia świadomej zgody.]</div>
-        </details>
-        <details>
-          <summary>Jak umówić wizytę i czy obowiązuje zadatek?</summary>
-          <div class="es-faq-a">[DO UZUPEŁNIENIA — sposób rejestracji, zasady odwoływania wizyt i ewentualny zadatek.]</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="es-contact" id="es-kontakt">
-    <div class="es-wrap es-contact-grid es-fade">
-      <div class="es-contact-card">
-        <span class="es-eyebrow">Kontakt</span>
-        <h2>Umów konsultację</h2>
-        <div style="margin-top:32px">
-          <div class="es-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-            <div><strong>Adres</strong><span>[ul. Przykładowa 00, 00-000 Miasto]</span></div>
-          </div>
-          <div class="es-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.5 3h3l1.5 4-2 1.4a12 12 0 0 0 5.6 5.6L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.5 5.2 2 2 0 0 1 5.5 3Z"/></svg>
-            <div><strong>Telefon</strong><span><a href="tel:+48000000000">[+48 000 000 000]</a></span></div>
-          </div>
-          <div class="es-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg>
-            <div><strong>E-mail</strong><span><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></span></div>
-          </div>
-          <div class="es-contact-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-            <div><strong>Godziny przyjęć</strong><span>[DO UZUPEŁNIENIA]</span></div>
-          </div>
-        </div>
-        <!-- Formularz: wstaw tutaj shortcode wtyczki (Contact Form 7 / WPForms).
-             Sam HTML nie wyśle wiadomości. -->
-        <div class="es-hero-ctas" style="margin-top:12px">
-          <a href="tel:+48000000000" class="es-btn es-btn-gold">Zadzwoń</a>
-        </div>
-      </div>
-      <div class="es-map-frame">
-        <!-- UZUPEŁNIJ: podmień współrzędne/bbox na adres gabinetu -->
-        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=19.90%2C50.03%2C20.05%2C50.09&layer=mapnik&marker=50.0614%2C19.9366" loading="lazy" title="Mapa dojazdu do gabinetu"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <footer class="es-footer">
-    <div class="es-wrap es-footer-inner">
-      <div class="es-logo" style="color:#fff">[Nazwa]<span>&nbsp;·&nbsp;</span>Estetica</div>
-      <div class="es-footer-social">
-        <a href="[LINK-DO-FACEBOOKA]" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-7.5H16l.5-3H13.5V8.2c0-.87.24-1.46 1.5-1.46h1.6V3.7C16.3 3.63 15.3 3.5 14.1 3.5c-2.4 0-4.1 1.47-4.1 4.15V10.5H7.5v3H10V21h3.5Z"/></svg></a>
-        <a href="[LINK-DO-INSTAGRAMA]" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-      </div>
-    </div>
-    <div class="es-footer-bottom">© [Nazwa gabinetu] · Wszelkie prawa zastrzeżone</div>
-    <div class="es-footer-note">Treści na tej stronie mają charakter informacyjny i nie stanowią porady medycznej ani oferty w rozumieniu przepisów prawa. Kwalifikację do zabiegu ustala lekarz podczas konsultacji.</div>
-  </footer>
-
-</div><!-- /.estet -->
-
-<script>
-(function () {
-  try {
-    var root = document.getElementById('estet-landing');
-    if (!root) return;
-
-    var toggle = document.getElementById('esNavToggle');
-    var nav = document.getElementById('esNav');
-    if (toggle && nav) {
-      toggle.addEventListener('click', function () {
-        var open = nav.classList.toggle('es-open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      var navLinks = nav.querySelectorAll('a');
-      for (var i = 0; i < navLinks.length; i++) {
-        navLinks[i].addEventListener('click', function () { nav.classList.remove('es-open'); });
-      }
-    }
-
-    var anchors = root.querySelectorAll('a[href^="#"]');
-    for (var j = 0; j < anchors.length; j++) {
-      anchors[j].addEventListener('click', function (e) {
-        var targetEl = document.querySelector(this.getAttribute('href'));
-        if (targetEl) { e.preventDefault(); targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-      });
-    }
-
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) { entry.target.classList.add('es-in'); io.unobserve(entry.target); }
-        });
-      }, { threshold: 0.15 });
-      var fades = root.querySelectorAll('.es-fade');
-      for (var k = 0; k < fades.length; k++) { io.observe(fades[k]); }
-    } else {
-      var fades2 = root.querySelectorAll('.es-fade');
-      for (var m = 0; m < fades2.length; m++) { fades2[m].classList.add('es-in'); }
-    }
-  } catch (err) {
-    if (window.console) { console.error('estet-landing script error:', err); }
-  }
-})();
-</script>
 <!-- /wp:html -->
+
+
+<!-- ============================ 2. HERO ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-start","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-start" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"56px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+
+<!-- wp:column {"verticalAlignment":"center","width":"54%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:54%">
+<!-- wp:paragraph {"className":"e-eyebrow"} -->
+<p class="e-eyebrow">Medycyna estetyczna · [Miasto]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">Naturalny efekt,<br><em>medyczna</em> precyzja.</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"e-lead","style":{"spacing":{"margin":{"top":"22px"}}}} -->
+<p class="e-lead" style="margin-top:22px">Zabiegi dobierane indywidualnie, po rzetelnej konsultacji i ocenie twarzy jako całości. Zaczynamy od rozmowy o tym, co jest realne — i co ma sens dla Ciebie.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"e-quote","style":{"spacing":{"margin":{"top":"16px"}}}} -->
+<p class="e-quote" style="margin-top:16px">„Mniej znaczy więcej — pod warunkiem, że jest zrobione dobrze."</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"32px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:32px">
+<!-- wp:button {"className":"e-btn e-btn--solid"} -->
+<div class="wp-block-button e-btn e-btn--solid"><a class="wp-block-button__link wp-element-button" href="#es-kontakt">Umów konsultację</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"e-btn e-btn--ghost"} -->
+<div class="wp-block-button e-btn e-btn--ghost"><a class="wp-block-button__link wp-element-button" href="#es-zabiegi">Zobacz zabiegi</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"className":"e-small","style":{"spacing":{"margin":{"top":"28px"}}}} -->
+<p class="e-small" style="margin-top:28px">[ul. Przykładowa 00, 00-000 Miasto] &nbsp;·&nbsp; <a href="tel:+48000000000">[+48 000 000 000]</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"46%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:46%">
+<!-- ZDJĘCIE: usuń tę grupę i wstaw blok "Obraz" (format pionowy 4:5) -->
+<!-- wp:group {"className":"e-photo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-photo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">[ZDJĘCIE LEKARZA]<br>wstaw blok „Obraz", format 4:5</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 3. PASEK FAKTÓW ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-facts","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"28px","bottom":"28px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet estet-facts has-background" style="background-color:#111111;padding-top:28px;padding-right:24px;padding-bottom:28px;padding-left:24px">
+<!-- wp:columns {"isStackedOnMobile":false,"style":{"spacing":{"blockGap":{"left":"20px"}}}} -->
+<div class="wp-block-columns is-not-stacked-on-mobile">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph --><p><strong>·</strong> Zabiegi wykonuje lekarz</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph --><p><strong>·</strong> Konsultacja przed zabiegiem</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph --><p><strong>·</strong> Wizyta kontrolna w cenie</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 4. O GABINECIE ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-o-gabinecie","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-o-gabinecie" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"56px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+
+<!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
+<!-- wp:group {"className":"e-photo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-photo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">[ZDJĘCIE GABINETU]</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
+<!-- wp:paragraph {"className":"e-eyebrow"} -->
+<p class="e-eyebrow">O gabinecie</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">[Nazwa gabinetu]</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — kim jesteś, jakie masz wykształcenie i doświadczenie, jakie stosujesz podejście. 3–4 zdania. Unikaj obietnic efektu; opisz sposób pracy.]</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>[Opcjonalnie drugi akapit — dlaczego konsultacja poprzedza każdy zabieg, o bezpieczeństwie i wizytach kontrolnych.]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"},"margin":{"top":"32px"}}}} -->
+<div class="wp-block-columns" style="margin-top:32px">
+<!-- wp:column {"className":"e-pillar"} -->
+<div class="wp-block-column e-pillar">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Plan zabiegowy powstaje po rozmowie i badaniu — nigdy „z katalogu".</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-pillar"} -->
+<div class="wp-block-column e-pillar">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Bezpieczeństwo</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Sterylne warunki, certyfikowane preparaty, pełna dokumentacja.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-pillar"} -->
+<div class="wp-block-column e-pillar">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Kontrola</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Wizyta kontrolna po zabiegu — w cenie, bez dopłat.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 5. ZABIEGI ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"e-eyebrow"} -->
+<p class="has-text-align-center e-eyebrow">Zabiegi</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Zakres zabiegów</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
+<p class="has-text-align-center e-small" style="margin-bottom:48px">Lista przykładowa — skoryguj ją zgodnie z faktyczną ofertą gabinetu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column {"className":"e-card"} -->
+<div class="wp-block-column e-card">
+<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">01</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja lekarska</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Ocena skóry i proporcji twarzy, omówienie oczekiwań, przygotowanie planu.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>wywiad i badanie</li><!-- /wp:list-item --><!-- wp:list-item --><li>plan na najbliższe miesiące</li><!-- /wp:list-item --><!-- wp:list-item --><li>[czas trwania — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-card"} -->
+<div class="wp-block-column e-card">
+<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">02</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Wypełniacze</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Zabiegi z kwasem hialuronowym — modelowanie i nawilżenie wybranych okolic.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>okolica ust</li><!-- /wp:list-item --><!-- wp:list-item --><li>bruzdy nosowo-wargowe</li><!-- /wp:list-item --><!-- wp:list-item --><li>[pozostałe okolice — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-card"} -->
+<div class="wp-block-column e-card">
+<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">03</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Mezoterapia igłowa</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Substancje odżywcze podawane w skórę właściwą — twarz, szyja, dekolt, skóra głowy.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>koktajle nawilżające</li><!-- /wp:list-item --><!-- wp:list-item --><li>skóra głowy</li><!-- /wp:list-item --><!-- wp:list-item --><li>seria zabiegów wg planu</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"},"margin":{"top":"16px"}}}} -->
+<div class="wp-block-columns" style="margin-top:16px">
+<!-- wp:column {"className":"e-card"} -->
+<div class="wp-block-column e-card">
+<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">04</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Stymulatory tkankowe</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Preparaty pobudzające skórę do pracy — stosowane w seriach, z efektem rozłożonym w czasie.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>ocena wskazań na konsultacji</li><!-- /wp:list-item --><!-- wp:list-item --><li>[rodzaje preparatów — uzupełnij]</li><!-- /wp:list-item --><!-- wp:list-item --><li>plan serii zabiegów</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-card"} -->
+<div class="wp-block-column e-card">
+<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">05</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Peelingi medyczne</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>trądzik i niedoskonałości</li><!-- /wp:list-item --><!-- wp:list-item --><li>przebarwienia</li><!-- /wp:list-item --><!-- wp:list-item --><li>[rodzaje peelingów — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-card"} -->
+<div class="wp-block-column e-card">
+<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">06</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Pielęgnacja i kontrola</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Dobór pielęgnacji domowej oraz kontrola efektów prowadzonej terapii.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>plan pielęgnacji</li><!-- /wp:list-item --><!-- wp:list-item --><li>zdjęcia kontrolne</li><!-- /wp:list-item --><!-- wp:list-item --><li>wizyty kontrolne</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 6. PRZEBIEG WIZYTY ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"e-eyebrow"} -->
+<p class="has-text-align-center e-eyebrow">Przebieg</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center" style="margin-bottom:48px">Jak wygląda wizyta</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"32px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column {"className":"e-step"} -->
+<div class="wp-block-column e-step">
+<!-- wp:paragraph {"className":"e-step-num"} --><p class="e-step-num">01</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Kontakt</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Umawiasz termin telefonicznie lub przez formularz. Dostajesz potwierdzenie i informacje przygotowawcze.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-step"} -->
+<div class="wp-block-column e-step">
+<!-- wp:paragraph {"className":"e-step-num"} --><p class="e-step-num">02</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Rozmowa, wywiad medyczny i ocena skóry. Ustalamy, co jest realne i czy zabieg jest wskazany.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-step"} -->
+<div class="wp-block-column e-step">
+<!-- wp:paragraph {"className":"e-step-num"} --><p class="e-step-num">03</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Zabieg</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Po podpisaniu świadomej zgody. Otrzymujesz pisemne zalecenia pozabiegowe i kontakt na wypadek pytań.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"e-step"} -->
+<div class="wp-block-column e-step">
+<!-- wp:paragraph {"className":"e-step-num"} --><p class="e-step-num">04</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Kontrola</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Wizyta kontrolna w ustalonym terminie — ocena efektu i ewentualna korekta.</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 7. CENNIK ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-cennik","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"820px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-cennik" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"e-eyebrow"} -->
+<p class="has-text-align-center e-eyebrow">Cennik</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Orientacyjne ceny</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"40px"}}}} -->
+<p class="has-text-align-center e-small" style="margin-bottom:40px">[Uzupełnij faktycznymi cenami lub usuń tę sekcję, jeśli nie chcesz publikować cennika.]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"e-price"} -->
+<ul class="wp-block-list e-price"><!-- wp:list-item -->
+<li><span class="n">Konsultacja lekarska<small>rozliczana przy zabiegu w tym samym dniu</small></span><span class="v">[000 zł]</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Wypełniacze<small>cena zależna od okolicy i ilości preparatu</small></span><span class="v">od [000 zł]</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Mezoterapia igłowa<small>pojedynczy zabieg / pakiet</small></span><span class="v">od [000 zł]</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Stymulatory tkankowe<small>wycena po konsultacji</small></span><span class="v">od [000 zł]</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Peelingi medyczne<small>cena zależna od rodzaju peelingu</small></span><span class="v">od [000 zł]</span></li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"top":"26px"}}}} -->
+<p class="has-text-align-center e-small" style="margin-top:26px">Ceny mają charakter orientacyjny. Ostateczny koszt ustalany jest indywidualnie po konsultacji.</p>
+<!-- /wp:paragraph -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 8. OPINIE ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"e-eyebrow"} -->
+<p class="has-text-align-center e-eyebrow">Opinie</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Głosy pacjentek i pacjentów</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
+<p class="has-text-align-center e-small" style="margin-bottom:48px">[TREŚCI PRZYKŁADOWE — podmień na prawdziwe opinie.]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"24px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"e-quote-card"} -->
+<blockquote class="wp-block-quote e-quote-card"><!-- wp:paragraph {"className":"e-stars"} -->
+<p class="e-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„[Przykładowa opinia] Konsultacja bez presji — usłyszałam, że część zabiegów nie jest mi potrzebna."</p>
+<!-- /wp:paragraph --><cite>[Imię] — [Miasto]</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"e-quote-card"} -->
+<blockquote class="wp-block-quote e-quote-card"><!-- wp:paragraph {"className":"e-stars"} -->
+<p class="e-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„[Przykładowa opinia] Wszystko dokładnie wytłumaczone, łącznie z tym, czego spodziewać się po zabiegu."</p>
+<!-- /wp:paragraph --><cite>[Imię] — [Miasto]</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"e-quote-card"} -->
+<blockquote class="wp-block-quote e-quote-card"><!-- wp:paragraph {"className":"e-stars"} -->
+<p class="e-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„[Przykładowa opinia] Efekt naturalny, dokładnie taki, jak ustaliliśmy na konsultacji."</p>
+<!-- /wp:paragraph --><cite>[Imię] — [Miasto]</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 9. FAQ ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
+<section class="wp-block-group alignfull estet has-background" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"e-eyebrow"} -->
+<p class="has-text-align-center e-eyebrow">FAQ</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center" style="margin-bottom:44px">Najczęstsze pytania</h2>
+<!-- /wp:heading -->
+
+<!-- wp:details {"showContent":true,"summary":"Czy konsultacja jest konieczna przed zabiegiem?","className":"e-faq"} -->
+<details class="wp-block-details e-faq" open><summary>Czy konsultacja jest konieczna przed zabiegiem?</summary><!-- wp:paragraph -->
+<p>Tak. Każdy zabieg poprzedza wywiad medyczny oraz ocena wskazań i przeciwwskazań. Zdarza się, że po konsultacji odradzam zabieg — to również jest wynik konsultacji.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Jak przygotować się do wizyty?","className":"e-faq"} -->
+<details class="wp-block-details e-faq"><summary>Jak przygotować się do wizyty?</summary><!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — np. informacja o lekach przeciwkrzepliwych, alkoholu, aktywności fizycznej i makijażu przed zabiegiem.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy zabiegi bolą?","className":"e-faq"} -->
+<details class="wp-block-details e-faq"><summary>Czy zabiegi bolą?</summary><!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — opisz stosowane znieczulenie i odczucia w trakcie zabiegu, bez obiecywania całkowitej bezbolesności.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Jakie mogą wystąpić działania niepożądane?","className":"e-faq"} -->
+<details class="wp-block-details e-faq"><summary>Jakie mogą wystąpić działania niepożądane?</summary><!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — wymień typowe odczyny pozabiegowe: obrzęk, zaczerwienienie, siniaki, oraz sposób kontaktu w razie niepokojących objawów. Ta sekcja jest istotna także z punktu widzenia świadomej zgody.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Jak umówić wizytę i czy obowiązuje zadatek?","className":"e-faq"} -->
+<details class="wp-block-details e-faq"><summary>Jak umówić wizytę i czy obowiązuje zadatek?</summary><!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — sposób rejestracji, zasady odwoływania wizyt i ewentualny zadatek.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 10. KONTAKT ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-kontakt","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-kontakt" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
+<div class="wp-block-columns">
+
+<!-- wp:column {"width":"48%"} -->
+<div class="wp-block-column" style="flex-basis:48%">
+<!-- wp:group {"className":"e-box","layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-box">
+<!-- wp:paragraph {"className":"e-eyebrow"} -->
+<p class="e-eyebrow">Kontakt</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Umów konsultację</h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-info" style="margin-top:30px">
+<!-- wp:paragraph --><p><strong>Adres</strong>[ul. Przykładowa 00, 00-000 Miasto]</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48000000000">[+48 000 000 000]</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>E-mail</strong><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Godziny przyjęć</strong>[DO UZUPEŁNIENIA]</p><!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- FORMULARZ: wstaw tutaj blok "Shortcode" z formularzem wtyczki
+     (Contact Form 7 / WPForms). Sam HTML nie wyśle wiadomości. -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"30px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:30px">
+<!-- wp:button {"className":"e-btn e-btn--gold"} -->
+<div class="wp-block-button e-btn e-btn--gold"><a class="wp-block-button__link wp-element-button" href="tel:+48000000000">Zadzwoń</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"52%"} -->
+<div class="wp-block-column" style="flex-basis:52%">
+<!-- wp:html -->
+<div class="e-map">
+  <!-- UZUPEŁNIJ: podmień bbox i marker na współrzędne gabinetu -->
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.90%2C50.03%2C20.05%2C50.09&amp;layer=mapnik&amp;marker=50.0614%2C19.9366"
+    title="Mapa dojazdu do gabinetu"
+    loading="lazy"></iframe>
+</div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 11. STOPKA ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"56px","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet estet-footer has-background" style="background-color:#111111;padding-top:56px;padding-right:24px;padding-bottom:32px;padding-left:24px">
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"40px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column {"width":"55%"} -->
+<div class="wp-block-column" style="flex-basis:55%">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">[Nazwa gabinetu]</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Medycyna estetyczna · [ul. Przykładowa 00, 00-000 Miasto]</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-small"} -->
+<p class="e-small">Treści na tej stronie mają charakter informacyjny i nie stanowią porady medycznej ani oferty w rozumieniu przepisów prawa. Kwalifikację do zabiegu ustala lekarz podczas konsultacji.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"width":"45%"} -->
+<div class="wp-block-column" style="flex-basis:45%">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Kontakt</h3>
+<!-- /wp:heading -->
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="tel:+48000000000">[+48 000 000 000]</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="[LINK-DO-INSTAGRAMA]" target="_blank" rel="noreferrer noopener">Instagram</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->

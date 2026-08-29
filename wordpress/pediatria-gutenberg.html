@@ -1,642 +1,804 @@
-<!-- wp:html -->
 <!--
-  ============================================================================
-  STRONA PEDIATRYCZNA — GOTOWE DO WKLEJENIA W EDYTORZE KODU GUTENBERGA
-  ============================================================================
-  JAK WSTAWIĆ:
-  1) Otwórz stronę w edytorze blokowym WordPressa.
-  2) Trzy kropki w prawym górnym rogu (Opcje) → "Edytor kodu".
-  3) Usuń zawartość edytora kodu i wklej CAŁY ten plik — razem z pierwszą
-     i ostatnią linią, czyli znacznikami bloku „wp:html".
-  4) Kliknij ponownie "Edytor kodu", żeby wrócić do widoku wizualnego.
-  5) Zapisz / opublikuj.
+=====================================================================================
+ STRONA PEDIATRYCZNA — NATYWNE BLOKI GUTENBERGA
+-------------------------------------------------------------------------------------
+ JAK WSTAWIĆ:
+   1. Strony → Dodaj nową
+   2. Menu ⋮ (prawy górny róg) → "Edytor kodu"   (Ctrl + Shift + Alt + M)
+   3. Wklej całą zawartość tego pliku
+   4. Wróć do edytora wizualnego tym samym skrótem
+   5. Ustaw szablon pełnej szerokości i opublikuj
 
-  Jeśli widzisz gołą treść bez stylu — to kwestia uprawnienia "unfiltered_html".
+ CO TO ZMIENIA:
+   Strona jest zbudowana z prawdziwych bloków (Grupa, Kolumny, Nagłówek, Akapit,
+   Lista, Przyciski, Cytat, Szczegóły). Możesz ją edytować klikiem, przestawiać
+   sekcje, zapisywać je jako wzorce wielokrotnego użytku i eksportować.
+   Blok "HTML własny" jest użyty tylko dwa razy: na arkusz stylów i na kalkulator.
 
-  DO UZUPEŁNIENIA RĘCZNIE (oznaczone [W NAWIASACH]):
-  - zdjęcie Pani Doktor i zdjęcie gabinetu
-  - godziny przyjęć
-  - opis "o gabinecie"
-  - opinie pacjentów (obecne są PRZYKŁADOWE — nie publikuj ich w tej formie)
-  - ceny wizyt, jeśli chcesz je pokazywać
-  ============================================================================
+ NAWIGACJA:
+   Celowo nie ma tu własnego menu — WordPress ma już własny nagłówek z menu.
+   Dwa nagłówki na jednej stronie to najczęstsza przyczyna problemów na telefonach.
+   Menu ustaw w: Wygląd → Edytor → Nagłówek.
+
+ DO UZUPEŁNIENIA — oznaczone [W NAWIASACH]
+=====================================================================================
 -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<div class="pedi2" id="pedi-landing2">
+<!-- ============================ 1. STYLE ============================ -->
+<!-- wp:html -->
+<style id="pedi-styles">
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&display=swap');
 
-<style>
-  #pedi-landing2 {
-    --p2-bg-a: #F6E3D6;
-    --p2-bg-b: #EFCFC4;
-    --p2-blue: #8D96B4;
-    --p2-blue-dark: #5C6688;
-    --p2-rose: #D98F92;
-    --p2-ink: #3B2F30;
-    --p2-ink-soft: #6B5C58;
-    --p2-card: #FBF3EC;
-    --p2-line: rgba(59,47,48,.12);
-    --p2-radius: 26px;
-    --p2-max: 1180px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--p2-ink);
-    line-height: 1.55;
-    position: relative;
-    isolation: isolate;
-    overflow-x: hidden;
-    background: var(--p2-bg-a);
-  }
-  #pedi-landing2 *, #pedi-landing2 *::before, #pedi-landing2 *::after { box-sizing: border-box; }
-  #pedi-landing2 img { max-width: 100%; display: block; }
+.pedi{
+  --p-bg:#F6E3D6;
+  --p-card:#FBF3EC;
+  --p-blue:#5C6688;
+  --p-rose:#D98F92;
+  --p-ink:#3B2F30;
+  --p-soft:#6B5C58;
+  --p-line:rgba(59,47,48,.14);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--p-soft);
+  line-height:1.6;
+}
+.pedi h1,.pedi h2,.pedi h3{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.14;
+  color:var(--p-ink);letter-spacing:-.005em;
+}
+.pedi h1{font-size:clamp(2.2rem,1.4rem + 3.4vw,3.4rem);font-weight:500;}
+.pedi h1 em{font-style:italic;font-weight:300;color:var(--p-blue);}
+.pedi h2{font-size:clamp(1.7rem,1.2rem + 2vw,2.5rem);font-weight:500;}
+.pedi h3{font-size:1.12rem;}
+.pedi a{color:var(--p-blue);}
 
-  #pedi-landing2::before {
-    content: ""; position: absolute; inset: 0; z-index: -2;
-    background:
-      radial-gradient(60% 55% at 12% 8%, var(--p2-blue) 0%, transparent 60%),
-      radial-gradient(55% 50% at 30% 20%, var(--p2-rose) 0%, transparent 65%),
-      radial-gradient(70% 60% at 75% 85%, var(--p2-bg-b) 0%, transparent 70%),
-      var(--p2-bg-a);
-    filter: blur(60px) saturate(1.05);
-    opacity: .85;
-  }
-  #pedi-landing2::after {
-    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-    opacity: .05; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
+/* Nadtytuł */
+.pedi .p-eyebrow{
+  display:inline-flex;align-items:center;gap:.7em;font-size:.74rem !important;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--p-blue);margin-bottom:14px !important;
+}
+.pedi .p-eyebrow::before{content:"";width:24px;height:2px;background:var(--p-rose);flex:0 0 auto;}
+.pedi .has-text-align-center.p-eyebrow{justify-content:center;}
 
-  #pedi-landing2 h1, #pedi-landing2 h2, #pedi-landing2 h3 {
-    font-family: 'Fraunces', Georgia, serif; font-weight: 600; line-height: 1.12;
-    margin: 0 0 .5em; color: var(--p2-ink);
-  }
-  #pedi-landing2 .p2-eyebrow {
-    display: inline-flex; align-items: center; gap: .5em; font-size: .78rem; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--p2-blue-dark);
-  }
-  #pedi-landing2 .p2-eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--p2-rose); display: inline-block; }
-  #pedi-landing2 a { color: inherit; text-decoration: none; }
-  #pedi-landing2 .p2-wrap { max-width: var(--p2-max); margin: 0 auto; padding: 0 28px; position: relative; }
-  #pedi-landing2 section { padding: 88px 0; }
-  #pedi-landing2 .p2-quote { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 1.05rem; color: var(--p2-blue-dark); margin: 14px 0 0; }
-  #pedi-landing2 .p2-btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: .5em;
-    padding: 15px 28px; border-radius: 100px; font-weight: 600; font-size: .95rem;
-    border: 2px solid transparent; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-  }
-  #pedi-landing2 .p2-btn:focus-visible { outline: 3px solid var(--p2-blue-dark); outline-offset: 2px; }
-  #pedi-landing2 .p2-btn-primary { background: var(--p2-blue-dark); color: #fff; }
-  #pedi-landing2 .p2-btn-primary:hover { background: var(--p2-ink); transform: translateY(-2px); }
-  #pedi-landing2 .p2-btn-ghost { border-color: var(--p2-blue-dark); color: var(--p2-blue-dark); background: rgba(255,255,255,.35); backdrop-filter: blur(4px); }
-  #pedi-landing2 .p2-btn-ghost:hover { background: #fff; transform: translateY(-2px); }
+.pedi .p-lead{font-size:1.06rem !important;max-width:46ch;}
+.pedi .p-quote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;color:var(--p-blue);font-size:1.05rem !important;}
+.pedi .p-small{font-size:.86rem !important;color:var(--p-soft);}
 
-  #pedi-landing2 .p2-header { position: sticky; top: 0; z-index: 40; background: rgba(246,227,214,.72); backdrop-filter: blur(10px); border-bottom: 1px solid var(--p2-line); }
-  #pedi-landing2 .p2-header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; max-width: var(--p2-max); margin: 0 auto; }
-  #pedi-landing2 .p2-logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.25rem; }
-  #pedi-landing2 .p2-logo span { color: var(--p2-rose); }
-  #pedi-landing2 .p2-nav { display: flex; align-items: center; gap: 28px; }
-  #pedi-landing2 .p2-nav a.p2-navlink { font-weight: 600; font-size: .92rem; color: var(--p2-ink-soft); }
-  #pedi-landing2 .p2-nav a.p2-navlink:hover { color: var(--p2-ink); }
-  #pedi-landing2 .p2-nav-toggle { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--p2-ink); }
+/* Przyciski */
+.pedi .p-btn .wp-block-button__link{
+  border-radius:100px !important;padding:15px 30px !important;
+  font-size:.92rem !important;font-weight:600 !important;
+  transition:background .2s ease,color .2s ease;
+}
+.pedi .p-btn--solid .wp-block-button__link{background:var(--p-blue) !important;color:#fff !important;}
+.pedi .p-btn--solid .wp-block-button__link:hover{background:var(--p-ink) !important;}
+.pedi .p-btn--ghost .wp-block-button__link{
+  background:transparent !important;color:var(--p-blue) !important;border:2px solid var(--p-blue) !important;
+}
+.pedi .p-btn--ghost .wp-block-button__link:hover{background:var(--p-blue) !important;color:#fff !important;}
 
-  #pedi-landing2 .p2-hero { padding-top: 64px; }
-  #pedi-landing2 .p2-hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
-  #pedi-landing2 .p2-hero h1 { font-size: clamp(2.3rem, 4.2vw, 3.4rem); }
-  #pedi-landing2 .p2-hero h1 em { font-style: italic; font-weight: 300; color: var(--p2-blue-dark); }
-  #pedi-landing2 .p2-hero p.p2-lead { font-size: 1.08rem; color: var(--p2-ink-soft); max-width: 46ch; margin: 18px 0 30px; }
-  #pedi-landing2 .p2-hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-  #pedi-landing2 .p2-hero-meta { display: flex; align-items: center; gap: 10px; margin-top: 26px; font-size: .88rem; color: var(--p2-ink-soft); }
-  #pedi-landing2 .p2-hero-meta svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--p2-blue-dark); }
-  #pedi-landing2 .p2-hero-art { position: relative; }
-  #pedi-landing2 .p2-hero-blob {
-    aspect-ratio: 4/5; border-radius: 44% 56% 62% 38% / 46% 40% 60% 54%;
-    background: radial-gradient(120% 120% at 20% 15%, var(--p2-blue) 0%, var(--p2-rose) 45%, var(--p2-bg-a) 100%);
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
-    box-shadow: 0 30px 60px -25px rgba(59,47,48,.35);
-  }
-  #pedi-landing2 .p2-hero-blob img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; opacity: .95; }
-  #pedi-landing2 .p2-hero-badge {
-    position: absolute; bottom: -18px; left: -18px; background: var(--p2-card);
-    border-radius: 18px; padding: 14px 18px; box-shadow: 0 18px 34px -18px rgba(59,47,48,.4);
-    display: flex; align-items: center; gap: 12px; max-width: 230px;
-  }
-  #pedi-landing2 .p2-hero-badge .p2-badge-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 600; color: var(--p2-blue-dark); }
-  #pedi-landing2 .p2-hero-badge .p2-badge-txt { font-size: .78rem; color: var(--p2-ink-soft); line-height: 1.25; }
+/* Zdjęcia i miejsca na zdjęcia */
+.pedi .p-photo{
+  aspect-ratio:4/5;background:var(--p-card);border:1px solid var(--p-line);
+  display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+}
+.pedi .p-photo p{margin:0 !important;color:var(--p-soft);font-size:.88rem !important;padding:20px;}
+.pedi .p-photo img{width:100%;height:100%;object-fit:cover;}
+.pedi figure.wp-block-image{margin:0;}
+.pedi figure.wp-block-image img{width:100%;}
 
-  #pedi-landing2 .p2-facts { background: var(--p2-ink); color: #F6E3D6; padding: 30px 0; }
-  #pedi-landing2 .p2-facts-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 18px; max-width: var(--p2-max); margin: 0 auto; padding: 0 28px; }
-  #pedi-landing2 .p2-fact { display: flex; align-items: center; gap: 10px; font-size: .92rem; font-weight: 500; }
-  #pedi-landing2 .p2-fact svg { width: 20px; height: 20px; color: var(--p2-rose); flex-shrink: 0; }
+/* Karty */
+.pedi .p-card{
+  background:var(--p-card);border:1px solid var(--p-line);
+  padding:30px 28px !important;
+}
+.pedi .p-card h3{margin-bottom:8px;}
+.pedi .p-card p{font-size:.92rem !important;}
+.pedi .p-card ul{list-style:none !important;padding-left:0 !important;margin:14px 0 0 !important;display:grid;gap:7px;}
+.pedi .p-card li{font-size:.86rem;padding-left:18px;position:relative;}
+.pedi .p-card li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--p-rose);}
 
-  #pedi-landing2 .p2-about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: center; }
-  #pedi-landing2 .p2-about-img { border-radius: var(--p2-radius); overflow: hidden; aspect-ratio: 3/3.6; box-shadow: 0 30px 60px -30px rgba(59,47,48,.35); }
-  #pedi-landing2 .p2-about-img img { width: 100%; height: 100%; object-fit: cover; }
-  #pedi-landing2 .p2-about p { color: var(--p2-ink-soft); max-width: 56ch; }
-  #pedi-landing2 .p2-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; }
-  #pedi-landing2 .p2-pillar { background: rgba(255,255,255,.55); backdrop-filter: blur(6px); border-radius: 16px; padding: 20px; border: 1px solid var(--p2-line); }
-  #pedi-landing2 .p2-pillar svg { width: 26px; height: 26px; color: var(--p2-blue-dark); margin-bottom: 10px; }
-  #pedi-landing2 .p2-pillar h3 { font-size: 1rem; margin-bottom: 4px; }
-  #pedi-landing2 .p2-pillar p { font-size: .86rem; color: var(--p2-ink-soft); margin: 0; }
+/* Pasek faktów */
+.pedi-facts{background:var(--p-ink) !important;}
+.pedi-facts p{color:#F6E3D6 !important;font-size:.9rem !important;margin:0 !important;}
+.pedi-facts strong{color:var(--p-rose);font-weight:600;}
 
-  /* ---------- Zakres opieki ---------- */
-  #pedi-landing2 .p2-sec-head { max-width: 620px; margin: 0 auto 44px; text-align: center; }
-  #pedi-landing2 .p2-sec-head .p2-eyebrow { justify-content: center; }
-  #pedi-landing2 .p2-sec-head p { color: var(--p2-ink-soft); margin: 0; }
-  #pedi-landing2 .p2-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  #pedi-landing2 .p2-service {
-    background: var(--p2-card); border: 1px solid var(--p2-line); border-radius: var(--p2-radius);
-    padding: 30px 28px; transition: transform .2s ease, box-shadow .2s ease;
-  }
-  #pedi-landing2 .p2-service:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -30px rgba(59,47,48,.45); }
-  #pedi-landing2 .p2-service svg { width: 28px; height: 28px; color: var(--p2-blue-dark); margin-bottom: 14px; }
-  #pedi-landing2 .p2-service h3 { font-size: 1.12rem; }
-  #pedi-landing2 .p2-service p { font-size: .9rem; color: var(--p2-ink-soft); margin: 0 0 12px; }
-  #pedi-landing2 .p2-service ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-  #pedi-landing2 .p2-service li { font-size: .86rem; color: var(--p2-ink-soft); padding-left: 16px; position: relative; }
-  #pedi-landing2 .p2-service li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--p2-rose); }
+/* Filary */
+.pedi .p-pillar{background:var(--p-card);border:1px solid var(--p-line);padding:22px !important;}
+.pedi .p-pillar h3{font-size:1rem;margin-bottom:5px;}
+.pedi .p-pillar p{font-size:.85rem !important;margin:0 !important;}
 
-  #pedi-landing2 .p2-calc-head { text-align: center; max-width: 620px; margin: 0 auto 40px; }
-  #pedi-landing2 .p2-calc-head p { color: var(--p2-ink-soft); }
-  #pedi-landing2 .p2-calc-card {
-    background: var(--p2-card); border-radius: var(--p2-radius); padding: 36px;
-    box-shadow: 0 24px 50px -30px rgba(59,47,48,.3); max-width: 780px; margin: 0 auto;
-    border: 1px solid var(--p2-line);
-  }
-  #pedi-landing2 .p2-calc-toggle { display: flex; gap: 10px; background: var(--p2-bg-a); border-radius: 100px; padding: 6px; margin-bottom: 26px; }
-  #pedi-landing2 .p2-calc-toggle button {
-    flex: 1; border: none; background: transparent; padding: 12px 10px; border-radius: 100px;
-    font-weight: 600; font-size: .92rem; color: var(--p2-ink-soft); cursor: pointer; transition: all .2s ease;
-    font-family: inherit;
-  }
-  #pedi-landing2 .p2-calc-toggle button[aria-pressed="true"] { background: var(--p2-blue-dark); color: #fff; }
-  #pedi-landing2 .p2-calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
-  #pedi-landing2 .p2-field label { display: block; font-size: .82rem; font-weight: 600; color: var(--p2-ink-soft); margin-bottom: 8px; }
-  #pedi-landing2 .p2-field select, #pedi-landing2 .p2-field input {
-    width: 100%; padding: 13px 14px; border-radius: 12px; border: 1.5px solid var(--p2-line);
-    font-family: inherit; font-size: .95rem; background: #fff; color: var(--p2-ink);
-  }
-  #pedi-landing2 .p2-field select:focus, #pedi-landing2 .p2-field input:focus {
-    outline: none; border-color: var(--p2-blue-dark); box-shadow: 0 0 0 3px rgba(140,150,180,.25);
-  }
-  #pedi-landing2 .p2-calc-btn { width: 100%; margin-top: 6px; }
-  #pedi-landing2 .p2-calc-result { margin-top: 28px; display: none; }
-  #pedi-landing2 .p2-calc-result.p2-show { display: block; }
-  #pedi-landing2 .p2-result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
-  #pedi-landing2 .p2-result-box { background: linear-gradient(135deg, rgba(141,150,180,.18), rgba(217,143,146,.18)); border-radius: 14px; padding: 16px; text-align: center; }
-  #pedi-landing2 .p2-result-box .p2-result-val { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 600; color: var(--p2-blue-dark); }
-  #pedi-landing2 .p2-result-box .p2-result-label { font-size: .74rem; color: var(--p2-ink-soft); margin-top: 4px; }
-  #pedi-landing2 .p2-disclaimer {
-    display: flex; gap: 10px; background: rgba(217,143,146,.18); border-radius: 14px; padding: 14px 16px;
-    font-size: .82rem; color: #7A3E3E; align-items: flex-start;
-  }
-  #pedi-landing2 .p2-disclaimer svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
-  #pedi-landing2 .p2-warn { display: none; margin-bottom: 14px; }
-  #pedi-landing2 .p2-warn.p2-show { display: flex; }
-  #pedi-landing2 .p2-warn-stop { background: rgba(165,67,58,.14); color: #8C3227; }
-  #pedi-landing2 .p2-calc-error { display: none; color: #A5433A; font-size: .82rem; font-weight: 600; margin-top: -10px; margin-bottom: 14px; }
-  #pedi-landing2 .p2-calc-error.p2-show { display: block; }
+/* Opinie */
+.pedi .p-quote-card{
+  background:var(--p-card);border:1px solid var(--p-line) !important;border-left:1px solid var(--p-line) !important;
+  padding:28px !important;font-style:normal;margin:0;
+}
+.pedi .p-quote-card p{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:300;
+  font-size:1.02rem !important;color:var(--p-ink);
+}
+.pedi .p-quote-card cite{
+  display:block;margin-top:18px;padding-top:14px;border-top:1px solid var(--p-line);
+  font-style:normal;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--p-soft);
+}
+.pedi .p-stars{color:var(--p-rose);letter-spacing:3px;font-size:.85rem !important;margin-bottom:10px !important;}
 
-  /* ---------- Opinie ---------- */
-  #pedi-landing2 .p2-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  #pedi-landing2 .p2-qcard { background: rgba(255,255,255,.6); backdrop-filter: blur(6px); border: 1px solid var(--p2-line); border-radius: var(--p2-radius); padding: 28px; display: flex; flex-direction: column; }
-  #pedi-landing2 .p2-stars { color: var(--p2-rose); letter-spacing: 3px; font-size: .9rem; margin-bottom: 12px; }
-  #pedi-landing2 .p2-qcard p { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 1rem; color: var(--p2-ink); margin: 0; flex: 1; }
-  #pedi-landing2 .p2-qcard cite { display: block; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--p2-line); font-style: normal; font-size: .84rem; font-weight: 600; color: var(--p2-ink-soft); }
+/* FAQ */
+.pedi .p-faq{background:var(--p-card);border:1px solid var(--p-line);margin-bottom:10px;}
+.pedi .p-faq summary{
+  padding:19px 52px 19px 22px;font-weight:600;color:var(--p-ink);cursor:pointer;
+  list-style:none;position:relative;font-size:.98rem;
+}
+.pedi .p-faq summary::-webkit-details-marker{display:none;}
+.pedi .p-faq summary::after{
+  content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  color:var(--p-blue);font-size:1.3rem;line-height:1;
+}
+.pedi .p-faq[open] summary::after{content:"–";}
+.pedi .p-faq p{padding:0 22px 20px;margin:0 !important;font-size:.92rem !important;}
 
-  /* ---------- FAQ ---------- */
-  #pedi-landing2 .p2-faq { max-width: 780px; margin: 0 auto; display: grid; gap: 12px; }
-  #pedi-landing2 .p2-faq details { background: var(--p2-card); border: 1px solid var(--p2-line); border-radius: 18px; overflow: hidden; }
-  #pedi-landing2 .p2-faq summary { list-style: none; cursor: pointer; padding: 20px 54px 20px 24px; font-weight: 600; font-size: .98rem; position: relative; }
-  #pedi-landing2 .p2-faq summary::-webkit-details-marker { display: none; }
-  #pedi-landing2 .p2-faq summary::after { content: "+"; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--p2-blue-dark); line-height: 1; }
-  #pedi-landing2 .p2-faq details[open] summary::after { content: "–"; }
-  #pedi-landing2 .p2-faq .p2-faq-a { padding: 0 24px 22px; font-size: .92rem; color: var(--p2-ink-soft); }
+/* Kontakt */
+.pedi .p-info p{margin:0 0 3px !important;}
+.pedi .p-info strong{
+  display:block;color:var(--p-ink);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+}
+.pedi .p-box{background:var(--p-card);border:1px solid var(--p-line);padding:30px !important;}
+.pedi .p-hours{list-style:none !important;padding-left:0 !important;margin:0 !important;}
+.pedi .p-hours li{
+  display:flex;justify-content:space-between;gap:14px;padding:9px 0;
+  font-size:.92rem;border-bottom:1px solid var(--p-line);
+}
+.pedi .p-hours li:last-child{border-bottom:0;}
+.pedi .p-map{border:1px solid var(--p-line);overflow:hidden;height:100%;min-height:380px;}
+.pedi .p-map iframe{display:block;width:100%;height:100%;min-height:380px;border:0;}
 
-  #pedi-landing2 .p2-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
-  #pedi-landing2 .p2-contact-card { background: var(--p2-card); border-radius: var(--p2-radius); padding: 40px; border: 1px solid var(--p2-line); }
-  #pedi-landing2 .p2-contact-item { display: flex; gap: 14px; margin-bottom: 20px; }
-  #pedi-landing2 .p2-contact-item svg { width: 22px; height: 22px; color: var(--p2-blue-dark); flex-shrink: 0; margin-top: 2px; }
-  #pedi-landing2 .p2-contact-item strong { display: block; font-size: .95rem; }
-  #pedi-landing2 .p2-contact-item span { font-size: .88rem; color: var(--p2-ink-soft); }
-  #pedi-landing2 .p2-map-frame { border-radius: var(--p2-radius); overflow: hidden; min-height: 320px; border: 1px solid var(--p2-line); }
-  #pedi-landing2 .p2-map-frame iframe { width: 100%; height: 100%; min-height: 320px; border: 0; }
+/* Stopka */
+.pedi-footer p,.pedi-footer li{color:#CDBDB6 !important;font-size:.88rem !important;}
+.pedi-footer h2,.pedi-footer h3{color:#fff !important;}
+.pedi-footer a{color:#CDBDB6 !important;}
+.pedi-footer a:hover{color:#fff !important;}
+.pedi-footer ul{list-style:none !important;padding-left:0 !important;margin:0 !important;display:grid;gap:7px;}
 
-  #pedi-landing2 footer.p2-footer { background: var(--p2-ink); color: #F3E4D9; padding: 50px 0 28px; }
-  #pedi-landing2 .p2-footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
-  #pedi-landing2 .p2-footer-social { display: flex; gap: 12px; }
-  #pedi-landing2 .p2-footer-social a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; transition: background .2s ease; }
-  #pedi-landing2 .p2-footer-social a:hover { background: var(--p2-rose); }
-  #pedi-landing2 .p2-footer-social svg { width: 18px; height: 18px; }
-  #pedi-landing2 .p2-footer-bottom { font-size: .78rem; opacity: .7; margin-top: 26px; text-align: center; }
-  #pedi-landing2 .p2-footer-note { font-size: .74rem; opacity: .55; margin: 10px auto 0; text-align: center; max-width: 640px; line-height: 1.5; }
+/* Kalkulator */
+.pedi-calc{background:var(--p-card);border:1px solid var(--p-line);max-width:760px;margin:0 auto;}
+.pedi-calc *,.pedi-calc *::before,.pedi-calc *::after{box-sizing:border-box;}
+.pedi-calc__in{padding:clamp(24px,3vw,36px);}
+.pedi-calc__out{padding:clamp(24px,3vw,36px);border-top:1px solid var(--p-line);background:#fff;}
+.pedi-calc .c-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.pedi-calc label{
+  display:block;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--p-soft);margin-bottom:8px;
+}
+.pedi-calc select,.pedi-calc input{
+  width:100%;padding:13px 14px;border:1px solid var(--p-line);border-radius:0;background:#fff;
+  font-family:inherit;font-size:.95rem;color:var(--p-ink);
+}
+.pedi-calc select:focus,.pedi-calc input:focus{outline:2px solid var(--p-blue);outline-offset:-2px;}
+.pedi-calc .c-seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.pedi-calc .c-seg input{position:absolute;opacity:0;pointer-events:none;}
+.pedi-calc .c-seg label{
+  text-align:center;padding:13px 8px;border:1px solid var(--p-line);background:#fff;cursor:pointer;
+  font-size:.85rem;letter-spacing:.06em;text-transform:none;font-weight:600;color:var(--p-soft);margin:0;
+}
+.pedi-calc .c-seg input:checked + label{background:var(--p-blue);border-color:var(--p-blue);color:#fff;}
+.pedi-calc .c-seg input:focus-visible + label{outline:2px solid var(--p-ink);outline-offset:2px;}
+.pedi-calc .c-dose{
+  font-family:'Fraunces',serif;font-size:clamp(2rem,1.4rem + 2.4vw,2.8rem);font-weight:500;
+  color:var(--p-ink);line-height:1.1;margin:0;
+}
+.pedi-calc .c-dose small{font-size:.4em;color:var(--p-blue);font-family:'Inter',sans-serif;font-weight:600;}
+.pedi-calc .c-sub{font-size:.92rem;color:var(--p-soft);margin:6px 0 20px;}
+.pedi-calc .c-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--p-line);border:1px solid var(--p-line);}
+.pedi-calc .c-fact{background:#fff;padding:13px 15px;display:flex;justify-content:space-between;gap:12px;font-size:.88rem;}
+.pedi-calc .c-fact b{color:var(--p-ink);font-weight:600;text-align:right;}
+.pedi-calc .c-note{
+  margin-top:14px;padding:13px 15px;font-size:.85rem;line-height:1.55;
+  background:rgba(217,143,146,.16);color:#7A3E3E;
+}
+.pedi-calc .c-note b{display:block;margin-bottom:2px;}
+.pedi-calc .c-note--stop{background:rgba(165,67,58,.16);color:#8C3227;}
+.pedi-calc .c-legal{margin-top:16px;font-size:.8rem;line-height:1.6;color:var(--p-soft);border-left:2px solid var(--p-rose);padding-left:14px;}
+.pedi-calc [hidden]{display:none !important;}
+@media (min-width:600px){
+  .pedi-calc__out{border-top:0;border-left:1px solid var(--p-line);}
+  .pedi-calc{display:grid;grid-template-columns:1fr 1fr;}
+}
+@media (max-width:599px){
+  .pedi-calc .c-row,.pedi-calc .c-facts{grid-template-columns:1fr;}
+}
 
-  #pedi-landing2 .p2-fade { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
-  #pedi-landing2 .p2-fade.p2-in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { #pedi-landing2 .p2-fade { opacity: 1; transform: none; transition: none; } }
-
-  @media (max-width: 900px) {
-    #pedi-landing2 .p2-nav { position: fixed; inset: 64px 0 0 0; background: var(--p2-bg-a); flex-direction: column; justify-content: flex-start; padding: 30px 28px; gap: 22px; transform: translateX(100%); transition: transform .25s ease; }
-    #pedi-landing2 .p2-nav.p2-open { transform: translateX(0); }
-    #pedi-landing2 .p2-nav-toggle { display: block; }
-    #pedi-landing2 .p2-hero-grid, #pedi-landing2 .p2-about-grid, #pedi-landing2 .p2-contact-grid { grid-template-columns: 1fr; }
-    #pedi-landing2 .p2-hero-art { order: -1; max-width: 340px; margin: 0 auto; }
-    #pedi-landing2 .p2-pillars, #pedi-landing2 .p2-services, #pedi-landing2 .p2-quotes { grid-template-columns: 1fr; }
-    #pedi-landing2 .p2-calc-row, #pedi-landing2 .p2-result-grid { grid-template-columns: 1fr; }
-    #pedi-landing2 section { padding: 60px 0; }
-  }
+/* Kotwice pod przyklejonym nagłówkiem motywu */
+.pedi[id]{scroll-margin-top:90px;}
 </style>
+<!-- /wp:html -->
 
-  <header class="p2-header">
-    <div class="p2-header-inner">
-      <div class="p2-logo">Dr<span>&nbsp;•&nbsp;</span>Katarzyna Bator</div>
-      <button class="p2-nav-toggle" id="p2NavToggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
-      <nav class="p2-nav" id="p2Nav">
-        <a class="p2-navlink" href="#p2-o-gabinecie">O gabinecie</a>
-        <a class="p2-navlink" href="#p2-zakres">Zakres opieki</a>
-        <a class="p2-navlink" href="#p2-kalkulator">Kalkulator dawek</a>
-        <a class="p2-navlink" href="#p2-kontakt">Kontakt</a>
-        <a class="p2-btn p2-btn-primary" href="#p2-kontakt">Rejestracja</a>
-      </nav>
-    </div>
-  </header>
 
-  <section class="p2-hero">
-    <div class="p2-wrap p2-hero-grid">
-      <div>
-        <span class="p2-eyebrow">Opieka pediatryczna · Miechów</span>
-        <h1>Spokojna diagnoza,<br><em>pewna</em> opieka nad dzieckiem.</h1>
-        <p class="p2-lead">Nowoczesny gabinet pediatryczny łączący dokładne badanie z czasem poświęconym rodzinie. Świadomie ograniczona liczba wizyt dziennie pozwala każdemu dziecku na spokojną, indywidualną konsultację.</p>
-        <p class="p2-quote">„Pediatria to nie zawód, to powołanie."</p>
-        <div class="p2-hero-ctas" style="margin-top:22px">
-          <a href="#p2-kalkulator" class="p2-btn p2-btn-primary">Kalkulator dawek</a>
-          <a href="#p2-kontakt" class="p2-btn p2-btn-ghost">Umów wizytę</a>
+<!-- ============================ 2. HERO ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","style":{"color":{"background":"#F6E3D6"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" style="background-color:#F6E3D6;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+
+<!-- wp:column {"verticalAlignment":"center","width":"55%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:55%">
+<!-- wp:paragraph {"className":"p-eyebrow"} -->
+<p class="p-eyebrow">Opieka pediatryczna · Miechów</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">Spokojna diagnoza,<br><em>pewna</em> opieka nad dzieckiem.</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"p-lead","style":{"spacing":{"margin":{"top":"18px"}}}} -->
+<p class="p-lead" style="margin-top:18px">Gabinet pediatryczny łączący dokładne badanie z czasem poświęconym rodzinie. Świadomie ograniczona liczba wizyt dziennie pozwala każdemu dziecku na spokojną, indywidualną konsultację.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"p-quote","style":{"spacing":{"margin":{"top":"14px"}}}} -->
+<p class="p-quote" style="margin-top:14px">„Pediatria to nie zawód, to powołanie."</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"30px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:30px">
+<!-- wp:button {"className":"p-btn p-btn--solid"} -->
+<div class="wp-block-button p-btn p-btn--solid"><a class="wp-block-button__link wp-element-button" href="#pedi-kontakt">Umów wizytę</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"p-btn p-btn--ghost"} -->
+<div class="wp-block-button p-btn p-btn--ghost"><a class="wp-block-button__link wp-element-button" href="#pedi-kalkulator">Kalkulator dawek</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"className":"p-small","style":{"spacing":{"margin":{"top":"26px"}}}} -->
+<p class="p-small" style="margin-top:26px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; Rejestracja SMS: <a href="sms:535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"45%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%">
+<!--
+  ZDJĘCIE PANI DOKTOR:
+  usuń poniższą grupę i wstaw w to miejsce blok "Obraz" ze zdjęciem
+  z Biblioteki mediów (format pionowy 4:5, min. 900×1125 px).
+-->
+<!-- wp:group {"className":"p-photo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group p-photo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">[ZDJĘCIE PANI DOKTOR]<br>wstaw blok „Obraz", format 4:5</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 3. PASEK FAKTÓW ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi pedi-facts","style":{"color":{"background":"#3B2F30"},"spacing":{"padding":{"top":"28px","bottom":"28px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi pedi-facts has-background" style="background-color:#3B2F30;padding-top:28px;padding-right:24px;padding-bottom:28px;padding-left:24px">
+<!-- wp:columns {"isStackedOnMobile":false,"style":{"spacing":{"blockGap":{"left":"20px"}}}} -->
+<div class="wp-block-columns is-not-stacked-on-mobile">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph -->
+<p><strong>·</strong> Diagnostyka podczas wizyty</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph -->
+<p><strong>·</strong> Krótki czas oczekiwania</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph -->
+<p><strong>·</strong> Indywidualne podejście</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 4. O GABINECIE ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","anchor":"pedi-o-gabinecie","style":{"color":{"background":"#F6E3D6"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" id="pedi-o-gabinecie" style="background-color:#F6E3D6;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+
+<!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
+<!-- ZDJĘCIE GABINETU: podmień na blok "Obraz" -->
+<!-- wp:group {"className":"p-photo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group p-photo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">[ZDJĘCIE GABINETU]</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
+<!-- wp:paragraph {"className":"p-eyebrow"} -->
+<p class="p-eyebrow">O gabinecie</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Opieka Pediatryczna Doktor Kasi</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — krótki opis filozofii gabinetu, doświadczenia Pani Doktor i podejścia do małych pacjentów oraz ich rodziców. 2–3 zdania wystarczą.]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"},"margin":{"top":"28px"}}}} -->
+<div class="wp-block-columns" style="margin-top:28px">
+<!-- wp:column {"className":"p-pillar"} -->
+<div class="wp-block-column p-pillar">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Elastyczne terminy</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Rejestracja SMS, bez długiego oczekiwania.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"p-pillar"} -->
+<div class="wp-block-column p-pillar">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Badania na miejscu</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>[np. USG, CRP — do potwierdzenia zgodnie z ofertą].</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"p-pillar"} -->
+<div class="wp-block-column p-pillar">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Spokojna atmosfera</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Ograniczona liczba wizyt dziennie.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 5. ZAKRES OPIEKI ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","anchor":"pedi-zakres","style":{"color":{"background":"#F1DACB"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" id="pedi-zakres" style="background-color:#F1DACB;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"p-eyebrow"} -->
+<p class="has-text-align-center p-eyebrow">Zakres opieki</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">W czym mogę pomóc</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
+<p class="has-text-align-center" style="margin-bottom:44px">Opieka nad dzieckiem od okresu noworodkowego aż po wiek nastoletni.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"18px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column {"className":"p-card"} -->
+<div class="wp-block-column p-card">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja pediatryczna</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Pełne badanie dziecka i jasny plan leczenia omówiony z rodzicem.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>infekcje dróg oddechowych</li><!-- /wp:list-item --><!-- wp:list-item --><li>bóle brzucha, wymioty, biegunki</li><!-- /wp:list-item --><!-- wp:list-item --><li>wysypki i alergie</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"p-card"} -->
+<div class="wp-block-column p-card">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Opieka nad noworodkiem</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Pierwsze tygodnie życia — spokojnie i bez pośpiechu.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>ocena przyrostów masy ciała</li><!-- /wp:list-item --><!-- wp:list-item --><li>karmienie, ulewanie, kolki</li><!-- /wp:list-item --><!-- wp:list-item --><li>wsparcie rodziców</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"p-card"} -->
+<div class="wp-block-column p-card">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Bilanse i szczepienia</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Ocena rozwoju i kwalifikacja do szczepień.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>bilanse zdrowia dziecka</li><!-- /wp:list-item --><!-- wp:list-item --><li>szczepienia obowiązkowe i zalecane</li><!-- /wp:list-item --><!-- wp:list-item --><li>indywidualny kalendarz</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"18px"},"margin":{"top":"18px"}}}} -->
+<div class="wp-block-columns" style="margin-top:18px">
+<!-- wp:column {"className":"p-card"} -->
+<div class="wp-block-column p-card">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Wizyty domowe</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Gdy podróż do gabinetu jest złym pomysłem — przyjeżdżam do Was.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>Miechów i okolice</li><!-- /wp:list-item --><!-- wp:list-item --><li>badanie w warunkach domowych</li><!-- /wp:list-item --><!-- wp:list-item --><li>[zakres dojazdu — uzupełnij]</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"p-card"} -->
+<div class="wp-block-column p-card">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Teleporada</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Szybka decyzja, gdy sprawa nie wymaga badania.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>kontynuacja leczenia</li><!-- /wp:list-item --><!-- wp:list-item --><li>omówienie wyników badań</li><!-- /wp:list-item --><!-- wp:list-item --><li>e-recepta i e-skierowanie</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"className":"p-card"} -->
+<div class="wp-block-column p-card">
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Kursy pierwszej pomocy</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Szkolenia dla rodziców, opiekunów i placówek.</p><!-- /wp:paragraph -->
+<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>resuscytacja dziecka</li><!-- /wp:list-item --><!-- wp:list-item --><li>zadławienie, drgawki gorączkowe</li><!-- /wp:list-item --><!-- wp:list-item --><li>zajęcia praktyczne</li><!-- /wp:list-item --></ul><!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 6. KALKULATOR ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","anchor":"pedi-kalkulator","style":{"color":{"background":"#F6E3D6"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" id="pedi-kalkulator" style="background-color:#F6E3D6;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"p-eyebrow"} -->
+<p class="has-text-align-center p-eyebrow">Narzędzie pomocnicze</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Orientacyjny kalkulator dawki syropu</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"bottom":"40px"}}}} -->
+<p class="has-text-align-center" style="margin-bottom:40px">Wynik pojawia się od razu po wpisaniu wagi. Narzędzie jest poglądowe — nie zastępuje konsultacji lekarskiej ani ulotki preparatu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<div class="pedi-calc">
+  <div class="pedi-calc__in">
+    <form id="pediCalc" novalidate>
+      <div class="c-seg" role="radiogroup" aria-label="Substancja czynna">
+        <input type="radio" name="pediDrug" id="pediIbu" value="ibu" checked>
+        <label for="pediIbu">Ibuprofen</label>
+        <input type="radio" name="pediDrug" id="pediPar" value="par">
+        <label for="pediPar">Paracetamol</label>
+      </div>
+      <div class="c-row">
+        <div>
+          <label for="pediConc">Stężenie preparatu</label>
+          <select id="pediConc"></select>
         </div>
-        <div class="p2-hero-meta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-          <span>ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; Rejestracja SMS: 535 999 565</span>
+        <div>
+          <label for="pediWeight">Waga dziecka (kg)</label>
+          <input type="number" id="pediWeight" inputmode="decimal" min="2" max="60" step="0.1" placeholder="np. 14">
         </div>
       </div>
-      <div class="p2-hero-art">
-        <div class="p2-hero-blob"><img src="[LINK-DO-ZDJĘCIA-DR-KATARZYNY-BATOR]" alt="Dr Katarzyna Bator — pediatra"></div>
-        <div class="p2-hero-badge">
-          <span class="p2-badge-num">10+</span>
-          <span class="p2-badge-txt">lat doświadczenia w opiece nad najmłodszymi pacjentami</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="p2-facts">
-    <div class="p2-facts-inner">
-      <div class="p2-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h4l2 8 4-16 2 8h4"/></svg>Diagnostyka dostępna podczas wizyty</div>
-      <div class="p2-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Krótki czas oczekiwania na wizytę</div>
-      <div class="p2-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>Indywidualne podejście do każdego dziecka</div>
-    </div>
+    </form>
   </div>
 
-  <section id="p2-o-gabinecie">
-    <div class="p2-wrap p2-about-grid p2-fade">
-      <div class="p2-about-img"><img src="[LINK-DO-ZDJĘCIA-GABINETU]" alt="Wnętrze gabinetu Dr Katarzyny Bator"></div>
-      <div class="p2-about">
-        <span class="p2-eyebrow">O gabinecie</span>
-        <h2>Opieka Pediatryczna Doktor Kasi</h2>
-        <p>[DO UZUPEŁNIENIA — krótki opis filozofii gabinetu, doświadczenia Dr Katarzyny Bator i podejścia do małych pacjentów oraz ich rodziców. 2–3 zdania wystarczą.]</p>
-        <div class="p2-pillars">
-          <div class="p2-pillar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg><h3>Elastyczne terminy</h3><p>Rejestracja SMS, bez długiego oczekiwania.</p></div>
-          <div class="p2-pillar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><h3>Badania na miejscu</h3><p>[np. USG, CRP — do potwierdzenia zgodnie z aktualną ofertą].</p></div>
-          <div class="p2-pillar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg><h3>Spokojna atmosfera</h3><p>Ograniczona liczba wizyt dziennie.</p></div>
-        </div>
+  <div class="pedi-calc__out">
+    <div aria-live="polite">
+      <p class="c-dose" id="pediDose">— <small>ml</small></p>
+      <p class="c-sub" id="pediSub">Wpisz wagę dziecka, aby zobaczyć wynik.</p>
+      <div class="c-facts">
+        <div class="c-fact"><span>Odstęp</span><b id="pediGap">—</b></div>
+        <div class="c-fact"><span>Maks. na dobę</span><b id="pediMax">—</b></div>
       </div>
+      <div class="c-note c-note--stop" id="pediWarn" hidden></div>
     </div>
-  </section>
-
-  <section id="p2-zakres">
-    <div class="p2-wrap">
-      <div class="p2-sec-head p2-fade">
-        <span class="p2-eyebrow">Zakres opieki</span>
-        <h2>W czym mogę pomóc</h2>
-        <p>Opieka nad dzieckiem od okresu noworodkowego aż po wiek nastoletni.</p>
-      </div>
-      <div class="p2-services p2-fade">
-
-        <div class="p2-service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 3v6a4.2 4.2 0 0 0 8.4 0V3"/><path d="M9 17.2V15"/><circle cx="18" cy="15" r="3"/><path d="M9 17.2a4.5 4.5 0 0 0 6 4.3"/></svg>
-          <h3>Konsultacja pediatryczna</h3>
-          <p>Pełne badanie dziecka i jasny plan leczenia omówiony z rodzicem.</p>
-          <ul>
-            <li>infekcje dróg oddechowych</li>
-            <li>bóle brzucha, wymioty, biegunki</li>
-            <li>wysypki i alergie</li>
-          </ul>
-        </div>
-
-        <div class="p2-service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
-          <h3>Opieka nad noworodkiem</h3>
-          <p>Pierwsze tygodnie życia — spokojnie i bez pośpiechu.</p>
-          <ul>
-            <li>ocena przyrostów masy ciała</li>
-            <li>karmienie, ulewanie, kolki</li>
-            <li>pielęgnacja i wsparcie rodziców</li>
-          </ul>
-        </div>
-
-        <div class="p2-service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-          <h3>Bilanse i szczepienia</h3>
-          <p>Ocena rozwoju i kwalifikacja do szczepień.</p>
-          <ul>
-            <li>bilanse zdrowia dziecka</li>
-            <li>szczepienia obowiązkowe i zalecane</li>
-            <li>indywidualny kalendarz szczepień</li>
-          </ul>
-        </div>
-
-        <div class="p2-service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8h16v-8"/><path d="M2 11 12 3l10 8"/></svg>
-          <h3>Wizyty domowe</h3>
-          <p>Gdy podróż do gabinetu jest złym pomysłem — przyjeżdżam do Was.</p>
-          <ul>
-            <li>Miechów i okolice</li>
-            <li>badanie w warunkach domowych</li>
-            <li>[zakres dojazdu — do uzupełnienia]</li>
-          </ul>
-        </div>
-
-        <div class="p2-service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
-          <h3>Teleporada</h3>
-          <p>Szybka decyzja, gdy sprawa nie wymaga badania.</p>
-          <ul>
-            <li>kontynuacja leczenia</li>
-            <li>omówienie wyników badań</li>
-            <li>e-recepta i e-skierowanie</li>
-          </ul>
-        </div>
-
-        <div class="p2-service">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 6.6a5.5 5.5 0 0 0-8.8-1.4l-.8.8-.8-.8A5.5 5.5 0 0 0 3.2 12L12 20.5 20.8 12a5.5 5.5 0 0 0 0-5.4Z"/></svg>
-          <h3>Kursy pierwszej pomocy</h3>
-          <p>Szkolenia dla rodziców, opiekunów i placówek.</p>
-          <ul>
-            <li>resuscytacja dziecka</li>
-            <li>zadławienie i drgawki gorączkowe</li>
-            <li>zajęcia praktyczne na fantomach</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="p2-kalkulator">
-    <div class="p2-wrap">
-      <div class="p2-calc-head p2-fade">
-        <span class="p2-eyebrow" style="justify-content:center">Narzędzie pomocnicze</span>
-        <h2>Orientacyjny kalkulator dawki syropu</h2>
-        <p>Pomaga oszacować przedział dawkowania na podstawie wagi dziecka. To narzędzie poglądowe — nie zastępuje konsultacji lekarskiej ani ulotki preparatu.</p>
-      </div>
-      <div class="p2-calc-card p2-fade">
-        <div class="p2-calc-toggle" role="group" aria-label="Wybór substancji">
-          <button type="button" id="p2BtnIbu" aria-pressed="true">Ibuprofen</button>
-          <button type="button" id="p2BtnPara" aria-pressed="false">Paracetamol</button>
-        </div>
-        <div class="p2-calc-row">
-          <div class="p2-field"><label for="p2Stez">Stężenie preparatu</label><select id="p2Stez"></select></div>
-          <div class="p2-field"><label for="p2Waga">Waga dziecka (kg)</label><input type="number" id="p2Waga" min="1" max="60" step="0.1" placeholder="np. 14"></div>
-        </div>
-        <div class="p2-calc-error" id="p2Blad">Podaj prawidłową wagę dziecka (1–60 kg).</div>
-        <button type="button" class="p2-btn p2-btn-primary p2-calc-btn" id="p2Oblicz">Oblicz dawkę</button>
-        <div class="p2-calc-result" id="p2Wynik">
-          <div class="p2-result-grid">
-            <div class="p2-result-box"><div class="p2-result-val" id="p2Ml">–</div><div class="p2-result-label">jednorazowa dawka (ml)</div></div>
-            <div class="p2-result-box"><div class="p2-result-val" id="p2MaxDawek">–</div><div class="p2-result-label">maks. dawek / dobę</div></div>
-            <div class="p2-result-box"><div class="p2-result-val" id="p2Odstep">–</div><div class="p2-result-label">min. odstęp</div></div>
-          </div>
-          <div class="p2-disclaimer p2-warn p2-warn-stop" id="p2Ostrzezenie">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86l-8.15 14.1A1.5 1.5 0 0 0 3.45 20h17.1a1.5 1.5 0 0 0 1.3-2.04l-8.15-14.1a1.5 1.5 0 0 0-2.6 0Z"/></svg>
-            <span id="p2OstrzezenieTxt"></span>
-          </div>
-          <div class="p2-disclaimer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86l-8.15 14.1A1.5 1.5 0 0 0 3.45 20h17.1a1.5 1.5 0 0 0 1.3-2.04l-8.15-14.1a1.5 1.5 0 0 0-2.6 0Z"/></svg>
-            <span>Wynik ma charakter <strong>wyłącznie poglądowy</strong>. Przed podaniem leku zawsze zweryfikuj dawkę z ulotką konkretnego preparatu oraz skonsultuj się z lekarzem lub farmaceutą. Nie podawaj leku dłużej niż 3 dni bez konsultacji.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="p2-opinie">
-    <div class="p2-wrap">
-      <div class="p2-sec-head p2-fade">
-        <span class="p2-eyebrow">Opinie</span>
-        <h2>Co mówią rodzice</h2>
-        <p>[PRZYKŁADOWE TREŚCI — podmień na prawdziwe opinie pacjentów i nie publikuj tej sekcji w obecnej formie.]</p>
-      </div>
-      <div class="p2-quotes p2-fade">
-        <div class="p2-qcard">
-          <div class="p2-stars" aria-label="Ocena 5 na 5">★★★★★</div>
-          <p>„[Przykładowa opinia] Pani doktor poświęciła nam mnóstwo czasu i wszystko dokładnie wytłumaczyła."</p>
-          <cite>[Imię] — Miechów</cite>
-        </div>
-        <div class="p2-qcard">
-          <div class="p2-stars" aria-label="Ocena 5 na 5">★★★★★</div>
-          <p>„[Przykładowa opinia] Spokojne podejście do przestraszonego dziecka i badanie bez pośpiechu."</p>
-          <cite>[Imię] — Kraków</cite>
-        </div>
-        <div class="p2-qcard">
-          <div class="p2-stars" aria-label="Ocena 5 na 5">★★★★★</div>
-          <p>„[Przykładowa opinia] Po wizycie dostaliśmy jasne zalecenia, dzięki czemu nic nam nie umknęło."</p>
-          <cite>[Imię] — Słomniki</cite>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="p2-faq">
-    <div class="p2-wrap">
-      <div class="p2-sec-head p2-fade">
-        <span class="p2-eyebrow">FAQ</span>
-        <h2>Najczęstsze pytania</h2>
-      </div>
-      <div class="p2-faq p2-fade">
-        <details open>
-          <summary>Jak umówić wizytę?</summary>
-          <div class="p2-faq-a">Rejestracja SMS pod numerem 535 999 565. [Uzupełnij: godziny, w jakich odpowiadasz, i sposób potwierdzania terminu.]</div>
-        </details>
-        <details>
-          <summary>Ile trwa wizyta i co zabrać ze sobą?</summary>
-          <div class="p2-faq-a">Weź książeczkę zdrowia dziecka, wyniki ostatnich badań oraz listę przyjmowanych leków. [Uzupełnij czas trwania wizyty.]</div>
-        </details>
-        <details>
-          <summary>Czy gabinet przyjmuje w ramach NFZ?</summary>
-          <div class="p2-faq-a">[DO UZUPEŁNIENIA — informacja o NFZ i cenniku wizyt.]</div>
-        </details>
-        <details>
-          <summary>Czy jeździsz na wizyty domowe?</summary>
-          <div class="p2-faq-a">[DO UZUPEŁNIENIA — zakres dojazdu i dostępność terminów.]</div>
-        </details>
-        <details>
-          <summary>Czy kalkulator dawek zastępuje konsultację?</summary>
-          <div class="p2-faq-a">Nie. To pomoc w oszacowaniu typowej dawki na podstawie masy ciała. O tym, czy lek jest wskazany, decyduje lekarz — zwłaszcza u niemowląt poniżej 3. miesiąca życia, u dzieci z chorobami przewlekłymi i przy gorączce utrzymującej się dłużej niż 3 dni.</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section id="p2-kontakt">
-    <div class="p2-wrap p2-contact-grid p2-fade">
-      <div class="p2-contact-card">
-        <span class="p2-eyebrow">Kontakt i rejestracja</span>
-        <h2 style="margin-top:10px">Umów wizytę</h2>
-        <div style="margin-top:26px">
-          <div class="p2-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg><div><strong>Adres</strong><span>ul. St. Daneckiej 4/U6, Miechów</span></div></div>
-          <div class="p2-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg><div><strong>Rejestracja SMS</strong><span>535 999 565</span></div></div>
-          <div class="p2-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><div><strong>Godziny przyjęć</strong><span>[DO UZUPEŁNIENIA]</span></div></div>
-        </div>
-        <div class="p2-hero-ctas" style="margin-top:8px"><a href="sms:535999565" class="p2-btn p2-btn-primary">Rejestracja SMS</a></div>
-      </div>
-      <div class="p2-map-frame">
-        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=19.95%2C50.34%2C20.06%2C50.39&layer=mapnik&marker=50.3608%2C20.0206" loading="lazy" title="Mapa dojazdu do gabinetu — Miechów"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <footer class="p2-footer">
-    <div class="p2-wrap p2-footer-inner">
-      <div class="p2-logo" style="color:#fff">Dr<span>&nbsp;•&nbsp;</span>Katarzyna Bator</div>
-      <div class="p2-footer-social">
-        <a href="https://www.facebook.com/doktorkasiapediatra" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-7.5H16l.5-3H13.5V8.2c0-.87.24-1.46 1.5-1.46h1.6V3.7C16.3 3.63 15.3 3.5 14.1 3.5c-2.4 0-4.1 1.47-4.1 4.15V10.5H7.5v3H10V21h3.5Z"/></svg></a>
-        <a href="https://www.instagram.com/doktorkasiapediatra" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-      </div>
-    </div>
-    <div class="p2-footer-bottom">© Specjalista Pediatra Katarzyna Bator · Wszelkie prawa zastrzeżone</div>
-    <div class="p2-footer-note">Treści na tej stronie mają charakter informacyjny i nie zastępują konsultacji lekarskiej. W stanie zagrożenia życia dzwoń pod numer 112.</div>
-  </footer>
-
-</div><!-- /.pedi2 -->
+    <p class="c-legal">Wynik jest <strong>poglądowy</strong>. Przed podaniem leku sprawdź ulotkę preparatu i skonsultuj się z lekarzem lub farmaceutą. Nie podawaj leku dłużej niż 3 dni bez konsultacji. Gorączka u dziecka poniżej 3. miesiąca życia wymaga pilnej oceny lekarskiej.</p>
+  </div>
+</div>
 
 <script>
 (function () {
-  try {
-    var root = document.getElementById('pedi-landing2');
-    if (!root) return;
+  var form = document.getElementById('pediCalc');
+  if (!form || form.dataset.ready === '1') { return; }
+  form.dataset.ready = '1';
 
-    var toggle = document.getElementById('p2NavToggle');
-    var nav = document.getElementById('p2Nav');
-    if (toggle && nav) {
-      toggle.addEventListener('click', function () {
-        var open = nav.classList.toggle('p2-open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      var navLinks = nav.querySelectorAll('a');
-      for (var i = 0; i < navLinks.length; i++) {
-        navLinks[i].addEventListener('click', function () { nav.classList.remove('p2-open'); });
-      }
-    }
+  /* Dawkowanie: ibuprofen 5–10 mg/kg co 6–8 h (maks. 3 dawki/dobę, nie poniżej
+     3. m.ż. i 5 kg); paracetamol 10–15 mg/kg co 4–6 h (maks. 4 dawki/dobę).
+     Stężenia podane w mg na 5 ml. */
+  var LEKI = {
+    ibu: { nazwa:'ibuprofen', min:5, max:10, dawek:3, odstep:'6–8 godz.', minKg:5,
+           stez:[{t:'100 mg / 5 ml',v:100},{t:'200 mg / 5 ml',v:200}] },
+    par: { nazwa:'paracetamol', min:10, max:15, dawek:4, odstep:'4–6 godz.', minKg:4,
+           stez:[{t:'120 mg / 5 ml',v:120},{t:'250 mg / 5 ml',v:250}] }
+  };
 
-    var anchors = root.querySelectorAll('a[href^="#"]');
-    for (var j = 0; j < anchors.length; j++) {
-      anchors[j].addEventListener('click', function (e) {
-        var targetEl = document.querySelector(this.getAttribute('href'));
-        if (targetEl) { e.preventDefault(); targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-      });
-    }
+  var conc   = document.getElementById('pediConc');
+  var weight = document.getElementById('pediWeight');
+  var elDose = document.getElementById('pediDose');
+  var elSub  = document.getElementById('pediSub');
+  var elGap  = document.getElementById('pediGap');
+  var elMax  = document.getElementById('pediMax');
+  var elWarn = document.getElementById('pediWarn');
 
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) { entry.target.classList.add('p2-in'); io.unobserve(entry.target); }
-        });
-      }, { threshold: 0.15 });
-      var fades = root.querySelectorAll('.p2-fade');
-      for (var k = 0; k < fades.length; k++) { io.observe(fades[k]); }
-    } else {
-      var fades2 = root.querySelectorAll('.p2-fade');
-      for (var m = 0; m < fades2.length; m++) { fades2[m].classList.add('p2-in'); }
-    }
-
-    var DANE = {
-      ibuprofen: { mgKgMin: 5, mgKgMax: 10, maxDawek: 3, odstep: '6–8 godz.', minWaga: 5,
-        stezenia: [{ label: '100 mg / 5 ml', wartosc: 100 }, { label: '200 mg / 5 ml', wartosc: 200 }] },
-      paracetamol: { mgKgMin: 10, mgKgMax: 15, maxDawek: 4, odstep: '4–6 godz.', minWaga: 4,
-        stezenia: [{ label: '120 mg / 5 ml', wartosc: 120 }, { label: '250 mg / 5 ml', wartosc: 250 }] }
-    };
-    var aktywna = 'ibuprofen';
-    var btnIbu = document.getElementById('p2BtnIbu');
-    var btnPara = document.getElementById('p2BtnPara');
-    var selStez = document.getElementById('p2Stez');
-    var inpWaga = document.getElementById('p2Waga');
-    var btnOblicz = document.getElementById('p2Oblicz');
-    var blad = document.getElementById('p2Blad');
-    var wynik = document.getElementById('p2Wynik');
-    var elMl = document.getElementById('p2Ml');
-    var elMaxDawek = document.getElementById('p2MaxDawek');
-    var elOdstep = document.getElementById('p2Odstep');
-    var boxOstrz = document.getElementById('p2Ostrzezenie');
-    var txtOstrz = document.getElementById('p2OstrzezenieTxt');
-
-    function odswiezStezenia() {
-      var dane = DANE[aktywna];
-      selStez.innerHTML = '';
-      for (var i = 0; i < dane.stezenia.length; i++) {
-        var s = dane.stezenia[i];
-        var opt = document.createElement('option');
-        opt.value = s.wartosc;
-        opt.textContent = s.label;
-        selStez.appendChild(opt);
-      }
-    }
-    function ustawSubstancje(nazwa) {
-      aktywna = nazwa;
-      btnIbu.setAttribute('aria-pressed', nazwa === 'ibuprofen' ? 'true' : 'false');
-      btnPara.setAttribute('aria-pressed', nazwa === 'paracetamol' ? 'true' : 'false');
-      odswiezStezenia();
-      wynik.classList.remove('p2-show');
-    }
-    if (btnIbu && btnPara) {
-      btnIbu.addEventListener('click', function () { ustawSubstancje('ibuprofen'); });
-      btnPara.addEventListener('click', function () { ustawSubstancje('paracetamol'); });
-    }
-    odswiezStezenia();
-
-    if (btnOblicz) {
-      btnOblicz.addEventListener('click', function () {
-        var waga = parseFloat(String(inpWaga.value).replace(',', '.'));
-        if (!waga || waga < 1 || waga > 60) {
-          blad.classList.add('p2-show');
-          wynik.classList.remove('p2-show');
-          return;
-        }
-        blad.classList.remove('p2-show');
-        var dane = DANE[aktywna];
-        var stezenie = parseFloat(selStez.value);
-        var mlMin = ((dane.mgKgMin * waga) / stezenie) * 5;
-        var mlMax = ((dane.mgKgMax * waga) / stezenie) * 5;
-        elMl.textContent = mlMin.toFixed(1) + '–' + mlMax.toFixed(1) + ' ml';
-        elMaxDawek.textContent = dane.maxDawek + ' / dobę';
-        elOdstep.textContent = dane.odstep;
-
-        /* Ostrzeżenie dla najmniejszych dzieci */
-        if (waga < dane.minWaga) {
-          if (aktywna === 'ibuprofen') {
-            txtOstrz.innerHTML = '<strong>Nie podawaj bez konsultacji z lekarzem.</strong> Ibuprofenu nie stosuje się u niemowląt poniżej 3. miesiąca życia ani poniżej 5 kg masy ciała.';
-          } else {
-            txtOstrz.innerHTML = '<strong>Skonsultuj się z lekarzem.</strong> U niemowląt o tak małej masie ciała dawkę powinien ustalić lekarz — gorączka u dziecka poniżej 3. miesiąca życia wymaga pilnej oceny.';
-          }
-          boxOstrz.classList.add('p2-show');
-        } else {
-          boxOstrz.classList.remove('p2-show');
-        }
-
-        wynik.classList.add('p2-show');
-      });
-    }
-  } catch (err) {
-    if (window.console) { console.error('pedi-landing2 script error:', err); }
+  function lek() {
+    var sel = form.querySelector('input[name="pediDrug"]:checked');
+    return LEKI[sel ? sel.value : 'ibu'];
   }
+
+  function wypelnijStezenia() {
+    var d = lek();
+    conc.innerHTML = '';
+    for (var i = 0; i < d.stez.length; i++) {
+      var o = document.createElement('option');
+      o.value = d.stez[i].v;
+      o.textContent = d.stez[i].t;
+      conc.appendChild(o);
+    }
+  }
+
+  function licz() {
+    var d = lek();
+    var kg = parseFloat(String(weight.value).replace(',', '.'));
+    var mgNa5ml = parseFloat(conc.value);
+
+    elWarn.hidden = true;
+
+    if (!kg || kg < 2 || kg > 60) {
+      elDose.innerHTML = '— <small>ml</small>';
+      elSub.textContent = weight.value === ''
+        ? 'Wpisz wagę dziecka, aby zobaczyć wynik.'
+        : 'Podaj wagę z zakresu 2–60 kg.';
+      elGap.textContent = '—';
+      elMax.textContent = '—';
+      return;
+    }
+
+    var mlMin = (d.min * kg / mgNa5ml) * 5;
+    var mlMax = (d.max * kg / mgNa5ml) * 5;
+
+    elDose.innerHTML = mlMin.toFixed(1).replace('.', ',') + '–' +
+                       mlMax.toFixed(1).replace('.', ',') + ' <small>ml</small>';
+    elSub.textContent = 'Dawka jednorazowa (' + d.nazwa + '), ' + d.odstep + '.';
+    elGap.textContent = d.odstep;
+    elMax.textContent = d.dawek + ' dawki';
+
+    if (kg < d.minKg) {
+      elWarn.innerHTML = d.nazwa === 'ibuprofen'
+        ? '<b>Nie podawaj bez konsultacji z lekarzem.</b>Ibuprofenu nie stosuje się u niemowląt poniżej 3. miesiąca życia ani poniżej 5 kg masy ciała.'
+        : '<b>Skonsultuj się z lekarzem.</b>Przy tak małej masie ciała dawkę powinien ustalić lekarz.';
+      elWarn.hidden = false;
+    }
+  }
+
+  form.addEventListener('input', licz);
+  form.addEventListener('change', function (e) {
+    if (e.target && e.target.name === 'pediDrug') { wypelnijStezenia(); }
+    licz();
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
+
+  wypelnijStezenia();
+  licz();
 })();
 </script>
 <!-- /wp:html -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 7. OPINIE ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","style":{"color":{"background":"#F1DACB"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" style="background-color:#F1DACB;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"p-eyebrow"} -->
+<p class="has-text-align-center p-eyebrow">Opinie</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Co mówią rodzice</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","className":"p-small","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
+<p class="has-text-align-center p-small" style="margin-bottom:44px">[TREŚCI PRZYKŁADOWE — podmień na prawdziwe opinie pacjentów.]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"18px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"p-quote-card"} -->
+<blockquote class="wp-block-quote p-quote-card"><!-- wp:paragraph {"className":"p-stars"} -->
+<p class="p-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„[Przykładowa opinia] Pani doktor poświęciła nam mnóstwo czasu i wszystko dokładnie wytłumaczyła."</p>
+<!-- /wp:paragraph --><cite>[Imię] — Miechów</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"p-quote-card"} -->
+<blockquote class="wp-block-quote p-quote-card"><!-- wp:paragraph {"className":"p-stars"} -->
+<p class="p-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„[Przykładowa opinia] Spokojne podejście do przestraszonego dziecka i badanie bez pośpiechu."</p>
+<!-- /wp:paragraph --><cite>[Imię] — Kraków</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:quote {"className":"p-quote-card"} -->
+<blockquote class="wp-block-quote p-quote-card"><!-- wp:paragraph {"className":"p-stars"} -->
+<p class="p-stars">★★★★★</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>„[Przykładowa opinia] Po wizycie dostaliśmy jasne zalecenia, dzięki czemu nic nam nie umknęło."</p>
+<!-- /wp:paragraph --><cite>[Imię] — Słomniki</cite></blockquote>
+<!-- /wp:quote -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 8. FAQ ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","style":{"color":{"background":"#F6E3D6"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"780px"}} -->
+<section class="wp-block-group alignfull pedi has-background" style="background-color:#F6E3D6;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+
+<!-- wp:paragraph {"align":"center","className":"p-eyebrow"} -->
+<p class="has-text-align-center p-eyebrow">FAQ</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"40px"}}}} -->
+<h2 class="wp-block-heading has-text-align-center" style="margin-bottom:40px">Najczęstsze pytania</h2>
+<!-- /wp:heading -->
+
+<!-- wp:details {"showContent":true,"summary":"Jak umówić wizytę?","className":"p-faq"} -->
+<details class="wp-block-details p-faq" open><summary>Jak umówić wizytę?</summary><!-- wp:paragraph -->
+<p>Rejestracja SMS pod numerem 535 999 565. [Uzupełnij: godziny, w jakich odpowiadasz, i sposób potwierdzania terminu.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Ile trwa wizyta i co zabrać ze sobą?","className":"p-faq"} -->
+<details class="wp-block-details p-faq"><summary>Ile trwa wizyta i co zabrać ze sobą?</summary><!-- wp:paragraph -->
+<p>Weź książeczkę zdrowia dziecka, wyniki ostatnich badań oraz listę przyjmowanych leków. [Uzupełnij czas trwania wizyty.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy gabinet przyjmuje w ramach NFZ?","className":"p-faq"} -->
+<details class="wp-block-details p-faq"><summary>Czy gabinet przyjmuje w ramach NFZ?</summary><!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — informacja o NFZ i cenniku wizyt.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy jeździsz na wizyty domowe?","className":"p-faq"} -->
+<details class="wp-block-details p-faq"><summary>Czy jeździsz na wizyty domowe?</summary><!-- wp:paragraph -->
+<p>[DO UZUPEŁNIENIA — zakres dojazdu i dostępność terminów.]</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details {"summary":"Czy kalkulator dawek zastępuje konsultację?","className":"p-faq"} -->
+<details class="wp-block-details p-faq"><summary>Czy kalkulator dawek zastępuje konsultację?</summary><!-- wp:paragraph -->
+<p>Nie. To pomoc w oszacowaniu typowej dawki na podstawie masy ciała. O tym, czy lek jest wskazany, decyduje lekarz — zwłaszcza u niemowląt poniżej 3. miesiąca życia, u dzieci z chorobami przewlekłymi i przy gorączce utrzymującej się dłużej niż 3 dni.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 9. KONTAKT ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","anchor":"pedi-kontakt","style":{"color":{"background":"#F1DACB"},"spacing":{"padding":{"top":"clamp(56px,7vw,96px)","bottom":"clamp(56px,7vw,96px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" id="pedi-kontakt" style="background-color:#F1DACB;padding-top:clamp(56px,7vw,96px);padding-right:24px;padding-bottom:clamp(56px,7vw,96px);padding-left:24px">
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"40px"}}}} -->
+<div class="wp-block-columns">
+
+<!-- wp:column {"width":"46%"} -->
+<div class="wp-block-column" style="flex-basis:46%">
+<!-- wp:paragraph {"className":"p-eyebrow"} -->
+<p class="p-eyebrow">Kontakt i rejestracja</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Umów wizytę</h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"className":"p-info","style":{"spacing":{"margin":{"top":"26px"},"blockGap":"18px"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group p-info" style="margin-top:26px">
+<!-- wp:paragraph -->
+<p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p><strong>Rejestracja SMS</strong><a href="sms:535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p><strong>Facebook</strong><a href="https://www.facebook.com/doktorkasiapediatra" target="_blank" rel="noreferrer noopener">doktorkasiapediatra</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"p-box","style":{"spacing":{"margin":{"top":"26px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group p-box" style="margin-top:26px">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Godziny przyjęć</h3>
+<!-- /wp:heading -->
+<!-- wp:list {"className":"p-hours"} -->
+<ul class="wp-block-list p-hours"><!-- wp:list-item --><li><span>Poniedziałek – Piątek</span><strong>[00:00 – 00:00]</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li><span>Sobota</span><strong>[00:00 – 00:00]</strong></li><!-- /wp:list-item --><!-- wp:list-item --><li><span>Niedziela</span><strong>[nieczynne]</strong></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"26px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:26px">
+<!-- wp:button {"className":"p-btn p-btn--solid"} -->
+<div class="wp-block-button p-btn p-btn--solid"><a class="wp-block-button__link wp-element-button" href="sms:535999565">Wyślij SMS</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"54%"} -->
+<div class="wp-block-column" style="flex-basis:54%">
+<!-- wp:html -->
+<div class="p-map">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.95%2C50.34%2C20.06%2C50.39&amp;layer=mapnik&amp;marker=50.3608%2C20.0206"
+    title="Mapa dojazdu do gabinetu — Miechów"
+    loading="lazy"></iframe>
+</div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 10. STOPKA ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi pedi-footer","style":{"color":{"background":"#3B2F30"},"spacing":{"padding":{"top":"48px","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi pedi-footer has-background" style="background-color:#3B2F30;padding-top:48px;padding-right:24px;padding-bottom:32px;padding-left:24px">
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"40px"}}}} -->
+<div class="wp-block-columns">
+<!-- wp:column {"width":"55%"} -->
+<div class="wp-block-column" style="flex-basis:55%">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Opieka Pediatryczna Doktor Kasi</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Specjalista pediatra · ul. St. Daneckiej 4/U6, Miechów</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"p-small"} -->
+<p class="p-small">Treści na tej stronie mają charakter informacyjny i nie zastępują konsultacji lekarskiej. W stanie zagrożenia życia dzwoń pod numer 112.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"width":"45%"} -->
+<div class="wp-block-column" style="flex-basis:45%">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Kontakt</h3>
+<!-- /wp:heading -->
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="sms:535999565">SMS: 535 999 565</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="https://www.facebook.com/doktorkasiapediatra" target="_blank" rel="noreferrer noopener">Facebook</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li><!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</section>
+<!-- /wp:group -->
