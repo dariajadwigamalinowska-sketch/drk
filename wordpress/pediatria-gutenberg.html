@@ -92,7 +92,7 @@
   /* --- kolory --- */
   --kb-tlo:          #F6E3D6;   /* brzoskwiniowe tło główne              */
   --kb-tlo-2:        #FBF0E7;   /* jaśniejszy odcień, co druga sekcja    */
-  --kb-blekit:       #8D96B4;   /* akcent jasny — poświata, gradienty    */
+  --kb-blekit:       #9E9EB4;   /* akcent jasny — poświata, gradienty    */
   --kb-ciemny:       #5C6688;   /* ciemne pasy: atuty i stopka           */
   --kb-ciemny-2:     #454E6B;   /* przycisk po najechaniu                */
   --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
@@ -100,7 +100,7 @@
   --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
   --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
   --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule */
-  --kb-roz:          #D98F92;   /* różowa kreska ozdobna                 */
+  --kb-roz:          #E3A6A7;   /* różowa kreska ozdobna                 */
   --kb-karta:        #FFFDFB;
   --kb-zastepcze:    linear-gradient(150deg,var(--kb-blekit),var(--kb-roz));
   --kb-linia:        rgba(59,47,48,.12);
@@ -129,12 +129,36 @@
 
 /* Poświata w sekcji powitalnej. Górna warstwa wygasza gradient tuż pod
    paskiem nawigacji, żeby nie było widać szwu między pasami. */
-.kb-sekcja:first-of-type{
+/* UWAGA: wcześniej reguła stała pod selektorem .kb-sekcja:first-of-type,
+   który nie pasował do niczego — pierwszym elementem tego typu jest
+   <style>, a zaraz po nim pasek górny bez klasy .kb-sekcja. Poświata
+   nigdy się nie pokazywała. Sekcja ma teraz własną klasę.
+
+   Tło sekcji powitalnej odwzorowuje gradient z przesłanej grafiki:
+   kremowa brzoskwinia, pas zamglonego błękitu, koralowy róż. Odtworzony
+   w CSS zamiast obrazka — skaluje się bez ograniczeń i nic nie waży.
+   Warstwa welonu u góry przygasza barwy pod tekstem, dolna wygasza
+   gradient w tło strony, żeby nie było widać szwu przy pasku atutów. */
+.kb-sekcja-powitalna{
   background:
-    linear-gradient(to bottom, var(--kb-tlo) 0, rgba(246,227,214,0) 190px),
-    radial-gradient(58% 52% at 14% 12%, rgba(141,150,180,.55) 0%, transparent 62%),
-    radial-gradient(52% 48% at 32% 24%, rgba(217,143,146,.45) 0%, transparent 66%),
-    radial-gradient(68% 58% at 80% 88%, rgba(239,207,196,.85) 0%, transparent 72%),
+    linear-gradient(to bottom,
+      rgba(251,240,231,.42) 0,
+      rgba(251,240,231,.10) 200px,
+      rgba(246,227,214,.30) 62%,
+      rgba(246,227,214,.88) 92%,
+      var(--kb-tlo) 100%),
+    linear-gradient(102deg,
+      #DDC0B8  0%,
+      #C9B6B9 10%,
+      #B0ABB9 20%,
+      #9E9EB4 30%,
+      #B99EAE 40%,
+      #E3A6A7 50%,
+      #E6AEAD 60%,
+      #EAB6B6 70%,
+      #EABCBA 80%,
+      #EDC3C1 90%,
+      #EFCAC5 100%),
     var(--kb-tlo);
 }
 
@@ -279,6 +303,9 @@
 .kb-film-luk{ max-width:none; margin:0 !important; }
 .kb-film-luk video{
   width:100%; aspect-ratio:4/5; height:auto; object-fit:cover;
+  /* Kadr przesuniety ku gorze materialu, dzieki czemu mis siedzi
+     nizej w ramie i ma nad soba wiecej powietrza. */
+  object-position:center 22%;
   border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
   box-shadow:0 34px 66px -32px rgba(59,47,48,.45);
 }
@@ -485,8 +512,8 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"kb-sekcja","align":"full"} -->
-<div class="wp-block-group alignfull kb-sekcja">
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-powitalna","align":"full"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-powitalna">
 <!-- wp:columns {"verticalAlignment":"center"} -->
 <div class="wp-block-columns are-vertically-aligned-center">
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
