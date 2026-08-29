@@ -98,6 +98,11 @@
 /* Logotyp */
 .estet .e-logo-obraz{margin:0 !important;}
 .estet .e-logo-obraz img{max-height:64px;width:auto;display:block;}
+/* Puste miejsce, dopóki logotyp nie zostanie wgrany. */
+.estet .e-logo-obraz img:not([src]){
+  width:230px;height:64px;background:var(--e-cream-2);
+  border:1px dashed var(--e-line);
+}
 .estet .e-marka{
   font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
   letter-spacing:.14em;text-transform:uppercase;color:var(--e-ink);
@@ -259,10 +264,11 @@
 -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"26px","bottom":"6px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
 <section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FBF8F3;padding-top:26px;padding-right:24px;padding-bottom:6px;padding-left:24px">
-<!-- LOGOTYP. Plik: assets/grafika/logo-estetyczna.png (biel wycięta).
-     Podmieniasz klikając w obrazek → "Zastąp". -->
-<!-- wp:image {"url":"/wp-content/uploads/logo-estetyczna.png","className":"e-logo-obraz"} -->
-<figure class="wp-block-image e-logo-obraz"><img src="/wp-content/uploads/logo-estetyczna.png" alt="Doktor Kasia — logotyp"/></figure>
+<!-- MIEJSCE NA LOGOTYP — pusty blok obrazka. Kliknij szary prostokąt
+     i wybierz plik z Biblioteki mediów. Gotowy plik ze złotym znakiem
+     leży w repozytorium: assets/grafika/logo-estetyczna.png -->
+<!-- wp:image {"className":"e-logo-obraz"} -->
+<figure class="wp-block-image e-logo-obraz"><img alt=""/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"className":"e-marka"} -->
