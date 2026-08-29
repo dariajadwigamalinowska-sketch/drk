@@ -20,23 +20,24 @@
   UKŁAD TEJ STRONY — inny niż na stronie medycyny estetycznej
   ---------------------------------------------------------------------------
   Kolejność jest celowa. Rodzic wchodzi tu z konkretną potrzebą, więc
-  kalkulator dawek stoi WYSOKO, zaraz pod paskiem z atutami i przed opisem
-  praktyki. Zdjęcie Pani Doktor jest po PRAWEJ, w miękkim organicznym
-  kształcie. Kontakt: karta i mapa OBOK siebie.
+  najpierw stoi KALKULATOR dawek, zaraz po nim KONTAKT, a dopiero potem
+  opis praktyki i filmy. Zdjęcie Pani Doktor jest po PRAWEJ, w miękkim
+  organicznym kształcie. Kontakt: karta i mapa OBOK siebie.
 
-  Na stronie są tylko trzy rzeczy: MIEJSCE (adres, godziny, rejestracja),
-  PRAKTYKA (kto i jak pracuje) oraz KALKULATOR. Filary i wyliczanki zostały
-  wycięte celowo. Jeśli chcecie coś dołożyć, dokładajcie po jednej sekcji.
+  Filary i wyliczanki zostały wycięte celowo. Jeśli chcecie coś dołożyć,
+  dokładajcie po jednej sekcji.
 
   ---------------------------------------------------------------------------
   JAK EDYTOWAĆ (bez dotykania kodu)
   ---------------------------------------------------------------------------
   • TEKST      – kliknij i pisz.
   • ZDJĘCIA    – kliknij szary prostokąt → "Biblioteka mediów".
-  • FILM       – pas u góry to pusty blok "Wideo": kliknij i wgraj plik.
-                 Jeśli film jest na YouTube, usuń ten blok i wstaw blok
-                 "YouTube", a potem nadaj mu klasę CSS "kb-film-ramka"
-                 (panel po prawej → Zaawansowane).
+  • FILM       – kadr u góry to pusty blok "Wideo" w formacie pionowym
+                 9:16: kliknij i wgraj plik. Jeśli film jest na YouTube,
+                 usuń ten blok i wstaw blok "YouTube", a potem nadaj mu
+                 klasę CSS "kb-film-ramka" (panel po prawej → Zaawansowane).
+                 Format i szerokość zmienisz w arkuszu stylów — zmienne
+                 --kb-film-proporcje i --kb-film-szerokosc.
   • FILMY PIONOWE – sekcja "Krótkie filmy" ma trzy puste bloki "Wideo"
                  w formacie 9:16, czyli takim jak rolki na Instagramie.
                  Klikasz i wgrywasz. Podpis pod filmem edytujesz klikając
@@ -49,13 +50,6 @@
                  kb-i-serce, kb-i-puls, kb-i-uwaga, kb-i-iskra, kb-i-kropla,
                  kb-i-tarcza, kb-i-rozmowa, kb-i-dyplom, kb-i-liscie.
   • KOLORY     – zmienne --kb-... w sekcji USTAWIENIA na początku arkusza.
-  • LOGOTYPY   – nad stopką jest jasny pas "Patronaty". Każdy szary
-                 prostokąt to pusty blok obrazka: kliknij i wgraj logotyp.
-                 Grupy: Dofinansowanie, Patronat honorowy, Patronat medialny,
-                 Partnerzy — po cztery miejsca każda. Nieużywane miejsca
-                 i całe nieużywane grupy po prostu usuń (zaznacz blok
-                 i Backspace). Pas jest celowo jasny, bo logotypy instytucji
-                 są projektowane na białe tło.
 
   ---------------------------------------------------------------------------
   LINKI MIĘDZY STRONAMI
@@ -67,12 +61,10 @@
   ---------------------------------------------------------------------------
   DO UZUPEŁNIENIA NA TEJ STRONIE
   ---------------------------------------------------------------------------
+  • logotyp praktyki (blok obrazka w pasku na górze)
   • zdjęcie Pani Doktor (blok obrazka w sekcji powitalnej)
-  • zdjęcie gabinetu (blok obrazka w sekcji "O praktyce")
-  • film (pusty blok "Wideo" na górze)
-  • opis praktyki — dwa akapity
-  • zakres badań dostępnych na miejscu
-  • godziny przyjęć
+  • film pionowy na górze oraz trzy filmy w sekcji "Zanim przyjdziecie"
+  • opis praktyki
   • podstrona z polityką prywatności (odnośnik w stopce)
 
   ---------------------------------------------------------------------------
@@ -149,11 +141,9 @@
 .kb-sekcja    > .wp-block-group__inner-container,
 .kb-pasek     > .wp-block-group__inner-container,
 .kb-stopka    > .wp-block-group__inner-container,
-.kb-patronaty > .wp-block-group__inner-container,
 .kb-sekcja    > *,
 .kb-pasek     > *,
-.kb-stopka    > *,
-.kb-patronaty > *{ max-width:var(--kb-szerokosc); margin-left:auto; margin-right:auto; }
+.kb-stopka    > *{ max-width:var(--kb-szerokosc); margin-left:auto; margin-right:auto; }
 
 .kb-sekcja h1,.kb-sekcja h2,.kb-sekcja h3,.kb-stopka h2{
   font-family:var(--kb-font-naglowki); font-weight:600;
@@ -273,10 +263,10 @@
    FILM (pas u góry, format poziomy)
    ========================================================================= */
 .kb-film-ramka{
-  --kb-film-proporcje: 16/9;   /* format poziomy */
-  --kb-film-szerokosc: 940px;  /* węższy niż treść — film nie zagarnia
-                                  całego pierwszego ekranu. Ustaw
-                                  var(--kb-szerokosc) dla pełnej szerokości. */
+  --kb-film-proporcje: 9/16;   /* format pionowy, jak rolka */
+  --kb-film-szerokosc: 420px;  /* wąski kadr — film nie zagarnia całego
+                                  pierwszego ekranu. Dla filmu poziomego
+                                  ustaw proporcje 16/9 i szerokość 940px. */
   max-width:var(--kb-film-szerokosc); margin:0 auto 64px !important;
 }
 .kb-film-ramka video,
@@ -323,7 +313,7 @@
   font-size:.85rem; font-weight:600; letter-spacing:.02em;
 }
 .kb-film-ramka:empty::after{
-  content:"Miejsce na film poziomy"; aspect-ratio:16/9; width:100%;
+  content:"Miejsce na film pionowy"; aspect-ratio:var(--kb-film-proporcje); width:100%;
   background:var(--kb-zastepcze);
 }
 .kb-film-pion > figcaption:first-child::before{
@@ -439,38 +429,6 @@
   overflow:hidden; height:100%; min-height:380px;
 }
 .kb-mapa-ramka iframe{ width:100%; height:100%; min-height:380px; border:0; display:block; }
-
-/* =========================================================================
-   PATRONATY, PARTNERZY I LOGOTYPY INSTYTUCJI
-   Jasny pas nad stopką — logotypy instytucji projektuje się na jasne tło.
-   ========================================================================= */
-.kb-patronaty{
-  background:var(--kb-tlo); border-top:1px solid var(--kb-linia);
-  padding:64px 24px 54px !important; font-family:var(--kb-font);
-}
-.kb-patronat-info{
-  max-width:74ch; margin:0 auto !important; text-align:center;
-  font-size:.85rem !important; line-height:1.7; color:var(--kb-atrament-2);
-}
-.kb-patronat-info + .kb-patronat-info{ margin-top:10px !important; }
-.kb-patronat-etykieta{
-  margin:44px 0 22px !important; text-align:center;
-  font-size:.7rem !important; font-weight:700; letter-spacing:.2em;
-  text-transform:uppercase; color:var(--kb-ciemny);
-  display:flex; align-items:center; justify-content:center; gap:16px;
-}
-.kb-patronat-etykieta::before,
-.kb-patronat-etykieta::after{
-  content:""; height:2px; background:var(--kb-roz); flex:1; max-width:90px; opacity:.6;
-}
-.kb-logotypy{ gap:32px !important; align-items:center; }
-.kb-logotyp{ margin:0 !important; }
-.kb-logotyp img{
-  display:block; margin:0 auto; width:auto; max-width:100%;
-  max-height:74px; object-fit:contain;
-  /* Bez filtrów i bez wymuszonych proporcji: logotypów instytucji
-     finansujących zwykle NIE WOLNO przebarwiać ani zniekształcać. */
-}
 
 /* =========================================================================
    STOPKA
@@ -887,68 +845,6 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-o-praktyce"} -->
-<div class="wp-block-group alignfull kb-sekcja" id="kb-o-praktyce">
-<!-- wp:group -->
-<div class="wp-block-group">
-
-<!-- wp:paragraph {"className":"kb-nadtytul"} -->
-<p class="kb-nadtytul">Praktyka</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"className":"kb-naglowek"} -->
-<h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor Kasi</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"className":"kb-tekst"} -->
-<p class="kb-tekst">[DO UZUPEŁNIENIA — 3–4 zdania: specjalizacja i rok jej uzyskania, od kiedy praktyka, czym Pani Doktor zajmuje się na co dzień, ile trwa wizyta i co obejmuje. Rzeczowo, bez superlatywów.]</p>
-<!-- /wp:paragraph -->
-
-</div>
-<!-- /wp:group -->
-
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-filmy"} -->
-<div class="wp-block-group alignfull kb-sekcja" id="kb-filmy">
-
-<!-- wp:paragraph {"align":"center","className":"kb-nadtytul kb-srodek"} -->
-<p class="has-text-align-center kb-nadtytul kb-srodek">Krótkie filmy</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
-<h2 class="wp-block-heading has-text-align-center kb-naglowek">Zanim przyjdziecie</h2>
-<!-- /wp:heading -->
-
-<!-- wp:columns {"className":"kb-filmy-pion"} -->
-<div class="wp-block-columns kb-filmy-pion">
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:video {"className":"kb-film-pion"} -->
-<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Jak wygląda wizyta]</figcaption></figure>
-<!-- /wp:video -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:video {"className":"kb-film-pion"} -->
-<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Kiedy zgłosić się pilnie]</figcaption></figure>
-<!-- /wp:video -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:video {"className":"kb-film-pion"} -->
-<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Co zabrać na wizytę]</figcaption></figure>
-<!-- /wp:video -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
-
 <!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kontakt"} -->
 <div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kontakt">
 <!-- wp:columns -->
@@ -1015,164 +911,65 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"kb-patronaty","align":"full"} -->
-<div class="wp-block-group alignfull kb-patronaty">
-<!-- wp:paragraph {"align":"center","className":"kb-patronat-info"} -->
-<p class="has-text-align-center kb-patronat-info">[DO UZUPEŁNIENIA — oficjalna informacja o realizacji. Jeśli strona albo gabinet powstały w ramach dofinansowanego projektu, instytucja finansująca zwykle NARZUCA dokładne brzmienie klauzuli i nie wolno go skracać ani parafrazować. Wklej je tu dosłownie, razem z numerem umowy lub projektu.]</p>
+<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-o-praktyce"} -->
+<div class="wp-block-group alignfull kb-sekcja" id="kb-o-praktyce">
+<!-- wp:group -->
+<div class="wp-block-group">
+
+<!-- wp:paragraph {"className":"kb-nadtytul"} -->
+<p class="kb-nadtytul">Praktyka</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","className":"kb-patronat-info"} -->
-<p class="has-text-align-center kb-patronat-info">[DO UZUPEŁNIENIA — druga linia, jeśli klauzula tego wymaga, np. nazwa programu i działania. Jeśli niepotrzebna, usuń ten blok akapitu.]</p>
+<!-- wp:heading {"className":"kb-naglowek"} -->
+<h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor Kasi</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-tekst"} -->
+<p class="kb-tekst">[DO UZUPEŁNIENIA — 3–4 zdania: specjalizacja i rok jej uzyskania, od kiedy praktyka, czym Pani Doktor zajmuje się na co dzień, ile trwa wizyta i co obejmuje. Rzeczowo, bez superlatywów.]</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"align":"center","className":"kb-patronat-etykieta"} -->
-<p class="has-text-align-center kb-patronat-etykieta">Dofinansowanie</p>
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-filmy"} -->
+<div class="wp-block-group alignfull kb-sekcja" id="kb-filmy">
+
+<!-- wp:paragraph {"align":"center","className":"kb-nadtytul kb-srodek"} -->
+<p class="has-text-align-center kb-nadtytul kb-srodek">Krótkie filmy</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:columns {"className":"kb-logotypy","isStackedOnMobile":false} -->
-<div class="wp-block-columns is-not-stacked-on-mobile kb-logotypy">
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Zanim przyjdziecie</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns {"className":"kb-filmy-pion"} -->
+<div class="wp-block-columns kb-filmy-pion">
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
+<!-- wp:video {"className":"kb-film-pion"} -->
+<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Jak wygląda wizyta]</figcaption></figure>
+<!-- /wp:video -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
+<!-- wp:video {"className":"kb-film-pion"} -->
+<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Kiedy zgłosić się pilnie]</figcaption></figure>
+<!-- /wp:video -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
+<!-- wp:video {"className":"kb-film-pion"} -->
+<figure class="wp-block-video kb-film-pion"><figcaption class="wp-element-caption">[DO UZUPEŁNIENIA — np. Co zabrać na wizytę]</figcaption></figure>
+<!-- /wp:video -->
 </div>
 <!-- /wp:column -->
 </div>
 <!-- /wp:columns -->
-
-<!-- wp:paragraph {"align":"center","className":"kb-patronat-etykieta"} -->
-<p class="has-text-align-center kb-patronat-etykieta">Patronat honorowy</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:columns {"className":"kb-logotypy","isStackedOnMobile":false} -->
-<div class="wp-block-columns is-not-stacked-on-mobile kb-logotypy">
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-<!-- wp:paragraph {"align":"center","className":"kb-patronat-etykieta"} -->
-<p class="has-text-align-center kb-patronat-etykieta">Patronat medialny</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:columns {"className":"kb-logotypy","isStackedOnMobile":false} -->
-<div class="wp-block-columns is-not-stacked-on-mobile kb-logotypy">
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-<!-- wp:paragraph {"align":"center","className":"kb-patronat-etykieta"} -->
-<p class="has-text-align-center kb-patronat-etykieta">Partnerzy</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:columns {"className":"kb-logotypy","isStackedOnMobile":false} -->
-<div class="wp-block-columns is-not-stacked-on-mobile kb-logotypy">
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:image {"className":"kb-logotyp"} -->
-<figure class="wp-block-image kb-logotyp"><img alt=""/></figure>
-<!-- /wp:image -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
 </div>
 <!-- /wp:group -->
 
