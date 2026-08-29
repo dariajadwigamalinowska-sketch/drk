@@ -80,10 +80,10 @@
   --kb-tlo:          #F6E3D6;   /* brzoskwiniowe tło główne              */
   --kb-tlo-2:        #FBF0E7;   /* jaśniejszy odcień, co druga sekcja    */
   --kb-blekit:       #9E9EB4;   /* akcent jasny — poświata, gradienty    */
-  --kb-ciemny:       #5C6688;   /* ciemne pasy: atuty i stopka           */
-  --kb-ciemny-2:     #454E6B;   /* przycisk po najechaniu                */
-  --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
-  --kb-atrament-2:   #6B5C58;   /* akapity, podpisy                      */
+  --kb-ciemny:       #6B7492;   /* ciemne pasy: atuty i stopka           */
+  --kb-ciemny-2:     #565F7C;   /* przycisk po najechaniu                */
+  --kb-atrament:     #45383A;   /* tekst główny, nagłówki                */
+  --kb-atrament-2:   #736460;   /* akapity, podpisy                      */
   --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
   --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
   --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule */
@@ -112,7 +112,18 @@
   background:var(--kb-tlo); padding:var(--kb-sekcja) 24px;
   position:relative;
 }
+/* Roznica miedzy sasiednimi sekcjami jest celowo minimalna — zamiast
+   pasow w dwoch kolorach strona ma byc jednym, spokojnym tlem. */
 .kb-sekcja-cieplo{ background:var(--kb-tlo-2); }
+/* Miekkie przejscie miedzy sekcjami zamiast ostrej krawedzi. */
+.kb-sekcja + .kb-sekcja::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:90px;
+  background:linear-gradient(to bottom, var(--kb-tlo), transparent);
+  opacity:.55; pointer-events:none;
+}
+.kb-sekcja-cieplo + .kb-sekcja:not(.kb-sekcja-cieplo)::before{
+  background:linear-gradient(to bottom, var(--kb-tlo-2), transparent);
+}
 
 /* Poświata w sekcji powitalnej. Górna warstwa wygasza gradient tuż pod
    paskiem nawigacji, żeby nie było widać szwu między pasami. */
@@ -198,6 +209,84 @@
 }
 
 /* =========================================================================
+   DOKTOR KASIA — zdjęcie i narracja obok siebie
+   ========================================================================= */
+.kb-doktor{ margin:0 auto !important; }
+.kb-doktor .kb-tekst-luzno{ margin-bottom:18px !important; max-width:52ch; }
+.kb-doktor .kb-tekst-luzno:last-of-type{ margin-bottom:26px !important; }
+.kb-doktor .kb-naglowek{ margin:0 0 18px !important; }
+.kb-doktor .kb-motto{ margin:0 !important; }
+/* Akapit do napisania przez Panią Doktor — widoczny w edytorze,
+   ale bez krzykliwej ramki na gotowej stronie. */
+.kb-do-uzupelnienia{
+  border-left:2px solid rgba(227,166,167,.55); padding-left:16px;
+  font-style:italic; color:#8A7873;
+}
+
+/* =========================================================================
+   KARUZELA Z FILMAMI
+   ========================================================================= */
+.kb-filmy .kb-nadtytul-srodek{ justify-content:center; }
+.kb-karuzela{ position:relative; margin-top:34px; }
+.kb-tor{
+  display:flex; gap:20px; margin:0; padding:0 4px 6px; list-style:none;
+  overflow-x:auto; scroll-snap-type:x mandatory;
+  scrollbar-width:none; -ms-overflow-style:none;
+}
+.kb-tor::-webkit-scrollbar{ display:none; }
+.kb-slajd{
+  flex:0 0 calc((100% - 40px) / 3); min-width:0; scroll-snap-align:start;
+  margin:0; list-style:none;
+}
+.kb-slajd::marker{ content:""; }
+.kb-film-karta,
+.kb-slajd iframe{
+  display:block; width:100%; aspect-ratio:16/9; border:0;
+  border-radius:16px; overflow:hidden; background:var(--kb-zastepcze);
+}
+.kb-film-karta{
+  position:relative; padding:0; cursor:pointer;
+  box-shadow:0 22px 44px -34px rgba(69,56,58,.34);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.kb-film-karta:hover{ transform:translateY(-3px); box-shadow:0 26px 50px -32px rgba(69,56,58,.42); }
+.kb-film-karta img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  /* Miniatura YouTube ma czarne pasy u gory i dolu — kadrujemy je. */
+  transform:scale(1.34);
+}
+.kb-play{
+  position:absolute; inset:0; margin:auto; width:62px; height:62px;
+  border-radius:50%; background:rgba(255,253,251,.9);
+  box-shadow:0 8px 22px -8px rgba(69,56,58,.5);
+}
+/* Trojkat rysowany obramowaniem rosnie w prawo od punktu srodkowego,
+   wiec cofamy go o polowe szerokosci — inaczej stoi poza srodkiem kola. */
+.kb-play::before{
+  content:""; position:absolute; inset:0; margin:auto;
+  width:0; height:0;
+  border-left:18px solid var(--kb-ciemny);
+  border-top:11px solid transparent; border-bottom:11px solid transparent;
+  transform:translateX(-6px);
+}
+.kb-film-podpis{
+  margin:12px 2px 0 !important; font-size:.86rem !important;
+  color:var(--kb-atrament-2); line-height:1.5;
+}
+.kb-strzalka{
+  position:absolute; top:calc(50% - 30px); transform:translateY(-50%);
+  z-index:2; width:44px; height:44px; border-radius:50%; cursor:pointer;
+  border:1px solid rgba(69,56,58,.1); background:rgba(255,253,251,.92);
+  color:var(--kb-ciemny); font-size:1.5rem; line-height:1;
+  box-shadow:0 10px 26px -14px rgba(69,56,58,.45);
+  transition:opacity .2s ease, transform .2s ease;
+}
+.kb-strzalka:hover:not(:disabled){ transform:translateY(-50%) scale(1.06); }
+.kb-strzalka:disabled{ opacity:0; pointer-events:none; }
+.kb-strzalka-lewo{ left:-14px; }
+.kb-strzalka-prawo{ right:-14px; }
+
+/* =========================================================================
    IKONY
    Dodaj blokowi klasę "kb-i-…" w panelu po prawej: Zaawansowane →
    Dodatkowa klasa CSS. Ikona pojawi się przed tekstem.
@@ -258,9 +347,12 @@
   font-weight:600; font-size:.95rem; letter-spacing:0; text-transform:none;
   border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
 }
-.kb-btn-glowny .wp-block-button__link{ background:var(--kb-ciemny); color:#fff; }
+.kb-btn-glowny .wp-block-button__link{
+  background:linear-gradient(105deg, var(--kb-ciemny), #8A8AA6); color:#fff;
+  box-shadow:0 10px 24px -14px rgba(69,62,90,.6);
+}
 .kb-btn-glowny .wp-block-button__link:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
-.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.4); color:var(--kb-ciemny); border-color:var(--kb-ciemny); }
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.45); color:var(--kb-ciemny-2); border-color:rgba(107,116,146,.45); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
 
@@ -297,7 +389,10 @@
      nizej w ramie i ma nad soba wiecej powietrza. */
   object-position:center 22%;
   border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
-  box-shadow:0 34px 66px -32px rgba(59,47,48,.45);
+  box-shadow:0 30px 60px -38px rgba(69,56,58,.28);
+  /* Krawedz filmu rozmywa sie w tlo, zamiast konczyc sie twarda linia. */
+  -webkit-mask-image:radial-gradient(115% 115% at 50% 45%, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%);
+  mask-image:radial-gradient(115% 115% at 50% 45%, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%);
 }
 
 
@@ -349,11 +444,11 @@
 /* Portret w ramce — passe-partout jak w oprawionym zdjęciu: jasna
    plansza, cienki obrys, zdjęcie w środku, podpis pod spodem. */
 .kb-portret-ramka{
-  max-width:400px; margin:28px auto 0 !important;
-  background:var(--kb-karta); border:1px solid var(--kb-linia);
+  max-width:400px; margin:0 auto !important;
+  background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
   border-radius:var(--kb-promien);
   padding:18px 18px 24px !important;
-  box-shadow:0 34px 66px -36px rgba(59,47,48,.45);
+  box-shadow:0 26px 54px -38px rgba(69,56,58,.3);
 }
 .kb-portret{ margin:0 !important; }
 .kb-portret img{
@@ -374,8 +469,15 @@
 /* =========================================================================
    PAS Z ATUTAMI
    ========================================================================= */
+/* Pas nie jest juz plaska, ostro odcieta plyta — ma lekko przezroczyste
+   tlo i wygaszone krawedzie, wiec wtapia sie w brzoskwiniowe tlo strony
+   zamiast je przecinac. */
 .kb-atuty{
-  background:var(--kb-ciemny) !important; color:#FBF1E8;
+  background:
+    linear-gradient(to bottom, rgba(246,227,214,.55), transparent 26px),
+    linear-gradient(to top,    rgba(251,240,231,.55), transparent 26px),
+    linear-gradient(100deg, rgba(107,116,146,.86), rgba(139,134,158,.86) 55%, rgba(158,140,152,.86)) !important;
+  color:#FDF6EF;
   padding-top:30px !important; padding-bottom:30px !important;
 }
 .kb-atuty h2,.kb-atuty h3{ color:#FBF1E8; }
@@ -442,8 +544,9 @@
    KONTAKT
    ========================================================================= */
 .kb-karta-kontakt{
-  background:var(--kb-karta); border:1px solid var(--kb-linia);
+  background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
   border-radius:var(--kb-promien); padding:40px 36px !important;
+  box-shadow:0 22px 46px -36px rgba(69,56,58,.28);
 }
 .kb-kontakt-pozycja{
   margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
@@ -465,9 +568,14 @@
 /* =========================================================================
    STOPKA
    ========================================================================= */
+/* Stopka wchodzi z gory lagodnym przejsciem z tla strony, zamiast
+   zaczynac sie ostra pozioma krawedzia. */
 .kb-stopka{
-  background:var(--kb-ciemny); color:#EFE6DE;
-  padding:52px 24px 26px !important; font-family:var(--kb-font);
+  background:
+    linear-gradient(to bottom, rgba(251,240,231,.5), transparent 70px),
+    linear-gradient(100deg, var(--kb-ciemny), #7B7A99 60%, #8E8299);
+  color:#F4EDE6;
+  padding:64px 24px 26px !important; font-family:var(--kb-font);
 }
 .kb-stopka .kb-logo{ color:#fff; margin:0 !important; }
 .kb-stopka .kb-podpis{ color:#F0BFC1; margin:2px 0 0 !important; }
@@ -538,6 +646,16 @@
   .kb-stopka-dol-wiersz{ gap:18px !important; }
   .kb-stopka-dol.has-text-align-right{ text-align:left; }
   .kb-stopka-uwaga{ max-width:none; }
+  /* Karuzela: jeden film na ekran, strzalki wchodza do srodka,
+     zeby nie wystawaly poza kadr telefonu. */
+  .kb-slajd{ flex-basis:86%; }
+  .kb-strzalka-lewo{ left:0; }
+  .kb-strzalka-prawo{ right:0; }
+  .kb-doktor .kb-portret-ramka{ max-width:320px; }
+  .kb-doktor{ gap:34px !important; }
+}
+@media (min-width:782px) and (max-width:1000px){
+  .kb-slajd{ flex-basis:calc((100% - 20px) / 2); }
 }
 </style>
 <!-- /wp:html -->
@@ -548,27 +666,20 @@
 <div class="wp-block-columns are-vertically-aligned-center">
 <!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%">
-<!-- LOGOTYP praktyki. Plik: assets/wideo/../grafika/logo-pediatria.png
+<!-- LOGOTYP praktyki. Plik: assets/grafika/logo-pediatria.png
      (biel wycięta, tło przezroczyste). Żeby go podmienić, kliknij
-     w obrazek → "Zastąp". Napis obok jest zapasem na wypadek, gdyby
-     ktoś oglądał stronę z wyłączonymi obrazkami — możesz go usunąć. -->
+     w obrazek → "Zastąp". Nazwa praktyki jest już w samym znaku,
+     więc nie powtarzamy jej obok tekstem. -->
 <!-- wp:image {"url":"/wp-content/uploads/logo-pediatria.png","className":"kb-logo-obraz"} -->
-<figure class="wp-block-image kb-logo-obraz"><img src="/wp-content/uploads/logo-pediatria.png" alt="Doktor Kasia — logotyp praktyki"/></figure>
+<figure class="wp-block-image kb-logo-obraz"><img src="/wp-content/uploads/logo-pediatria.png" alt="Opieka Pediatryczna Doktor Kasi — lek. Katarzyna Bator, specjalista pediatra"/></figure>
 <!-- /wp:image -->
-
-<!-- wp:paragraph {"className":"kb-logo"} -->
-<p class="kb-logo">Katarzyna Bator</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph {"className":"kb-podpis"} -->
-<p class="kb-podpis">Specjalista pediatra</p>
-<!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
 <!-- wp:paragraph {"className":"kb-menu"} -->
-<p class="kb-menu"><a href="#kb-o-praktyce">Praktyka</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-kontakt">Kontakt</a><a class="kb-druga-strona" href="/medycyna-estetyczna/">Medycyna estetyczna</a></p>
+<p class="kb-menu"><a href="#kb-o-praktyce">Praktyka</a><a href="#kb-kontakt">Kontakt</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-pierwsza-pomoc">Pierwsza pomoc</a><a class="kb-druga-strona" href="/medycyna-estetyczna/">Medycyna estetyczna</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -655,6 +766,135 @@
 </div>
 <!-- /wp:group -->
 
+<!-- ======================= DOKTOR KASIA =======================
+  Zdjęcie po lewej, opowieść o praktyce po prawej.
+
+  TEKST W PRAWEJ KOLUMNIE JEST DO NAPISANIA WŁASNYMI SŁOWAMI.
+  Zostawiłam ramy narracji, żeby było od czego zacząć — klikasz
+  w akapit i piszesz. Akapit oznaczony [DO UZUPEŁNIENIA] wymaga
+  danych, których nie wymyślę: wykształcenie, staż, kursy.
+-->
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-o-praktyce"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-o-praktyce">
+
+<!-- wp:columns {"verticalAlignment":"center","className":"kb-doktor","style":{"spacing":{"blockGap":{"left":"52px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center kb-doktor">
+
+<!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
+<!-- wp:group {"className":"kb-portret-ramka","layout":{"type":"constrained"}} -->
+<div class="wp-block-group kb-portret-ramka">
+<!-- wp:image {"url":"/wp-content/uploads/portret-kasia.jpg","className":"kb-portret"} -->
+<figure class="wp-block-image kb-portret"><img src="/wp-content/uploads/portret-kasia.jpg" alt="lek. Katarzyna Bator, specjalista pediatra, z pluszowym misiem"/></figure>
+<!-- /wp:image -->
+<!-- wp:paragraph {"align":"center","className":"kb-portret-podpis"} -->
+<p class="has-text-align-center kb-portret-podpis">lek. Katarzyna Bator<br><span>specjalista pediatra</span></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
+<!-- wp:paragraph {"className":"kb-nadtytul"} -->
+<p class="kb-nadtytul">Poznajmy się</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"kb-naglowek"} -->
+<h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor&nbsp;Kasi</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
+<p class="kb-tekst kb-tekst-luzno">Do gabinetu przychodzą dzieci, które boją się lekarza, i rodzice, którzy boją się o dziecko. Zanim sięgnę po stetoskop, zwykle jest chwila na oswojenie się — czasem z misiem, czasem z rozmową o tym, co dziś wydarzyło się w przedszkolu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
+<p class="kb-tekst kb-tekst-luzno">Przyjmuję ograniczoną liczbę dzieci dziennie i jest to decyzja świadoma: tyle konsultacji, ile pozwala zbadać dziecko bez pośpiechu i odpowiedzieć na pytania rodziców — także te zadane po raz trzeci.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
+<p class="kb-tekst kb-tekst-luzno">Z wizyty wychodzicie z jasnym planem: co podawać i w jakiej dawce, na co patrzeć w domu i kiedy wrócić. Jeśli coś zacznie niepokoić między wizytami, jestem pod SMS-em.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno kb-do-uzupelnienia"} -->
+<p class="kb-tekst kb-tekst-luzno kb-do-uzupelnienia">[DO UZUPEŁNIENIA — 2–4 zdania o drodze zawodowej: gdzie studia, gdzie specjalizacja, ile lat praktyki, kursy i obszary, które interesują Cię najbardziej. Ten akapit czytają rodzice, którzy szukają powodu, żeby Ci zaufać.]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-motto"} -->
+<p class="kb-motto">„Pediatria to nie zawód, to powołanie.”</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kontakt"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kontakt">
+<!-- wp:columns -->
+<div class="wp-block-columns">
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"className":"kb-karta-kontakt"} -->
+<div class="wp-block-group kb-karta-kontakt">
+
+<!-- wp:heading {"className":"kb-naglowek-maly"} -->
+<h2 class="wp-block-heading kb-naglowek-maly">Umów wizytę</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-pin"} -->
+<p class="kb-kontakt-pozycja kb-i-pin">Adres</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
+<p class="kb-kontakt-dane">ul. St. Daneckiej 4/U6, Miechów</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-telefon"} -->
+<p class="kb-kontakt-pozycja kb-i-telefon">Rejestracja SMS</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
+<p class="kb-kontakt-dane"><a href="sms:+48535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"kb-btn-glowny"} -->
+<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Napisz SMS</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"kb-btn-obrys"} -->
+<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="tel:+48535999565">Zadzwoń</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:html -->
+<div class="kb-mapa-ramka">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.99%2C50.345%2C20.05%2C50.375&layer=mapnik&marker=50.3608%2C20.0206"
+    loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="Mapa dojazdu do gabinetu — Miechów"></iframe>
+</div>
+<!-- /wp:html -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
 <!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kalkulator"} -->
 <div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kalkulator">
 
@@ -670,11 +910,11 @@
 <div class="kb-kalkulator">
 <style>
 .kb-kalkulator{
-  background:var(--kb-karta); border:1px solid var(--kb-linia);
-  border-radius:var(--kb-promien); padding:32px 30px; max-width:660px; margin:0 auto;
+  background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
+  border-radius:var(--kb-promien); padding:32px 30px;
   max-width:760px; margin:0 auto;
   font-family:var(--kb-font); color:var(--kb-atrament);
-  box-shadow:0 30px 60px -40px rgba(59,47,48,.45);
+  box-shadow:0 26px 52px -40px rgba(69,56,58,.3);
 }
 .kb-kalkulator *,.kb-kalkulator *::before{ box-sizing:border-box; }
 .kb-kalkulator :focus-visible{ outline:3px solid var(--kb-ciemny); outline-offset:2px; }
@@ -767,10 +1007,10 @@
 
   <div class="kb-wynik" id="kbWynik" aria-live="polite">
     <div class="kb-wynik-grid">
-      <div class="kb-wynik-box"><b id="kbDawka">–</b><span>dawka jednorazowa</span></div>
+      <div class="kb-wynik-box"><b id="kbDawka">–</b><span id="kbDawkaMg">maks. dawka jednorazowa</span></div>
       <div class="kb-wynik-box"><b id="kbOdstep">–</b><span>minimalny odstęp</span></div>
       <div class="kb-wynik-box"><b id="kbLiczba">–</b><span>maks. dawek na dobę</span></div>
-      <div class="kb-wynik-box"><b id="kbDoba">–</b><span>maks. na dobę łącznie</span></div>
+      <div class="kb-wynik-box"><b id="kbDoba">–</b><span id="kbDobaMg">maks. na dobę łącznie</span></div>
     </div>
 
     <p class="kb-uwaga kb-i-uwaga"><span>Wynik ma charakter <strong>wyłącznie poglądowy</strong>. Przed podaniem leku zawsze zweryfikuj dawkę z ulotką konkretnego preparatu i skonsultuj się z lekarzem lub farmaceutą.</span></p>
@@ -785,13 +1025,16 @@
   /* =====================================================================
      DANE DAWKOWANIA — jedyne miejsce, w którym zmienia się liczby
      ---------------------------------------------------------------------
-     mgKgMin / mgKgMax  – zakres dawki jednorazowej w mg na kg masy ciała
-     maxJednorazowaMg   – górny limit pojedynczej dawki (dawka dorosłego)
-     maxDobowaMgKg      – limit dobowy w mg na kg
-     maxDobowaMg        – bezwzględny limit dobowy w mg
+     mgKg               – dawka jednorazowa w mg na kg masy ciała
+     maxJednorazowaMg   – górna granica pojedynczej dawki; cięższe dziecko
+                          jej nie przekracza
      dawekNaDobe        – maksymalna liczba dawek w ciągu doby
      odstep             – minimalny odstęp między dawkami (tekst)
      stezenia           – warianty preparatu; "mg" = ile mg leku w 5 ml
+
+     Limit dobowy nie jest osobną liczbą — wynika z dwóch powyższych
+     (dawka jednorazowa × liczba dawek), więc wyniki nie mogą sobie
+     przeczyć.
 
      Kalkulator liczy wyłącznie w przeglądarce odwiedzającego. Podana masa
      ciała nigdzie nie jest wysyłana ani zapisywana — to celowe, bo dane
@@ -799,18 +1042,16 @@
      ===================================================================== */
   var LEKI = {
     ibuprofen: {
-      mgKgMin: 5,  mgKgMax: 10,
-      maxJednorazowaMg: 400, maxDobowaMgKg: 30, maxDobowaMg: 1200,
-      dawekNaDobe: 3, odstep: '6–8 godz.',
+      mgKg: 10, maxJednorazowaMg: 400,
+      dawekNaDobe: 4, odstep: 'co 6 godz.',
       stezenia: [
         { etykieta: '100 mg / 5 ml', mg: 100 },
         { etykieta: '200 mg / 5 ml', mg: 200 }
       ]
     },
     paracetamol: {
-      mgKgMin: 10, mgKgMax: 15,
-      maxJednorazowaMg: 1000, maxDobowaMgKg: 60, maxDobowaMg: 4000,
-      dawekNaDobe: 4, odstep: '4–6 godz.',
+      mgKg: 15, maxJednorazowaMg: 500,
+      dawekNaDobe: 5, odstep: 'co 4–6 godz.',
       stezenia: [
         { etykieta: '120 mg / 5 ml', mg: 120 },
         { etykieta: '250 mg / 5 ml', mg: 250 }
@@ -834,6 +1075,7 @@
     var uwagaWiek = $('kbUwagaWiek');
     var outDawka = $('kbDawka'), outOdstep = $('kbOdstep'),
         outLiczba = $('kbLiczba'), outDoba = $('kbDoba');
+    var outDawkaMg = $('kbDawkaMg'), outDobaMg = $('kbDobaMg');
 
     var aktywny = 'ibuprofen';
     var policzono = false;
@@ -874,15 +1116,19 @@
       var mgW5ml = parseFloat(selStez.value);
       if (!isFinite(mgW5ml) || mgW5ml <= 0) { return; }
 
-      var mgMin  = Math.min(lek.mgKgMin * waga, lek.maxJednorazowaMg);
-      var mgMax  = Math.min(lek.mgKgMax * waga, lek.maxJednorazowaMg);
-      var mgDoba = Math.min(lek.maxDobowaMgKg * waga, lek.maxDobowaMg);
-      var naMl   = function (mg) { return (mg / mgW5ml) * 5; };
+      /* Pokazujemy samą górną granicę, nie zakres. Cięższe dziecko nie
+         przekracza dawki dorosłego, stąd ograniczenie przez Math.min. */
+      var mgDawka = Math.min(lek.mgKg * waga, lek.maxJednorazowaMg);
+      var mgDoba  = mgDawka * lek.dawekNaDobe;
+      var naMl    = function (mg) { return (mg / mgW5ml) * 5; };
 
-      outDawka.textContent  = pl(naMl(mgMin)) + '–' + pl(naMl(mgMax)) + ' ml';
+      outDawka.textContent  = 'do ' + pl(naMl(mgDawka)) + ' ml';
       outOdstep.textContent = lek.odstep;
       outLiczba.textContent = lek.dawekNaDobe;
-      outDoba.textContent   = pl(naMl(mgDoba)) + ' ml';
+      outDoba.textContent   = 'do ' + pl(naMl(mgDoba)) + ' ml';
+
+      if (outDawkaMg) { outDawkaMg.textContent = 'maks. dawka jednorazowa · ' + Math.round(mgDawka) + ' mg'; }
+      if (outDobaMg)  { outDobaMg.textContent  = 'maks. na dobę łącznie · ' + Math.round(mgDoba) + ' mg'; }
 
       if (uwagaWiek) { uwagaWiek.hidden = waga >= WAGA_OSTRZEZENIE; }
 
@@ -912,95 +1158,117 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kontakt"} -->
-<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kontakt">
-<!-- wp:columns -->
-<div class="wp-block-columns">
+<!-- ==================== FILMY: PIERWSZA POMOC ====================
+  Karuzela z trzema filmami z YouTube. Miniatury ładują się od razu,
+  ale sam odtwarzacz YouTube startuje dopiero po kliknięciu — dzięki
+  temu strona nie osadza cookies YouTube u każdego odwiedzającego.
+  Filmy idą przez youtube-nocookie.com z tego samego powodu.
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:group {"className":"kb-karta-kontakt"} -->
-<div class="wp-block-group kb-karta-kontakt">
-
-<!-- wp:heading {"className":"kb-naglowek-maly"} -->
-<h2 class="wp-block-heading kb-naglowek-maly">Umów wizytę</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-pin"} -->
-<p class="kb-kontakt-pozycja kb-i-pin">Adres</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
-<p class="kb-kontakt-dane">ul. St. Daneckiej 4/U6, Miechów</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-telefon"} -->
-<p class="kb-kontakt-pozycja kb-i-telefon">Rejestracja SMS</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
-<p class="kb-kontakt-dane"><a href="sms:+48535999565">535 999 565</a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:buttons -->
-<div class="wp-block-buttons">
-<!-- wp:button {"className":"kb-btn-glowny"} -->
-<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Napisz SMS</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"kb-btn-obrys"} -->
-<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="tel:+48535999565">Zadzwoń</a></div>
-<!-- /wp:button -->
-</div>
-<!-- /wp:buttons -->
-
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:html -->
-<div class="kb-mapa-ramka">
-  <iframe
-    src="https://www.openstreetmap.org/export/embed.html?bbox=19.99%2C50.345%2C20.05%2C50.375&layer=mapnik&marker=50.3608%2C20.0206"
-    loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-    title="Mapa dojazdu do gabinetu — Miechów"></iframe>
-</div>
-<!-- /wp:html -->
-</div>
-<!-- /wp:column -->
-
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
-
-<!-- ============================ PORTRET ============================
-  Kliknij szary prostokąt i wgraj zdjęcie Pani Doktor z Biblioteki
-  mediów. Kadr pionowy 3:4, min. 900×1200 px. Podpis pod zdjęciem
-  edytujesz klikając w tekst. Po wgraniu zdjęcia uzupełnij jeszcze
-  tekst alternatywny w panelu po prawej — czyta go czytnik ekranu.
+  Żeby podmienić film, zmień identyfikator w dwóch miejscach karty:
+  w atrybucie data-yt i w adresie miniatury.
 -->
-<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-o-praktyce"} -->
-<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-o-praktyce">
+<!-- wp:group {"className":"kb-sekcja kb-filmy","align":"full","anchor":"kb-pierwsza-pomoc"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-filmy" id="kb-pierwsza-pomoc">
+
+<!-- wp:paragraph {"align":"center","className":"kb-nadtytul kb-nadtytul-srodek"} -->
+<p class="has-text-align-center kb-nadtytul kb-nadtytul-srodek">Projekt edukacyjny</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
-<h2 class="wp-block-heading has-text-align-center kb-naglowek">Opieka Pediatryczna Doktor Kasi</h2>
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Pierwsza pomoc przedmedyczna</h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"className":"kb-portret-ramka","layout":{"type":"constrained"}} -->
-<div class="wp-block-group kb-portret-ramka">
-<!-- wp:image {"url":"/wp-content/uploads/portret-kasia.jpg","className":"kb-portret"} -->
-<figure class="wp-block-image kb-portret"><img src="/wp-content/uploads/portret-kasia.jpg" alt="lek. Katarzyna Bator ze swoim misiem"/></figure>
-<!-- /wp:image -->
-<!-- wp:paragraph {"align":"center","className":"kb-portret-podpis"} -->
-<p class="has-text-align-center kb-portret-podpis">lek. Katarzyna Bator<br><span>specjalista pediatra</span></p>
+<!-- wp:paragraph {"align":"center","className":"kb-tekst kb-tekst-srodek kb-tekst-luzno"} -->
+<p class="has-text-align-center kb-tekst kb-tekst-srodek kb-tekst-luzno">Podniesienie świadomości społecznej w zakresie udzielania pierwszej pomocy przedmedycznej. Projekt finansowany ze środków Powiatu&nbsp;Miechowskiego.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<div class="kb-karuzela" data-kb-karuzela>
+  <button type="button" class="kb-strzalka kb-strzalka-lewo" data-kb-poprzedni aria-label="Poprzedni film">&#8249;</button>
+  <ul class="kb-tor" data-kb-tor>
+      <li class="kb-slajd">
+        <button type="button" class="kb-film-karta" data-yt="D0XfoERn1PU"
+                aria-label="Odtwórz film: Pierwsza pomoc przedmedyczna — część 1">
+          <img src="https://i.ytimg.com/vi/D0XfoERn1PU/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+          <span class="kb-play" aria-hidden="true"></span>
+        </button>
+        <p class="kb-film-podpis">Pierwsza pomoc przedmedyczna — część 1</p>
+      </li>
+      <li class="kb-slajd">
+        <button type="button" class="kb-film-karta" data-yt="fgcW3Lfzbb8"
+                aria-label="Odtwórz film: Pierwsza pomoc przedmedyczna — część 2">
+          <img src="https://i.ytimg.com/vi/fgcW3Lfzbb8/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+          <span class="kb-play" aria-hidden="true"></span>
+        </button>
+        <p class="kb-film-podpis">Pierwsza pomoc przedmedyczna — część 2</p>
+      </li>
+      <li class="kb-slajd">
+        <button type="button" class="kb-film-karta" data-yt="AN2J7ckyqgg"
+                aria-label="Odtwórz film: Pierwsza pomoc przedmedyczna — część 3">
+          <img src="https://i.ytimg.com/vi/AN2J7ckyqgg/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+          <span class="kb-play" aria-hidden="true"></span>
+        </button>
+        <p class="kb-film-podpis">Pierwsza pomoc przedmedyczna — część 3</p>
+      </li>
+  </ul>
+  <button type="button" class="kb-strzalka kb-strzalka-prawo" data-kb-nastepny aria-label="Następny film">&#8250;</button>
 </div>
-<!-- /wp:group -->
+
+<script>
+(function () {
+  'use strict';
+  try {
+    var karuzela = document.querySelector('[data-kb-karuzela]');
+    if (!karuzela) { return; }
+    var tor = karuzela.querySelector('[data-kb-tor]');
+
+    /* Klik w miniature podmienia ja na odtwarzacz. Do tego momentu
+       zadne zapytanie do YouTube nie wychodzi. */
+    tor.addEventListener('click', function (e) {
+      var karta = e.target.closest ? e.target.closest('.kb-film-karta') : null;
+      if (!karta) { return; }
+      var id = karta.getAttribute('data-yt');
+      if (!id) { return; }
+      var ramka = document.createElement('iframe');
+      ramka.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      ramka.title = karta.getAttribute('aria-label') || 'Film';
+      ramka.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      ramka.allowFullscreen = true;
+      ramka.loading = 'lazy';
+      karta.parentNode.replaceChild(ramka, karta);
+    });
+
+    function przesun(kierunek) {
+      var slajd = tor.querySelector('.kb-slajd');
+      if (!slajd) { return; }
+      var krok = slajd.getBoundingClientRect().width + 20;
+      tor.scrollBy({ left: kierunek * krok, behavior: 'smooth' });
+    }
+    karuzela.querySelector('[data-kb-poprzedni]').addEventListener('click', function () { przesun(-1); });
+    karuzela.querySelector('[data-kb-nastepny]').addEventListener('click',  function () { przesun(1);  });
+
+    /* Strzalki gasna na koncach toru, zeby nie obiecywaly ruchu,
+       ktorego nie ma. */
+    /* Luz musi byc wiekszy niz poziomy padding toru — przy dosunieciu
+       do lewej scrollLeft nie wynosi 0, tylko tyle, ile ten padding. */
+    var LUZ = 12;
+    function odswiezStrzalki() {
+      var doKonca = tor.scrollWidth - tor.clientWidth - tor.scrollLeft;
+      karuzela.querySelector('[data-kb-poprzedni]').disabled = tor.scrollLeft <= LUZ;
+      karuzela.querySelector('[data-kb-nastepny]').disabled  = doKonca <= LUZ;
+    }
+    tor.addEventListener('scroll', odswiezStrzalki, { passive: true });
+    window.addEventListener('resize', odswiezStrzalki);
+    odswiezStrzalki();
+  } catch (err) {
+    if (window.console && window.console.error) { window.console.error('kb-karuzela:', err); }
+  }
+})();
+</script>
+<!-- /wp:html -->
 
 </div>
 <!-- /wp:group -->
-
 
 <!-- wp:group {"className":"kb-stopka","align":"full"} -->
 <div class="wp-block-group alignfull kb-stopka">
