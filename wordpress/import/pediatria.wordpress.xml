@@ -1093,15 +1093,15 @@
      DANE DAWKOWANIA — jedyne miejsce, w którym zmienia się liczby
      ---------------------------------------------------------------------
      mgKg               – dawka jednorazowa w mg na kg masy ciała
-     maxJednorazowaMg   – górna granica pojedynczej dawki; cięższe dziecko
-                          jej nie przekracza
+     maxDobowaMg        – górna granica sumy z całej doby
      dawekNaDobe        – maksymalna liczba dawek w ciągu doby
      odstep             – minimalny odstęp między dawkami (tekst)
      stezenia           – warianty preparatu; "mg" = ile mg leku w 5 ml
 
-     Limit dobowy nie jest osobną liczbą — wynika z dwóch powyższych
-     (dawka jednorazowa × liczba dawek), więc wyniki nie mogą sobie
-     przeczyć.
+     Granicy pojedynczej dawki nie zapisujemy osobno — wynika z dwóch
+     powyższych (limit dobowy ÷ liczba dawek). Dzięki temu dawka i suma
+     dobowa nie mogą sobie przeczyć: od pewnej masy ciała dawka
+     zatrzymuje się na tej granicy i dalej już nie rośnie.
 
      Kalkulator liczy wyłącznie w przeglądarce odwiedzającego. Podana masa
      ciała nigdzie nie jest wysyłana ani zapisywana — to celowe, bo dane
@@ -1109,7 +1109,7 @@
      ===================================================================== */
   var LEKI = {
     ibuprofen: {
-      mgKg: 10, maxJednorazowaMg: 400,
+      mgKg: 10, maxDobowaMg: 400,
       dawekNaDobe: 4, odstep: 'co 6 godz.',
       stezenia: [
         { etykieta: '100 mg / 5 ml', mg: 100 },
@@ -1117,7 +1117,7 @@
       ]
     },
     paracetamol: {
-      mgKg: 15, maxJednorazowaMg: 500,
+      mgKg: 15, maxDobowaMg: 500,
       dawekNaDobe: 5, odstep: 'co 4–6 godz.',
       stezenia: [
         { etykieta: '120 mg / 5 ml', mg: 120 },
@@ -1183,9 +1183,11 @@
       var mgW5ml = parseFloat(selStez.value);
       if (!isFinite(mgW5ml) || mgW5ml <= 0) { return; }
 
-      /* Pokazujemy samą górną granicę, nie zakres. Cięższe dziecko nie
-         przekracza dawki dorosłego, stąd ograniczenie przez Math.min. */
-      var mgDawka = Math.min(lek.mgKg * waga, lek.maxJednorazowaMg);
+      /* Pokazujemy samą górną granicę, nie zakres. Dawka jednorazowa
+         rośnie z masą ciała, ale zatrzymuje się na wartości, przy
+         której zaplanowana liczba dawek wyczerpuje limit dobowy. */
+      var maxJednorazowaMg = lek.maxDobowaMg / lek.dawekNaDobe;
+      var mgDawka = Math.min(lek.mgKg * waga, maxJednorazowaMg);
       var mgDoba  = mgDawka * lek.dawekNaDobe;
       var naMl    = function (mg) { return (mg / mgW5ml) * 5; };
 
