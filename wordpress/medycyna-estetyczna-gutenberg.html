@@ -227,17 +227,50 @@
 .estet .e-map iframe{display:block;width:100%;height:100%;min-height:400px;border:0;}
 
 /* Stopka */
-.estet-footer p,.estet-footer li{color:#B7B0A6 !important;font-size:.86rem !important;}
-/* Zastrzezenie prawne w stopce zlota czcionka — odroznia sie od danych
-   kontaktowych, a przy tym trzyma sie palety strony. */
-.estet-footer .e-small{
-  color:var(--e-gold-l) !important;font-size:.8rem !important;
-  letter-spacing:.02em;line-height:1.7;
+.estet-footer{ color:#EFE9E0; }
+.estet-footer p{ color:#B7B0A6; }
+.estet-footer a{ color:#EFE9E0; }
+
+.estet-stopka-nic{}
+.estet .e-stopka-marka{
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
+  letter-spacing:.14em;text-transform:uppercase;color:#fff !important;margin:0 !important;
 }
-.estet-footer h2,.estet-footer h3{color:#fff !important;}
-.estet-footer a{color:#B7B0A6 !important;}
-.estet-footer a:hover{color:var(--e-gold-l) !important;}
-.estet-footer ul{list-style:none !important;padding-left:0 !important;margin:0 !important;display:grid;gap:7px;}
+/* Etykiety kolumn — ta sama miara drobnego pisma co w tresci strony */
+.estet .e-stopka-etykieta{
+  margin:0 0 12px !important;font-size:.66rem !important;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--e-gold) !important;
+}
+/* Numer to najwazniejsza rzecz w stopce, wiec dostaje kroj naglowkowy */
+.estet .e-stopka-numer{
+  margin:0 !important;font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.75rem !important;line-height:1.1 !important;
+}
+.estet .e-stopka-numer a{
+  color:#fff !important;text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.28);
+}
+.estet .e-stopka-numer a:hover{ border-bottom-color:var(--e-gold-l); }
+.estet .e-stopka-drobne{ margin:8px 0 0 !important;font-size:.78rem !important;color:#9C958A !important;letter-spacing:.04em; }
+.estet .e-stopka-adres{ margin:16px 0 0 !important;font-size:.9rem !important;color:#EFE9E0 !important;line-height:1.6; }
+.estet .e-stopka-link{ margin:0 0 8px !important;font-size:.92rem !important; }
+.estet .e-stopka-link a{
+  color:#EFE9E0 !important;text-decoration:none;
+  border-bottom:1px solid rgba(201,169,106,.5);
+}
+.estet .e-stopka-link a:hover{ color:#fff !important;border-bottom-color:var(--e-gold-l); }
+
+/* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
+.estet .e-stopka-uwaga{
+  margin:40px 0 0 !important;padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.16);
+  max-width:70ch;font-size:.84rem !important;line-height:1.75;
+  color:var(--e-gold-l) !important;
+}
+.estet .e-stopka-dol{
+  margin:22px 0 0 !important;font-size:.74rem !important;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,224,.5) !important;
+}
 
 .estet[id]{scroll-margin-top:90px;}
 
@@ -678,34 +711,64 @@
 
 
 <!-- ============================ 10. STOPKA ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"56px","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
-<section class="wp-block-group alignfull estet estet-footer has-background" style="background-color:#111111;padding-top:56px;padding-right:24px;padding-bottom:32px;padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"52px","bottom":"26px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet estet-footer has-background" style="background-color:#111111;padding-top:52px;padding-right:24px;padding-bottom:26px;padding-left:24px">
+
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"40px"}}}} -->
 <div class="wp-block-columns">
-<!-- wp:column {"width":"55%"} -->
-<div class="wp-block-column" style="flex-basis:55%">
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Dr Kasia Aesthetic</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Medycyna estetyczna · ul. St. Daneckiej 4/U6, Miechów</p>
+
+<!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%">
+<!-- wp:paragraph {"className":"e-stopka-marka"} -->
+<p class="e-stopka-marka">Dr Kasia Aesthetic</p>
 <!-- /wp:paragraph -->
-<!-- wp:paragraph {"className":"e-small"} -->
-<p class="e-small">Treści na tej stronie mają charakter informacyjny i nie stanowią porady medycznej ani oferty w rozumieniu przepisów prawa. Kwalifikację do zabiegu ustala lekarz podczas konsultacji.</p>
+<!-- wp:paragraph {"className":"e-stopka-drobne"} -->
+<p class="e-stopka-drobne">Medycyna estetyczna</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
-<!-- wp:column {"width":"45%"} -->
-<div class="wp-block-column" style="flex-basis:45%">
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Kontakt</h3>
-<!-- /wp:heading -->
-<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item --><li><a href="tel:+48535999565">535 999 565</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="sms:+48535999565">SMS: 535 999 565</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="[LINK-DO-INSTAGRAMA]" target="_blank" rel="noreferrer noopener">Instagram</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li><!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+
+<!-- wp:column {"width":"38%"} -->
+<div class="wp-block-column" style="flex-basis:38%">
+<!-- wp:paragraph {"className":"e-stopka-etykieta"} -->
+<p class="e-stopka-etykieta">Kontakt</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-stopka-numer"} -->
+<p class="e-stopka-numer"><a href="tel:+48535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-stopka-drobne"} -->
+<p class="e-stopka-drobne">Telefon i rejestracja SMS</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-stopka-adres"} -->
+<p class="e-stopka-adres">ul. St. Daneckiej 4/U6<br>32-200 Miechów</p>
+<!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
+
+<!-- wp:column {"width":"28%"} -->
+<div class="wp-block-column" style="flex-basis:28%">
+<!-- wp:paragraph {"className":"e-stopka-etykieta"} -->
+<p class="e-stopka-etykieta">Zobacz też</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-stopka-link"} -->
+<p class="e-stopka-link"><a href="/pediatria/">Opieka pediatryczna</a></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-stopka-link"} -->
+<p class="e-stopka-link"><a href="/polityka-prywatnosci/">Polityka prywatności</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
 </div>
 <!-- /wp:columns -->
+
+<!-- wp:paragraph {"className":"e-stopka-uwaga"} -->
+<p class="e-stopka-uwaga">Treści na tej stronie mają charakter informacyjny i nie stanowią porady medycznej ani oferty w rozumieniu przepisów prawa. Kwalifikację do zabiegu ustala lekarz podczas konsultacji.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center","className":"e-stopka-dol"} -->
+<p class="has-text-align-center e-stopka-dol">© Dr Kasia Aesthetic</p>
+<!-- /wp:paragraph -->
+
 </section>
 <!-- /wp:group -->
