@@ -19,6 +19,17 @@
  NAWIGACJA:
    Celowo bez własnego menu — użyj nagłówka motywu (Wygląd → Edytor → Nagłówek).
 
+ WIDEO:
+   W sekcji hero i "O gabinecie" są bloki "Wideo" (natywne, edytowalne klikiem)
+   ustawione na: bez dźwięku, w pętli, autoodtwarzanie, bez kontrolek.
+   Pliki gotowe do wgrania leżą w repozytorium w assets/wideo/:
+     estetyczna-01.mp4 + .jpg  — poczekalnia      (0,32 MB)
+     estetyczna-02.mp4 + .jpg  — lekarka z pacjentem (0,41 MB)
+   1. Wgraj wszystkie cztery pliki do Biblioteki mediów.
+   2. Kliknij w blok wideo → "Zastąp" → wybierz plik z Biblioteki.
+      (Albo popraw adresy /wp-content/uploads/... w kodzie i w arkuszu stylów.)
+   Pliki .jpg to plakaty — widać je zanim wideo się wczyta.
+
  DO UZUPEŁNIENIA — oznaczone [W NAWIASACH]
 
  PRZED PUBLIKACJĄ:
@@ -95,6 +106,23 @@
 .estet .e-photo img{width:100%;height:100%;object-fit:cover;}
 .estet figure.wp-block-image{margin:0;}
 .estet figure.wp-block-image img{width:100%;}
+
+/* Wideo w miejscu zdjęcia — kadr pionowy, bez dźwięku, w pętli */
+.estet .e-video{
+  margin:0;border:1px solid var(--e-line);overflow:hidden;
+  background:var(--e-cream-2) center/cover no-repeat;
+}
+.estet .e-video video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;}
+.estet .e-video figcaption{display:none;}
+/* [ŚCIEŻKI] — jeden raz podmień na adresy plakatów z Biblioteki mediów.
+   Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
+   u osób, które w systemie wyłączyły animacje. */
+.estet .e-video--01{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
+.estet .e-video--02{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
+@media (prefers-reduced-motion:reduce){
+  .estet .e-video{aspect-ratio:4/5;}
+  .estet .e-video video{display:none;}
+}
 
 /* Pasek faktów */
 .estet-facts{background:var(--e-ink) !important;}
@@ -240,14 +268,14 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"46%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:46%">
-<!-- ZDJĘCIE: usuń tę grupę i wstaw blok "Obraz" (format pionowy 4:5) -->
-<!-- wp:group {"className":"e-photo","layout":{"type":"constrained"}} -->
-<div class="wp-block-group e-photo">
-<!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">[ZDJĘCIE LEKARZA]<br>wstaw blok „Obraz", format 4:5</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
+<!--
+  WIDEO: lekarka z pacjentem (estetyczna-02.mp4).
+  Po wgraniu plików do Biblioteki mediów kliknij w blok i podmień plik —
+  albo popraw dwa adresy poniżej na te z Biblioteki.
+-->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02"} -->
+<figure class="wp-block-video e-video e-video--02"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
+<!-- /wp:video -->
 </div>
 <!-- /wp:column -->
 
@@ -291,13 +319,10 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
-<!-- wp:group {"className":"e-photo","layout":{"type":"constrained"}} -->
-<div class="wp-block-group e-photo">
-<!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">[ZDJĘCIE GABINETU]</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
+<!-- WIDEO: poczekalnia (estetyczna-01.mp4) -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-video--01"} -->
+<figure class="wp-block-video e-video e-video--01"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
+<!-- /wp:video -->
 </div>
 <!-- /wp:column -->
 
