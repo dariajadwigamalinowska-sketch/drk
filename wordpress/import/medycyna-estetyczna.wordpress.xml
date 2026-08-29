@@ -150,20 +150,11 @@
 
 /* Logotyp */
 .estet .e-logo-obraz{margin:0 !important;}
-.estet .e-logo-obraz img{max-height:64px;width:auto;display:block;}
+.estet .e-logo-obraz img{max-height:46px;width:auto;display:block;}
 /* Puste miejsce, dopóki logotyp nie zostanie wgrany. */
 .estet .e-logo-obraz img:not([src]){
-  width:230px;height:64px;background:var(--e-cream-2);
+  width:164px;height:46px;background:var(--e-cream-2);
   border:1px dashed var(--e-line);
-}
-.estet .e-marka{
-  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--e-ink);
-  margin:14px 0 2px !important;
-}
-.estet .e-marka-podpis{
-  font-size:.68rem !important;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--e-gold);margin:0 !important;
 }
 
 /* Zdjęcia */
@@ -311,33 +302,24 @@
 
 
 <!-- ============================ LOGOTYP ============================
-  Usuń tę grupę i wstaw w jej miejsce blok "Obraz" ze swoim logotypem
-  (PNG lub SVG z przezroczystym tłem, wysokość ok. 56–60 px).
-  Jeśli logotyp jest już w nagłówku motywu, usuń całą tę sekcję.
+  Wąski pasek z samym znakiem. Jeśli logotyp jest już w nagłówku
+  motywu, usuń całą tę sekcję.
 -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"26px","bottom":"6px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FBF8F3;padding-top:26px;padding-right:24px;padding-bottom:6px;padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"20px","bottom":"4px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FBF8F3;padding-top:20px;padding-right:24px;padding-bottom:4px;padding-left:24px">
 <!-- MIEJSCE NA LOGOTYP — pusty blok obrazka. Kliknij szary prostokąt
      i wybierz plik z Biblioteki mediów. Gotowy plik ze złotym znakiem
      leży w repozytorium: assets/grafika/logo-estetyczna.png -->
 <!-- wp:image {"className":"e-logo-obraz"} -->
 <figure class="wp-block-image e-logo-obraz"><img alt=""/></figure>
 <!-- /wp:image -->
-
-<!-- wp:paragraph {"className":"e-marka"} -->
-<p class="e-marka">Dr Kasia Aesthetic</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"e-marka-podpis"} -->
-<p class="e-marka-podpis">Medycyna estetyczna</p>
-<!-- /wp:paragraph -->
 </section>
 <!-- /wp:group -->
 
 
 <!-- ============================ 2. HERO ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-start","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-start" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-start","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-start" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 <!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"56px"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center">
 
@@ -392,7 +374,7 @@
 
 
 <!-- ============================ 3. PASEK FAKTÓW ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-facts","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"28px","bottom":"28px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-facts","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"28px","bottom":"28px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
 <section class="wp-block-group alignfull estet estet-facts has-background" style="background-color:#111111;padding-top:28px;padding-right:24px;padding-bottom:28px;padding-left:24px">
 <!-- wp:columns {"isStackedOnMobile":false,"style":{"spacing":{"blockGap":{"left":"20px"}}}} -->
 <div class="wp-block-columns is-not-stacked-on-mobile">
@@ -418,8 +400,8 @@
 
 
 <!-- ============================ 4. O GABINECIE ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-o-gabinecie","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-o-gabinecie" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-o-gabinecie","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-o-gabinecie" style="background-color:#FFFFFF;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 <!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"56px"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center">
 
@@ -476,8 +458,8 @@
 
 
 <!-- ============================ 5. KONTAKT ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-kontakt","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-kontakt" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-kontakt","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-kontakt" style="background-color:#FFFFFF;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
 <div class="wp-block-columns">
 
@@ -532,8 +514,8 @@
 
 
 <!-- ============================ 6. ZABIEGI ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Zakres zabiegów</h2>
@@ -599,8 +581,8 @@
 
 
 <!-- ============================ 7. PRZEBIEG WIZYTY ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
-<section class="wp-block-group alignfull estet has-background" style="background-color:#FFFFFF;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" style="background-color:#FFFFFF;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
 <h2 class="wp-block-heading has-text-align-center" style="margin-bottom:48px">Jak wygląda wizyta</h2>
@@ -670,8 +652,8 @@
 
 
 <!-- ============================ 8. CENNIK ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-cennik","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"820px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-cennik" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-cennik","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"820px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-cennik" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Orientacyjne ceny</h2>
@@ -707,8 +689,8 @@
 
 
 <!-- ============================ 9. FAQ ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
-<section class="wp-block-group alignfull estet has-background" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
+<section class="wp-block-group alignfull estet has-background" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
 <h2 class="wp-block-heading has-text-align-center" style="margin-bottom:44px">Najczęstsze pytania</h2>
@@ -749,7 +731,7 @@
 
 
 <!-- ============================ 10. STOPKA ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"56px","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"56px","bottom":"32px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
 <section class="wp-block-group alignfull estet estet-footer has-background" style="background-color:#111111;padding-top:56px;padding-right:24px;padding-bottom:32px;padding-left:24px">
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"40px"}}}} -->
 <div class="wp-block-columns">

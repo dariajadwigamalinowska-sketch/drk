@@ -95,8 +95,8 @@
   /* --- kształty i odstępy --- */
   --kb-promien:      22px;      /* miękkie zaokrąglenie kart             */
   --kb-promien-luk:  0;         /* nieużywane — zdjęcie ma kształt kropli */
-  --kb-szerokosc:    1180px;
-  --kb-sekcja:       88px;
+  --kb-szerokosc:    1040px;
+  --kb-sekcja:       60px;
 
   /* --- typografia --- */
   --kb-font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -346,7 +346,7 @@
 /* Portret w ramce — passe-partout jak w oprawionym zdjęciu: jasna
    plansza, cienki obrys, zdjęcie w środku, podpis pod spodem. */
 .kb-portret-ramka{
-  max-width:420px; margin:0 auto !important;
+  max-width:400px; margin:28px auto 0 !important;
   background:var(--kb-karta); border:1px solid var(--kb-linia);
   border-radius:var(--kb-promien);
   padding:18px 18px 24px !important;
@@ -619,7 +619,7 @@
 <style>
 .kb-kalkulator{
   background:var(--kb-karta); border:1px solid var(--kb-linia);
-  border-radius:var(--kb-promien); padding:36px 34px;
+  border-radius:var(--kb-promien); padding:32px 30px; max-width:660px; margin:0 auto;
   max-width:760px; margin:0 auto;
   font-family:var(--kb-font); color:var(--kb-atrament);
   box-shadow:0 30px 60px -40px rgba(59,47,48,.45);
@@ -922,34 +922,18 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"kb-sekcja","align":"full","anchor":"kb-o-praktyce"} -->
-<div class="wp-block-group alignfull kb-sekcja" id="kb-o-praktyce">
-<!-- wp:group -->
-<div class="wp-block-group">
-
-<!-- wp:heading {"className":"kb-naglowek"} -->
-<h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor Kasi</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"className":"kb-tekst"} -->
-<p class="kb-tekst">Kliknij tutaj i napisz kilka zdań o praktyce.</p>
-<!-- /wp:paragraph -->
-
-</div>
-<!-- /wp:group -->
-
-</div>
-<!-- /wp:group -->
-
-
 <!-- ============================ PORTRET ============================
   Kliknij szary prostokąt i wgraj zdjęcie Pani Doktor z Biblioteki
   mediów. Kadr pionowy 3:4, min. 900×1200 px. Podpis pod zdjęciem
   edytujesz klikając w tekst. Po wgraniu zdjęcia uzupełnij jeszcze
   tekst alternatywny w panelu po prawej — czyta go czytnik ekranu.
 -->
-<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full"} -->
-<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo">
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-o-praktyce"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-o-praktyce">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Opieka Pediatryczna Doktor Kasi</h2>
+<!-- /wp:heading -->
 
 <!-- wp:group {"className":"kb-portret-ramka","layout":{"type":"constrained"}} -->
 <div class="wp-block-group kb-portret-ramka">
