@@ -244,6 +244,21 @@
 .kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 auto .5em !important; }
 .kb-naglowek-maly{ font-size:clamp(1.4rem,2.2vw,1.75rem) !important; margin:0 auto .5em !important; }
 
+/* Tytul sekcji odcieta krotka rozowa kreska — ten sam zabieg co na
+   stronie medycyny estetycznej, tylko w tutejszej palecie. Kreska
+   idzie za naglowkiem, wiec nie trzeba jej wstawiac osobnym blokiem. */
+.kb-naglowek::after{
+  content:""; display:block; width:56px; height:2px;
+  margin:18px 0 0; border-radius:2px;
+  background:linear-gradient(to right,var(--kb-roz),rgba(227,166,167,0));
+}
+.kb-naglowek.has-text-align-center::after{
+  margin-left:auto; margin-right:auto; width:96px;
+  background:linear-gradient(to right,rgba(227,166,167,0),var(--kb-roz) 50%,rgba(227,166,167,0));
+}
+/* W karcie kontaktu naglowek jest etykieta karty, nie tytulem sekcji. */
+.kb-karta-kontakt .kb-naglowek-maly::after{ display:none; }
+
 .kb-lead{
   font-size:1.08rem !important; color:var(--kb-atrament-2);
   max-width:48ch; margin:0 0 26px !important;

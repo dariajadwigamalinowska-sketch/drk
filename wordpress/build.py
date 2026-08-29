@@ -44,7 +44,7 @@ STRONY = [
         "xml": ZRODLA / "import" / "medycyna-estetyczna.wordpress.xml",
         "podglad": "medycyna-estetyczna-podglad.html",
         "artefakt": "artefakt-estetyczna.html",
-        "tytul": "Dr Kasia Aesthetic",
+        "tytul": "Doktor Kasia Aesthetic",
         "tlo": "#FBF8F3",
         "fonty": (
             "https://fonts.googleapis.com/css2?"

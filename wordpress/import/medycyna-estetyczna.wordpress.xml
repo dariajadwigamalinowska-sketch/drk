@@ -26,7 +26,7 @@
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:wp="http://wordpress.org/export/1.2/">
 <channel>
-  <title>Dr Kasia Aesthetic — medycyna estetyczna</title>
+  <title>Doktor Kasia Aesthetic — medycyna estetyczna</title>
   <link>https://przyklad.pl</link>
   <description>Strona przygotowana do zaimportowania</description>
   <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
@@ -45,7 +45,7 @@
   <generator>https://wordpress.org/?v=6.7</generator>
 
   <item>
-    <title>Dr Kasia Aesthetic — medycyna estetyczna</title>
+    <title>Doktor Kasia Aesthetic — medycyna estetyczna</title>
     <link>https://przyklad.pl/medycyna-estetyczna/</link>
     <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
     <dc:creator><![CDATA[admin]]></dc:creator>
@@ -130,12 +130,39 @@
 .estet h1 em{font-style:italic;color:var(--e-gold);}
 .estet h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,2.8rem);font-weight:300;}
 .estet h3{font-size:1.35rem;}
+
+/* Tytul sekcji odcieta krotka zlota kreska. Kreska idzie za tytulem,
+   wiec nie trzeba jej wstawiac osobnym blokiem — wystarczy naglowek
+   drugiego stopnia. Sroduje sie razem z tytulem, bo margines poziomy
+   jest "auto" tylko przy wyrownaniu do srodka. */
+.estet h2::after{
+  content:"";display:block;width:56px;height:1px;
+  margin:22px 0 0;
+  background:linear-gradient(to right,var(--e-gold),rgba(201,169,106,0));
+}
+.estet h2.has-text-align-center::after{
+  margin-left:auto;margin-right:auto;
+  background:linear-gradient(to right,rgba(201,169,106,0),var(--e-gold) 50%,rgba(201,169,106,0));
+  width:96px;
+}
+/* W karcie kontaktu i w stopce naglowek nie jest tytulem sekcji,
+   tylko etykieta — tam kreska tylko przeszkadza. */
+.estet .e-box h2::after,
+.estet.estet-footer h2::after{display:none;}
 .estet a{color:var(--e-gold);}
 .estet a:hover{color:var(--e-ink);}
 
 
 .estet .e-lead{font-size:1.02rem !important;max-width:44ch;}
 .estet .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.2rem !important;color:var(--e-soft);}
+/* Motto praktyki — nie cytat, wiec bez cudzyslowu i bez kursywy.
+   Czyta sie jak podpis pod obietnica, a nie jak cudza wypowiedz. */
+.estet .e-motto{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:.78rem !important;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--e-gold) !important;
+}
 .estet .e-small{font-size:.84rem !important;}
 
 /* Przyciski — prostokątne, bez zaokrągleń */
@@ -386,8 +413,8 @@
 <p class="e-lead" style="margin-top:22px">Po rzetelnej konsultacji dobieramy zabiegi skrojone dla Ciebie.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"className":"e-quote","style":{"spacing":{"margin":{"top":"16px"}}}} -->
-<p class="e-quote" style="margin-top:16px">„By wydobyć Twoje naturalne piękno."</p>
+<!-- wp:paragraph {"className":"e-motto","style":{"spacing":{"margin":{"top":"18px"}}}} -->
+<p class="e-motto" style="margin-top:18px">By wydobyć Twoje naturalne piękno</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"32px"}}}} -->
@@ -470,7 +497,7 @@
 <!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
 <!-- wp:heading -->
-<h2 class="wp-block-heading">Dr Kasia Aesthetic</h2>
+<h2 class="wp-block-heading">Doktor Kasia Aesthetic</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
 <p>[DO UZUPEŁNIENIA — kim jesteś, jakie masz wykształcenie i doświadczenie, jakie stosujesz podejście. 3–4 zdania. Unikaj obietnic efektu; opisz sposób pracy.]</p>
@@ -571,7 +598,7 @@
 <section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center"} -->
-<h2 class="wp-block-heading has-text-align-center">Zakres zabiegów</h2>
+<h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
 <p class="has-text-align-center e-small" style="margin-bottom:48px">Lista przykładowa — skoryguj ją zgodnie z faktyczną ofertą gabinetu.</p>
@@ -793,7 +820,7 @@
 <!-- wp:column {"width":"34%"} -->
 <div class="wp-block-column" style="flex-basis:34%">
 <!-- wp:paragraph {"className":"e-stopka-marka"} -->
-<p class="e-stopka-marka">Dr Kasia Aesthetic</p>
+<p class="e-stopka-marka">Doktor Kasia Aesthetic</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"className":"e-stopka-drobne"} -->
 <p class="e-stopka-drobne">Medycyna estetyczna</p>
@@ -851,7 +878,7 @@
 <!-- wp:column {"verticalAlignment":"center","width":"34%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:34%">
 <!-- wp:paragraph {"align":"right","className":"e-stopka-dol"} -->
-<p class="has-text-align-right e-stopka-dol">© Dr Kasia Aesthetic</p>
+<p class="has-text-align-right e-stopka-dol">© Doktor Kasia Aesthetic</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
