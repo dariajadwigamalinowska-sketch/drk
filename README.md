@@ -6,10 +6,37 @@ porady, opinie, FAQ, kontakt z mapą i stopka.
 
 ## Co jest w repozytorium
 
+Aktualne strony praktyki (dwie strony, jeden adres — ul. St. Daneckiej 4/U6, Miechów):
+
 | Plik | Do czego służy |
 |---|---|
-| `gutenberg/doktorkasia-gutenberg.html` | **Wersja główna** — natywne bloki Gutenberga. Wszystko edytowalne klikiem w edytorze. |
-| `embed/doktorkasia-embed.html` | Wersja alternatywna — jeden blok „HTML własny”. Przydatna, gdy nie chcesz ruszać bloków. |
+| `wordpress/pediatria-gutenberg.html` | **Opieka Pediatryczna Doktor Kasi** — bloki Gutenberga. |
+| `wordpress/medycyna-estetyczna-gutenberg.html` | **Dr Kasia Aesthetic** — bloki Gutenberga. |
+| `wordpress/import/pediatria.wordpress.xml` | Paczka importu (Narzędzia → Import → WordPress). Strona wchodzi jako **szkic**. |
+| `wordpress/import/medycyna-estetyczna.wordpress.xml` | To samo dla strony medycyny estetycznej. |
+| `wordpress/build.py` | Buduje paczki XML i podglądy z plików `*-gutenberg.html`. |
+| `assets/wideo/`, `assets/grafika/` | Filmy, plakaty, logotypy i portret do wgrania do Biblioteki mediów. |
+
+Starsza, jednostronicowa wersja poglądowa:
+
+| Plik | Do czego służy |
+|---|---|
+| `gutenberg/doktorkasia-gutenberg.html` | Natywne bloki Gutenberga. |
+| `embed/doktorkasia-embed.html` | Jeden blok „HTML własny” — gdy nie chcesz ruszać bloków. |
+
+### Jak przebudować pliki pochodne
+
+Źródłem prawdy są dwa pliki `wordpress/*-gutenberg.html`. Po ich edycji:
+
+```bash
+python3 wordpress/build.py                 # tylko paczki XML
+python3 wordpress/build.py /ścieżka/podglad # dodatkowo samodzielne podglądy HTML
+```
+
+Podgląd to jeden plik z mediami wklejonymi jako `data:` — otwierasz go
+w przeglądarce bez WordPressa. Zawiera namiastkę arkusza rdzenia WordPressa
+(kolumny, wyrównania, składanie na telefonie), więc układ odpowiada temu,
+co zobaczysz po imporcie.
 
 ---
 

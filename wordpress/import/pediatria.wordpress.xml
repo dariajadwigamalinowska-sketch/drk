@@ -227,8 +227,11 @@
 }
 .kb-tytul em{ font-style:italic; font-weight:300; color:var(--kb-akcent); }
 
-.kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 0 .5em !important; }
-.kb-naglowek-maly{ font-size:clamp(1.4rem,2.2vw,1.75rem) !important; margin:0 0 .5em !important; }
+/* Marginesy poziome "auto", zeby !important nie skasowalo wysrodkowania
+   z .kb-sekcja > * — inaczej naglowek stojacy bezposrednio w sekcji
+   przesuwa sie o pol roznicy szerokosci wzgledem reszty tresci. */
+.kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 auto .5em !important; }
+.kb-naglowek-maly{ font-size:clamp(1.4rem,2.2vw,1.75rem) !important; margin:0 auto .5em !important; }
 
 .kb-lead{
   font-size:1.08rem !important; color:var(--kb-atrament-2);
@@ -426,14 +429,26 @@
    ========================================================================= */
 .kb-atuty{
   background:var(--kb-ciemny) !important; color:#FBF1E8;
-  padding-top:44px !important; padding-bottom:44px !important;
+  padding-top:30px !important; padding-bottom:30px !important;
 }
 .kb-atuty h2,.kb-atuty h3{ color:#FBF1E8; }
 .kb-atut{
   margin:0 !important; font-size:.94rem !important; font-weight:500;
-  display:flex; align-items:flex-start; line-height:1.5;
+  display:flex; align-items:center; justify-content:center; line-height:1.5;
 }
-.kb-atut::before{ color:#F0BFC1; margin-top:.15em; }
+.kb-atut::before{ color:#F0BFC1; }
+/* Dwa hasla wysrodkowane w swoich polowach paska, rozdzielone
+   cienka kreska — inaczej oba lgna do lewej i prawa polowa
+   paska zostaje pusta. */
+.kb-atuty .wp-block-column{ position:relative; }
+.kb-atuty .wp-block-column + .wp-block-column::before{
+  content:""; position:absolute; left:-1em; top:50%;
+  transform:translateY(-50%); width:1px; height:1.7em;
+  background:rgba(240,191,193,.45);
+}
+@media (max-width:781px){
+  .kb-atuty .wp-block-column + .wp-block-column::before{ display:none; }
+}
 
 /* =========================================================================
    FILARY — miękkie kafelki
@@ -527,16 +542,24 @@
 .kb-stopka-link a:hover{ color:#fff; border-bottom-color:#F0BFC1; }
 
 /* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
+/* Kreska idzie przez cala szerokosc stopki. Wczesniej byla obrysem
+   gornym waskiego akapitu, wiec urywala sie w polowie. */
+/* Marginesy poziome zostaja "auto" — inaczej !important zabija
+   wysrodkowanie z .kb-stopka > * i kreska rozjezdza sie z kolumnami. */
+.kb-stopka-kreska{
+  margin:34px auto 22px !important; border:0; height:1px;
+  background:rgba(255,255,255,.18);
+}
+.kb-stopka-dol-wiersz{ margin:0 auto !important; }
 .kb-stopka-uwaga{
-  margin:40px 0 0 !important; padding-top:22px;
-  border-top:1px solid rgba(255,255,255,.18);
-  max-width:70ch; font-size:.84rem !important; line-height:1.75; color:#CFC3BC;
+  margin:0 !important; max-width:62ch;
+  font-size:.82rem !important; line-height:1.75; color:#CFC3BC;
 }
 .kb-stopka-uwaga strong{ color:#F0BFC1; }
 
 .kb-stopka-dol{
-  margin:22px 0 0 !important; font-size:.76rem !important;
-  letter-spacing:.08em; color:rgba(239,230,222,.6);
+  margin:0 !important; font-size:.74rem !important; line-height:1.7;
+  letter-spacing:.08em; color:rgba(239,230,222,.55);
 }
 .kb-spoleczne{ margin-top:18px !important; }
 .kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(255,255,255,.14); color:#fff; }
@@ -562,6 +585,12 @@
   .kb-logotypy{ gap:24px !important; }
   .kb-logotyp img{ max-height:56px; }
   .kb-motto{ font-size:1.05rem !important; }
+  /* Po zlozeniu kolumn copyright ciagnie sie do prawej krawedzi
+     tuz pod zastrzezeniem — na waskim ekranie czyta sie to lepiej
+     do lewej, z odstepem. */
+  .kb-stopka-dol-wiersz{ gap:18px !important; }
+  .kb-stopka-dol.has-text-align-right{ text-align:left; }
+  .kb-stopka-uwaga{ max-width:none; }
 }
 </style>
 <!-- /wp:html -->
@@ -1082,13 +1111,28 @@
 </div>
 <!-- /wp:columns -->
 
+<!-- wp:separator {"className":"kb-stopka-kreska"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity kb-stopka-kreska"/>
+<!-- /wp:separator -->
+
+<!-- wp:columns {"verticalAlignment":"center","className":"kb-stopka-dol-wiersz","style":{"spacing":{"blockGap":{"left":"32px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center kb-stopka-dol-wiersz">
+<!-- wp:column {"verticalAlignment":"center","width":"66%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66%">
 <!-- wp:paragraph {"className":"kb-stopka-uwaga"} -->
 <p class="kb-stopka-uwaga">Treści na tej stronie mają charakter informacyjny i nie zastępują konsultacji lekarskiej. Kalkulator dawek jest narzędziem poglądowym. W stanie zagrożenia życia dzwoń pod numer <strong>112</strong>.</p>
 <!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"center","className":"kb-stopka-dol"} -->
-<p class="has-text-align-center kb-stopka-dol">© Katarzyna Bator · Opieka Pediatryczna Doktor Kasi</p>
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"verticalAlignment":"center","width":"34%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:34%">
+<!-- wp:paragraph {"align":"right","className":"kb-stopka-dol"} -->
+<p class="has-text-align-right kb-stopka-dol">© Katarzyna Bator<br>Opieka Pediatryczna Doktor Kasi</p>
 <!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
 
 </div>
 <!-- /wp:group -->
