@@ -144,6 +144,14 @@
    u osób, które w systemie wyłączyły animacje. */
 .estet .e-video--01{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
 .estet .e-video--02{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
+/* Kadr powitalny wypełnia kolumnę w proporcji 4:5 — tak jak zdjęcie
+   portretowe na stronie pediatrycznej. Wcześniej był wąskim pionowym
+   paskiem 9:16 obok dużego nagłówka i nie trzymał się z nim skalą.
+   Materiał jest pionowy, więc object-fit przycina górę i dół. */
+.estet .e-video--hero{
+  aspect-ratio:4/5; height:auto; width:100%; max-width:none; margin:0;
+}
+
 /* Kadr przy krokach jest nizszy — dopasowany do wysokosci siatki obok. */
 .estet .e-video--03{background-image:url('/wp-content/uploads/estetyczna-03.jpg');height:min(56vh,520px);}
 @media (prefers-reduced-motion:reduce){
@@ -306,8 +314,8 @@
   Po wgraniu plików do Biblioteki mediów kliknij w blok i podmień plik —
   albo popraw dwa adresy poniżej na te z Biblioteki.
 -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02"} -->
-<figure class="wp-block-video e-video e-video--02"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02 e-video--hero"} -->
+<figure class="wp-block-video e-video e-video--02 e-video--hero"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:column -->
