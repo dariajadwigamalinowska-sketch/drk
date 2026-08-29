@@ -42,6 +42,9 @@
   color:var(--p-soft);
   line-height:1.6;
 }
+/* Nie polegamy na tym, ze motyw ustawi box-sizing — inaczej padding
+   dodaje sie do szerokosci i ramki wychodza szersze, niz zalozono. */
+.pedi,.pedi *,.pedi *::before,.pedi *::after{box-sizing:border-box;}
 .pedi h1,.pedi h2,.pedi h3{
   font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.14;
   color:var(--p-ink);letter-spacing:-.005em;
