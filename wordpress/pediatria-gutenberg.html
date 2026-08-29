@@ -274,6 +274,16 @@
   font-size:.85rem !important; color:var(--kb-atrament-2);
 }
 
+/* Film w sekcji powitalnej — ten sam język kształtu co zdjęcie portretowe:
+   miękka kropla, proporcja 4:5, pełna szerokość kolumny. Materiał jest
+   pionowy 9:16, więc object-fit przycina górę i dół, zostawiając środek. */
+.kb-film-luk{ max-width:none; margin:0 !important; }
+.kb-film-luk video{
+  width:100%; aspect-ratio:4/5; height:auto; object-fit:cover;
+  border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
+  box-shadow:0 34px 66px -32px rgba(59,47,48,.45);
+}
+
 
 /* =========================================================================
    FILMY PIONOWE (9:16) — pas na krótkie klipy
@@ -544,8 +554,8 @@
   Wgraj oba do Biblioteki mediów, potem kliknij w blok → "Zastąp"
   albo popraw dwa adresy poniżej.
 -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka"} -->
-<figure class="wp-block-video kb-film-ramka"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka kb-film-luk"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:column -->
