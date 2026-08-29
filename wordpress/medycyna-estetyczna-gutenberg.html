@@ -97,6 +97,18 @@
 .estet .e-btn--gold .wp-block-button__link{background:var(--e-gold) !important;color:#fff !important;}
 .estet .e-btn--gold .wp-block-button__link:hover{background:var(--e-ink) !important;}
 
+/* Miejsce na logotyp */
+.estet .e-logo{
+  display:flex;align-items:center;justify-content:center;
+  min-height:84px;max-width:260px;margin-right:auto;padding:14px 22px;
+  border:1px dashed var(--e-line);background:var(--e-cream-2);
+}
+.estet .e-logo p{
+  margin:0 !important;font-size:.7rem !important;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--e-soft);
+}
+.estet .e-logo img{max-height:60px;width:auto;}
+
 /* Zdjęcia */
 .estet .e-photo{
   aspect-ratio:4/5;max-height:560px;background:var(--e-cream-2);border:1px solid var(--e-line);
@@ -107,20 +119,25 @@
 .estet figure.wp-block-image{margin:0;}
 .estet figure.wp-block-image img{width:100%;}
 
-/* Wideo w miejscu zdjęcia — kadr pionowy, bez dźwięku, w pętli */
+/* Wideo w miejscu zdjęcia — pełny kadr pionowy 9:16, bez dźwięku, w pętli.
+   Wysokość ograniczona, szerokość wyliczana z proporcji, więc nic nie jest
+   obcinane; na wąskich ekranach kadr rozciąga się na całą szerokość kolumny. */
 .estet .e-video{
-  margin:0;border:1px solid var(--e-line);overflow:hidden;
+  margin:0 auto;border:1px solid var(--e-line);overflow:hidden;
   background:var(--e-cream-2) center/cover no-repeat;
+  aspect-ratio:9/16;height:min(74vh,720px);width:auto;max-width:100%;
 }
-.estet .e-video video{display:block;width:100%;aspect-ratio:4/5;max-height:560px;object-fit:cover;}
+.estet .e-video video{display:block;width:100%;height:100%;object-fit:cover;}
 .estet .e-video figcaption{display:none;}
+@media (max-width:781px){
+  .estet .e-video{height:auto;width:100%;}
+}
 /* [ŚCIEŻKI] — jeden raz podmień na adresy plakatów z Biblioteki mediów.
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
    u osób, które w systemie wyłączyły animacje. */
 .estet .e-video--01{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
 .estet .e-video--02{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
 @media (prefers-reduced-motion:reduce){
-  .estet .e-video{aspect-ratio:4/5;}
   .estet .e-video video{display:none;}
 }
 
@@ -210,6 +227,24 @@
 <!-- /wp:html -->
 
 
+<!-- ============================ LOGOTYP ============================
+  Usuń tę grupę i wstaw w jej miejsce blok "Obraz" ze swoim logotypem
+  (PNG lub SVG z przezroczystym tłem, wysokość ok. 56–60 px).
+  Jeśli logotyp jest już w nagłówku motywu, usuń całą tę sekcję.
+-->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"26px","bottom":"6px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FBF8F3;padding-top:26px;padding-right:24px;padding-bottom:6px;padding-left:24px">
+<!-- wp:group {"className":"e-logo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group e-logo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">[LOGOTYP]</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
+
+
 <!-- ============================ 2. HERO ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-start","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(60px,7vw,104px)","bottom":"clamp(60px,7vw,104px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
 <section class="wp-block-group alignfull estet has-background" id="es-start" style="background-color:#FBF8F3;padding-top:clamp(60px,7vw,104px);padding-right:24px;padding-bottom:clamp(60px,7vw,104px);padding-left:24px">
@@ -219,7 +254,7 @@
 <!-- wp:column {"verticalAlignment":"center","width":"54%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:54%">
 <!-- wp:paragraph {"className":"e-eyebrow"} -->
-<p class="e-eyebrow">Medycyna estetyczna · [Miasto]</p>
+<p class="e-eyebrow">Medycyna estetyczna · Miechów</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1} -->
@@ -246,7 +281,7 @@
 <!-- /wp:buttons -->
 
 <!-- wp:paragraph {"className":"e-small","style":{"spacing":{"margin":{"top":"28px"}}}} -->
-<p class="e-small" style="margin-top:28px">[ul. Przykładowa 00, 00-000 Miasto] &nbsp;·&nbsp; <a href="tel:+48000000000">[+48 000 000 000]</a></p>
+<p class="e-small" style="margin-top:28px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; <a href="tel:+48000000000">[+48 000 000 000]</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -579,7 +614,7 @@
 
 <!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group e-info" style="margin-top:30px">
-<!-- wp:paragraph --><p><strong>Adres</strong>[ul. Przykładowa 00, 00-000 Miasto]</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p><!-- /wp:paragraph -->
 <!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48000000000">[+48 000 000 000]</a></p><!-- /wp:paragraph -->
 <!-- wp:paragraph --><p><strong>E-mail</strong><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></p><!-- /wp:paragraph -->
 <!-- wp:paragraph --><p><strong>Godziny przyjęć</strong>[DO UZUPEŁNIENIA]</p><!-- /wp:paragraph -->
@@ -605,10 +640,9 @@
 <div class="wp-block-column" style="flex-basis:52%">
 <!-- wp:html -->
 <div class="e-map">
-  <!-- UZUPEŁNIJ: podmień bbox i marker na współrzędne gabinetu -->
   <iframe
-    src="https://www.openstreetmap.org/export/embed.html?bbox=19.90%2C50.03%2C20.05%2C50.09&amp;layer=mapnik&amp;marker=50.0614%2C19.9366"
-    title="Mapa dojazdu do gabinetu"
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.95%2C50.34%2C20.06%2C50.39&amp;layer=mapnik&amp;marker=50.3608%2C20.0206"
+    title="Mapa dojazdu do gabinetu — Miechów"
     loading="lazy"></iframe>
 </div>
 <!-- /wp:html -->
@@ -632,7 +666,7 @@
 <h3 class="wp-block-heading">[Nazwa gabinetu]</h3>
 <!-- /wp:heading -->
 <!-- wp:paragraph -->
-<p>Medycyna estetyczna · [ul. Przykładowa 00, 00-000 Miasto]</p>
+<p>Medycyna estetyczna · ul. St. Daneckiej 4/U6, Miechów</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"className":"e-small"} -->
 <p class="e-small">Treści na tej stronie mają charakter informacyjny i nie stanowią porady medycznej ani oferty w rozumieniu przepisów prawa. Kwalifikację do zabiegu ustala lekarz podczas konsultacji.</p>

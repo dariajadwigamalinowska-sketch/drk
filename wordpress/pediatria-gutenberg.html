@@ -77,6 +77,18 @@
 }
 .pedi .p-btn--ghost .wp-block-button__link:hover{background:var(--p-blue) !important;color:#fff !important;}
 
+/* Miejsce na logotyp */
+.pedi .p-logo{
+  display:flex;align-items:center;justify-content:center;
+  min-height:80px;max-width:260px;margin-right:auto;padding:14px 22px;
+  border:1px dashed var(--p-line);background:var(--p-card);
+}
+.pedi .p-logo p{
+  margin:0 !important;font-size:.74rem !important;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--p-soft);
+}
+.pedi .p-logo img{max-height:56px;width:auto;}
+
 /* Zdjęcia i miejsca na zdjęcia */
 .pedi .p-photo{
   aspect-ratio:4/5;max-height:560px;background:var(--p-card);border:1px solid var(--p-line);
@@ -196,6 +208,24 @@
 .pedi[id]{scroll-margin-top:90px;}
 </style>
 <!-- /wp:html -->
+
+
+<!-- ============================ LOGOTYP ============================
+  Usuń tę grupę i wstaw w jej miejsce blok "Obraz" ze swoim logotypem
+  (PNG lub SVG z przezroczystym tłem, wysokość ok. 56–60 px).
+  Jeśli logotyp jest już w nagłówku motywu, usuń całą tę sekcję.
+-->
+<!-- wp:group {"tagName":"section","align":"full","className":"pedi","anchor":"logotyp","style":{"color":{"background":"#F6E3D6"},"spacing":{"padding":{"top":"26px","bottom":"6px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1120px"}} -->
+<section class="wp-block-group alignfull pedi has-background" id="logotyp" style="background-color:#F6E3D6;padding-top:26px;padding-right:24px;padding-bottom:6px;padding-left:24px">
+<!-- wp:group {"className":"p-logo","layout":{"type":"constrained"}} -->
+<div class="wp-block-group p-logo">
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">[LOGOTYP]</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
 
 
 <!-- ============================ 2. HERO ============================ -->
