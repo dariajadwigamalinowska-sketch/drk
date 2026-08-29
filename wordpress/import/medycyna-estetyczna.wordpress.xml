@@ -367,7 +367,7 @@
 <!-- /wp:buttons -->
 
 <!-- wp:paragraph {"className":"e-small","style":{"spacing":{"margin":{"top":"28px"}}}} -->
-<p class="e-small" style="margin-top:28px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; <a href="tel:+48000000000">[+48 000 000 000]</a></p>
+<p class="e-small" style="margin-top:28px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; <a href="tel:+48535999565">535 999 565</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -492,8 +492,8 @@
 <!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group e-info" style="margin-top:30px">
 <!-- wp:paragraph --><p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48000000000">[+48 000 000 000]</a></p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>E-mail</strong><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Rejestracja SMS</strong><a href="sms:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
 
@@ -772,7 +772,7 @@
 <h3 class="wp-block-heading">Kontakt</h3>
 <!-- /wp:heading -->
 <!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item --><li><a href="tel:+48000000000">[+48 000 000 000]</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="mailto:kontakt@przyklad.pl">[kontakt@przyklad.pl]</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="[LINK-DO-INSTAGRAMA]" target="_blank" rel="noreferrer noopener">Instagram</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li><!-- /wp:list-item --></ul>
+<ul class="wp-block-list"><!-- wp:list-item --><li><a href="tel:+48535999565">535 999 565</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="sms:+48535999565">SMS: 535 999 565</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="[LINK-DO-INSTAGRAMA]" target="_blank" rel="noreferrer noopener">Instagram</a></li><!-- /wp:list-item --><!-- wp:list-item --><li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li><!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 </div>
 <!-- /wp:column -->
