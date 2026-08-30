@@ -193,12 +193,12 @@
 /* Miekkie przejscie miedzy jasnymi sekcjami zamiast ostrej krawedzi.
    Ciemne pasy sa z tego wylaczone — jasna woalka kladla sie na nich
    i rozjasniala tlo pod bialym napisem az ponizej progu czytelnosci. */
-.kb-sekcja + .kb-sekcja:not(.kb-atuty)::before{
+.kb-sekcja + .kb-sekcja:not(.kb-atuty):not(.kb-filmy)::before{
   content:""; position:absolute; left:0; right:0; top:0; height:90px;
   background:linear-gradient(to bottom, var(--kb-tlo), transparent);
   opacity:.55; pointer-events:none;
 }
-.kb-sekcja-cieplo + .kb-sekcja:not(.kb-sekcja-cieplo):not(.kb-atuty)::before{
+.kb-sekcja-cieplo + .kb-sekcja:not(.kb-sekcja-cieplo):not(.kb-atuty):not(.kb-filmy)::before{
   background:linear-gradient(to bottom, var(--kb-tlo-2), transparent);
 }
 
@@ -373,7 +373,19 @@
   margin:0 auto !important;
 }
 .kb-ramka-dwa .kb-film-ramka{ margin:0 !important; height:100%; }
-.kb-ramka-dwa .kb-film--b{ position:absolute; inset:0; }
+/* Zapas dla przegladarek bez "aspect-ratio" (Safari starsze niz 15,
+   Firefox starszy niz 89). Bez niego ramka nie ma skad wziac wysokosci
+   i oba ujecia zwijaja sie do zera. Odstep wewnetrzny 16/9 = 177,78%
+   daje te sama proporcje, a kadry lezą na nim bezwzglednie. */
+@supports not (aspect-ratio: 9 / 16){
+  .kb-ramka-dwa{ height:0; padding-top:177.78%; }
+  .kb-ramka-dwa .kb-film-ramka{
+    position:absolute; top:0; right:0; bottom:0; left:0; height:auto;
+  }
+}
+/* Rozpisane krawedzie obok skrotu "inset" — Safari zna go dopiero
+   od 14.1, a bez tego drugie ujecie wypadaloby z kadru. */
+.kb-ramka-dwa .kb-film--b{ position:absolute; top:0; right:0; bottom:0; left:0; inset:0; }
 .kb-ramka-dwa .kb-film--b video{ height:100%; object-fit:cover; }
 /* Oba ujecia ida w pelnych proporcjach, wiec nie trzeba juz
    przesuwac kadru — nic nie jest przycinane. */
@@ -391,7 +403,37 @@
 /* =========================================================================
    KARUZELA Z FILMAMI
    ========================================================================= */
-.kb-filmy .kb-nadtytul-srodek{ justify-content:center; }
+/* PROJEKT EDUKACYJNY — wlasny pas.
+   Sekcja stala miedzy "Waszymi slowami" a stopka, a wszystkie trzy
+   mialy to samo kremowe tlo, wiec blok nie odcinal sie od niczego.
+   Dostaje wlasny pas w miecie i brzoskwini z logotypu — ten sam
+   jezyk, co pas atutow — cienkie kreski u gory i u dolu oraz
+   nadtytul w formie plakietki. To nie jest oferta gabinetu, tylko
+   osobne przedsiewziecie finansowane przez powiat, wiec etykieta
+   ma to mowic od pierwszego spojrzenia. */
+.kb-filmy{
+  background:
+    linear-gradient(168deg, rgba(152,200,184,.22), rgba(248,197,160,.18)),
+    var(--kb-tlo-2);
+  border-top:1px solid var(--kb-linia);
+  border-bottom:1px solid var(--kb-linia);
+  padding-top:calc(var(--kb-sekcja) + 10px);
+  padding-bottom:calc(var(--kb-sekcja) + 10px);
+}
+/* Stopka ma wlasna kreske u gory — obok kreski pasa dawalaby
+   podwojna linie. */
+.kb-filmy + .kb-stopka{ border-top:0; }
+/* Plakietka: "width:fit-content" zwiera pole do napisu, a marginesy
+   auto ustawiaja je na srodku. Nie robimy tego przez inline-flex,
+   bo wtedy wysrodkowanie z .kb-sekcja > * przestaje dzialac. */
+.kb-filmy .kb-nadtytul{
+  width:-moz-fit-content; width:fit-content; justify-content:center;
+  margin:0 auto 18px !important;
+  padding:7px 16px 6px; border-radius:999px;
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(152,200,184,.6);
+  color:var(--kb-szalwia-tekst);
+}
 .kb-karuzela{ position:relative; margin-top:24px; }
 .kb-tor{
   display:flex; gap:20px; margin:0; padding:0 4px 6px; list-style:none;
@@ -1214,6 +1256,16 @@
 }
 .kb-lek:has(input:checked) .kb-lek-nazwa{ font-weight:600; }
 .kb-lek:has(input:focus-visible){ outline:3px solid var(--kb-szalwia-tekst); outline-offset:-3px; }
+/* Bez :has() cala karta nie dostaje obrysu, a samo pole radio ma
+   1 px i fokusu na nim nie widac — osoba idaca po liscie klawiatura
+   nie wiedzialaby, gdzie stoi. Tam obrys rysujemy na nazwie leku.
+   Gdzie :has() dziala, obrys karty wystarcza i ten znika. */
+.kb-lek input:focus ~ .kb-lek-nazwa{
+  outline:2px solid var(--kb-szalwia-tekst); outline-offset:3px;
+}
+@supports selector(:has(*)){
+  .kb-lek input:focus ~ .kb-lek-nazwa{ outline:none; }
+}
 /* Przegladarki bez :has() nie podswietla calej karty, wiec tam
    zaznaczenie pokazuje kropka przed nazwa. Gdzie :has() dziala,
    kropka jest zbedna i znika. */
@@ -1683,11 +1735,22 @@
       karta.parentNode.replaceChild(ramka, karta);
     });
 
+    /* scrollBy z obiektem opcji dziala od Safari 14. Starsze wersje
+       dostaja NaN i strzalki po prostu nic nie robia, wiec zostawiamy
+       im zwykle przestawienie scrollLeft — bez plynnego przesuniecia,
+       ale dzialajace. */
+    var plynnie = false;
+    try {
+      var probny = { get behavior() { plynnie = true; return 'smooth'; } };
+      tor.scrollBy(probny);
+    } catch (e) { plynnie = false; }
+
     function przesun(kierunek) {
       var slajd = tor.querySelector('.kb-slajd');
       if (!slajd) { return; }
       var krok = slajd.getBoundingClientRect().width + 20;
-      tor.scrollBy({ left: kierunek * krok, behavior: 'smooth' });
+      if (plynnie) { tor.scrollBy({ left: kierunek * krok, behavior: 'smooth' }); }
+      else { tor.scrollLeft = tor.scrollLeft + kierunek * krok; }
     }
     karuzela.querySelector('[data-kb-poprzedni]').addEventListener('click', function () { przesun(-1); });
     karuzela.querySelector('[data-kb-nastepny]').addEventListener('click',  function () { przesun(1);  });
