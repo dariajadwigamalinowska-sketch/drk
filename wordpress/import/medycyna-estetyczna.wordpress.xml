@@ -85,8 +85,6 @@
       (Albo popraw adresy /wp-content/uploads/... w kodzie i w arkuszu stylów.)
    Pliki .jpg to plakaty — widać je zanim wideo się wczyta.
 
- DO UZUPEŁNIENIA — oznaczone [W NAWIASACH]
-
  PRZED PUBLIKACJĄ:
    W Polsce reklama produktów leczniczych wydawanych na receptę kierowana do
    pacjentów jest zabroniona, a reklama usług medycznych ograniczona przepisami
@@ -107,17 +105,20 @@
   --e-white:#FFFFFF;
   /* Kolory zdjete wprost z logotypu DKA: czern podpisu i trzy poziomy
      zlota z gradientu znaku. */
-  --e-ink:#0D0D0D;
+  --e-ink:#1A1613;
   --e-soft:#5E574D;
   --e-gold:#B69554;     /* kreski, ramki, akcenty na jasnym tle       */
   --e-gold-l:#CBAC68;   /* bazowe zloto znaku — napisy na czerni      */
   /* Zloto do napisow na jasnym tle. Odcien znaku ma na kremie 2,7:1,
      wiec do tekstu bierzemy ten sam kolor przyciemniony do 5,1:1. */
   --e-gold-t:#7D6840;
-  --e-line:rgba(13,13,13,.14);
+  --e-line:rgba(26,22,19,.16);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--e-soft);
-  line-height:1.65;
+  /* Podstawa pisma podniesiona z domyslnych 16 px: strona jest
+     przewiewna, wiec tekst moze byc wiekszy i luzniej zlozony. */
+  font-size:1.03rem;
+  line-height:1.72;
 }
 /* Nie polegamy na tym, ze motyw ustawi box-sizing — inaczej padding
    dodaje sie do szerokosci i ramki wychodza szersze, niz zalozono. */
@@ -161,14 +162,14 @@
 .estet a.e-tel{ display:inline-block; padding:10px 0; margin:-8px 0; }
 
 
-.estet .e-lead{font-size:1.02rem !important;max-width:46ch;}
+.estet .e-lead{font-size:1.12rem !important;line-height:1.7;max-width:44ch;}
 .estet .e-lead strong{font-weight:500;color:var(--e-ink);}
 .estet .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.2rem !important;color:var(--e-soft);}
 /* Motto konczy zdanie wstepne, wiec idzie tym samym krojem i w tym
    samym stopniu pisma — wyroznia je tylko kolor. Osobny akapit innym
    krojem czytal sie jak urwany dopisek. */
 .estet .e-motto{ color:var(--e-gold-t); }
-.estet .e-small{font-size:.84rem !important;}
+.estet .e-small{font-size:.92rem !important;line-height:1.7;}
 /* Zamkniecie biogramu — zdanie o bezpieczenstwie i kwalifikacji.
    Wyroznione zlota kreska z boku, zeby nie ginelo miedzy akapitami. */
 .estet .e-lead-mocny{
@@ -177,8 +178,8 @@
 }
 /* Filary: pierwsze zdanie jest teza karty, reszta ja rozwija. */
 .estet .e-filary .e-pillar p strong{
-  display:block;margin-bottom:6px;
-  font-weight:500;color:var(--e-ink);
+  display:block;margin-bottom:8px;
+  font-weight:500;font-size:1.04rem;color:var(--e-ink);
 }
 /* Zdanie wprowadzajace do oferty i do cennika — wieksze od drobnego
    pisma, ale ciszej niz naglowek. */
@@ -263,11 +264,11 @@
 .estet .e-cennik-grupa:first-of-type{margin-top:0 !important;}
 .estet .e-cennik-podgrupa{
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:1.15rem !important;color:var(--e-ink) !important;
+  font-size:1.26rem !important;color:var(--e-ink) !important;
   margin:26px auto 6px !important;
 }
 .estet .e-cennik-uwaga{
-  margin:18px auto 0 !important;font-size:.86rem !important;
+  margin:18px auto 0 !important;font-size:.94rem !important;
   line-height:1.7;max-width:62ch;
 }
 
@@ -394,16 +395,16 @@
   font-size:.7rem !important;font-weight:600;letter-spacing:.24em;
   color:var(--e-gold-t);margin:0 0 14px !important;
 }
-.estet .e-card h3{font-size:1.42rem;margin-bottom:12px;line-height:1.2;}
-.estet .e-card p{font-size:1rem !important;line-height:1.7;margin:0 !important;}
+.estet .e-card h3{font-size:1.48rem;margin-bottom:14px;line-height:1.2;}
+.estet .e-card p{font-size:1.03rem !important;line-height:1.74;margin:0 !important;}
 .estet .e-card ul{list-style:none !important;padding-left:0 !important;margin:14px 0 0 !important;display:grid;gap:7px;}
 .estet .e-card li{font-size:.84rem;padding-left:18px;position:relative;}
 .estet .e-card li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--e-gold);}
 
 /* Filary */
-.estet .e-pillar{background:var(--e-white);border:1px solid var(--e-line);padding:26px 24px !important;}
-.estet .e-pillar h3{font-size:1.2rem;margin-bottom:6px;}
-.estet .e-pillar p{font-size:.85rem !important;margin:0 !important;}
+.estet .e-pillar{background:var(--e-white);border:1px solid var(--e-line);padding:30px 26px !important;}
+.estet .e-pillar h3{font-size:1.32rem;margin-bottom:10px;}
+.estet .e-pillar p{font-size:.98rem !important;line-height:1.7;margin:0 !important;}
 
 /* Kroki */
 /* Cztery kroki w jednym rzedzie: numer, tytul, zdanie. Dwa rzedy po
@@ -414,8 +415,8 @@
   border-top:1px solid var(--e-line);padding:24px 22px 0 0 !important;
   position:relative;
 }
-.estet .e-step h3{font-size:1.18rem;margin-bottom:8px;}
-.estet .e-step p{font-size:.95rem !important;line-height:1.7;margin:0 !important;max-width:30ch;}
+.estet .e-step h3{font-size:1.26rem;margin-bottom:10px;}
+.estet .e-step p{font-size:1rem !important;line-height:1.72;margin:0 !important;max-width:30ch;}
 .estet .e-step::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:var(--e-gold);}
 /* Kroki wizyty stoja teraz na pelnej szerokosci sekcji, wiec
    tekst dostaje miare, ktora sie czyta, zamiast rozlewac sie. */
@@ -433,9 +434,9 @@
   display:flex;align-items:baseline;justify-content:space-between;gap:20px;
   padding:20px 4px;border-bottom:1px solid var(--e-line);
 }
-.estet .e-price .n{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--e-ink);}
+.estet .e-price .n{font-family:'Cormorant Garamond',serif;font-size:1.42rem;color:var(--e-ink);}
 .estet .e-price .n small{display:block;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--e-soft);margin-top:2px;}
-.estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--e-gold-t);white-space:nowrap;}
+.estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.34rem;color:var(--e-gold-t);white-space:nowrap;}
 
 /* Kontakt */
 .estet .e-info p{margin:0 0 3px !important;}
@@ -474,8 +475,8 @@
 }
 .estet .e-stopka-numer a:hover{ border-bottom-color:var(--e-gold-l); }
 .estet .e-stopka-drobne{ margin:8px 0 0 !important;font-size:.78rem !important;color:#9C958A !important;letter-spacing:.04em; }
-.estet .e-stopka-adres{ margin:16px 0 0 !important;font-size:.9rem !important;color:#EFE9E0 !important;line-height:1.6; }
-.estet .e-stopka-link{ margin:0 0 4px !important;font-size:.92rem !important; }
+.estet .e-stopka-adres{ margin:16px 0 0 !important;font-size:.97rem !important;color:#EFE9E0 !important;line-height:1.7; }
+.estet .e-stopka-link{ margin:0 0 4px !important;font-size:.98rem !important; }
 .estet .e-stopka-link a{
   display:inline-block;padding:6px 0;
   color:#EFE9E0 !important;text-decoration:none;
@@ -495,7 +496,7 @@
 .estet .e-stopka-dol-wiersz{ margin:0 auto !important; }
 .estet .e-stopka-uwaga{
   margin:0 !important;max-width:62ch;
-  font-size:.82rem !important;line-height:1.75;
+  font-size:.9rem !important;line-height:1.75;
   color:var(--e-gold-l) !important;
 }
 .estet .e-stopka-dol{
@@ -809,14 +810,14 @@
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">01</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja lekarska</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Wywiad i badanie, ocena skóry oraz proporcji twarzy, omówienie oczekiwań i plan na najbliższe miesiące. [Czas trwania — uzupełnij.]</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Wywiad i badanie, ocena skóry oraz proporcji twarzy, omówienie oczekiwań i plan na najbliższe miesiące.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">02</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Wypełniacze</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Kwas hialuronowy do modelowania i nawilżenia wybranych okolic twarzy — między innymi okolicy ust i bruzd nosowo-wargowych. [Pozostałe okolice — uzupełnij.]</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Kwas hialuronowy do modelowania i nawilżenia wybranych okolic twarzy — między innymi okolicy ust i bruzd nosowo-wargowych.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
@@ -835,14 +836,14 @@
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">04</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Stymulatory tkankowe</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Preparaty pobudzające skórę do pracy, stosowane w seriach, z efektem rozłożonym w czasie. Wskazania oceniam na konsultacji. [Rodzaje preparatów — uzupełnij.]</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Preparaty pobudzające skórę do pracy, stosowane w seriach, z efektem rozłożonym w czasie. Wskazania oceniam na konsultacji.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->
 <div class="wp-block-column e-card">
 <!-- wp:paragraph {"className":"e-num"} --><p class="e-num">05</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Peelingi medyczne</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku — trądzik, niedoskonałości, przebarwienia. [Rodzaje peelingów — uzupełnij.]</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku — trądzik, niedoskonałości, przebarwienia.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"className":"e-card"} -->

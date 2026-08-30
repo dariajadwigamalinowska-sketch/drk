@@ -1087,7 +1087,60 @@
 }
 .kb-przelacznik button[aria-pressed="true"]{ background:var(--kb-szalwia-jasna); color:var(--kb-atrament); }
 
-.kb-pola{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+/* --- lista preparatow ---------------------------------------------
+   Karty zamiast listy rozwijanej: widac od razu, co jest do wyboru,
+   i jaki preparat jest zaznaczony. Pod spodem sa zwykle pola radio,
+   wiec strzalki na klawiaturze i czytnik ekranu dzialaja same. */
+.kb-pole-tytul{
+  margin:0 0 10px !important; font-size:.82rem !important; font-weight:600;
+  color:var(--kb-atrament);
+}
+.kb-leki{
+  max-height:268px; overflow-y:auto; margin-bottom:20px;
+  border:1px solid var(--kb-linia); border-radius:14px; background:#fff;
+  /* Cienki pasek przewijania, zeby lista nie wygladala jak formularz. */
+  scrollbar-width:thin; scrollbar-color:rgba(59,47,48,.2) transparent;
+}
+.kb-leki::-webkit-scrollbar{ width:8px; }
+.kb-leki::-webkit-scrollbar-thumb{ background:rgba(59,47,48,.18); border-radius:8px; }
+.kb-lek{
+  display:flex; align-items:baseline; gap:12px; cursor:pointer;
+  padding:12px 16px; border-bottom:1px solid rgba(59,47,48,.06);
+  transition:background .15s ease;
+}
+.kb-lek:last-child{ border-bottom:0; }
+.kb-lek:hover{ background:rgba(152,200,184,.10); }
+.kb-lek input{
+  /* Pole radio jest niewidoczne, ale nadal ostawia fokus i obsluge
+     klawiatury — zaznaczenie pokazujemy kolorem calej karty. */
+  position:absolute; opacity:0; width:1px; height:1px; margin:0;
+}
+.kb-lek-nazwa{ flex:1; font-size:.95rem; color:var(--kb-atrament); }
+.kb-lek-stezenie{
+  flex:none; font-size:.8rem; color:var(--kb-atrament-2);
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.kb-lek:has(input:checked){
+  background:var(--kb-szalwia-jasna);
+}
+.kb-lek:has(input:checked) .kb-lek-nazwa{ font-weight:600; }
+.kb-lek:has(input:focus-visible){ outline:3px solid var(--kb-szalwia-tekst); outline-offset:-3px; }
+/* Przegladarki bez :has() nie podswietla calej karty, wiec tam
+   zaznaczenie pokazuje kropka przed nazwa. Gdzie :has() dziala,
+   kropka jest zbedna i znika. */
+.kb-lek input:checked ~ .kb-lek-nazwa::before{
+  content:"● "; color:var(--kb-szalwia-tekst); font-size:.7em;
+}
+@supports selector(:has(*)){
+  .kb-lek input:checked ~ .kb-lek-nazwa::before{ content:none; }
+}
+@media (max-width:781px){
+  .kb-leki{ max-height:232px; }
+  .kb-lek{ padding:11px 14px; gap:8px; }
+  .kb-lek-nazwa{ font-size:.9rem; }
+}
+
+.kb-pola{ display:grid; grid-template-columns:1fr; gap:18px; margin-bottom:18px; }
 .kb-pole label{
   display:block; font-size:.82rem; font-weight:600;
   color:var(--kb-atrament-2); margin-bottom:8px;
@@ -1150,11 +1203,10 @@
     <button type="button" id="kbBtnPara" aria-pressed="false">Paracetamol</button>
   </div>
 
+  <p class="kb-pole-tytul" id="kbLekiTytul">Wybierz lek</p>
+  <div class="kb-leki" id="kbLeki" role="radiogroup" aria-labelledby="kbLekiTytul"></div>
+
   <div class="kb-pola">
-    <div class="kb-pole">
-      <label for="kbStezenie">Wybierz lek</label>
-      <select id="kbStezenie"></select>
-    </div>
     <div class="kb-pole">
       <label for="kbWaga">Masa ciała dziecka (kg)</label>
       <input type="text" id="kbWaga" inputmode="decimal" autocomplete="off"
@@ -1264,7 +1316,7 @@
 
   try {
     var $ = function (id) { return document.getElementById(id); };
-    var selStez = $('kbStezenie'), inpWaga = $('kbWaga'), btnOblicz = $('kbOblicz');
+    var selStez = $('kbLeki'), inpWaga = $('kbWaga'), btnOblicz = $('kbOblicz');
     if (!selStez || !inpWaga || !btnOblicz) { return; }
 
     var btnIbu = $('kbBtnIbu'), btnPara = $('kbBtnPara');
@@ -1278,16 +1330,42 @@
 
     function pl(n) { return (Math.round(n * 10) / 10).toFixed(1).replace('.', ','); }
 
+    /* Lista preparatow jako karty do klikniecia. Pod spodem sa zwykle
+       pola radio, wiec wybor dziala z klawiatury (strzalki) i czyta go
+       czytnik ekranu — bez ani jednej linijki obslugi zdarzen. */
     function odswiezStezenia() {
       selStez.innerHTML = '';
-      LEKI[aktywny].preparaty.forEach(function (s) {
-        var opt = document.createElement('option');
+      LEKI[aktywny].preparaty.forEach(function (s, i) {
+        var etykieta = document.createElement('label');
+        etykieta.className = 'kb-lek';
+
+        var radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'kbLek';
         /* Wartoscia jest stezenie w mg na 1 ml — dzieki temu krople
            100 mg / 1 ml i syrop 100 mg / 5 ml licza sie tak samo. */
-        opt.value = String(s.mg / s.ml);
-        opt.textContent = s.nazwa + ' (' + s.mg + 'mg/' + s.ml + 'ml)';
-        selStez.appendChild(opt);
+        radio.value = String(s.mg / s.ml);
+        if (i === 0) { radio.checked = true; }
+        radio.addEventListener('change', function () { if (policzono) { oblicz(); } });
+
+        var nazwa = document.createElement('span');
+        nazwa.className = 'kb-lek-nazwa';
+        nazwa.textContent = s.nazwa;
+
+        var stez = document.createElement('span');
+        stez.className = 'kb-lek-stezenie';
+        stez.textContent = s.mg + ' mg / ' + s.ml + ' ml';
+
+        etykieta.appendChild(radio);
+        etykieta.appendChild(nazwa);
+        etykieta.appendChild(stez);
+        selStez.appendChild(etykieta);
       });
+    }
+
+    function wybranyPreparat() {
+      var r = selStez.querySelector('input[name="kbLek"]:checked');
+      return r ? parseFloat(r.value) : NaN;
     }
 
     function ustawLek(nazwa) {
@@ -1311,7 +1389,7 @@
       blad.classList.remove('kb-on');
 
       var lek = LEKI[aktywny];
-      var mgNaMl = parseFloat(selStez.value);
+      var mgNaMl = wybranyPreparat();
       if (!isFinite(mgNaMl) || mgNaMl <= 0) { return; }
 
       /* Pokazujemy samą górną granicę, nie zakres. Dawka jednorazowa
@@ -1338,7 +1416,6 @@
       btnIbu.addEventListener('click',  function () { ustawLek('ibuprofen'); });
       btnPara.addEventListener('click', function () { ustawLek('paracetamol'); });
     }
-    selStez.addEventListener('change', function () { if (policzono) { oblicz(); } });
     btnOblicz.addEventListener('click', oblicz);
     inpWaga.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') { e.preventDefault(); oblicz(); }
