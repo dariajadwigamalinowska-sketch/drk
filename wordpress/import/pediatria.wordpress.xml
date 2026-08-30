@@ -95,7 +95,7 @@
   • KOLEJNOŚĆ  – "Widok listy" (ikona po lewej u góry) → przeciągnij sekcję.
   • IKONY      – zaznacz blok → panel po prawej → Zaawansowane →
                  "Dodatkowa klasa CSS" → wpisz jedną z: kb-i-pin,
-                 kb-i-telefon, kb-i-zegar, kb-i-kalendarz, kb-i-ptaszek,
+                 kb-i-telefon, kb-i-sms, kb-i-zegar, kb-i-kalendarz, kb-i-ptaszek,
                  kb-i-serce, kb-i-puls, kb-i-uwaga, kb-i-iskra, kb-i-kropla,
                  kb-i-tarcza, kb-i-rozmowa, kb-i-dyplom, kb-i-liscie.
   • KOLORY     – zmienne --kb-... w sekcji USTAWIENIA na początku arkusza.
@@ -139,13 +139,19 @@
   --kb-szalwia:      #98C8B8;
   --kb-szalwia-jasna:#DFEDE6;
   --kb-szalwia-tekst:#537368;
-  --kb-ciemny:       #5C6488;   /* ciemne pasy, przyciski, ikony         */
-  --kb-ciemny-2:     #4A5273;   /* przycisk po najechaniu                */
+  /* Cztery ponizsze odcienie byly jeszcze fioletowo-granatowe
+     (#5C6488, #4A5273, #5C6688) z pierwszej wersji palety — koloru,
+     ktorego na tej stronie nie ma juz nigdzie indziej. Wchodzily
+     w ikony, liczby w kalkulatorze i drobne wersaliki pod portretem,
+     wiec odcinaly sie od mietowo-brzoskwiniowej reszty. Teraz to
+     ta sama szalwia, tylko przyciemniona. */
+  --kb-ciemny:       #46655A;   /* ikony, liczby wyniku                  */
+  --kb-ciemny-2:     #375148;   /* przycisk po najechaniu                */
   --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
   --kb-atrament-2:   #514541;   /* akapity, podpisy — ciemniejszy, bo
                                    leza takze na gradiencie powitania    */
-  --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
-  --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
+  --kb-zloto:        var(--kb-szalwia-tekst); /* kreski, ikony           */
+  --kb-zloto-tekst:  var(--kb-szalwia-tekst); /* drobne wersaliki        */
   --kb-akcent:       #F8C5A0;   /* brzoskwinia z logotypu — kursywa      */
   --kb-akcent-tekst: #876750;
   --kb-roz:          #F6CBAD;   /* brzoskwiniowa kreska ozdobna          */
@@ -300,13 +306,20 @@
 .kb-tekst-srodek{ margin-left:auto !important; margin-right:auto !important; max-width:58ch; }
 .kb-tekst-luzno{ margin-bottom:22px !important; max-width:56ch; }
 .kb-tekst{ color:var(--kb-atrament-2); max-width:58ch; }
+/* Drobny wiersz pod przyciskami w oknie powitalnym: adres i numer
+   rejestracji. Zwykly akapit, nie flex — inaczej odnosnik z numerem
+   staje sie osobnym polem i wiersz nie zawija sie na telefonie. */
 .kb-drobne{
-  font-size:.88rem !important; color:var(--kb-atrament-2);
-  margin-top:28px !important; display:flex; align-items:center;
+  font-size:.9rem !important; color:var(--kb-atrament-2);
+  margin:26px 0 0 !important; line-height:1.7;
 }
+.kb-drobne .kb-tel{ font-weight:600; white-space:nowrap; }
 .kb-motto{
   font-family:var(--kb-font-naglowki) !important; font-style:italic; font-weight:300;
-  font-size:1.15rem !important; color:#454E6B; max-width:38ch;
+  /* Zostal tu jeszcze fioletowo-granatowy #454E6B z pierwszej wersji
+     palety. Cytat jest teraz w szalwii — tej samej, co nadtytuly
+     i kreski pod naglowkami. */
+  font-size:1.15rem !important; color:var(--kb-szalwia-tekst); max-width:38ch;
   margin:0 0 28px !important;
 }
 
@@ -350,11 +363,19 @@
    przesuniete w fazie o polowe cyklu. */
 /* To ramka trzyma proporcje i wysokosc, a oba ujecia ja wypelniaja.
    Dzieki temu drugie, lezace na pierwszym, ma dokladnie ten sam kadr. */
+/* Kadr pionowy 9:16 obok trzywierszowego tytulu dawal 757 px wideo
+   przy 313 px tekstu — po obu stronach tytulu zostawalo po ~220 px
+   pustego pola. Ograniczenie wysokosci scina te roznice o polowe,
+   a szerokosc nadal wyliczana jest z proporcji, wiec nic nie jest
+   przycinane. */
 .kb-ramka-dwa{
   position:relative; aspect-ratio:9/16;
-  width:100%; max-width:100%; margin:0 auto !important;
+  width:100%; max-width:100%; max-height:600px;
+  margin:0 auto !important;
 }
 .kb-ramka-dwa .kb-film-ramka{ margin:0 !important; height:100%; }
+/* Kolumna z filmem nie rozciaga sie ponad jego szerokosc. */
+.kb-sekcja-powitalna .wp-block-column:last-child{ max-width:338px; margin-left:auto; }
 .kb-ramka-dwa .kb-film--b{ position:absolute; inset:0; }
 .kb-ramka-dwa .kb-film--b video{ height:100%; object-fit:cover; }
 /* Oba ujecia ida w pelnych proporcjach, wiec nie trzeba juz
@@ -397,10 +418,13 @@
   transition:transform .2s ease, box-shadow .2s ease;
 }
 .kb-film-karta:hover{ transform:translateY(-3px); box-shadow:0 26px 50px -32px rgba(69,56,58,.42); }
+/* Miniatura YouTube (hqdefault) to kadr 4:3 z czarnymi pasami u gory
+   i dolu — pasy zajmuja dokladnie po 12,5% wysokosci. Kafelek jest
+   16:9, wiec samo object-fit:cover zdejmuje je co do piksela.
+   Wczesniej bylo tu jeszcze transform:scale(1.34) — powiekszenie
+   obcinalo trzecia czesc kadru i rozmywalo miniature. */
 .kb-film-karta img{
   width:100%; height:100%; object-fit:cover; display:block;
-  /* Miniatura YouTube ma czarne pasy u gory i dolu — kadrujemy je. */
-  transform:scale(1.34);
 }
 .kb-play{
   position:absolute; inset:0; margin:auto; width:62px; height:62px;
@@ -446,6 +470,9 @@
 }
 .kb-i-pin      { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z'/%3E%3Ccircle cx='12' cy='11' r='2.6'/%3E%3C/svg%3E"); }
 .kb-i-telefon  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='2' width='12' height='20' rx='3'/%3E%3Cpath d='M11 18h2'/%3E%3C/svg%3E"); }
+/* Sam prostokat telefonu w rozmiarze 1,1 em czytal sie jak pusta
+   ramka. Ikona rejestracji ma teraz w srodku dwie kreski wiadomosci. */
+.kb-i-sms      { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='14' height='20' rx='3'/%3E%3Cpath d='M8.5 8h7M8.5 12h4.5'/%3E%3C/svg%3E"); }
 .kb-i-zegar    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E"); }
 .kb-i-kalendarz{ --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cpath d='M8 2v4M16 2v4M3 10h18'/%3E%3C/svg%3E"); }
 .kb-i-ptaszek  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E"); }
@@ -806,7 +833,10 @@
    ========================================================================= */
 .kb-nota{
   margin-top:36px !important; padding:20px 24px !important;
-  background:rgba(217,143,146,.16); border-radius:16px;
+  /* Roz #D98F92 zostal z pierwszej palety. Ostrzezenie ma teraz
+     brzoskwinie z logotypu, tylko gestsza — sygnal zostaje,
+     a kolor nie wypada z reszty strony. */
+  background:rgba(248,197,160,.30); border-radius:16px;
   font-size:.85rem !important; color:var(--kb-atrament-2);
   display:flex; align-items:flex-start;
 }
@@ -836,6 +866,25 @@
   .kb-strzalka-prawo{ right:0; }
   .kb-doktor .kb-portret-ramka{ max-width:320px; }
   .kb-doktor{ gap:34px !important; }
+
+  /* CELE DOTYKOWE
+     Palec trafia pewnie w pole o wysokosci okolo 44 px; odnosniki
+     w menu, w stopce i numery telefonu mialy 29–32 px. Powiekszamy
+     je samym odstepem wewnetrznym, a ujemny margines zdejmuje ten
+     odstep z ukladu — litery i odstepy miedzy wierszami zostaja
+     dokladnie tam, gdzie byly. */
+  .kb-menu{ gap:0 22px; }
+  .kb-menu a{ padding:12px 0 10px; }
+  /* Przyciski powitania staja jeden pod drugim. Przy szerokosci
+     "do tresci" wychodza dwie rozne pigulki jedna nad druga i uklad
+     wyglada przypadkowo — kazdy zajmuje wiec caly wiersz. */
+  .kb-sekcja-powitalna .wp-block-buttons{ gap:10px; }
+  .kb-sekcja-powitalna .wp-block-button{ width:100%; }
+  .kb-sekcja-powitalna .wp-block-button__link{ width:100%; text-align:center; }
+  .kb-tel{ padding:16px 0; margin:-13px 0; }
+  .kb-stopka-link a,
+  .kb-stopka-numer a,
+  .kb-stopka-dol a{ display:inline-block; padding:11px 0; margin:-11px 0; }
 }
 @media (min-width:782px) and (max-width:1000px){
   .kb-slajd{ flex-basis:calc((100% - 20px) / 2); }
@@ -884,13 +933,24 @@
 <h1 class="wp-block-heading kb-tytul">Uważne badanie.<br><em>Czas</em> dla dziecka i&nbsp;rodzica.</h1>
 <!-- /wp:heading -->
 
+<!-- wp:paragraph {"className":"kb-lead"} -->
+<p class="kb-lead">Gabinet pediatryczny <strong>lek. Katarzyny Bator</strong>, specjalisty pediatrii. Wizyty bez pośpiechu — z czasem na pytania, spokojne badanie i&nbsp;wyjaśnienie zaleceń.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
 <!-- wp:button {"className":"kb-btn-glowny"} -->
 <div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="#kb-kontakt">Umów wizytę</a></div>
 <!-- /wp:button -->
+<!-- wp:button {"className":"kb-btn-obrys"} -->
+<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="#kb-kalkulator">Kalkulator dawek</a></div>
+<!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
+
+<!-- wp:paragraph {"className":"kb-drobne"} -->
+<p class="kb-drobne">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; rejestracja SMS <a class="kb-tel" href="sms:+48535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
 
 </div>
 <!-- /wp:column -->
@@ -935,8 +995,8 @@
 <!-- /wp:column -->
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:paragraph {"className":"kb-atut kb-i-telefon"} -->
-<p class="kb-atut kb-i-telefon">Rejestracja SMS</p>
+<!-- wp:paragraph {"className":"kb-atut kb-i-sms"} -->
+<p class="kb-atut kb-i-sms">Rejestracja SMS</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -1027,8 +1087,8 @@
 <p class="kb-kontakt-dane">ul. St. Daneckiej 4/U6, Miechów</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-telefon"} -->
-<p class="kb-kontakt-pozycja kb-i-telefon">Rejestracja SMS</p>
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-sms"} -->
+<p class="kb-kontakt-pozycja kb-i-sms">Rejestracja SMS</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
 <p class="kb-kontakt-dane"><a class="kb-tel" href="sms:+48535999565">535 999 565</a></p>
@@ -1117,6 +1177,10 @@
 .kb-leki::-webkit-scrollbar{ width:8px; }
 .kb-leki::-webkit-scrollbar-thumb{ background:rgba(59,47,48,.18); border-radius:8px; }
 .kb-lek{
+  /* Kotwica dla ukrytego pola radio ponizej. Bez niej pole ladowalo
+     w rogu calej strony i przeskakiwanie po liscie klawiatura
+     przewijalo widok gdzie indziej. */
+  position:relative;
   display:flex; align-items:center; gap:14px; cursor:pointer;
   padding:10px 16px; border-bottom:1px solid rgba(59,47,48,.06);
   transition:background .15s ease;
@@ -1209,10 +1273,12 @@
 .kb-wynik-box span{ display:block; font-size:.74rem; color:var(--kb-atrament-2); margin-top:4px; }
 .kb-kalkulator .kb-uwaga{
   display:flex; align-items:flex-start; margin:0;
-  background:rgba(217,143,146,.2); border-radius:14px; padding:14px 16px;
-  font-size:.83rem; color:#6E3535; line-height:1.55;
+  /* Ta sama brzoskwinia co w nocie, o stopien gestsza — kalkulator
+     stoi na bieli, wiec ostrzezenie musi byc od niej wyrazniejsze. */
+  background:rgba(248,197,160,.38); border-radius:14px; padding:14px 16px;
+  font-size:.83rem; color:#6B4526; line-height:1.55;
 }
-.kb-kalkulator .kb-uwaga::before{ color:#B4676B; margin-top:.2em; }
+.kb-kalkulator .kb-uwaga::before{ color:#9A5A33; margin-top:.2em; }
 .kb-kalkulator .kb-uwaga + .kb-uwaga{ margin-top:12px; }
 /* Regula wyzej ustawia display:flex i bije wbudowane [hidden],
    wiec ostrzezenie o niskiej masie ciala wyswietlalo sie zawsze —
@@ -1588,6 +1654,19 @@
     var karuzela = document.querySelector('[data-kb-karuzela]');
     if (!karuzela) { return; }
     var tor = karuzela.querySelector('[data-kb-tor]');
+
+    /* Miniatury pobieramy z serwera YouTube. Gdy ktoras sie nie
+       zaladuje (blokada sieci, film zdjety), przegladarka rysuje
+       w rogu kafelka ikone zepsutego obrazka. Chowamy taki obrazek —
+       zostaje lagodne tlo kafelka i przycisk odtwarzania, wiec
+       karuzela dalej wyglada jak nalezy. */
+    var miniatury = tor.querySelectorAll('.kb-film-karta img');
+    for (var i = 0; i < miniatury.length; i++) {
+      (function (obraz) {
+        obraz.addEventListener('error', function () { obraz.hidden = true; });
+        if (obraz.complete && obraz.naturalWidth === 0) { obraz.hidden = true; }
+      })(miniatury[i]);
+    }
 
     /* Klik w miniature podmienia ja na odtwarzacz. Do tego momentu
        zadne zapytanie do YouTube nie wychodzi. */
