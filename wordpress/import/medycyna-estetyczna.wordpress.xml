@@ -159,14 +159,15 @@
 .estet a:hover{color:var(--e-ink);}
 
 
-.estet .e-lead{font-size:1.02rem !important;max-width:44ch;}
+.estet .e-lead{font-size:1.02rem !important;max-width:46ch;}
+.estet .e-lead strong{font-weight:500;color:var(--e-ink);}
 .estet .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.2rem !important;color:var(--e-soft);}
-/* Motto praktyki — nie cytat, wiec bez cudzyslowu i bez kursywy.
-   Czyta sie jak podpis pod obietnica, a nie jak cudza wypowiedz. */
+/* Motto praktyki — ta sama typografia co wczesniej, bez cudzyslowu.
+   To nie cytat, tylko obietnica gabinetu, wiec cudzyslow tu myli. */
 .estet .e-motto{
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:.78rem !important;font-weight:500;
-  letter-spacing:.2em;text-transform:uppercase;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:400;
+  font-size:1.2rem !important;
   color:var(--e-gold-t) !important;
 }
 .estet .e-small{font-size:.84rem !important;}
@@ -186,6 +187,16 @@
 .estet .e-lead-oferta{
   font-size:1rem !important;max-width:56ch;
   margin-left:auto !important;margin-right:auto !important;
+}
+
+/* Kadr przy wstepie do oferty — nizszy niz pozostale, zeby nie
+   przewazyl nad tekstem obok. */
+.estet .e-video--oferta{aspect-ratio:5/4;}
+.estet .e-oferta-wstep .e-lead-oferta{
+  margin-left:0 !important;margin-right:0 !important;max-width:46ch;
+}
+@media (max-width:781px){
+  .estet .e-video--oferta{aspect-ratio:4/3;}
 }
 
 /* Cennik: nazwa grupy zabiegow, podgrupa i uwaga pod pozycja */
@@ -451,7 +462,11 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"e-lead","style":{"spacing":{"margin":{"top":"22px"}}}} -->
-<p class="e-lead" style="margin-top:22px">Po rzetelnej konsultacji dobieramy zabiegi skrojone dla Ciebie.</p>
+<p class="e-lead" style="margin-top:22px">Terapie medycyny estetycznej tworzone indywidualnie, w oparciu o <strong>wiedzę, doświadczenie, anatomię i świadome planowanie</strong>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"e-motto","style":{"spacing":{"margin":{"top":"20px"}}}} -->
+<p class="e-motto" style="margin-top:20px">By wydobyć Twoje naturalne piękno.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"32px"}}}} -->
@@ -642,9 +657,30 @@
 <!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
-<p class="has-text-align-center e-lead-oferta" style="margin-bottom:48px">Każda terapia rozpoczyna się od konsultacji lekarskiej. Jej plan tworzony jest indywidualnie — z uwzględnieniem anatomii, naturalnych proporcji i oczekiwanego efektu.</p>
+<!-- Wstep do oferty ze spokojnym kadrem gabinetu obok. Uzyty jest
+     ten sam plik co w sekcji "O gabinecie" — jesli masz osobne ujecie
+     detalu albo swiatla, kliknij w blok wideo → "Zastąp". -->
+<!-- wp:columns {"verticalAlignment":"center","className":"e-oferta-wstep","style":{"spacing":{"blockGap":{"left":"48px"},"margin":{"bottom":"56px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center e-oferta-wstep" style="margin-bottom:56px">
+
+<!-- wp:column {"verticalAlignment":"center","width":"58%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
+<!-- wp:paragraph {"className":"e-lead-oferta"} -->
+<p class="e-lead-oferta">Każda terapia rozpoczyna się od konsultacji lekarskiej. Jej plan tworzony jest indywidualnie — z uwzględnieniem anatomii, naturalnych proporcji i oczekiwanego efektu.</p>
 <!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-video--oferta"} -->
+<figure class="wp-block-video e-video e-video--oferta"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
 
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"}}}} -->
 <div class="wp-block-columns">
