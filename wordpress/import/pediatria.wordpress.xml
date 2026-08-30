@@ -160,6 +160,14 @@
 /* =========================================================================
    SEKCJE
    ========================================================================= */
+/* Nie polegamy na tym, ze motyw ustawi box-sizing. Bez tego padding
+   24px dokleja sie do szerokosci 100% i sekcje sa o 48px szersze niz
+   ekran — na telefonie strona przewijala sie w bok. */
+.kb-pasek,.kb-sekcja,.kb-stopka,
+.kb-pasek *,.kb-sekcja *,.kb-stopka *,
+.kb-pasek *::before,.kb-sekcja *::before,.kb-stopka *::before,
+.kb-pasek *::after,.kb-sekcja *::after,.kb-stopka *::after{ box-sizing:border-box; }
+
 .kb-sekcja{
   font-family:var(--kb-font); font-weight:400;
   color:var(--kb-atrament); line-height:1.6;
@@ -293,6 +301,32 @@
   border-left:2px solid rgba(227,166,167,.55); padding-left:16px;
   font-style:italic; color:#6E5F5A;
 }
+
+/* =========================================================================
+   WASZE SŁOWA — wypowiedzi rodziców
+   ========================================================================= */
+.kb-glosy-mur{
+  margin:0 auto !important; max-width:var(--kb-szerokosc);
+  /* Uklad murkowy: cytaty maja rozna dlugosc, wiec zamiast siatki
+     z dziurami ustawiamy je w kolumnach, ktore same sie wyrownuja. */
+  column-count:3; column-gap:22px;
+}
+.kb-glos{
+  break-inside:avoid; -webkit-column-break-inside:avoid;
+  margin:0 0 22px !important; padding:24px 26px 26px;
+  background:rgba(255,253,251,.72);
+  border:1px solid rgba(69,56,58,.07); border-radius:var(--kb-promien);
+  box-shadow:0 22px 46px -38px rgba(69,56,58,.28);
+  font-family:var(--kb-font-naglowki); font-style:italic; font-weight:300;
+  font-size:1rem !important; line-height:1.6; color:var(--kb-atrament);
+}
+/* Cudzyslowy dokladane stylem, zeby nie trzeba bylo ich wpisywac
+   w edytorze. W linii, nie jako duzy znak nad tekstem — ten nachodzil
+   na pierwsza linijke cytatu. */
+.kb-glos::before{ content:"„"; color:var(--kb-roz); }
+.kb-glos::after{  content:"”"; color:var(--kb-roz); }
+@media (max-width:1000px){ .kb-glosy-mur{ column-count:2; } }
+@media (max-width:640px){  .kb-glosy-mur{ column-count:1; } }
 
 /* =========================================================================
    KARUZELA Z FILMAMI
@@ -744,7 +778,7 @@
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
 <!-- wp:paragraph {"className":"kb-menu"} -->
-<p class="kb-menu"><a href="#kb-o-praktyce">Praktyka</a><a href="#kb-kontakt">Kontakt</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-pierwsza-pomoc">Pierwsza pomoc</a></p>
+<p class="kb-menu"><a href="#kb-kontakt">Kontakt</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-pierwsza-pomoc">Pierwsza pomoc</a><a class="kb-menu-ig" href="https://www.instagram.com/doktorkasiapediatra" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -764,28 +798,13 @@
 <h1 class="wp-block-heading kb-tytul">Uważne badanie.<br><em>Czas</em> dla dziecka i&nbsp;rodzica.</h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"className":"kb-lead"} -->
-<p class="kb-lead">Ograniczona liczba wizyt dziennie — tyle konsultacji, ile pozwala zbadać dziecko bez pośpiechu i odpowiedzieć na pytania rodziców.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-motto"} -->
-<p class="kb-motto">„Pediatria to nie zawód, to powołanie.”</p>
-<!-- /wp:paragraph -->
-
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
 <!-- wp:button {"className":"kb-btn-glowny"} -->
 <div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="#kb-kontakt">Umów wizytę</a></div>
 <!-- /wp:button -->
-<!-- wp:button {"className":"kb-btn-obrys"} -->
-<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="#kb-kalkulator">Kalkulator dawek</a></div>
-<!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
-
-<!-- wp:paragraph {"className":"kb-drobne kb-i-pin"} -->
-<p class="kb-drobne kb-i-pin">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; Rejestracja SMS: 535 999 565</p>
-<!-- /wp:paragraph -->
 
 </div>
 <!-- /wp:column -->
@@ -1229,6 +1248,48 @@
 
 </div>
 <!-- /wp:group -->
+
+<!-- ======================== WASZE SŁOWA ========================
+  Wypowiedzi rodziców. Żeby dodać kolejną, skopiuj jeden akapit
+  i podmień tekst — cudzysłowy dokłada arkusz stylów, więc nie
+  wpisuj ich ręcznie.
+
+  UWAGA PRZED PUBLIKACJĄ: opinie pacjentów publikuj za ich zgodą
+  i bez danych, które pozwalałyby kogoś rozpoznać.
+-->
+<!-- wp:group {"className":"kb-sekcja kb-glosy","align":"full","anchor":"kb-wasze-slowa"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-glosy" id="kb-wasze-slowa">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Wasze słowa</h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"className":"kb-glosy-mur","layout":{"type":"default"}} -->
+<div class="wp-block-group kb-glosy-mur">
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Jak zawsze, kiedy przychodzę do Pani Doktor, jestem spokojna… Wiem, że moje dzieci są dokładnie zbadane.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">…pod wrażeniem Pani skrupulatności i fachowej opieki nad małym pacjentem. Cieszę się, że mamy tak wspaniałego pediatrę. Dzieci są właściwie zaopiekowane i uwielbiają swoją Doktor Kasię.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Pani Doktor, dziękujemy bardzo za wsparcie. Nie spotkaliśmy się nigdy wcześniej z tak indywidualnym podejściem do pacjenta. Jesteśmy ogromnie wdzięczni.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Pediatra z super podejściem do dziecka, z wiedzą, ale i przede wszystkim z wielką empatią! (…) Mam trójkę maluchów i każde powierzam w ręce Pani Doktor! Nie wyobrażam sobie nikogo innego, kto mógłby lepiej się zaopiekować moimi dziećmi.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Po prostu jesteś niesamowita naprawdę (…) po raz kolejny uratowałaś nas. Jeszcze raz dziękuję za Twoje podejście do małego i nieocenioną pomoc. (…) No i nie ukrywam, że dzięki Tobie mogę spokojnie spać.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Choćbyśmy byli na końcu świata, i tak przyjedziemy do Pani. ❤️</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
+
 
 <!-- ==================== FILMY: PIERWSZA POMOC ====================
   Karuzela z trzema filmami z YouTube. Miniatury ładują się od razu,
