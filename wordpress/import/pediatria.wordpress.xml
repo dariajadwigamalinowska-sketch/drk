@@ -209,6 +209,7 @@
    Warstwa welonu u góry przygasza barwy pod tekstem, dolna wygasza
    gradient w tło strony, żeby nie było widać szwu przy pasku atutów. */
 .kb-sekcja-powitalna{
+  padding-top:32px !important; padding-bottom:32px !important;
   background:
     linear-gradient(to bottom,
       rgba(255,255,255,.55) 0,
@@ -253,8 +254,8 @@
    ========================================================================= */
 
 .kb-tytul{
-  font-size:clamp(2.3rem,4.6vw,3.6rem) !important; font-weight:600 !important;
-  margin:0 0 .4em !important;
+  font-size:clamp(2.4rem,5.2vw,4.1rem) !important; font-weight:600 !important;
+  margin:0 0 .46em !important; letter-spacing:-.012em;
 }
 .kb-tytul em{ font-style:italic; font-weight:300; color:var(--kb-akcent-tekst); }
 
@@ -331,7 +332,7 @@
   break-inside:avoid; -webkit-column-break-inside:avoid;
   margin:0 0 16px !important; padding:20px 22px 22px;
   background:#fff;
-  border:1px solid var(--kb-linia); border-radius:var(--kb-promien);
+  border:1px solid rgba(59,47,48,.11); border-radius:var(--kb-promien);
   box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
   font-family:var(--kb-font-naglowki); font-style:italic; font-weight:300;
   font-size:1rem !important; line-height:1.6; color:var(--kb-atrament);
@@ -505,11 +506,14 @@
      atramentowy. Ciemna plama odcinala sie od reszty strony,
      a tak przycisk nadal czyta sie jak przycisk — atrament na
      szalwii ma 9,8:1. */
+  /* Jasne wypelnienie potrzebuje obrysu, inaczej rozplywa sie
+     w tle i przestaje wygladac na element do klikniecia. */
   background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
-  box-shadow:none;
+  border-color:var(--kb-szalwia) !important;
+  box-shadow:0 1px 0 rgba(59,47,48,.04);
 }
 .kb-btn-glowny .wp-block-button__link:hover{ background:#CDE2D7; transform:translateY(-2px); }
-.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.8); color:var(--kb-atrament); border-color:var(--kb-linia); }
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.85); color:var(--kb-atrament); border-color:rgba(59,47,48,.22); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
 
@@ -613,7 +617,7 @@
    plansza, cienki obrys, zdjęcie w środku, podpis pod spodem. */
 .kb-portret-ramka{
   max-width:370px; margin:0 auto !important;
-  background:#fff; border:1px solid var(--kb-linia);
+  background:#fff; border:1px solid rgba(59,47,48,.13);
   border-radius:var(--kb-promien);
   padding:18px 18px 24px !important;
   box-shadow:0 20px 44px -42px rgba(69,56,58,.2);
@@ -644,10 +648,10 @@
    elementem strony i przecinala ja w polowie; jasne pasmo z cienkimi
    kreskami daje ten sam podzial, nie krzyczac. */
 .kb-atuty{
-  background:linear-gradient(100deg, rgba(152,200,184,.14), rgba(248,197,160,.12)) !important;
+  background:linear-gradient(100deg, rgba(152,200,184,.26), rgba(248,197,160,.22)) !important;
   border-top:1px solid var(--kb-linia); border-bottom:1px solid var(--kb-linia);
   color:var(--kb-atrament);
-  padding-top:20px !important; padding-bottom:20px !important;
+  padding-top:24px !important; padding-bottom:24px !important;
 }
 .kb-atuty h2,.kb-atuty h3{ color:var(--kb-atrament); }
 .kb-atut{
@@ -713,9 +717,9 @@
    KONTAKT
    ========================================================================= */
 .kb-karta-kontakt{
-  background:#fff; border:1px solid var(--kb-linia);
-  border-radius:var(--kb-promien); padding:32px 30px !important;
-  box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
+  background:#fff; border:1px solid rgba(59,47,48,.13);
+  border-radius:var(--kb-promien); padding:34px 32px !important;
+  box-shadow:0 20px 44px -36px rgba(69,56,58,.2);
 }
 .kb-kontakt-pozycja{
   margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
@@ -1076,7 +1080,7 @@
 <div class="kb-kalkulator">
 <style>
 .kb-kalkulator{
-  background:#fff; border:1px solid var(--kb-linia);
+  background:#fff; border:1px solid rgba(59,47,48,.13);
   border-radius:var(--kb-promien); padding:32px 30px;
   max-width:760px; margin:0 auto;
   font-family:var(--kb-font); color:var(--kb-atrament);
@@ -1182,8 +1186,9 @@
 .kb-kalkulator .kb-blad::before{ color:#8E2F26; margin-top:.15em; }
 
 .kb-licz{
-  width:100%; margin-top:6px; padding:16px 28px; border:0; cursor:pointer;
+  width:100%; margin-top:6px; padding:16px 28px; cursor:pointer;
   border-radius:100px; background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
+  border:2px solid var(--kb-szalwia);
   font-family:inherit; font-weight:600; font-size:.95rem;
   transition:background .2s ease, transform .2s ease;
 }
