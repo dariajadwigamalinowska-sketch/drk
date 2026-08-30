@@ -130,8 +130,8 @@
    ========================================================================= */
 :root{
   /* --- kolory --- */
-  --kb-tlo:          #F6E3D6;   /* brzoskwiniowe tło główne              */
-  --kb-tlo-2:        #FBF0E7;   /* jaśniejszy odcień, co druga sekcja    */
+  --kb-tlo:          #FBF4EF;   /* ledwie ciepła biel — tło główne       */
+  --kb-tlo-2:        #FFFFFF;   /* czysta biel, co druga sekcja          */
   --kb-blekit:       #9E9EB4;   /* akcent jasny — poświata, gradienty    */
   --kb-ciemny:       #5C6488;   /* ciemne pasy, przyciski, ikony         */
   --kb-ciemny-2:     #4A5273;   /* przycisk po najechaniu                */
@@ -140,11 +140,15 @@
                                    leza takze na gradiencie powitania    */
   --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
   --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
-  --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule */
+  --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule    */
+  /* Ten sam roz przyciemniony do drobnych napisow: #B4676B ma na
+     jasnym tle 3,8:1, wiec nadaje sie na duza kursywe, ale nie na
+     wersaliki i przypisy. */
+  --kb-akcent-tekst: #945055;
   --kb-roz:          #E3A6A7;   /* różowa kreska ozdobna                 */
   --kb-karta:        #FFFDFB;
-  --kb-zastepcze:    linear-gradient(150deg,var(--kb-blekit),var(--kb-roz));
-  --kb-linia:        rgba(59,47,48,.12);
+  --kb-zastepcze:    linear-gradient(150deg,rgba(158,158,180,.28),rgba(227,166,167,.28));
+  --kb-linia:        rgba(59,47,48,.09);
 
   /* --- kształty i odstępy --- */
   --kb-promien:      22px;      /* miękkie zaokrąglenie kart             */
@@ -204,23 +208,26 @@
 .kb-sekcja-powitalna{
   background:
     linear-gradient(to bottom,
-      rgba(251,240,231,.42) 0,
-      rgba(251,240,231,.10) 200px,
-      rgba(246,227,214,.30) 62%,
-      rgba(246,227,214,.88) 92%,
+      rgba(255,255,255,.55) 0,
+      rgba(255,255,255,.18) 200px,
+      rgba(251,244,239,.35) 62%,
+      rgba(251,244,239,.90) 92%,
       var(--kb-tlo) 100%),
+    /* Ten sam przebieg barw co wczesniej, ale przepuszczony przez biel:
+       kazdy stopien ma okolo 30% krycia, wiec kolor jest obecny jako
+       welon, a nie jako plama. */
     linear-gradient(102deg,
-      #DDC0B8  0%,
-      #C9B6B9 10%,
-      #B0ABB9 20%,
-      #9E9EB4 30%,
-      #B99EAE 40%,
-      #E3A6A7 50%,
-      #E6AEAD 60%,
-      #EAB6B6 70%,
-      #EABCBA 80%,
-      #EDC3C1 90%,
-      #EFCAC5 100%),
+      rgba(221,192,184,.30)   0%,
+      rgba(201,182,185,.30)  10%,
+      rgba(176,171,185,.30)  20%,
+      rgba(158,158,180,.30)  30%,
+      rgba(185,158,174,.30)  40%,
+      rgba(227,166,167,.30)  50%,
+      rgba(230,174,173,.30)  60%,
+      rgba(234,182,182,.30)  70%,
+      rgba(234,188,186,.30)  80%,
+      rgba(237,195,193,.30)  90%,
+      rgba(239,202,197,.30) 100%),
     var(--kb-tlo);
 }
 
@@ -314,8 +321,8 @@
 .kb-glos{
   break-inside:avoid; -webkit-column-break-inside:avoid;
   margin:0 0 16px !important; padding:20px 22px 22px;
-  background:rgba(255,253,251,.72);
-  border:1px solid rgba(69,56,58,.07); border-radius:var(--kb-promien);
+  background:#fff;
+  border:1px solid var(--kb-linia); border-radius:var(--kb-promien);
   box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
   font-family:var(--kb-font-naglowki); font-style:italic; font-weight:300;
   font-size:1rem !important; line-height:1.6; color:var(--kb-atrament);
@@ -347,22 +354,6 @@
 @media (prefers-reduced-motion:reduce){
   .kb-ramka-dwa .kb-film--a,.kb-ramka-dwa .kb-film--b{ animation:none; }
   .kb-ramka-dwa .kb-film--b{ display:none; }
-}
-
-/* Kadr z detalami gabinetu obok wypowiedzi rodzicow */
-.kb-film-detale{ margin:0 !important; }
-.kb-film-detale video{
-  width:100%; aspect-ratio:3/4; height:auto; object-fit:cover;
-  border-radius:var(--kb-promien);
-  box-shadow:0 20px 44px -42px rgba(69,56,58,.2);
-  -webkit-mask-image:radial-gradient(120% 120% at 50% 50%, #000 66%, rgba(0,0,0,.6) 86%, transparent 100%);
-  mask-image:radial-gradient(120% 120% at 50% 50%, #000 66%, rgba(0,0,0,.6) 86%, transparent 100%);
-}
-.kb-glosy-uklad{ margin:14px auto 0 !important; }
-.kb-glosy-uklad .kb-glosy-mur{ margin:0 !important; column-count:2; }
-@media (max-width:781px){
-  .kb-glosy-uklad .kb-glosy-mur{ column-count:1; }
-  .kb-film-detale video{ aspect-ratio:4/3; }
 }
 
 /* =========================================================================
@@ -407,7 +398,7 @@
 .kb-play::before{
   content:""; position:absolute; inset:0; margin:auto;
   width:0; height:0;
-  border-left:18px solid var(--kb-ciemny);
+  border-left:18px solid var(--kb-akcent-tekst);
   border-top:11px solid transparent; border-bottom:11px solid transparent;
   transform:translateX(-6px);
 }
@@ -419,7 +410,7 @@
   position:absolute; top:calc(50% - 30px); transform:translateY(-50%);
   z-index:2; width:44px; height:44px; border-radius:50%; cursor:pointer;
   border:1px solid rgba(69,56,58,.1); background:rgba(255,253,251,.92);
-  color:var(--kb-ciemny); font-size:1.5rem; line-height:1;
+  color:var(--kb-akcent-tekst); font-size:1.5rem; line-height:1;
   box-shadow:0 10px 26px -14px rgba(69,56,58,.45);
   transition:opacity .2s ease, transform .2s ease;
 }
@@ -470,7 +461,7 @@
 .kb-podpis{
   display:block; font-family:var(--kb-font); font-size:.72rem; font-weight:600;
   letter-spacing:.18em; text-transform:uppercase;
-  color:var(--kb-ciemny); margin:5px 0 0 !important;
+  color:var(--kb-akcent-tekst); margin:5px 0 0 !important;
 }
 .kb-menu{
   margin:0 !important; display:flex; flex-wrap:wrap; gap:10px 28px;
@@ -493,11 +484,14 @@
   border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
 }
 .kb-btn-glowny .wp-block-button__link{
-  background:linear-gradient(105deg, #5C6488, #686F93); color:#fff;
-  box-shadow:0 8px 20px -16px rgba(69,62,90,.35);
+  /* Przycisk jest teraz w przygaszonym rozu z logotypu zamiast
+     w mocnym fiolecie. Odcien dobrany tak, zeby bialy napis mial
+     4,6:1 — jasniej juz nie mozna. */
+  background:#A86064; color:#fff;
+  box-shadow:0 8px 20px -16px rgba(168,96,100,.4);
 }
-.kb-btn-glowny .wp-block-button__link:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
-.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.72); color:#4A5273; border-color:rgba(74,82,115,.4); }
+.kb-btn-glowny .wp-block-button__link:hover{ background:#945558; transform:translateY(-2px); }
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.8); color:var(--kb-atrament); border-color:var(--kb-linia); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
 
@@ -590,7 +584,7 @@
    plansza, cienki obrys, zdjęcie w środku, podpis pod spodem. */
 .kb-portret-ramka{
   max-width:370px; margin:0 auto !important;
-  background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
+  background:#fff; border:1px solid var(--kb-linia);
   border-radius:var(--kb-promien);
   padding:18px 18px 24px !important;
   box-shadow:0 20px 44px -42px rgba(69,56,58,.2);
@@ -617,17 +611,21 @@
 /* Pas jest krycy — przezroczystosc rozjasniala go tak, ze bialy napis
    schodzil ponizej 3:1 i przestawal byc czytelny. Lagodnosc bierze sie
    teraz z samego koloru i z gradientu, nie z przepuszczania tla. */
+/* Pas atutow jest teraz jasny. Ciemna plyta byla najmocniejszym
+   elementem strony i przecinala ja w polowie; jasne pasmo z cienkimi
+   kreskami daje ten sam podzial, nie krzyczac. */
 .kb-atuty{
-  background:linear-gradient(100deg, #565E80, #5F6789 55%, #686F93) !important;
-  color:#FDF6EF;
-  padding-top:22px !important; padding-bottom:22px !important;
+  background:linear-gradient(100deg, rgba(158,158,180,.10), rgba(227,166,167,.10)) !important;
+  border-top:1px solid var(--kb-linia); border-bottom:1px solid var(--kb-linia);
+  color:var(--kb-atrament);
+  padding-top:20px !important; padding-bottom:20px !important;
 }
-.kb-atuty h2,.kb-atuty h3{ color:#FBF1E8; }
+.kb-atuty h2,.kb-atuty h3{ color:var(--kb-atrament); }
 .kb-atut{
   margin:0 !important; font-size:.94rem !important; font-weight:500;
   display:flex; align-items:center; justify-content:center; line-height:1.5;
 }
-.kb-atut::before{ color:#F0BFC1; }
+.kb-atut::before{ color:var(--kb-akcent); }
 /* Dwa hasla wysrodkowane w swoich polowach paska, rozdzielone
    cienka kreska — inaczej oba lgna do lewej i prawa polowa
    paska zostaje pusta. */
@@ -635,7 +633,7 @@
 .kb-atuty .wp-block-column + .wp-block-column::before{
   content:""; position:absolute; left:-1em; top:50%;
   transform:translateY(-50%); width:1px; height:1.7em;
-  background:rgba(240,191,193,.45);
+  background:rgba(59,47,48,.14);
 }
 @media (max-width:781px){
   .kb-atuty .wp-block-column + .wp-block-column::before{ display:none; }
@@ -686,7 +684,7 @@
    KONTAKT
    ========================================================================= */
 .kb-karta-kontakt{
-  background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
+  background:#fff; border:1px solid var(--kb-linia);
   border-radius:var(--kb-promien); padding:32px 30px !important;
   box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
 }
@@ -694,7 +692,7 @@
   margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
   color:var(--kb-atrament); display:flex; align-items:center;
 }
-.kb-kontakt-pozycja::before{ color:var(--kb-ciemny); }
+.kb-kontakt-pozycja::before{ color:var(--kb-akcent-tekst); }
 /* Numer w karcie kontaktu to glowna akcja strony — dostaje pole
    dotyku ~40 px zamiast wysokosci samej linijki tekstu. */
 .kb-tel{ display:inline-block; padding:10px 0; margin:-6px 0; }
@@ -715,32 +713,36 @@
    ========================================================================= */
 /* Stopka krycy — jak pas atutow. Napisy leza na niej bezposrednio,
    wiec tlo nie moze przepuszczac jasnego tla strony. */
+/* Stopka tez jest jasna. Ciemna plyta na koncu strony ciagnela oko
+   mocniej niz tresc nad nia; kreska u gory wystarcza za podzial. */
 .kb-stopka{
-  background:linear-gradient(100deg, #4A5273, #505879 60%, #565E80);
-  color:#F4EDE6;
+  background:var(--kb-tlo);
+  border-top:1px solid var(--kb-linia);
+  color:var(--kb-atrament-2);
   padding:44px 24px 24px !important; font-family:var(--kb-font);
 }
-.kb-stopka .kb-logo{ color:#fff; margin:0 !important; }
-.kb-stopka .kb-podpis{ color:#F8D6D7; margin:2px 0 0 !important; }
+.kb-stopka .kb-logo{ color:var(--kb-atrament); margin:0 !important; }
+.kb-stopka .kb-podpis{ color:var(--kb-akcent-tekst); margin:2px 0 0 !important; }
 
 /* Etykiety kolumn — drobne wersaliki, ta sama miara co reszta drobnego pisma */
 .kb-stopka-etykieta{
   margin:0 0 12px !important; font-size:.72rem !important; font-weight:600;
-  letter-spacing:.2em; text-transform:uppercase; color:#F8D6D7;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--kb-akcent-tekst);
 }
 /* Numer jest w stopce najwazniejszy, wiec dostaje kroj naglowkowy i skale */
 .kb-stopka-numer{ margin:0 !important; font-family:var(--kb-font-naglowki); font-size:1.6rem !important; line-height:1.1 !important; }
-.kb-stopka-numer a{ color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.28); }
-.kb-stopka-numer a:hover{ border-bottom-color:#fff; }
-.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:#E2D9D2; }
-.kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:#EFE6DE; line-height:1.6; }
+.kb-stopka-numer a{ color:var(--kb-atrament); text-decoration:none; border-bottom:1px solid rgba(59,47,48,.2); }
+.kb-stopka-numer a:hover{ color:var(--kb-akcent-tekst); border-bottom-color:var(--kb-akcent-tekst); }
+.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:var(--kb-atrament-2); }
+.kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:var(--kb-atrament-2); line-height:1.6; }
 
 .kb-stopka-link{ margin:0 0 4px !important; font-size:.92rem !important; }
 .kb-stopka-link a{
   display:inline-block; padding:6px 0;
-  color:#EFE6DE; text-decoration:none; border-bottom:1px solid rgba(240,191,193,.45);
+  color:var(--kb-atrament); text-decoration:none;
+  border-bottom:1px solid rgba(227,166,167,.7);
 }
-.kb-stopka-link a:hover{ color:#fff; border-bottom-color:#F0BFC1; }
+.kb-stopka-link a:hover{ color:var(--kb-akcent); border-bottom-color:var(--kb-akcent); }
 
 /* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
 /* Kreska idzie przez cala szerokosc stopki. Wczesniej byla obrysem
@@ -749,21 +751,21 @@
    wysrodkowanie z .kb-stopka > * i kreska rozjezdza sie z kolumnami. */
 .kb-stopka-kreska{
   margin:34px auto 22px !important; border:0; height:1px;
-  background:rgba(255,255,255,.18);
+  background:var(--kb-linia);
 }
 .kb-stopka-dol-wiersz{ margin:0 auto !important; }
 .kb-stopka-uwaga{
   margin:0 !important; max-width:62ch;
-  font-size:.82rem !important; line-height:1.75; color:#E9E0DA;
+  font-size:.82rem !important; line-height:1.75; color:var(--kb-atrament-2);
 }
-.kb-stopka-uwaga strong{ color:#F0BFC1; }
+.kb-stopka-uwaga strong{ color:var(--kb-akcent-tekst); }
 
 .kb-stopka-dol{
   margin:0 !important; font-size:.74rem !important; line-height:1.7;
-  letter-spacing:.08em; color:#E2D9D2;
+  letter-spacing:.08em; color:var(--kb-atrament-2);
 }
 .kb-spoleczne{ margin-top:18px !important; }
-.kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(255,255,255,.14); color:#fff; }
+.kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(59,47,48,.07); color:var(--kb-atrament); }
 .kb-stopka .wp-block-social-links .wp-social-link:hover{ background:var(--kb-roz); }
 
 /* =========================================================================
@@ -859,10 +861,10 @@
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
 <!-- RAMKA POWITALNA — dwa ujecia jedno na drugim.
-  Przenikaja sie w kolko: 9 s widac film z gabinetu, potem misia.
+  Przenikaja sie w kolko: 9 s widac film z gabinetu, potem detale.
   Robi to sam arkusz stylow, bez skryptu.
   Pliki w assets/wideo/: pediatria-gabinet.mp4 (1,35 MB) i
-  pediatria-mis.mp4 (0,25 MB), oba z plakatami .jpg.
+  pediatria-detale.mp4 (1,61 MB), oba z plakatami .jpg.
   Kadry sa lekko ocieplone, zeby mietowy gabinet nie odcinal sie
   chlodem od brzoskwiniowego tla strony.
   Zeby zostawic jedno ujecie, usun drugi blok wideo. -->
@@ -871,8 +873,8 @@
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-gabinet.jpg","src":"/wp-content/uploads/pediatria-gabinet.mp4","className":"kb-film-ramka kb-film-luk kb-film--a"} -->
 <figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--a"><video autoplay loop muted poster="/wp-content/uploads/pediatria-gabinet.jpg" src="/wp-content/uploads/pediatria-gabinet.mp4" playsinline></video></figure>
 <!-- /wp:video -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka kb-film-luk kb-film--b"} -->
-<figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--b"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-detale.jpg","src":"/wp-content/uploads/pediatria-detale.mp4","className":"kb-film-ramka kb-film-luk kb-film--b"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--b"><video autoplay loop muted poster="/wp-content/uploads/pediatria-detale.jpg" src="/wp-content/uploads/pediatria-detale.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:group -->
@@ -1050,14 +1052,14 @@
 <div class="kb-kalkulator">
 <style>
 .kb-kalkulator{
-  background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
+  background:#fff; border:1px solid var(--kb-linia);
   border-radius:var(--kb-promien); padding:32px 30px;
   max-width:760px; margin:0 auto;
   font-family:var(--kb-font); color:var(--kb-atrament);
   box-shadow:0 20px 44px -44px rgba(69,56,58,.2);
 }
 .kb-kalkulator *,.kb-kalkulator *::before{ box-sizing:border-box; }
-.kb-kalkulator :focus-visible{ outline:3px solid var(--kb-ciemny); outline-offset:2px; }
+.kb-kalkulator :focus-visible{ outline:3px solid #A86064; outline-offset:2px; }
 
 .kb-przelacznik{
   display:flex; gap:8px; background:var(--kb-tlo); border-radius:100px;
@@ -1068,7 +1070,7 @@
   cursor:pointer; font-family:inherit; font-weight:600; font-size:.92rem;
   color:var(--kb-atrament-2); transition:background .2s ease, color .2s ease;
 }
-.kb-przelacznik button[aria-pressed="true"]{ background:var(--kb-ciemny); color:#fff; }
+.kb-przelacznik button[aria-pressed="true"]{ background:#A86064; color:#fff; }
 
 .kb-pola{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
 .kb-pole label{
@@ -1080,7 +1082,7 @@
   border-radius:12px; background:#fff; font-family:inherit;
   font-size:.95rem; color:var(--kb-atrament);
 }
-.kb-pole select:focus,.kb-pole input:focus{ border-color:var(--kb-ciemny); }
+.kb-pole select:focus,.kb-pole input:focus{ border-color:#A86064; }
 
 .kb-kalkulator .kb-blad{
   display:none; align-items:flex-start; margin:0 0 16px;
@@ -1091,17 +1093,17 @@
 
 .kb-licz{
   width:100%; margin-top:6px; padding:16px 28px; border:0; cursor:pointer;
-  border-radius:100px; background:var(--kb-ciemny); color:#fff;
+  border-radius:100px; background:#A86064; color:#fff;
   font-family:inherit; font-weight:600; font-size:.95rem;
   transition:background .2s ease, transform .2s ease;
 }
-.kb-licz:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
+.kb-licz:hover{ background:#945558; transform:translateY(-2px); }
 
 .kb-kalkulator .kb-wynik{ display:none; margin-top:28px; }
 .kb-kalkulator .kb-wynik.kb-on{ display:block; }
 .kb-wynik-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:14px; margin-bottom:18px; }
 .kb-wynik-box{
-  background:linear-gradient(135deg,rgba(141,150,180,.18),rgba(217,143,146,.18));
+  background:linear-gradient(135deg,rgba(158,158,180,.10),rgba(227,166,167,.12));
   border-radius:14px; padding:16px; text-align:center;
 }
 .kb-wynik-box b{
@@ -1318,21 +1320,6 @@
 <h2 class="wp-block-heading has-text-align-center kb-naglowek">Wasze słowa</h2>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"verticalAlignment":"center","className":"kb-glosy-uklad","style":{"spacing":{"blockGap":{"left":"34px"}}}} -->
-<div class="wp-block-columns are-vertically-aligned-center kb-glosy-uklad">
-
-<!-- wp:column {"verticalAlignment":"center","width":"30%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:30%">
-<!-- Kadry z gabinetu: detale, zabawki, tabliczka z imieniem.
-     Plik: assets/wideo/pediatria-detale.mp4 (1,61 MB) + plakat .jpg -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-detale.jpg","src":"/wp-content/uploads/pediatria-detale.mp4","className":"kb-film-detale"} -->
-<figure class="wp-block-video kb-film-detale"><video autoplay loop muted poster="/wp-content/uploads/pediatria-detale.jpg" src="/wp-content/uploads/pediatria-detale.mp4" playsinline></video></figure>
-<!-- /wp:video -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"center","width":"70%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:70%">
 <!-- wp:group {"className":"kb-glosy-mur","layout":{"type":"default"}} -->
 <div class="wp-block-group kb-glosy-mur">
 <!-- wp:paragraph {"className":"kb-glos"} -->
@@ -1355,11 +1342,6 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-
-</div>
-<!-- /wp:columns -->
 
 </div>
 <!-- /wp:group -->

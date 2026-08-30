@@ -358,6 +358,9 @@
 /* Kroki */
 .estet .e-step{border-top:1px solid var(--e-line);padding-top:24px !important;position:relative;}
 .estet .e-step::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:var(--e-gold);}
+/* Kroki wizyty stoja teraz na pelnej szerokosci sekcji, wiec
+   tekst dostaje miare, ktora sie czyta, zamiast rozlewac sie. */
+.estet .e-step p{max-width:34ch;}
 .estet .e-step-num{
   font-family:'Cormorant Garamond',serif;font-size:2.2rem !important;color:var(--e-gold-t);
   line-height:1 !important;margin-bottom:10px !important;
@@ -520,16 +523,16 @@
 <!-- RAMKA Z DWOMA UJECIAMI.
   Oba filmy leza jeden na drugim i przenikaja sie w kolko: 7 s widac
   pierwszy, potem drugi. Robi to sam arkusz stylow, bez skryptu.
-  Pliki: estetyczna-02.mp4 (lekarka z pacjentem) i estetyczna-01.mp4
-  (poczekalnia), oba z plakatami .jpg.
+  Pliki: estetyczna-02.mp4 (lekarka z pacjentem) i estetyczna-03.mp4
+  (zabieg w trakcie), oba z plakatami .jpg.
   Zeby zostawic jedno ujecie, wystarczy usunac drugi blok wideo. -->
 <!-- wp:group {"className":"e-ramka-dwa","layout":{"type":"default"}} -->
 <div class="wp-block-group e-ramka-dwa">
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02"} -->
 <figure class="wp-block-video e-video e-video--02"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
 <!-- /wp:video -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-video--01"} -->
-<figure class="wp-block-video e-video e-video--01"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-video--01"} -->
+<figure class="wp-block-video e-video e-video--01"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:group -->
@@ -782,21 +785,6 @@
 <h2 class="wp-block-heading has-text-align-center" style="margin-bottom:48px">Jak wygląda wizyta</h2>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"48px"}}}} -->
-<div class="wp-block-columns are-vertically-aligned-center">
-
-<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
-<!-- WIDEO: zabieg w trakcie (estetyczna-03.mp4 + .jpg w assets/wideo/) -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-video--03"} -->
-<figure class="wp-block-video e-video e-video--03"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
-<!-- /wp:video -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center">
-
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"28px"}}}} -->
 <div class="wp-block-columns">
 <!-- wp:column {"className":"e-step"} -->
@@ -832,12 +820,6 @@
 <!-- wp:paragraph --><p>W ustalonym terminie oceniamy efekt terapii i, jeśli jest taka potrzeba, planujemy kolejne etapy.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-</div>
-<!-- /wp:column -->
-
 </div>
 <!-- /wp:columns -->
 
