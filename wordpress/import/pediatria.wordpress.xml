@@ -363,19 +363,16 @@
    przesuniete w fazie o polowe cyklu. */
 /* To ramka trzyma proporcje i wysokosc, a oba ujecia ja wypelniaja.
    Dzieki temu drugie, lezace na pierwszym, ma dokladnie ten sam kadr. */
-/* Kadr pionowy 9:16 obok trzywierszowego tytulu dawal 757 px wideo
-   przy 313 px tekstu — po obu stronach tytulu zostawalo po ~220 px
-   pustego pola. Ograniczenie wysokosci scina te roznice o polowe,
-   a szerokosc nadal wyliczana jest z proporcji, wiec nic nie jest
-   przycinane. */
+/* Kadr bierze cala szerokosc, jaka zostaje w kolumnie — wczesniej
+   ograniczenie wysokosci do 600 px scinalo go do 338 px szerokosci.
+   Wysokosc wynika z proporcji 9:16, wiec nic nie jest przycinane,
+   a pole widoczne jest najwieksze, jakie sie w sekcji miesci. */
 .kb-ramka-dwa{
   position:relative; aspect-ratio:9/16;
-  width:100%; max-width:100%; max-height:600px;
+  width:100%; max-width:100%;
   margin:0 auto !important;
 }
 .kb-ramka-dwa .kb-film-ramka{ margin:0 !important; height:100%; }
-/* Kolumna z filmem nie rozciaga sie ponad jego szerokosc. */
-.kb-sekcja-powitalna .wp-block-column:last-child{ max-width:338px; margin-left:auto; }
 .kb-ramka-dwa .kb-film--b{ position:absolute; inset:0; }
 .kb-ramka-dwa .kb-film--b video{ height:100%; object-fit:cover; }
 /* Oba ujecia ida w pelnych proporcjach, wiec nie trzeba juz
@@ -583,14 +580,16 @@
   display:block;
   border-radius:0; box-shadow:none;
   /* Wygaszenie tylko przy samych krawedziach. Przy 14% maska zjadala
-     po 49 px z kazdego boku i kadr wygladal na przyciety. */
+     po 49 px z kazdego boku i kadr wygladal na przyciety; przy 6%
+     nadal schodzilo po 26 px. Zostaje 3% — miekka krawedz zamiast
+     twardego ciecia, a widac praktycznie caly kadr. */
   -webkit-mask-image:
-    linear-gradient(to right,  transparent 0, #000 6%, #000 94%, transparent 100%),
-    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
+    linear-gradient(to right,  transparent 0, #000 3%, #000 97%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 3%, #000 97%, transparent 100%);
   -webkit-mask-composite:source-in;
           mask-image:
-    linear-gradient(to right,  transparent 0, #000 6%, #000 94%, transparent 100%),
-    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
+    linear-gradient(to right,  transparent 0, #000 3%, #000 97%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 3%, #000 97%, transparent 100%);
           mask-composite:intersect;
 }
 

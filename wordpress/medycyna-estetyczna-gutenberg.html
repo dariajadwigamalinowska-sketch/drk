@@ -24,6 +24,7 @@
    Pliki gotowe do wgrania leżą w repozytorium w assets/wideo/:
      estetyczna-02.mp4 + .jpg  — lekarka z pacjentem  (0,25 MB)
      estetyczna-03.mp4 + .jpg  — zabieg w trakcie     (0,28 MB)
+     (estetyczna-01.mp4 — poczekalnia z kanapa — nie jest uzywany)
      estetyczna-konsultacja.mp4 + .jpg — konsultacja  (1,16 MB)
    Pętla powstaje przez przenikanie końca ujęcia w jego początek —
    materiał nigdy nie jest odtwarzany wstecz.
@@ -138,45 +139,38 @@
   margin-left:auto !important;margin-right:auto !important;
 }
 
-/* Ramka z dwoma ujeciami — oba kadry leza na sobie i przenikaja sie
-   w petli 14 s. Bez skryptu: wystarcza dwie animacje przesuniete
-   w fazie o polowe cyklu. */
-/* Pierwsza klatka stoi w ukladzie i nadaje ramce wysokosc, pozostale
-   leza na niej. Kazda jest widoczna przez jedna trzecia cyklu, a na
-   stykach obie maja czesciowe krycie — stad przenikanie, nie ciecie. */
+/* RAMKA POWITALNA — ujecia jedno po drugim.
+
+   Wczesniej robil to sam arkusz stylow: kazda klatka miala wlasna
+   animacje krycia, przesunieta w fazie. To nie moglo dzialac, bo
+   kazde <video> mialo swoja petle ("loop"), niezalezna od cyklu
+   przenikania. Ujecie trwa 2–4 s, a caly cykl 8,5 s, wiec plik
+   zdazyl w tym czasie przewinac sie kilka razy i okno widocznosci
+   trafialo za kazdym razem w inny jego moment — stad wrazenie, ze ten
+   sam material powtarza sie sam w sobie, w dodatku od przypadkowej
+   klatki. Zadne dobranie procentow w @keyframes tego nie naprawia:
+   dwa niezalezne zegary nie zejda sie ze soba.
+
+   Teraz kolejnosc prowadzi skrypt (na dole sekcji). Odtwarzacz ma
+   wylaczona wlasna petle; kazde ujecie gra raz, od pierwszej do
+   ostatniej klatki, i dopiero na ostatnich 0,9 s rozplywa sie
+   w nastepne. Arkusz odpowiada juz tylko za samo przenikanie. */
 .estet .e-ramka-dwa{position:relative;}
 .estet .e-ramka-dwa .e-video{margin:0;}
-.estet .e-ramka-dwa .e-klatka--2,
-.estet .e-ramka-dwa .e-klatka--3{position:absolute;inset:0;}
-.estet .e-ramka-dwa .e-klatka--2 video,
-.estet .e-ramka-dwa .e-klatka--3 video{height:100%;object-fit:cover;}
-/* Trzy rozne ujecia jedno po drugim, kazde widoczne dokladnie tyle,
-   ile trwa — zaden nie zdazy sie zapetlic sam w sobie, a to samo
-   wraca dopiero po 8,5 s. Przy dwoch ujeciach ten sam kadr wracal
-   juz po 3,6 s i wygladalo to jak powtorka.
-   Cykl 8,47 s = 2,60 (lekarka) + 2,27 (poczekalnia) + 3,60 (zabieg). */
-.estet .e-ramka-dwa .e-klatka--1{animation:e-klatka-1 8.47s linear infinite;}
-.estet .e-ramka-dwa .e-klatka--2{animation:e-klatka-2 8.47s linear infinite;}
-.estet .e-ramka-dwa .e-klatka--3{animation:e-klatka-3 8.47s linear infinite;}
-@keyframes e-klatka-1{
-  0%{opacity:1;} 26.6%{opacity:1;} 30.7%{opacity:0;}
-  95.9%{opacity:0;} 100%{opacity:1;}
+/* Pierwsza klatka stoi w ukladzie i nadaje ramce wysokosc,
+   pozostale leza na niej. */
+.estet .e-ramka-dwa .e-klatka--2{position:absolute;inset:0;opacity:0;}
+.estet .e-ramka-dwa .e-klatka--2 video{height:100%;object-fit:cover;}
+/* Sciezka ze skryptem. Bez niego (skrypt zablokowany, stara
+   przegladarka) zostaje samo pierwsze ujecie w swojej petli. */
+.estet .e-ramka-dwa.e-petla-js .e-klatka{
+  opacity:0;transition:opacity .9s ease-in-out;
 }
-@keyframes e-klatka-2{
-  0%{opacity:0;} 26.6%{opacity:0;} 30.7%{opacity:1;}
-  53.4%{opacity:1;} 57.5%{opacity:0;} 100%{opacity:0;}
-}
-@keyframes e-klatka-3{
-  0%{opacity:0;} 53.4%{opacity:0;} 57.5%{opacity:1;}
-  95.9%{opacity:1;} 100%{opacity:0;}
-}
-/* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie. */
+.estet .e-ramka-dwa.e-petla-js .e-klatka.e-widoczna{opacity:1;}
+/* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie —
+   skrypt sam sie wtedy nie uruchamia. */
 @media (prefers-reduced-motion:reduce){
-  .estet .e-ramka-dwa .e-klatka--1,
-  .estet .e-ramka-dwa .e-klatka--2,
-  .estet .e-ramka-dwa .e-klatka--3{animation:none;}
-  .estet .e-ramka-dwa .e-klatka--2,
-  .estet .e-ramka-dwa .e-klatka--3{display:none;}
+  .estet .e-ramka-dwa .e-klatka--2{display:none;}
 }
 
 /* Film z konsultacji idzie w swoich proporcjach 9:16, wiec widac caly
@@ -294,8 +288,7 @@
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
    u osób, które w systemie wyłączyły animacje. */
 .estet .e-klatka--1{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
-.estet .e-klatka--2{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
-.estet .e-klatka--3{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
+.estet .e-klatka--2{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
 /* Portret w sekcji "O gabinecie" — te same proporcje i to samo
    wygaszenie krawedzi co kadry wideo, zeby siedzial w tym samym
    jezyku wizualnym. */
@@ -551,29 +544,136 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
-<!-- RAMKA Z TRZEMA UJECIAMI.
-  Filmy leza jeden na drugim i przenikaja sie w kolko. Kazde ujecie
-  jest widoczne dokladnie tyle, ile trwa, wiec nie powtarza sie
-  samo w sobie. Robi to sam arkusz stylow, bez skryptu.
-  Pliki (wszystkie z plakatami .jpg):
+<!-- RAMKA POWITALNA — ujecia jedno po drugim.
+  Filmy leza jeden na drugim. Kazdy gra raz, w calosci, i dopiero
+  na koncu rozplywa sie w nastepny — prowadzi to skrypt na dole tej
+  sekcji, wiec zadne ujecie nie powtarza sie samo po sobie.
+  Pliki (oba z plakatami .jpg):
     estetyczna-02.mp4 — lekarka z pacjentem
-    estetyczna-01.mp4 — poczekalnia
     estetyczna-03.mp4 — zabieg w trakcie
-  Zeby zdjac ujecie, usun jego blok wideo i popraw liczbe w regule
-  .e-ramka-dwa (patrz arkusz stylow). -->
+  Ujecie z poczekalni (estetyczna-01.mp4, kanapa) zostalo stad zdjete
+  celowo — nie wstawiaj go z powrotem.
+  Zeby dolozyc ujecie: skopiuj blok wideo, nadaj mu klase
+  "e-klatka--3" i dopisz dla niej plakat w arkuszu stylow. Skrypt sam
+  policzy, ile jest kadrow. -->
 <!-- wp:group {"className":"e-ramka-dwa","layout":{"type":"default"}} -->
 <div class="wp-block-group e-ramka-dwa">
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-klatka e-klatka--1"} -->
 <figure class="wp-block-video e-video e-klatka e-klatka--1"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
 <!-- /wp:video -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-klatka e-klatka--2"} -->
-<figure class="wp-block-video e-video e-klatka e-klatka--2"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
-<!-- /wp:video -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-klatka e-klatka--3"} -->
-<figure class="wp-block-video e-video e-klatka e-klatka--3"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-klatka e-klatka--2"} -->
+<figure class="wp-block-video e-video e-klatka e-klatka--2"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:group -->
+
+<!-- wp:html -->
+<script>
+/* PETLA UJEC W RAMCE POWITALNEJ.
+
+   Ujecia zmieniaja sie w takt tego, co naprawde gra, a nie w takt
+   zegara animacji. Dzieki temu kazde ujecie widac raz, w calosci,
+   od pierwszej klatki, i zaden nie wraca zaraz po sobie.
+
+   Wczesniej robil to sam arkusz stylow, ale kazdy odtwarzacz mial
+   wlasna petle, niezalezna od cyklu przenikania: material trwa
+   2–4 s, cykl 8,5 s, wiec plik przewijal sie w tym czasie kilka razy
+   i okno widocznosci lapalo go za kazdym razem w innym miejscu.
+
+   Zeby dolozyc albo zdjac ujecie, wystarczy dodac lub usunac blok
+   wideo z klasa "e-klatka" — skrypt sam je policzy. */
+(function () {
+  'use strict';
+  try {
+    var ramka = document.querySelector('.e-ramka-dwa');
+    if (!ramka) { return; }
+
+    var klatki = [].slice.call(ramka.querySelectorAll('.e-klatka'));
+    if (klatki.length < 2) { return; }
+
+    /* Kto wylaczyl animacje w systemie, zostaje przy jednym ujeciu
+       w jego wlasnej petli — nie przelaczamy nic. */
+    if (window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+
+    var PRZENIKANIE = 0.9;   /* sekundy — tyle samo, co transition w arkuszu */
+    var biezaca = 0;
+    var wTrakcie = false;
+
+    function film(k) { return k.querySelector('video'); }
+
+    function graj(v) {
+      var obietnica = v.play();
+      /* Przegladarka moze odmowic odtworzenia; nie ma sensu, zeby
+         wywrocilo to cala petle. */
+      if (obietnica && obietnica.catch) { obietnica.catch(function () {}); }
+    }
+
+    function nastepne() {
+      if (wTrakcie) { return; }
+      wTrakcie = true;
+
+      var schodzi = klatki[biezaca];
+      biezaca = (biezaca + 1) % klatki.length;
+      var wchodzi = klatki[biezaca];
+
+      var v = film(wchodzi);
+      try { v.currentTime = 0; } catch (e) {}
+      graj(v);
+      wchodzi.classList.add('e-widoczna');
+      schodzi.classList.remove('e-widoczna');
+
+      /* Ujecie schodzace zatrzymujemy dopiero po przenikaniu — do tej
+         chwili jeszcze je widac, wiec nie moze stanac w miejscu. */
+      window.setTimeout(function () {
+        var poprzedni = film(schodzi);
+        poprzedni.pause();
+        try { poprzedni.currentTime = 0; } catch (e) {}
+        wTrakcie = false;
+      }, PRZENIKANIE * 1000);
+    }
+
+    ramka.classList.add('e-petla-js');
+
+    klatki.forEach(function (k, nr) {
+      var v = film(k);
+      /* Kolejnosc prowadzi skrypt, wiec odtwarzacz nie zapetla sie sam. */
+      v.loop = false;
+      v.muted = true;
+
+      if (nr === 0) { k.classList.add('e-widoczna'); graj(v); }
+      else { v.pause(); try { v.currentTime = 0; } catch (e) {} }
+
+      /* Przelaczamy na tyle wczesniej, ile trwa rozplyniecie, zeby
+         nastepne ujecie bylo juz w ruchu, zanim poprzednie zniknie. */
+      v.addEventListener('timeupdate', function () {
+        if (klatki[biezaca] !== k) { return; }
+        if (!isFinite(v.duration) || v.duration <= 0) { return; }
+        if (v.currentTime >= v.duration - PRZENIKANIE) { nastepne(); }
+      });
+
+      /* Zabezpieczenie: gdyby "timeupdate" nie zdazyl (bardzo krotkie
+         ujecie, obciazone urzadzenie), koniec pliku i tak przesuwa
+         petle dalej. */
+      v.addEventListener('ended', function () {
+        if (klatki[biezaca] === k) { nastepne(); }
+      });
+    });
+
+    /* Po powrocie do karty przegladarka bywa, ze wstrzymala odtwarzanie.
+       Wznawiamy to ujecie, ktore ma byc widoczne. */
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { return; }
+      var v = film(klatki[biezaca]);
+      if (v.paused) { graj(v); }
+    });
+  } catch (err) {
+    if (window.console && window.console.error) { window.console.error('e-petla:', err); }
+  }
+})();
+</script>
+<!-- /wp:html -->
+
 </div>
 <!-- /wp:column -->
 
@@ -924,13 +1024,13 @@
 
 <!-- wp:list {"className":"e-price"} -->
 <ul class="wp-block-list e-price"><!-- wp:list-item -->
-<li><span class="n">Lwia zmarszczka</span><span class="v">600 zł</span></li>
+<li><span class="n">Lwia zmarszczka</span><span class="v">od 600 zł</span></li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><span class="n">Zmarszczki poprzeczne czoła</span><span class="v">600 zł</span></li>
+<li><span class="n">Zmarszczki poprzeczne czoła</span><span class="v">od 600 zł</span></li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><span class="n">Kurze łapki</span><span class="v">600 zł</span></li>
+<li><span class="n">Kurze łapki</span><span class="v">od 600 zł</span></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -940,10 +1040,10 @@
 
 <!-- wp:list {"className":"e-price"} -->
 <ul class="wp-block-list e-price"><!-- wp:list-item -->
-<li><span class="n">2 okolice</span><span class="v">1050 zł</span></li>
+<li><span class="n">2 okolice</span><span class="v">od 1050 zł</span></li>
 <!-- /wp:list-item -->
 <!-- wp:list-item -->
-<li><span class="n">3 okolice</span><span class="v">1350 zł</span></li>
+<li><span class="n">3 okolice</span><span class="v">od 1350 zł</span></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
