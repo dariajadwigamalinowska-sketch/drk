@@ -362,8 +362,10 @@
   background:
     linear-gradient(168deg, rgba(152,200,184,.22), rgba(248,197,160,.18)),
     var(--kb-tlo-2);
-  border-top:1px solid var(--kb-linia);
-  border-bottom:1px solid var(--kb-linia);
+  /* Kreski w szalwii, nie w atramencie — pas graniczy teraz od dolu
+     z zielona stopka, wiec szara linia wypadalaby z palety. */
+  border-top:1px solid rgba(83,115,104,.28);
+  border-bottom:1px solid rgba(83,115,104,.28);
   padding-top:calc(var(--kb-sekcja) + 10px);
   padding-bottom:calc(var(--kb-sekcja) + 10px);
 }
@@ -761,26 +763,30 @@
    ========================================================================= */
 /* Stopka krycy — jak pas atutow. Napisy leza na niej bezposrednio,
    wiec tlo nie moze przepuszczac jasnego tla strony. */
-/* Stopka tez jest jasna. Ciemna plyta na koncu strony ciagnela oko
-   mocniej niz tresc nad nia; kreska u gory wystarcza za podzial. */
+/* Stopka w zieleni ze strony — tej samej szalwii, co kreski pod
+   tytulami, pas atutow i pas projektu edukacyjnego. Jest jasna:
+   ciemna plyta na koncu strony ciagnela oko mocniej niz tresc nad nia.
+   Wszystkie barwy pisma sa dobrane pod to tlo tak, zeby drobne litery
+   trzymaly sie powyzej 4,5:1 — wczesniejsza brzoskwinia (#876750)
+   dawala na zieleni 3,7:1 i schodzila ponizej progu. */
 .kb-stopka{
-  background:var(--kb-tlo);
-  border-top:1px solid var(--kb-linia);
+  background:linear-gradient(168deg, var(--kb-szalwia-jasna), #C9E2D6);
+  border-top:1px solid var(--kb-szalwia);
   color:var(--kb-atrament-2);
   padding:44px 24px 24px !important; font-family:var(--kb-font);
 }
 .kb-stopka .kb-logo{ color:var(--kb-atrament); margin:0 !important; }
-.kb-stopka .kb-podpis{ color:var(--kb-akcent-tekst); margin:2px 0 0 !important; }
+.kb-stopka .kb-podpis{ color:var(--kb-ciemny-2); margin:2px 0 0 !important; }
 
 /* Etykiety kolumn — drobne wersaliki, ta sama miara co reszta drobnego pisma */
 .kb-stopka-etykieta{
   margin:0 0 12px !important; font-size:.72rem !important; font-weight:600;
-  letter-spacing:.2em; text-transform:uppercase; color:var(--kb-akcent-tekst);
+  letter-spacing:.2em; text-transform:uppercase; color:var(--kb-ciemny-2);
 }
 /* Numer jest w stopce najwazniejszy, wiec dostaje kroj naglowkowy i skale */
 .kb-stopka-numer{ margin:0 !important; font-family:var(--kb-font-naglowki); font-size:1.6rem !important; line-height:1.1 !important; }
-.kb-stopka-numer a{ color:var(--kb-atrament); text-decoration:none; border-bottom:1px solid rgba(59,47,48,.2); }
-.kb-stopka-numer a:hover{ color:var(--kb-akcent-tekst); border-bottom-color:var(--kb-akcent-tekst); }
+.kb-stopka-numer a{ color:var(--kb-atrament); text-decoration:none; border-bottom:1px solid rgba(55,81,72,.35); }
+.kb-stopka-numer a:hover{ color:var(--kb-ciemny-2); border-bottom-color:var(--kb-ciemny-2); }
 .kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:var(--kb-atrament-2); }
 .kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:var(--kb-atrament-2); line-height:1.6; }
 
@@ -788,9 +794,9 @@
 .kb-stopka-link a{
   display:inline-block; padding:6px 0;
   color:var(--kb-atrament); text-decoration:none;
-  border-bottom:1px solid rgba(227,166,167,.7);
+  border-bottom:1px solid rgba(83,115,104,.55);
 }
-.kb-stopka-link a:hover{ color:var(--kb-akcent); border-bottom-color:var(--kb-akcent); }
+.kb-stopka-link a:hover{ color:var(--kb-ciemny-2); border-bottom-color:var(--kb-ciemny-2); }
 
 /* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
 /* Kreska idzie przez cala szerokosc stopki. Wczesniej byla obrysem
@@ -799,22 +805,24 @@
    wysrodkowanie z .kb-stopka > * i kreska rozjezdza sie z kolumnami. */
 .kb-stopka-kreska{
   margin:34px auto 22px !important; border:0; height:1px;
-  background:var(--kb-linia);
+  background:rgba(55,81,72,.22);
 }
 .kb-stopka-dol-wiersz{ margin:0 auto !important; }
 .kb-stopka-uwaga{
   margin:0 !important; max-width:62ch;
   font-size:.82rem !important; line-height:1.75; color:var(--kb-atrament-2);
 }
-.kb-stopka-uwaga strong{ color:var(--kb-akcent-tekst); }
+/* Numer alarmowy zostaje cieply, zeby odcinal sie od zieleni,
+   ale w odcieniu, ktory na tym tle daje 5,3:1 zamiast 3,7:1. */
+.kb-stopka-uwaga strong{ color:#7A4A2C; }
 
 .kb-stopka-dol{
   margin:0 !important; font-size:.74rem !important; line-height:1.7;
   letter-spacing:.08em; color:var(--kb-atrament-2);
 }
 .kb-spoleczne{ margin-top:18px !important; }
-.kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(59,47,48,.07); color:var(--kb-atrament); }
-.kb-stopka .wp-block-social-links .wp-social-link:hover{ background:var(--kb-roz); }
+.kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(55,81,72,.10); color:var(--kb-atrament); }
+.kb-stopka .wp-block-social-links .wp-social-link:hover{ background:var(--kb-szalwia); }
 
 /* =========================================================================
    NOTA / ZASTRZEŻENIE
