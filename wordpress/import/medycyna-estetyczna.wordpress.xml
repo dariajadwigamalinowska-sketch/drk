@@ -78,6 +78,7 @@
      estetyczna-01.mp4 + .jpg  — poczekalnia          (0,19 MB)
      estetyczna-02.mp4 + .jpg  — lekarka z pacjentem  (0,25 MB)
      estetyczna-03.mp4 + .jpg  — zabieg w trakcie     (0,28 MB)
+     estetyczna-konsultacja.mp4 + .jpg — konsultacja  (1,16 MB)
    Pętla powstaje przez przenikanie końca ujęcia w jego początek —
    materiał nigdy nie jest odtwarzany wstecz.
    1. Wgraj wszystkie sześć plików do Biblioteki mediów.
@@ -187,6 +188,27 @@
 .estet .e-lead-oferta{
   font-size:1rem !important;max-width:56ch;
   margin-left:auto !important;margin-right:auto !important;
+}
+
+/* Ramka z dwoma ujeciami — oba kadry leza na sobie i przenikaja sie
+   w petli 14 s. Bez skryptu: wystarcza dwie animacje przesuniete
+   w fazie o polowe cyklu. */
+.estet .e-ramka-dwa{position:relative;}
+.estet .e-ramka-dwa .e-video{margin:0;}
+.estet .e-ramka-dwa .e-video--01{
+  position:absolute;inset:0;
+}
+.estet .e-ramka-dwa .e-video--01 video{height:100%;object-fit:cover;}
+.estet .e-ramka-dwa .e-video--02{animation:e-przenikanie 14s ease-in-out infinite;}
+.estet .e-ramka-dwa .e-video--01{animation:e-przenikanie 14s ease-in-out infinite -7s;}
+@keyframes e-przenikanie{
+  0%,42%{opacity:1;} 50%,92%{opacity:0;} 100%{opacity:1;}
+}
+/* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie. */
+@media (prefers-reduced-motion:reduce){
+  .estet .e-ramka-dwa .e-video--02,
+  .estet .e-ramka-dwa .e-video--01{animation:none;}
+  .estet .e-ramka-dwa .e-video--01{display:none;}
 }
 
 /* Kadr przy wstepie do oferty — nizszy niz pozostale, zeby nie
@@ -488,14 +510,22 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
-<!--
-  WIDEO: lekarka z pacjentem (estetyczna-02.mp4).
-  Po wgraniu plików do Biblioteki mediów kliknij w blok i podmień plik —
-  albo popraw dwa adresy poniżej na te z Biblioteki.
--->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02 e-video--hero"} -->
-<figure class="wp-block-video e-video e-video--02 e-video--hero"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
+<!-- RAMKA Z DWOMA UJECIAMI.
+  Oba filmy leza jeden na drugim i przenikaja sie w kolko: 7 s widac
+  pierwszy, potem drugi. Robi to sam arkusz stylow, bez skryptu.
+  Pliki: estetyczna-02.mp4 (lekarka z pacjentem) i estetyczna-01.mp4
+  (poczekalnia), oba z plakatami .jpg.
+  Zeby zostawic jedno ujecie, wystarczy usunac drugi blok wideo. -->
+<!-- wp:group {"className":"e-ramka-dwa","layout":{"type":"default"}} -->
+<div class="wp-block-group e-ramka-dwa">
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02"} -->
+<figure class="wp-block-video e-video e-video--02"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
 <!-- /wp:video -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-video--01"} -->
+<figure class="wp-block-video e-video e-video--01"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:column -->
 
@@ -657,9 +687,8 @@
 <!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
 <!-- /wp:heading -->
-<!-- Wstep do oferty ze spokojnym kadrem gabinetu obok. Uzyty jest
-     ten sam plik co w sekcji "O gabinecie" — jesli masz osobne ujecie
-     detalu albo swiatla, kliknij w blok wideo → "Zastąp". -->
+<!-- Wstep do oferty z filmem z konsultacji obok.
+     Plik: assets/wideo/estetyczna-konsultacja.mp4 (+ .jpg plakat). -->
 <!-- wp:columns {"verticalAlignment":"center","className":"e-oferta-wstep","style":{"spacing":{"blockGap":{"left":"48px"},"margin":{"bottom":"56px"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center e-oferta-wstep" style="margin-bottom:56px">
 
@@ -673,8 +702,8 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-video--oferta"} -->
-<figure class="wp-block-video e-video e-video--oferta"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-konsultacja.jpg","src":"/wp-content/uploads/estetyczna-konsultacja.mp4","className":"e-video e-video--oferta"} -->
+<figure class="wp-block-video e-video e-video--oferta"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-konsultacja.jpg" src="/wp-content/uploads/estetyczna-konsultacja.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:column -->

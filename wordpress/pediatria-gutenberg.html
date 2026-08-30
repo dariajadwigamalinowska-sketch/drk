@@ -80,8 +80,8 @@
   --kb-tlo:          #F6E3D6;   /* brzoskwiniowe tło główne              */
   --kb-tlo-2:        #FBF0E7;   /* jaśniejszy odcień, co druga sekcja    */
   --kb-blekit:       #9E9EB4;   /* akcent jasny — poświata, gradienty    */
-  --kb-ciemny:       #4F5578;   /* ciemne pasy, przyciski, ikony         */
-  --kb-ciemny-2:     #3E4664;   /* przycisk po najechaniu                */
+  --kb-ciemny:       #5C6488;   /* ciemne pasy, przyciski, ikony         */
+  --kb-ciemny-2:     #4A5273;   /* przycisk po najechaniu                */
   --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
   --kb-atrament-2:   #514541;   /* akapity, podpisy — ciemniejszy, bo
                                    leza takze na gradiencie powitania    */
@@ -97,7 +97,7 @@
   --kb-promien:      22px;      /* miękkie zaokrąglenie kart             */
   --kb-promien-luk:  0;         /* nieużywane — zdjęcie ma kształt kropli */
   --kb-szerokosc:    1040px;
-  --kb-sekcja:       60px;
+  --kb-sekcja:       42px;
 
   /* --- typografia --- */
   --kb-font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -199,7 +199,7 @@
 /* Marginesy poziome "auto", zeby !important nie skasowalo wysrodkowania
    z .kb-sekcja > * — inaczej naglowek stojacy bezposrednio w sekcji
    przesuwa sie o pol roznicy szerokosci wzgledem reszty tresci. */
-.kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 auto .5em !important; }
+.kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 auto .38em !important; }
 .kb-naglowek-maly{ font-size:clamp(1.4rem,2.2vw,1.75rem) !important; margin:0 auto .5em !important; }
 
 /* Tytul sekcji odcieta krotka rozowa kreska — ten sam zabieg co na
@@ -207,7 +207,7 @@
    idzie za naglowkiem, wiec nie trzeba jej wstawiac osobnym blokiem. */
 .kb-naglowek::after{
   content:""; display:block; width:56px; height:2px;
-  margin:18px 0 0; border-radius:2px;
+  margin:14px 0 0; border-radius:2px;
   background:linear-gradient(to right,var(--kb-roz),rgba(227,166,167,0));
 }
 .kb-naglowek.has-text-align-center::after{
@@ -222,7 +222,7 @@
   max-width:48ch; margin:0 0 26px !important;
 }
 .kb-tekst-srodek{ margin-left:auto !important; margin-right:auto !important; max-width:58ch; }
-.kb-tekst-luzno{ margin-bottom:56px !important; max-width:56ch; }
+.kb-tekst-luzno{ margin-bottom:22px !important; max-width:56ch; }
 .kb-tekst{ color:var(--kb-atrament-2); max-width:58ch; }
 .kb-drobne{
   font-size:.88rem !important; color:var(--kb-atrament-2);
@@ -253,17 +253,17 @@
    WASZE SŁOWA — wypowiedzi rodziców
    ========================================================================= */
 .kb-glosy-mur{
-  margin:0 auto !important; max-width:var(--kb-szerokosc);
+  margin:14px auto 0 !important; max-width:var(--kb-szerokosc);
   /* Uklad murkowy: cytaty maja rozna dlugosc, wiec zamiast siatki
      z dziurami ustawiamy je w kolumnach, ktore same sie wyrownuja. */
   column-count:3; column-gap:22px;
 }
 .kb-glos{
   break-inside:avoid; -webkit-column-break-inside:avoid;
-  margin:0 0 22px !important; padding:24px 26px 26px;
+  margin:0 0 16px !important; padding:20px 22px 22px;
   background:rgba(255,253,251,.72);
   border:1px solid rgba(69,56,58,.07); border-radius:var(--kb-promien);
-  box-shadow:0 22px 46px -38px rgba(69,56,58,.28);
+  box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
   font-family:var(--kb-font-naglowki); font-style:italic; font-weight:300;
   font-size:1rem !important; line-height:1.6; color:var(--kb-atrament);
 }
@@ -275,11 +275,48 @@
 @media (max-width:1000px){ .kb-glosy-mur{ column-count:2; } }
 @media (max-width:640px){  .kb-glosy-mur{ column-count:1; } }
 
+/* Ramka powitalna z dwoma ujeciami — oba kadry leza na sobie
+   i przenikaja sie w petli 18 s. Bez skryptu: dwie animacje
+   przesuniete w fazie o polowe cyklu. */
+.kb-ramka-dwa{ position:relative; }
+.kb-ramka-dwa .kb-film-ramka{ margin:0 !important; }
+.kb-ramka-dwa .kb-film--b{ position:absolute; inset:0; }
+.kb-ramka-dwa .kb-film--b video{ height:100%; }
+/* Kadrowanie ustawione osobno dla kazdego ujecia: wyzsze kadrowanie
+   bylo dobrane pod misia i przy filmie z gabinetu ucinalo twarze. */
+.kb-ramka-dwa .kb-film--a video{ object-position:center 42%; }
+.kb-ramka-dwa .kb-film--a{ animation:kb-przenikanie 18s ease-in-out infinite; }
+.kb-ramka-dwa .kb-film--b{ animation:kb-przenikanie 18s ease-in-out infinite -9s; }
+@keyframes kb-przenikanie{
+  0%,44%{ opacity:1; } 50%,94%{ opacity:0; } 100%{ opacity:1; }
+}
+/* Kto wylaczyl animacje w systemie, widzi tylko pierwsze ujecie. */
+@media (prefers-reduced-motion:reduce){
+  .kb-ramka-dwa .kb-film--a,.kb-ramka-dwa .kb-film--b{ animation:none; }
+  .kb-ramka-dwa .kb-film--b{ display:none; }
+}
+
+/* Kadr z detalami gabinetu obok wypowiedzi rodzicow */
+.kb-film-detale{ margin:0 !important; }
+.kb-film-detale video{
+  width:100%; aspect-ratio:3/4; height:auto; object-fit:cover;
+  border-radius:var(--kb-promien);
+  box-shadow:0 20px 44px -42px rgba(69,56,58,.2);
+  -webkit-mask-image:radial-gradient(120% 120% at 50% 50%, #000 66%, rgba(0,0,0,.6) 86%, transparent 100%);
+  mask-image:radial-gradient(120% 120% at 50% 50%, #000 66%, rgba(0,0,0,.6) 86%, transparent 100%);
+}
+.kb-glosy-uklad{ margin:14px auto 0 !important; }
+.kb-glosy-uklad .kb-glosy-mur{ margin:0 !important; column-count:2; }
+@media (max-width:781px){
+  .kb-glosy-uklad .kb-glosy-mur{ column-count:1; }
+  .kb-film-detale video{ aspect-ratio:4/3; }
+}
+
 /* =========================================================================
    KARUZELA Z FILMAMI
    ========================================================================= */
 .kb-filmy .kb-nadtytul-srodek{ justify-content:center; }
-.kb-karuzela{ position:relative; margin-top:34px; }
+.kb-karuzela{ position:relative; margin-top:24px; }
 .kb-tor{
   display:flex; gap:20px; margin:0; padding:0 4px 6px; list-style:none;
   overflow-x:auto; scroll-snap-type:x mandatory;
@@ -322,7 +359,7 @@
   transform:translateX(-6px);
 }
 .kb-film-podpis{
-  margin:12px 2px 0 !important; font-size:.86rem !important;
+  margin:10px 2px 0 !important; font-size:.86rem !important;
   color:var(--kb-atrament-2); line-height:1.5;
 }
 .kb-strzalka{
@@ -399,11 +436,11 @@
   border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
 }
 .kb-btn-glowny .wp-block-button__link{
-  background:linear-gradient(105deg, #454E6B, #5A5C80); color:#fff;
-  box-shadow:0 10px 24px -14px rgba(69,62,90,.6);
+  background:linear-gradient(105deg, #5C6488, #686F93); color:#fff;
+  box-shadow:0 8px 20px -16px rgba(69,62,90,.35);
 }
 .kb-btn-glowny .wp-block-button__link:hover{ background:var(--kb-ciemny-2); transform:translateY(-2px); }
-.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.72); color:#3E4664; border-color:rgba(62,70,100,.5); }
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.72); color:#4A5273; border-color:rgba(74,82,115,.4); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
 
@@ -440,7 +477,7 @@
      nizej w ramie i ma nad soba wiecej powietrza. */
   object-position:center 22%;
   border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
-  box-shadow:0 30px 60px -38px rgba(69,56,58,.28);
+  box-shadow:0 24px 52px -42px rgba(69,56,58,.18);
   /* Krawedz filmu rozmywa sie w tlo, zamiast konczyc sie twarda linia. */
   -webkit-mask-image:radial-gradient(115% 115% at 50% 45%, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%);
   mask-image:radial-gradient(115% 115% at 50% 45%, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%);
@@ -495,11 +532,11 @@
 /* Portret w ramce — passe-partout jak w oprawionym zdjęciu: jasna
    plansza, cienki obrys, zdjęcie w środku, podpis pod spodem. */
 .kb-portret-ramka{
-  max-width:400px; margin:0 auto !important;
+  max-width:370px; margin:0 auto !important;
   background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
   border-radius:var(--kb-promien);
   padding:18px 18px 24px !important;
-  box-shadow:0 26px 54px -38px rgba(69,56,58,.3);
+  box-shadow:0 20px 44px -42px rgba(69,56,58,.2);
 }
 .kb-portret{ margin:0 !important; }
 .kb-portret img{
@@ -524,9 +561,9 @@
    schodzil ponizej 3:1 i przestawal byc czytelny. Lagodnosc bierze sie
    teraz z samego koloru i z gradientu, nie z przepuszczania tla. */
 .kb-atuty{
-  background:linear-gradient(100deg, #3E4664, #43486C 55%, #4C4C74) !important;
+  background:linear-gradient(100deg, #565E80, #5F6789 55%, #686F93) !important;
   color:#FDF6EF;
-  padding-top:30px !important; padding-bottom:30px !important;
+  padding-top:22px !important; padding-bottom:22px !important;
 }
 .kb-atuty h2,.kb-atuty h3{ color:#FBF1E8; }
 .kb-atut{
@@ -593,8 +630,8 @@
    ========================================================================= */
 .kb-karta-kontakt{
   background:rgba(255,253,251,.72); border:1px solid rgba(69,56,58,.07);
-  border-radius:var(--kb-promien); padding:40px 36px !important;
-  box-shadow:0 22px 46px -36px rgba(69,56,58,.28);
+  border-radius:var(--kb-promien); padding:32px 30px !important;
+  box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
 }
 .kb-kontakt-pozycja{
   margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
@@ -619,23 +656,23 @@
 /* Stopka krycy — jak pas atutow. Napisy leza na niej bezposrednio,
    wiec tlo nie moze przepuszczac jasnego tla strony. */
 .kb-stopka{
-  background:linear-gradient(100deg, #3E4664, #43486C 60%, #4C4C74);
+  background:linear-gradient(100deg, #4A5273, #505879 60%, #565E80);
   color:#F4EDE6;
-  padding:60px 24px 26px !important; font-family:var(--kb-font);
+  padding:44px 24px 24px !important; font-family:var(--kb-font);
 }
 .kb-stopka .kb-logo{ color:#fff; margin:0 !important; }
-.kb-stopka .kb-podpis{ color:#F0BFC1; margin:2px 0 0 !important; }
+.kb-stopka .kb-podpis{ color:#F8D6D7; margin:2px 0 0 !important; }
 
 /* Etykiety kolumn — drobne wersaliki, ta sama miara co reszta drobnego pisma */
 .kb-stopka-etykieta{
   margin:0 0 12px !important; font-size:.68rem !important; font-weight:600;
-  letter-spacing:.2em; text-transform:uppercase; color:#F0BFC1;
+  letter-spacing:.2em; text-transform:uppercase; color:#F8D6D7;
 }
 /* Numer jest w stopce najwazniejszy, wiec dostaje kroj naglowkowy i skale */
 .kb-stopka-numer{ margin:0 !important; font-family:var(--kb-font-naglowki); font-size:1.6rem !important; line-height:1.1 !important; }
 .kb-stopka-numer a{ color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.28); }
 .kb-stopka-numer a:hover{ border-bottom-color:#fff; }
-.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:#D3C8C1; }
+.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:#E2D9D2; }
 .kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:#EFE6DE; line-height:1.6; }
 
 .kb-stopka-link{ margin:0 0 8px !important; font-size:.92rem !important; }
@@ -654,13 +691,13 @@
 .kb-stopka-dol-wiersz{ margin:0 auto !important; }
 .kb-stopka-uwaga{
   margin:0 !important; max-width:62ch;
-  font-size:.82rem !important; line-height:1.75; color:#DFD5CE;
+  font-size:.82rem !important; line-height:1.75; color:#E9E0DA;
 }
 .kb-stopka-uwaga strong{ color:#F0BFC1; }
 
 .kb-stopka-dol{
   margin:0 !important; font-size:.74rem !important; line-height:1.7;
-  letter-spacing:.08em; color:#D3C8C1;
+  letter-spacing:.08em; color:#E2D9D2;
 }
 .kb-spoleczne{ margin-top:18px !important; }
 .kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(255,255,255,.14); color:#fff; }
@@ -758,17 +795,24 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
-<!--
-  FILM POWITALNY — pliki gotowe do wgrania leżą w repozytorium
-  w assets/wideo/: pediatria-mis.mp4 (0,25 MB) i pediatria-mis.jpg (plakat).
-  Petla powstaje przez przenikanie konca ujecia w jego poczatek —
-  material nigdy nie jest odtwarzany wstecz.
-  Wgraj oba do Biblioteki mediów, potem kliknij w blok → "Zastąp"
-  albo popraw dwa adresy poniżej.
--->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka kb-film-luk"} -->
-<figure class="wp-block-video kb-film-ramka kb-film-luk"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
+<!-- RAMKA POWITALNA — dwa ujecia jedno na drugim.
+  Przenikaja sie w kolko: 9 s widac film z gabinetu, potem misia.
+  Robi to sam arkusz stylow, bez skryptu.
+  Pliki w assets/wideo/: pediatria-gabinet.mp4 (1,35 MB) i
+  pediatria-mis.mp4 (0,25 MB), oba z plakatami .jpg.
+  Kadry sa lekko ocieplone, zeby mietowy gabinet nie odcinal sie
+  chlodem od brzoskwiniowego tla strony.
+  Zeby zostawic jedno ujecie, usun drugi blok wideo. -->
+<!-- wp:group {"className":"kb-ramka-dwa","layout":{"type":"default"}} -->
+<div class="wp-block-group kb-ramka-dwa">
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-gabinet.jpg","src":"/wp-content/uploads/pediatria-gabinet.mp4","className":"kb-film-ramka kb-film-luk kb-film--a"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--a"><video autoplay loop muted poster="/wp-content/uploads/pediatria-gabinet.jpg" src="/wp-content/uploads/pediatria-gabinet.mp4" playsinline></video></figure>
 <!-- /wp:video -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-mis.jpg","src":"/wp-content/uploads/pediatria-mis.mp4","className":"kb-film-ramka kb-film-luk kb-film--b"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--b"><video autoplay loop muted poster="/wp-content/uploads/pediatria-mis.jpg" src="/wp-content/uploads/pediatria-mis.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:column -->
 </div>
@@ -947,7 +991,7 @@
   border-radius:var(--kb-promien); padding:32px 30px;
   max-width:760px; margin:0 auto;
   font-family:var(--kb-font); color:var(--kb-atrament);
-  box-shadow:0 26px 52px -40px rgba(69,56,58,.3);
+  box-shadow:0 20px 44px -44px rgba(69,56,58,.2);
 }
 .kb-kalkulator *,.kb-kalkulator *::before{ box-sizing:border-box; }
 .kb-kalkulator :focus-visible{ outline:3px solid var(--kb-ciemny); outline-offset:2px; }
@@ -1211,6 +1255,21 @@
 <h2 class="wp-block-heading has-text-align-center kb-naglowek">Wasze słowa</h2>
 <!-- /wp:heading -->
 
+<!-- wp:columns {"verticalAlignment":"center","className":"kb-glosy-uklad","style":{"spacing":{"blockGap":{"left":"34px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center kb-glosy-uklad">
+
+<!-- wp:column {"verticalAlignment":"center","width":"30%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:30%">
+<!-- Kadry z gabinetu: detale, zabawki, tabliczka z imieniem.
+     Plik: assets/wideo/pediatria-detale.mp4 (1,61 MB) + plakat .jpg -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-detale.jpg","src":"/wp-content/uploads/pediatria-detale.mp4","className":"kb-film-detale"} -->
+<figure class="wp-block-video kb-film-detale"><video autoplay loop muted poster="/wp-content/uploads/pediatria-detale.jpg" src="/wp-content/uploads/pediatria-detale.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"70%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:70%">
 <!-- wp:group {"className":"kb-glosy-mur","layout":{"type":"default"}} -->
 <div class="wp-block-group kb-glosy-mur">
 <!-- wp:paragraph {"className":"kb-glos"} -->
@@ -1233,6 +1292,11 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
 
 </div>
 <!-- /wp:group -->
