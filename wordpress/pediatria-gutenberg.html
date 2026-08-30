@@ -79,13 +79,13 @@
   /* --- kolory --- */
   --kb-tlo:          #F7F5F0;   /* ciepła biel z nutą szałwii            */
   --kb-tlo-2:        #FFFFFF;   /* czysta biel, co druga sekcja          */
-  --kb-blekit:       #B9D6CC;   /* mięta z logotypu — poświata, gradienty */
+  --kb-blekit:       #BADDCB;   /* mięta z logotypu — poświata, gradienty */
   /* Barwy zdjęte z logotypu: mięta stetoskopu i brzoskwinia napisu.
      Odcienie "-tekst" to te same kolory przyciemnione tak, żeby
      drobne pismo miało co najmniej 4,7:1 na tle strony. */
-  --kb-szalwia:      #8FBBAF;
-  --kb-szalwia-jasna:#DCE9E3;
-  --kb-szalwia-tekst:#56736B;
+  --kb-szalwia:      #98C8B8;
+  --kb-szalwia-jasna:#DFEDE6;
+  --kb-szalwia-tekst:#537368;
   --kb-ciemny:       #5C6488;   /* ciemne pasy, przyciski, ikony         */
   --kb-ciemny-2:     #4A5273;   /* przycisk po najechaniu                */
   --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
@@ -93,11 +93,11 @@
                                    leza takze na gradiencie powitania    */
   --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
   --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
-  --kb-akcent:       #EFA97C;   /* brzoskwinia z logotypu — kursywa      */
-  --kb-akcent-tekst: #8F6347;
-  --kb-roz:          #F0C0A0;   /* brzoskwiniowa kreska ozdobna          */
+  --kb-akcent:       #F8C5A0;   /* brzoskwinia z logotypu — kursywa      */
+  --kb-akcent-tekst: #876750;
+  --kb-roz:          #F6CBAD;   /* brzoskwiniowa kreska ozdobna          */
   --kb-karta:        #FFFDFB;
-  --kb-zastepcze:    linear-gradient(150deg,rgba(143,187,175,.26),rgba(239,169,124,.24));
+  --kb-zastepcze:    linear-gradient(150deg,rgba(152,200,184,.28),rgba(248,197,160,.26));
   --kb-linia:        rgba(59,47,48,.09);
 
   /* --- kształty i odstępy --- */
@@ -171,12 +171,12 @@
     /* Przebieg jak w logotypie: mieta stetoskopu po lewej, przez
        ciepla biel, do brzoskwini napisu po prawej. */
     linear-gradient(102deg,
-      rgba(185,214,204,.34)   0%,
-      rgba(143,187,175,.28)  18%,
-      rgba(198,220,212,.24)  38%,
-      rgba(232,224,212,.24)  58%,
-      rgba(243,206,175,.26)  80%,
-      rgba(239,169,124,.24) 100%),
+      rgba(186,221,203,.36)   0%,
+      rgba(152,200,184,.30)  18%,
+      rgba(203,226,215,.24)  38%,
+      rgba(236,228,216,.24)  58%,
+      rgba(246,203,173,.26)  80%,
+      rgba(248,197,160,.26) 100%),
     var(--kb-tlo);
 }
 
@@ -219,11 +219,11 @@
 .kb-naglowek::after{
   content:""; display:block; width:64px; height:2px;
   margin:14px 0 0; border-radius:2px;
-  background:linear-gradient(to right,var(--kb-szalwia),rgba(239,169,124,.55) 70%,rgba(239,169,124,0));
+  background:linear-gradient(to right,var(--kb-szalwia),rgba(248,197,160,.7) 70%,rgba(248,197,160,0));
 }
 .kb-naglowek.has-text-align-center::after{
   margin-left:auto; margin-right:auto; width:104px;
-  background:linear-gradient(to right,rgba(143,187,175,0),var(--kb-szalwia) 50%,rgba(143,187,175,0));
+  background:linear-gradient(to right,rgba(152,200,184,0),var(--kb-szalwia) 50%,rgba(152,200,184,0));
 }
 /* W karcie kontaktu naglowek jest etykieta karty, nie tytulem sekcji. */
 .kb-karta-kontakt .kb-naglowek-maly::after{ display:none; }
@@ -448,7 +448,7 @@
   background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
   box-shadow:none;
 }
-.kb-btn-glowny .wp-block-button__link:hover{ background:#C9DCD3; transform:translateY(-2px); }
+.kb-btn-glowny .wp-block-button__link:hover{ background:#CDE2D7; transform:translateY(-2px); }
 .kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.8); color:var(--kb-atrament); border-color:var(--kb-linia); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
@@ -584,7 +584,7 @@
    elementem strony i przecinala ja w polowie; jasne pasmo z cienkimi
    kreskami daje ten sam podzial, nie krzyczac. */
 .kb-atuty{
-  background:linear-gradient(100deg, rgba(143,187,175,.12), rgba(239,169,124,.10)) !important;
+  background:linear-gradient(100deg, rgba(152,200,184,.14), rgba(248,197,160,.12)) !important;
   border-top:1px solid var(--kb-linia); border-bottom:1px solid var(--kb-linia);
   color:var(--kb-atrament);
   padding-top:20px !important; padding-bottom:20px !important;
@@ -784,9 +784,11 @@
 <!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%">
 <!-- LOGOTYP praktyki. Plik: assets/grafika/logo-pediatria.png
-     (biel wycięta, tło przezroczyste). Żeby go podmienić, kliknij
-     w obrazek → "Zastąp". Nazwa praktyki jest już w samym znaku,
-     więc nie powtarzamy jej obok tekstem. -->
+     — miętowy stetoskop z napisem "Doktor Kasia", biel wycięta,
+     tło przezroczyste, 1000 px szerokości. Cała kolorystyka strony
+     jest zdjęta z tego pliku. Żeby go podmienić, kliknij w obrazek
+     → "Zastąp". Nazwa praktyki jest już w samym znaku, więc nie
+     powtarzamy jej obok tekstem. -->
 <!-- wp:image {"url":"/wp-content/uploads/logo-pediatria.png","className":"kb-logo-obraz"} -->
 <figure class="wp-block-image kb-logo-obraz"><img src="/wp-content/uploads/logo-pediatria.png" alt="Opieka Pediatryczna Doktor Kasi — lek. Katarzyna Bator, specjalista pediatra"/></figure>
 <!-- /wp:image -->
@@ -969,10 +971,7 @@
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
 <!-- wp:button {"className":"kb-btn-glowny"} -->
-<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Napisz SMS</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"kb-btn-obrys"} -->
-<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="tel:+48535999565">Zadzwoń</a></div>
+<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Umów się</a></div>
 <!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
@@ -1060,13 +1059,13 @@
   font-family:inherit; font-weight:600; font-size:.95rem;
   transition:background .2s ease, transform .2s ease;
 }
-.kb-licz:hover{ background:#C9DCD3; transform:translateY(-2px); }
+.kb-licz:hover{ background:#CDE2D7; transform:translateY(-2px); }
 
 .kb-kalkulator .kb-wynik{ display:none; margin-top:28px; }
 .kb-kalkulator .kb-wynik.kb-on{ display:block; }
 .kb-wynik-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:14px; margin-bottom:18px; }
 .kb-wynik-box{
-  background:linear-gradient(135deg,rgba(143,187,175,.14),rgba(239,169,124,.10));
+  background:linear-gradient(135deg,rgba(152,200,184,.16),rgba(248,197,160,.12));
   border-radius:14px; padding:16px; text-align:center;
 }
 .kb-wynik-box b{
@@ -1082,6 +1081,10 @@
 }
 .kb-kalkulator .kb-uwaga::before{ color:#B4676B; margin-top:.2em; }
 .kb-kalkulator .kb-uwaga + .kb-uwaga{ margin-top:12px; }
+/* Regula wyzej ustawia display:flex i bije wbudowane [hidden],
+   wiec ostrzezenie o niskiej masie ciala wyswietlalo sie zawsze —
+   takze przy 15 kg. Ten wiersz przywraca dzialanie atrybutu. */
+.kb-kalkulator .kb-uwaga[hidden]{ display:none !important; }
 
 @media (max-width:781px){
   .kb-kalkulator{ padding:24px 20px; }
@@ -1096,7 +1099,7 @@
 
   <div class="kb-pola">
     <div class="kb-pole">
-      <label for="kbStezenie">Stężenie preparatu</label>
+      <label for="kbStezenie">Wybierz lek</label>
       <select id="kbStezenie"></select>
     </div>
     <div class="kb-pole">
@@ -1112,10 +1115,10 @@
 
   <div class="kb-wynik" id="kbWynik" aria-live="polite">
     <div class="kb-wynik-grid">
-      <div class="kb-wynik-box"><b id="kbDawka">–</b><span id="kbDawkaMg">dawka jednorazowa</span></div>
+      <div class="kb-wynik-box"><b id="kbDawka">–</b><span>dawka jednorazowa</span></div>
       <div class="kb-wynik-box"><b id="kbOdstep">–</b><span>odstęp między dawkami</span></div>
       <div class="kb-wynik-box"><b id="kbLiczba">–</b><span>dawek na dobę</span></div>
-      <div class="kb-wynik-box"><b id="kbDoba">–</b><span id="kbDobaMg">na dobę łącznie</span></div>
+      <div class="kb-wynik-box"><b id="kbDoba">–</b><span>na dobę łącznie</span></div>
     </div>
 
     <p class="kb-uwaga kb-i-uwaga"><span>Wynik ma charakter <strong>wyłącznie poglądowy</strong>. Przed podaniem leku zawsze zweryfikuj dawkę z ulotką konkretnego preparatu i skonsultuj się z lekarzem lub farmaceutą.</span></p>
@@ -1134,7 +1137,11 @@
      maxDobowaMg        – górna granica sumy z całej doby
      dawekNaDobe        – maksymalna liczba dawek w ciągu doby
      odstep             – minimalny odstęp między dawkami (tekst)
-     stezenia           – warianty preparatu; "mg" = ile mg leku w 5 ml
+     preparaty          – lista konkretnych syropów; "mg" i "ml" opisują
+                          stężenie z opakowania (np. 100 mg / 5 ml).
+                          Stężenie liczymy jako mg na 1 ml, więc krople
+                          100 mg / 1 ml liczą się tak samo poprawnie jak
+                          syropy 100 mg / 5 ml.
 
      Granicy pojedynczej dawki nie zapisujemy osobno — wynika z dwóch
      powyższych (limit dobowy ÷ liczba dawek). Dzięki temu dawka i suma
@@ -1144,22 +1151,54 @@
      Kalkulator liczy wyłącznie w przeglądarce odwiedzającego. Podana masa
      ciała nigdzie nie jest wysyłana ani zapisywana — to celowe, bo dane
      o zdrowiu podlegają art. 9 RODO i nie powinny opuszczać urządzenia.
+
+     ŻEBY DODAĆ PREPARAT: dopisz wiersz do właściwej listy poniżej.
+     Kolejność na liście jest alfabetyczna.
      ===================================================================== */
   var LEKI = {
     ibuprofen: {
       mgKg: 10, maxDobowaMg: 400,
       dawekNaDobe: 4, odstep: 'co 6 godz.',
-      stezenia: [
-        { etykieta: '100 mg / 5 ml', mg: 100 },
-        { etykieta: '200 mg / 5 ml', mg: 200 }
+      preparaty: [
+        { nazwa: 'Axoprofen Forte',           mg: 200, ml: 5 },
+        { nazwa: 'Babyfen',                   mg: 100, ml: 5 },
+        { nazwa: 'Brufen',                    mg: 100, ml: 5 },
+        { nazwa: 'Brufen Forte',              mg: 200, ml: 5 },
+        { nazwa: 'Bufenik',                   mg: 100, ml: 5 },
+        { nazwa: 'Bufenik Forte',             mg: 200, ml: 5 },
+        { nazwa: 'Ibum',                      mg: 100, ml: 5 },
+        { nazwa: 'Ibum Forte',                mg: 200, ml: 5 },
+        { nazwa: 'Ibum Forte Pure',           mg: 200, ml: 5 },
+        { nazwa: 'Ibufen dla dzieci',         mg: 100, ml: 5 },
+        { nazwa: 'Ibufen dla dzieci Forte',   mg: 200, ml: 5 },
+        { nazwa: 'Ibunid dla dzieci Forte',   mg: 200, ml: 5 },
+        { nazwa: 'Ibuprom dla Dzieci',        mg: 100, ml: 5 },
+        { nazwa: 'Ibuprom dla Dzieci Forte',  mg: 200, ml: 5 },
+        { nazwa: 'Ibutact',                   mg: 200, ml: 5 },
+        { nazwa: 'Kidofen',                   mg: 100, ml: 5 },
+        { nazwa: 'Kidofen max',               mg: 250, ml: 5 },
+        { nazwa: 'MIG dla dzieci',            mg: 100, ml: 5 },
+        { nazwa: 'MIG dla dzieci Forte',      mg: 200, ml: 5 },
+        { nazwa: 'Milifen',                   mg: 100, ml: 5 },
+        { nazwa: 'Nurofen dla dzieci',        mg: 100, ml: 5 },
+        { nazwa: 'Nurofen dla dzieci Forte',  mg: 200, ml: 5 },
+        { nazwa: 'Nurofen dla dzieci JUNIOR', mg: 200, ml: 5 }
       ]
     },
     paracetamol: {
       mgKg: 15, maxDobowaMg: 500,
       dawekNaDobe: 5, odstep: 'co 4–6 godz.',
-      stezenia: [
-        { etykieta: '120 mg / 5 ml', mg: 120 },
-        { etykieta: '250 mg / 5 ml', mg: 250 }
+      preparaty: [
+        { nazwa: 'APAP dla dzieci FORTE',     mg: 200, ml: 5 },
+        { nazwa: 'Calpol',                    mg: 120, ml: 5 },
+        { nazwa: 'Calpol 6 Plus',             mg: 250, ml: 5 },
+        { nazwa: 'Panadol dla dzieci',        mg: 120, ml: 5 },
+        { nazwa: 'Paracetamol Aflofarm',      mg: 120, ml: 5 },
+        { nazwa: 'Paracetamol Galena',        mg: 120, ml: 5 },
+        { nazwa: 'Paracetamol Hasco',         mg: 120, ml: 5 },
+        { nazwa: 'Paracetamol Hasco Forte',   mg: 240, ml: 5 },
+        { nazwa: 'Pedicetamol',               mg: 100, ml: 1 },
+        { nazwa: 'Infacetamol',               mg: 100, ml: 1 }
       ]
     }
   };
@@ -1180,7 +1219,6 @@
     var uwagaWiek = $('kbUwagaWiek');
     var outDawka = $('kbDawka'), outOdstep = $('kbOdstep'),
         outLiczba = $('kbLiczba'), outDoba = $('kbDoba');
-    var outDawkaMg = $('kbDawkaMg'), outDobaMg = $('kbDobaMg');
 
     var aktywny = 'ibuprofen';
     var policzono = false;
@@ -1189,10 +1227,12 @@
 
     function odswiezStezenia() {
       selStez.innerHTML = '';
-      LEKI[aktywny].stezenia.forEach(function (s) {
+      LEKI[aktywny].preparaty.forEach(function (s) {
         var opt = document.createElement('option');
-        opt.value = String(s.mg);
-        opt.textContent = s.etykieta;
+        /* Wartoscia jest stezenie w mg na 1 ml — dzieki temu krople
+           100 mg / 1 ml i syrop 100 mg / 5 ml licza sie tak samo. */
+        opt.value = String(s.mg / s.ml);
+        opt.textContent = s.nazwa + ' (' + s.mg + 'mg/' + s.ml + 'ml)';
         selStez.appendChild(opt);
       });
     }
@@ -1218,8 +1258,8 @@
       blad.classList.remove('kb-on');
 
       var lek = LEKI[aktywny];
-      var mgW5ml = parseFloat(selStez.value);
-      if (!isFinite(mgW5ml) || mgW5ml <= 0) { return; }
+      var mgNaMl = parseFloat(selStez.value);
+      if (!isFinite(mgNaMl) || mgNaMl <= 0) { return; }
 
       /* Pokazujemy samą górną granicę, nie zakres. Dawka jednorazowa
          rośnie z masą ciała, ale zatrzymuje się na wartości, przy
@@ -1227,18 +1267,13 @@
       var maxJednorazowaMg = lek.maxDobowaMg / lek.dawekNaDobe;
       var mgDawka = Math.min(lek.mgKg * waga, maxJednorazowaMg);
       var mgDoba  = mgDawka * lek.dawekNaDobe;
-      var naMl    = function (mg) { return (mg / mgW5ml) * 5; };
+      var naMl    = function (mg) { return mg / mgNaMl; };
 
       outDawka.textContent  = pl(naMl(mgDawka)) + ' ml';
       outOdstep.textContent = lek.odstep;
       outLiczba.textContent = lek.dawekNaDobe;
       outDoba.textContent   = pl(naMl(mgDoba)) + ' ml';
 
-      /* Bez slowa "maks." przy wyniku — o limit dba sam kalkulator:
-         powyzej pewnej masy ciala dawka przestaje rosnac i suma dobowa
-         zatrzymuje sie na maxDobowaMg. */
-      if (outDawkaMg) { outDawkaMg.textContent = 'dawka jednorazowa · ' + Math.round(mgDawka) + ' mg'; }
-      if (outDobaMg)  { outDobaMg.textContent  = 'na dobę łącznie · ' + Math.round(mgDoba) + ' mg'; }
 
       if (uwagaWiek) { uwagaWiek.hidden = waga >= WAGA_OSTRZEZENIE; }
 

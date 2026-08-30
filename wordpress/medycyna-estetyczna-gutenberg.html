@@ -149,12 +149,20 @@
 .estet .e-ramka-dwa .e-klatka--3{position:absolute;inset:0;}
 .estet .e-ramka-dwa .e-klatka--2 video,
 .estet .e-ramka-dwa .e-klatka--3 video{height:100%;object-fit:cover;}
-.estet .e-ramka-dwa .e-klatka--1{animation:e-przenikanie 14s linear infinite;}
-.estet .e-ramka-dwa .e-klatka--3{animation:e-przenikanie 14s linear infinite -7s;}
-/* 14 s cyklu: widoczna 0-6 s, gasnie do 7 s, wraca w ostatniej sekundzie. */
-@keyframes e-przenikanie{
-  0%{opacity:1;} 42.9%{opacity:1;} 50%{opacity:0;}
-  92.9%{opacity:0;} 100%{opacity:1;}
+/* Okno widocznosci kazdego ujecia rowna sie jego dlugosci, wiec zaden
+   nie zdazy sie zapetlic sam w sobie. Wczesniej okno mialo 7 s, a klipy
+   2,6 i 3,6 s — kazdy szedl po dwa, trzy razy pod rzad i wygladalo to
+   jak powtorka tego samego materialu.
+   Cykl 6,2 s = 2,6 s (ujecie 1) + 3,6 s (ujecie 2). */
+.estet .e-ramka-dwa .e-klatka--1{animation:e-klatka-1 6.2s linear infinite;}
+.estet .e-ramka-dwa .e-klatka--3{animation:e-klatka-3 6.2s linear infinite;}
+@keyframes e-klatka-1{
+  0%{opacity:1;} 36.3%{opacity:1;} 41.9%{opacity:0;}
+  94.4%{opacity:0;} 100%{opacity:1;}
+}
+@keyframes e-klatka-3{
+  0%{opacity:0;} 36.3%{opacity:0;} 41.9%{opacity:1;}
+  94.4%{opacity:1;} 100%{opacity:0;}
 }
 /* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie. */
 @media (prefers-reduced-motion:reduce){
@@ -165,14 +173,29 @@
   .estet .e-ramka-dwa .e-klatka--3{display:none;}
 }
 
-/* Kadr przy wstepie do oferty — nizszy niz pozostale, zeby nie
-   przewazyl nad tekstem obok. */
-.estet .e-video--oferta{aspect-ratio:5/4;}
-.estet .e-oferta-wstep .e-lead-oferta{
-  margin-left:0 !important;margin-right:0 !important;max-width:46ch;
+/* Film z konsultacji idzie w swoich proporcjach 9:16, wiec widac caly
+   kadr. Wczesniej byl sciety do 5:4 i wiekszosc obrazu przepadala. */
+/* Selektor celowo bardziej szczegolowy niz regula bazowa .e-video,
+   ktora narzuca 4:5 i stoi nizej w arkuszu — bez tego film byl
+   sciety do 0,8 zamiast isc w swoich proporcjach. */
+.estet figure.e-video.e-video--oferta{aspect-ratio:9/16;width:100%;height:auto;}
+.estet figure.e-video.e-video--oferta video{height:100%;object-fit:cover;}
+
+/* Kolumna z tekstem ma wypelnic swoja wysokosc, a nie zawisnac
+   posrodku pustego pola: wieksze pismo i wieksze odstepy. */
+.estet .e-konsultacja h2{margin-bottom:20px;}
+.estet .e-konsultacja .e-lead-oferta{
+  font-size:1.42rem !important;line-height:1.55;
+  max-width:26ch;
+  margin:0 0 20px !important;
+}
+.estet .e-konsultacja-drugi{
+  font-size:1.02rem !important;line-height:1.75;
+  max-width:34ch;margin:0 !important;
 }
 @media (max-width:781px){
-  .estet .e-video--oferta{aspect-ratio:4/3;}
+  .estet .e-konsultacja .e-lead-oferta{font-size:1.24rem !important;max-width:none;}
+  .estet .e-konsultacja-drugi{max-width:none;}
 }
 
 /* Cennik: nazwa grupy zabiegow, podgrupa i uwaga pod pozycja */
@@ -500,8 +523,9 @@
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
 <!-- RAMKA Z DWOMA UJECIAMI.
-  Filmy leza jeden na drugim i przenikaja sie w kolko: po okolo 7 s
-  na kazde ujecie, w petli 14 s. Robi to sam arkusz stylow, bez skryptu.
+  Filmy leza jeden na drugim i przenikaja sie w kolko. Kazde ujecie
+  jest widoczne dokladnie tyle, ile trwa, wiec nie powtarza sie
+  samo w sobie. Robi to sam arkusz stylow, bez skryptu.
   Pliki (wszystkie z plakatami .jpg):
     estetyczna-02.mp4 — lekarka z pacjentem
     estetyczna-03.mp4 — zabieg w trakcie
@@ -644,7 +668,7 @@
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"30px"}}}} -->
 <div class="wp-block-buttons" style="margin-top:30px">
 <!-- wp:button {"className":"e-btn e-btn--gold"} -->
-<div class="wp-block-button e-btn e-btn--gold"><a class="wp-block-button__link wp-element-button" href="tel:+48000000000">Zadzwoń</a></div>
+<div class="wp-block-button e-btn e-btn--gold"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Umów się</a></div>
 <!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
@@ -672,28 +696,39 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 6. ZABIEGI ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
+<!-- ============================ KONSULTACJA ============================
+  Wlasny blok: po lewej tekst, po prawej film z konsultacji w calosci.
+  Plik: assets/wideo/estetyczna-konsultacja.mp4 (+ .jpg plakat).
+-->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-konsultacja","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-konsultacja" style="background-color:#FFFFFF;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
-<!-- wp:heading {"textAlign":"center"} -->
-<h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
+<!-- wp:columns {"verticalAlignment":"center","className":"e-konsultacja","style":{"spacing":{"blockGap":{"left":"56px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center e-konsultacja">
+
+<!-- wp:column {"verticalAlignment":"center","width":"52%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:52%">
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Konsultacja</h2>
 <!-- /wp:heading -->
-<!-- Wstep do oferty z filmem z konsultacji obok.
-     Plik: assets/wideo/estetyczna-konsultacja.mp4 (+ .jpg plakat). -->
-<!-- wp:columns {"verticalAlignment":"center","className":"e-oferta-wstep","style":{"spacing":{"blockGap":{"left":"48px"},"margin":{"bottom":"56px"}}}} -->
-<div class="wp-block-columns are-vertically-aligned-center e-oferta-wstep" style="margin-bottom:56px">
-
-<!-- wp:column {"verticalAlignment":"center","width":"58%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
 <!-- wp:paragraph {"className":"e-lead-oferta"} -->
 <p class="e-lead-oferta">Każda terapia rozpoczyna się od konsultacji lekarskiej. Jej plan tworzony jest indywidualnie — z uwzględnieniem anatomii, naturalnych proporcji i oczekiwanego efektu.</p>
 <!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"e-konsultacja-drugi"} -->
+<p class="e-konsultacja-drugi">Podczas wizyty poznaję Twoje potrzeby, oceniam anatomię i wspólnie ustalamy zakres terapii. Jeśli zabieg nie jest wskazany, powiem o tym wprost.</p>
+<!-- /wp:paragraph -->
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"30px"}}}} -->
+<div class="wp-block-buttons" style="margin-top:30px">
+<!-- wp:button {"className":"e-btn e-btn--solid"} -->
+<div class="wp-block-button e-btn e-btn--solid"><a class="wp-block-button__link wp-element-button" href="#es-kontakt">Umów konsultację</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
 </div>
 <!-- /wp:column -->
 
-<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
+<!-- wp:column {"verticalAlignment":"center","width":"48%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:48%">
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-konsultacja.jpg","src":"/wp-content/uploads/estetyczna-konsultacja.mp4","className":"e-video e-video--oferta"} -->
 <figure class="wp-block-video e-video e-video--oferta"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-konsultacja.jpg" src="/wp-content/uploads/estetyczna-konsultacja.mp4" playsinline></video></figure>
 <!-- /wp:video -->
@@ -702,6 +737,18 @@
 
 </div>
 <!-- /wp:columns -->
+
+</section>
+<!-- /wp:group -->
+
+
+<!-- ============================ 6. ZABIEGI ============================ -->
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
+
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
+<!-- /wp:heading -->
 
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"}}}} -->
 <div class="wp-block-columns">
