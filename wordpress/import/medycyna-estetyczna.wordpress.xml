@@ -158,6 +158,8 @@
 .estet.estet-footer h2::after{display:none;}
 .estet a{color:var(--e-gold-t);}
 .estet a:hover{color:var(--e-ink);}
+/* Numery telefonu w tekscie — pole dotyku ~40 px, bez zmiany ukladu. */
+.estet a.e-tel{ display:inline-block; padding:10px 0; margin:-8px 0; }
 
 
 .estet .e-lead{font-size:1.02rem !important;max-width:46ch;}
@@ -396,7 +398,7 @@
    Tu tlo jest czarne, wiec zloto musi byc jasne: ciemniejszy odcien
    do napisow na kremie dawalby na czerni tylko 3,9:1. */
 .estet .e-stopka-etykieta{
-  margin:0 0 12px !important;font-size:.66rem !important;font-weight:600;
+  margin:0 0 12px !important;font-size:.72rem !important;font-weight:600;
   letter-spacing:.24em;text-transform:uppercase;color:var(--e-gold-l) !important;
 }
 /* Numer to najwazniejsza rzecz w stopce, wiec dostaje kroj naglowkowy */
@@ -411,8 +413,9 @@
 .estet .e-stopka-numer a:hover{ border-bottom-color:var(--e-gold-l); }
 .estet .e-stopka-drobne{ margin:8px 0 0 !important;font-size:.78rem !important;color:#9C958A !important;letter-spacing:.04em; }
 .estet .e-stopka-adres{ margin:16px 0 0 !important;font-size:.9rem !important;color:#EFE9E0 !important;line-height:1.6; }
-.estet .e-stopka-link{ margin:0 0 8px !important;font-size:.92rem !important; }
+.estet .e-stopka-link{ margin:0 0 4px !important;font-size:.92rem !important; }
 .estet .e-stopka-link a{
+  display:inline-block;padding:6px 0;
   color:#EFE9E0 !important;text-decoration:none;
   border-bottom:1px solid rgba(201,169,106,.5);
 }
@@ -442,6 +445,10 @@
 
 @media (max-width:781px){
   .estet .e-price li{flex-wrap:wrap;gap:6px;}
+  /* Fakty jedno pod drugim — wymuszony rzad lamal slowa w polowie.
+     Pionowe kreski miedzy kolumnami znikaja razem z rzedem. */
+  .estet-facts .wp-block-columns{flex-direction:column;gap:12px;}
+  .estet-facts .wp-block-column + .wp-block-column::before{display:none;}
   /* Po zlozeniu kolumn copyright ciagnie sie do prawej krawedzi
      tuz pod zastrzezeniem — na waskim ekranie czyta sie to lepiej
      do lewej, z odstepem. */
@@ -503,7 +510,7 @@
 <!-- /wp:buttons -->
 
 <!-- wp:paragraph {"className":"e-small","style":{"spacing":{"margin":{"top":"28px"}}}} -->
-<p class="e-small" style="margin-top:28px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; <a href="tel:+48535999565">535 999 565</a></p>
+<p class="e-small" style="margin-top:28px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; <a class="e-tel" href="tel:+48535999565">535 999 565</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -641,8 +648,8 @@
 <!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group e-info" style="margin-top:30px">
 <!-- wp:paragraph --><p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>Telefon</strong><a href="tel:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>Rejestracja SMS</strong><a href="sms:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Telefon</strong><a class="e-tel" href="tel:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p><strong>Rejestracja SMS</strong><a class="e-tel" href="sms:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
 

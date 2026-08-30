@@ -468,7 +468,7 @@
   font-size:1.35rem !important; margin:0 !important; color:var(--kb-atrament);
 }
 .kb-podpis{
-  display:block; font-family:var(--kb-font); font-size:.66rem; font-weight:600;
+  display:block; font-family:var(--kb-font); font-size:.72rem; font-weight:600;
   letter-spacing:.18em; text-transform:uppercase;
   color:var(--kb-ciemny); margin:5px 0 0 !important;
 }
@@ -476,7 +476,11 @@
   margin:0 !important; display:flex; flex-wrap:wrap; gap:10px 28px;
   font-size:.9rem; font-weight:600;
 }
-.kb-menu a{ color:var(--kb-atrament-2); text-decoration:none; padding-bottom:2px; border-bottom:2px solid transparent; }
+.kb-menu a{
+  color:var(--kb-atrament-2); text-decoration:none;
+  /* Pionowy padding robi z odnosnika cel dotykowy ~36 px zamiast 20. */
+  display:inline-block; padding:8px 0 6px; border-bottom:2px solid transparent;
+}
 .kb-menu a:hover{ color:var(--kb-atrament); border-bottom-color:var(--kb-roz); }
 
 /* =========================================================================
@@ -691,6 +695,9 @@
   color:var(--kb-atrament); display:flex; align-items:center;
 }
 .kb-kontakt-pozycja::before{ color:var(--kb-ciemny); }
+/* Numer w karcie kontaktu to glowna akcja strony — dostaje pole
+   dotyku ~40 px zamiast wysokosci samej linijki tekstu. */
+.kb-tel{ display:inline-block; padding:10px 0; margin:-6px 0; }
 .kb-kontakt-dane{
   margin:0 0 22px !important; font-size:.95rem !important;
   color:var(--kb-atrament-2); padding-left:1.7em;
@@ -718,7 +725,7 @@
 
 /* Etykiety kolumn — drobne wersaliki, ta sama miara co reszta drobnego pisma */
 .kb-stopka-etykieta{
-  margin:0 0 12px !important; font-size:.68rem !important; font-weight:600;
+  margin:0 0 12px !important; font-size:.72rem !important; font-weight:600;
   letter-spacing:.2em; text-transform:uppercase; color:#F8D6D7;
 }
 /* Numer jest w stopce najwazniejszy, wiec dostaje kroj naglowkowy i skale */
@@ -728,8 +735,11 @@
 .kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:#E2D9D2; }
 .kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:#EFE6DE; line-height:1.6; }
 
-.kb-stopka-link{ margin:0 0 8px !important; font-size:.92rem !important; }
-.kb-stopka-link a{ color:#EFE6DE; text-decoration:none; border-bottom:1px solid rgba(240,191,193,.45); }
+.kb-stopka-link{ margin:0 0 4px !important; font-size:.92rem !important; }
+.kb-stopka-link a{
+  display:inline-block; padding:6px 0;
+  color:#EFE6DE; text-decoration:none; border-bottom:1px solid rgba(240,191,193,.45);
+}
 .kb-stopka-link a:hover{ color:#fff; border-bottom-color:#F0BFC1; }
 
 /* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
@@ -988,7 +998,7 @@
 <p class="kb-kontakt-pozycja kb-i-telefon">Rejestracja SMS</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
-<p class="kb-kontakt-dane"><a href="sms:+48535999565">535 999 565</a></p>
+<p class="kb-kontakt-dane"><a class="kb-tel" href="sms:+48535999565">535 999 565</a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
