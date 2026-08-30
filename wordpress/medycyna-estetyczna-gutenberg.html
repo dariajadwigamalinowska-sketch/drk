@@ -150,20 +150,25 @@
 .estet .e-ramka-dwa .e-klatka--3{position:absolute;inset:0;}
 .estet .e-ramka-dwa .e-klatka--2 video,
 .estet .e-ramka-dwa .e-klatka--3 video{height:100%;object-fit:cover;}
-/* Okno widocznosci kazdego ujecia rowna sie jego dlugosci, wiec zaden
-   nie zdazy sie zapetlic sam w sobie. Wczesniej okno mialo 7 s, a klipy
-   2,6 i 3,6 s — kazdy szedl po dwa, trzy razy pod rzad i wygladalo to
-   jak powtorka tego samego materialu.
-   Cykl 6,2 s = 2,6 s (ujecie 1) + 3,6 s (ujecie 2). */
-.estet .e-ramka-dwa .e-klatka--1{animation:e-klatka-1 6.2s linear infinite;}
-.estet .e-ramka-dwa .e-klatka--3{animation:e-klatka-3 6.2s linear infinite;}
+/* Trzy rozne ujecia jedno po drugim, kazde widoczne dokladnie tyle,
+   ile trwa — zaden nie zdazy sie zapetlic sam w sobie, a to samo
+   wraca dopiero po 8,5 s. Przy dwoch ujeciach ten sam kadr wracal
+   juz po 3,6 s i wygladalo to jak powtorka.
+   Cykl 8,47 s = 2,60 (lekarka) + 2,27 (poczekalnia) + 3,60 (zabieg). */
+.estet .e-ramka-dwa .e-klatka--1{animation:e-klatka-1 8.47s linear infinite;}
+.estet .e-ramka-dwa .e-klatka--2{animation:e-klatka-2 8.47s linear infinite;}
+.estet .e-ramka-dwa .e-klatka--3{animation:e-klatka-3 8.47s linear infinite;}
 @keyframes e-klatka-1{
-  0%{opacity:1;} 36.3%{opacity:1;} 41.9%{opacity:0;}
-  94.4%{opacity:0;} 100%{opacity:1;}
+  0%{opacity:1;} 26.6%{opacity:1;} 30.7%{opacity:0;}
+  95.9%{opacity:0;} 100%{opacity:1;}
+}
+@keyframes e-klatka-2{
+  0%{opacity:0;} 26.6%{opacity:0;} 30.7%{opacity:1;}
+  53.4%{opacity:1;} 57.5%{opacity:0;} 100%{opacity:0;}
 }
 @keyframes e-klatka-3{
-  0%{opacity:0;} 36.3%{opacity:0;} 41.9%{opacity:1;}
-  94.4%{opacity:1;} 100%{opacity:0;}
+  0%{opacity:0;} 53.4%{opacity:0;} 57.5%{opacity:1;}
+  95.9%{opacity:1;} 100%{opacity:0;}
 }
 /* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie. */
 @media (prefers-reduced-motion:reduce){
@@ -289,6 +294,7 @@
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
    u osób, które w systemie wyłączyły animacje. */
 .estet .e-klatka--1{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
+.estet .e-klatka--2{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
 .estet .e-klatka--3{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
 /* Portret w sekcji "O gabinecie" — te same proporcje i to samo
    wygaszenie krawedzi co kadry wideo, zeby siedzial w tym samym
@@ -474,8 +480,8 @@
   Wąski pasek z samym znakiem. Jeśli logotyp jest już w nagłówku
   motywu, usuń całą tę sekcję.
 -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"36px","bottom":"18px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FBF8F3;padding-top:36px;padding-right:24px;padding-bottom:18px;padding-left:24px">
+<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"logotyp","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"36px","bottom":"18px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
+<section class="wp-block-group alignfull estet has-background" id="logotyp" style="background-color:#FFFFFF;padding-top:36px;padding-right:24px;padding-bottom:18px;padding-left:24px">
 <!-- LOGOTYP praktyki. Plik: assets/grafika/logo-estetyczna.png
      (biel wycięta, tło przezroczyste, 900 px szerokości).
      Wgraj go do Biblioteki mediów, a potem kliknij w obrazek →
@@ -523,12 +529,13 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
-<!-- RAMKA Z DWOMA UJECIAMI.
+<!-- RAMKA Z TRZEMA UJECIAMI.
   Filmy leza jeden na drugim i przenikaja sie w kolko. Kazde ujecie
   jest widoczne dokladnie tyle, ile trwa, wiec nie powtarza sie
   samo w sobie. Robi to sam arkusz stylow, bez skryptu.
   Pliki (wszystkie z plakatami .jpg):
     estetyczna-02.mp4 — lekarka z pacjentem
+    estetyczna-01.mp4 — poczekalnia
     estetyczna-03.mp4 — zabieg w trakcie
   Zeby zdjac ujecie, usun jego blok wideo i popraw liczbe w regule
   .e-ramka-dwa (patrz arkusz stylow). -->
@@ -536,6 +543,9 @@
 <div class="wp-block-group e-ramka-dwa">
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-klatka e-klatka--1"} -->
 <figure class="wp-block-video e-video e-klatka e-klatka--1"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-klatka e-klatka--2"} -->
+<figure class="wp-block-video e-video e-klatka e-klatka--2"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-klatka e-klatka--3"} -->
 <figure class="wp-block-video e-video e-klatka e-klatka--3"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
@@ -748,7 +758,7 @@
 <section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center"} -->
-<h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
+<h2 class="wp-block-heading has-text-align-center">Zabiegi</h2>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"}}}} -->
@@ -852,7 +862,7 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 8. CENNIK ============================
+<!-- ======================= OFERTA ZABIEGOWA (CENNIK) =======================
   Ceny podane przez lekarza. Zeby dodac pozycje, kliknij w liste
   i nacisnij Enter — nowy wiersz dziedziczy uklad (nazwa, opis
   drobnym pismem, cena po prawej).
@@ -861,15 +871,11 @@
 <section class="wp-block-group alignfull estet has-background" id="es-cennik" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
 
 <!-- wp:heading {"textAlign":"center"} -->
-<h2 class="wp-block-heading has-text-align-center">Oferta specjalna</h2>
+<h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","className":"e-lead-oferta","style":{"spacing":{"margin":{"bottom":"12px"}}}} -->
-<p class="has-text-align-center e-lead-oferta" style="margin-bottom:12px">Przez ograniczony czas obowiązują specjalne ceny zabiegów.</p>
-<!-- /wp:paragraph -->
-
 <!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
-<p class="has-text-align-center e-small" style="margin-bottom:48px">Zakres terapii oraz jej ostateczny koszt ustalane są indywidualnie podczas konsultacji lekarskiej.</p>
+<p class="has-text-align-center e-small" style="margin-bottom:48px">Przez ograniczony czas obowiązują specjalne ceny zabiegów. Zakres terapii oraz jej ostateczny koszt ustalane są indywidualnie podczas konsultacji lekarskiej.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"className":"e-cennik-grupa"} -->

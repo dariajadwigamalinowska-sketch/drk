@@ -231,7 +231,10 @@
 /* Nadtytul nad naglowkiem sekcji — drobne wersaliki w szalwii,
    ten sam akcent co kreski pod tytulami. */
 .kb-nadtytul{
-  margin:0 0 10px !important; font-size:.72rem !important; font-weight:600;
+  /* Marginesy poziome "auto" — inaczej !important kasuje
+     wysrodkowanie z .kb-sekcja > * i nadtytul stoi o 96 px
+     w lewo od naglowka, ktory jest pod nim. */
+  margin:0 auto 10px !important; font-size:.72rem !important; font-weight:600;
   letter-spacing:.2em; text-transform:uppercase;
   color:var(--kb-szalwia-tekst); display:flex; align-items:center;
 }
@@ -420,8 +423,12 @@
   letter-spacing:.18em; text-transform:uppercase;
   color:var(--kb-akcent-tekst); margin:5px 0 0 !important;
 }
+/* Logotyp trzyma sie lewej krawedzi, menu prawej. Wczesniej menu bylo
+   dosuniete do lewej swojej kolumny i wisialo w polowie paska, z dziura
+   po obu stronach. */
 .kb-menu{
-  margin:0 !important; display:flex; flex-wrap:wrap; gap:10px 28px;
+  margin:0 !important; display:flex; flex-wrap:wrap;
+  justify-content:flex-end; gap:6px 26px;
   font-size:.9rem; font-weight:600;
 }
 .kb-menu a{
@@ -754,6 +761,8 @@
 @media (max-width:781px){
   :root{ --kb-sekcja:58px; }
   .kb-karta-kontakt{ padding:26px 22px !important; }
+  /* Pod logotypem menu czyta sie lepiej od lewej niz od prawej. */
+  .kb-menu{ justify-content:flex-start; }
   .kb-logotypy{ gap:24px !important; }
   .kb-logotyp img{ max-height:56px; }
   .kb-motto{ font-size:1.05rem !important; }
@@ -781,8 +790,8 @@
 <div class="wp-block-group alignfull kb-pasek">
 <!-- wp:columns {"verticalAlignment":"center"} -->
 <div class="wp-block-columns are-vertically-aligned-center">
-<!-- wp:column {"verticalAlignment":"center","width":"38%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:38%">
+<!-- wp:column {"verticalAlignment":"center","width":"26%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:26%">
 <!-- LOGOTYP praktyki. Plik: assets/grafika/logo-pediatria.png
      — miętowy stetoskop z napisem "Doktor Kasia", biel wycięta,
      tło przezroczyste, 1000 px szerokości. Cała kolorystyka strony
@@ -1043,7 +1052,7 @@
   color:var(--kb-atrament);
 }
 .kb-leki{
-  max-height:268px; overflow-y:auto; margin-bottom:20px;
+  max-height:290px; overflow-y:auto; margin-bottom:20px;
   border:1px solid var(--kb-linia); border-radius:14px; background:#fff;
   /* Cienki pasek przewijania, zeby lista nie wygladala jak formularz. */
   scrollbar-width:thin; scrollbar-color:rgba(59,47,48,.2) transparent;
@@ -1051,8 +1060,8 @@
 .kb-leki::-webkit-scrollbar{ width:8px; }
 .kb-leki::-webkit-scrollbar-thumb{ background:rgba(59,47,48,.18); border-radius:8px; }
 .kb-lek{
-  display:flex; align-items:baseline; gap:12px; cursor:pointer;
-  padding:12px 16px; border-bottom:1px solid rgba(59,47,48,.06);
+  display:flex; align-items:center; gap:14px; cursor:pointer;
+  padding:10px 16px; border-bottom:1px solid rgba(59,47,48,.06);
   transition:background .15s ease;
 }
 .kb-lek:last-child{ border-bottom:0; }
@@ -1062,6 +1071,19 @@
      klawiatury — zaznaczenie pokazujemy kolorem calej karty. */
   position:absolute; opacity:0; width:1px; height:1px; margin:0;
 }
+/* Miniatura preparatu. Rysowana w SVG na miejscu — zadnych zdjec
+   opakowan, wiec nic sie nie doczytuje i nie ma pytania o prawa
+   do fotografii producentow. Trzy odcienie plynu odpowiadaja mocy
+   preparatu, waski ksztalt oznacza krople. */
+.kb-lek-ikona{ flex:none; display:block; width:28px; height:36px; }
+.kb-lek-ikona svg{ display:block; }
+.kb-lek-ikona .k{ fill:var(--kb-akcent-tekst); opacity:.55; }
+.kb-lek-ikona .s{ fill:#fff; stroke:rgba(59,47,48,.22); stroke-width:1.1; }
+.kb-lek-ikona .p{ fill:var(--kb-szalwia); opacity:.55; }
+.kb-lek-ikona--2 .p{ fill:var(--kb-szalwia); opacity:.8; }
+.kb-lek-ikona--3 .p{ fill:var(--kb-szalwia-tekst); opacity:.75; }
+.kb-lek-ikona--krople .k{ fill:var(--kb-szalwia-tekst); opacity:.65; }
+.kb-lek:has(input:checked) .kb-lek-ikona .s{ stroke:rgba(59,47,48,.3); }
 .kb-lek-nazwa{ flex:1; font-size:.95rem; color:var(--kb-atrament); }
 .kb-lek-stezenie{
   flex:none; font-size:.8rem; color:var(--kb-atrament-2);
@@ -1295,6 +1317,28 @@
         if (i === 0) { radio.checked = true; }
         radio.addEventListener('change', function () { if (policzono) { oblicz(); } });
 
+        /* Miniatura rysowana na miejscu, bez pobierania czegokolwiek
+           z sieci: buteleczka syropu albo waska buteleczka z kroplomierzem.
+           Poziom plynu i odcien ida za stezeniem, wiec juz z samego
+           obrazka widac, czy preparat jest slabszy, czy mocniejszy. */
+        var mgNaMl = s.mg / s.ml;
+        var moc = mgNaMl >= 50 ? 3 : (mgNaMl >= 40 ? 2 : 1);
+        var krople = s.ml === 1;
+        var ikona = document.createElement('span');
+        ikona.className = 'kb-lek-ikona kb-lek-ikona--' + moc + (krople ? ' kb-lek-ikona--krople' : '');
+        ikona.setAttribute('aria-hidden', 'true');
+        ikona.innerHTML = krople
+          ? '<svg viewBox="0 0 28 36" width="28" height="36">' +
+            '<rect class="k" x="10" y="1" width="8" height="5" rx="1.4"/>' +
+            '<path class="s" d="M11 6h6l2.4 4.2v22.4a2 2 0 0 1-2 2h-6.8a2 2 0 0 1-2-2V10.2z"/>' +
+            '<path class="p" d="M8.6 21h10.8v11.6a2 2 0 0 1-2 2h-6.8a2 2 0 0 1-2-2z"/>' +
+            '</svg>'
+          : '<svg viewBox="0 0 28 36" width="28" height="36">' +
+            '<rect class="k" x="9.5" y="1" width="9" height="5" rx="1.4"/>' +
+            '<path class="s" d="M8 8.6a2.6 2.6 0 0 1 2.6-2.6h6.8A2.6 2.6 0 0 1 20 8.6v24a2.4 2.4 0 0 1-2.4 2.4h-7.2A2.4 2.4 0 0 1 8 32.6z"/>' +
+            '<path class="p" d="M8 18h12v14.6a2.4 2.4 0 0 1-2.4 2.4h-7.2A2.4 2.4 0 0 1 8 32.6z"/>' +
+            '</svg>';
+
         var nazwa = document.createElement('span');
         nazwa.className = 'kb-lek-nazwa';
         nazwa.textContent = s.nazwa;
@@ -1304,6 +1348,7 @@
         stez.textContent = s.mg + ' mg / ' + s.ml + ' ml';
 
         etykieta.appendChild(radio);
+        etykieta.appendChild(ikona);
         etykieta.appendChild(nazwa);
         etykieta.appendChild(stez);
         selStez.appendChild(etykieta);
