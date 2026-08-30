@@ -64,10 +64,8 @@
    5. Ustaw szablon pełnej szerokości i opublikuj
 
  FUNKCJONALNOŚĆ:
-   Strona nie zawiera ani jednej linijki JavaScriptu. Rozwijane pytania w FAQ
-   działają na bloku "Szczegóły" (natywny element <details>), więc działają
-   nawet przy wyłączonych skryptach. Bloku "HTML własny" użyto dwa razy:
-   na arkusz stylów i na mapę.
+   Strona nie zawiera ani jednej linijki JavaScriptu. Bloku "HTML własny"
+   użyto dwa razy: na arkusz stylów i na mapę.
 
  NAWIGACJA:
    Celowo bez własnego menu — użyj nagłówka motywu (Wygląd → Edytor → Nagłówek).
@@ -330,21 +328,6 @@
 .estet .e-price .n{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--e-ink);}
 .estet .e-price .n small{display:block;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--e-soft);margin-top:2px;}
 .estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--e-gold-t);white-space:nowrap;}
-
-/* FAQ — bez tła, same włoskowe linie */
-.estet .e-faq{border-bottom:1px solid var(--e-line);}
-.estet .e-faq:first-of-type{border-top:1px solid var(--e-line);}
-.estet .e-faq summary{
-  padding:24px 52px 24px 0;cursor:pointer;list-style:none;position:relative;
-  font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--e-ink);
-}
-.estet .e-faq summary::-webkit-details-marker{display:none;}
-.estet .e-faq summary::after{
-  content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
-  font-family:'Inter',sans-serif;font-weight:300;font-size:1.3rem;color:var(--e-gold-t);line-height:1;
-}
-.estet .e-faq[open] summary::after{content:"–";}
-.estet .e-faq p{padding:0 40px 24px 0;margin:0 !important;font-size:.92rem !important;}
 
 /* Kontakt */
 .estet .e-info p{margin:0 0 3px !important;}
@@ -868,49 +851,7 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 9. FAQ ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
-<section class="wp-block-group alignfull estet has-background" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
-
-<!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"44px"}}}} -->
-<h2 class="wp-block-heading has-text-align-center" style="margin-bottom:44px">Najczęstsze pytania</h2>
-<!-- /wp:heading -->
-
-<!-- wp:details {"showContent":true,"summary":"Czy konsultacja jest konieczna przed zabiegiem?","className":"e-faq"} -->
-<details class="wp-block-details e-faq" open><summary>Czy konsultacja jest konieczna przed zabiegiem?</summary><!-- wp:paragraph -->
-<p>Tak. Każdy zabieg poprzedza wywiad medyczny oraz ocena wskazań i przeciwwskazań. Zdarza się, że po konsultacji odradzam zabieg — to również jest wynik konsultacji.</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-
-<!-- wp:details {"summary":"Jak przygotować się do wizyty?","className":"e-faq"} -->
-<details class="wp-block-details e-faq"><summary>Jak przygotować się do wizyty?</summary><!-- wp:paragraph -->
-<p>[DO UZUPEŁNIENIA — np. informacja o lekach przeciwkrzepliwych, alkoholu, aktywności fizycznej i makijażu przed zabiegiem.]</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-
-<!-- wp:details {"summary":"Czy zabiegi bolą?","className":"e-faq"} -->
-<details class="wp-block-details e-faq"><summary>Czy zabiegi bolą?</summary><!-- wp:paragraph -->
-<p>[DO UZUPEŁNIENIA — opisz stosowane znieczulenie i odczucia w trakcie zabiegu, bez obiecywania całkowitej bezbolesności.]</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-
-<!-- wp:details {"summary":"Jakie mogą wystąpić działania niepożądane?","className":"e-faq"} -->
-<details class="wp-block-details e-faq"><summary>Jakie mogą wystąpić działania niepożądane?</summary><!-- wp:paragraph -->
-<p>[DO UZUPEŁNIENIA — wymień typowe odczyny pozabiegowe: obrzęk, zaczerwienienie, siniaki, oraz sposób kontaktu w razie niepokojących objawów. Ta sekcja jest istotna także z punktu widzenia świadomej zgody.]</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-
-<!-- wp:details {"summary":"Jak umówić wizytę i czy obowiązuje zadatek?","className":"e-faq"} -->
-<details class="wp-block-details e-faq"><summary>Jak umówić wizytę i czy obowiązuje zadatek?</summary><!-- wp:paragraph -->
-<p>[DO UZUPEŁNIENIA — sposób rejestracji, zasady odwoływania wizyt i ewentualny zadatek.]</p>
-<!-- /wp:paragraph --></details>
-<!-- /wp:details -->
-
-</section>
-<!-- /wp:group -->
-
-
-<!-- ============================ 10. STOPKA ============================ -->
+<!-- ============================ 9. STOPKA ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet estet-footer","style":{"color":{"background":"#111111"},"spacing":{"padding":{"top":"52px","bottom":"26px","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
 <section class="wp-block-group alignfull estet estet-footer has-background" style="background-color:#111111;padding-top:52px;padding-right:24px;padding-bottom:26px;padding-left:24px">
 
