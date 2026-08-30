@@ -188,29 +188,40 @@
 /* Zdanie wprowadzajace do oferty i do cennika — wieksze od drobnego
    pisma, ale ciszej niz naglowek. */
 .estet .e-lead-oferta{
-  font-size:1rem !important;max-width:56ch;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.28rem !important;line-height:1.6;
+  color:var(--e-ink) !important;
+  max-width:44ch;
   margin-left:auto !important;margin-right:auto !important;
 }
 
 /* Ramka z dwoma ujeciami — oba kadry leza na sobie i przenikaja sie
    w petli 14 s. Bez skryptu: wystarcza dwie animacje przesuniete
    w fazie o polowe cyklu. */
+/* Pierwsza klatka stoi w ukladzie i nadaje ramce wysokosc, pozostale
+   leza na niej. Kazda jest widoczna przez jedna trzecia cyklu, a na
+   stykach obie maja czesciowe krycie — stad przenikanie, nie ciecie. */
 .estet .e-ramka-dwa{position:relative;}
 .estet .e-ramka-dwa .e-video{margin:0;}
-.estet .e-ramka-dwa .e-video--01{
-  position:absolute;inset:0;
-}
-.estet .e-ramka-dwa .e-video--01 video{height:100%;object-fit:cover;}
-.estet .e-ramka-dwa .e-video--02{animation:e-przenikanie 14s ease-in-out infinite;}
-.estet .e-ramka-dwa .e-video--01{animation:e-przenikanie 14s ease-in-out infinite -7s;}
+.estet .e-ramka-dwa .e-klatka--2,
+.estet .e-ramka-dwa .e-klatka--3{position:absolute;inset:0;}
+.estet .e-ramka-dwa .e-klatka--2 video,
+.estet .e-ramka-dwa .e-klatka--3 video{height:100%;object-fit:cover;}
+.estet .e-ramka-dwa .e-klatka--1{animation:e-przenikanie 21s linear infinite;}
+.estet .e-ramka-dwa .e-klatka--2{animation:e-przenikanie 21s linear infinite -7s;}
+.estet .e-ramka-dwa .e-klatka--3{animation:e-przenikanie 21s linear infinite -14s;}
+/* 21 s cyklu: widoczna 0-6 s, gasnie do 7 s, wraca w ostatniej sekundzie. */
 @keyframes e-przenikanie{
-  0%,42%{opacity:1;} 50%,92%{opacity:0;} 100%{opacity:1;}
+  0%{opacity:1;} 28.6%{opacity:1;} 33.3%{opacity:0;}
+  95.2%{opacity:0;} 100%{opacity:1;}
 }
 /* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie. */
 @media (prefers-reduced-motion:reduce){
-  .estet .e-ramka-dwa .e-video--02,
-  .estet .e-ramka-dwa .e-video--01{animation:none;}
-  .estet .e-ramka-dwa .e-video--01{display:none;}
+  .estet .e-ramka-dwa .e-klatka--1,
+  .estet .e-ramka-dwa .e-klatka--2,
+  .estet .e-ramka-dwa .e-klatka--3{animation:none;}
+  .estet .e-ramka-dwa .e-klatka--2,
+  .estet .e-ramka-dwa .e-klatka--3{display:none;}
 }
 
 /* Kadr przy wstepie do oferty — nizszy niz pozostale, zeby nie
@@ -312,9 +323,11 @@
 /* [ŚCIEŻKI] — jeden raz podmień na adresy plakatów z Biblioteki mediów.
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
    u osób, które w systemie wyłączyły animacje. */
+.estet .e-klatka--1{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
+.estet .e-klatka--2{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
+.estet .e-klatka--3{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
+/* Kadr w sekcji "O gabinecie" — plakat jako tlo, zanim wideo ruszy. */
 .estet .e-video--01{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
-.estet .e-video--02{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
-.estet .e-video--03{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
 @media (prefers-reduced-motion:reduce){
   .estet .e-video video{display:none;}
 }
@@ -335,17 +348,23 @@
 }
 
 /* Karty zabiegów — siatka na włoskowych liniach */
+.estet .e-karty-oferty{align-items:start !important;}
+/* Karty oferty: wieksze pismo i wyzsza interlinia. Karty nie sa juz
+   rozciagane do rownej wysokosci — 306 px karty przy 75 px tresci
+   dawalo 231 px pustego dna w kazdej z szesciu. */
 .estet .e-card{
   background:var(--e-cream);border:1px solid var(--e-line);
-  padding:36px 30px !important;transition:background .2s ease;
+  padding:30px 28px 28px !important;transition:background .2s ease;
+  align-self:start;
 }
 .estet .e-card:hover{background:var(--e-white);}
 .estet .e-num{
-  font-family:'Cormorant Garamond',serif;font-size:.85rem !important;letter-spacing:.22em;
-  color:var(--e-gold-t);margin-bottom:10px !important;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:.7rem !important;font-weight:600;letter-spacing:.24em;
+  color:var(--e-gold-t);margin:0 0 14px !important;
 }
-.estet .e-card h3{margin-bottom:10px;}
-.estet .e-card p{font-size:.9rem !important;}
+.estet .e-card h3{font-size:1.42rem;margin-bottom:12px;line-height:1.2;}
+.estet .e-card p{font-size:1rem !important;line-height:1.7;margin:0 !important;}
 .estet .e-card ul{list-style:none !important;padding-left:0 !important;margin:14px 0 0 !important;display:grid;gap:7px;}
 .estet .e-card li{font-size:.84rem;padding-left:18px;position:relative;}
 .estet .e-card li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--e-gold);}
@@ -520,19 +539,25 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
-<!-- RAMKA Z DWOMA UJECIAMI.
-  Oba filmy leza jeden na drugim i przenikaja sie w kolko: 7 s widac
-  pierwszy, potem drugi. Robi to sam arkusz stylow, bez skryptu.
-  Pliki: estetyczna-02.mp4 (lekarka z pacjentem) i estetyczna-03.mp4
-  (zabieg w trakcie), oba z plakatami .jpg.
-  Zeby zostawic jedno ujecie, wystarczy usunac drugi blok wideo. -->
+<!-- RAMKA Z TRZEMA UJECIAMI.
+  Filmy leza jeden na drugim i przenikaja sie w kolko: po okolo 7 s
+  na kazde ujecie, w petli 21 s. Robi to sam arkusz stylow, bez skryptu.
+  Pliki (wszystkie z plakatami .jpg):
+    estetyczna-02.mp4 — lekarka z pacjentem
+    estetyczna-01.mp4 — poczekalnia
+    estetyczna-03.mp4 — zabieg w trakcie
+  Zeby zdjac ujecie, usun jego blok wideo i popraw liczbe w regule
+  .e-ramka-dwa (patrz arkusz stylow). -->
 <!-- wp:group {"className":"e-ramka-dwa","layout":{"type":"default"}} -->
 <div class="wp-block-group e-ramka-dwa">
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-video--02"} -->
-<figure class="wp-block-video e-video e-video--02"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-klatka e-klatka--1"} -->
+<figure class="wp-block-video e-video e-klatka e-klatka--1"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
 <!-- /wp:video -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-video--01"} -->
-<figure class="wp-block-video e-video e-video--01"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-klatka e-klatka--2"} -->
+<figure class="wp-block-video e-video e-klatka e-klatka--2"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-klatka e-klatka--3"} -->
+<figure class="wp-block-video e-video e-klatka e-klatka--3"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 </div>
 <!-- /wp:group -->

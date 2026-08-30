@@ -130,9 +130,14 @@
    ========================================================================= */
 :root{
   /* --- kolory --- */
-  --kb-tlo:          #FBF4EF;   /* ledwie ciepła biel — tło główne       */
+  --kb-tlo:          #F7F5F0;   /* ciepła biel z nutą szałwii            */
   --kb-tlo-2:        #FFFFFF;   /* czysta biel, co druga sekcja          */
-  --kb-blekit:       #9E9EB4;   /* akcent jasny — poświata, gradienty    */
+  --kb-blekit:       #A7AE98;   /* szałwia z kadru — poświata, gradienty */
+  /* Odcienie zdjęte z filmu z gabinetu: mięta fartucha, światła
+     i półcienie ściany. */
+  --kb-szalwia:      #8EA089;
+  --kb-szalwia-jasna:#DCE3D6;
+  --kb-szalwia-tekst:#5A6B54;
   --kb-ciemny:       #5C6488;   /* ciemne pasy, przyciski, ikony         */
   --kb-ciemny-2:     #4A5273;   /* przycisk po najechaniu                */
   --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
@@ -147,7 +152,7 @@
   --kb-akcent-tekst: #945055;
   --kb-roz:          #E3A6A7;   /* różowa kreska ozdobna                 */
   --kb-karta:        #FFFDFB;
-  --kb-zastepcze:    linear-gradient(150deg,rgba(158,158,180,.28),rgba(227,166,167,.28));
+  --kb-zastepcze:    linear-gradient(150deg,rgba(142,160,137,.26),rgba(227,166,167,.26));
   --kb-linia:        rgba(59,47,48,.09);
 
   /* --- kształty i odstępy --- */
@@ -210,24 +215,22 @@
     linear-gradient(to bottom,
       rgba(255,255,255,.55) 0,
       rgba(255,255,255,.18) 200px,
-      rgba(251,244,239,.35) 62%,
-      rgba(251,244,239,.90) 92%,
+      rgba(247,245,240,.35) 62%,
+      rgba(247,245,240,.90) 92%,
       var(--kb-tlo) 100%),
     /* Ten sam przebieg barw co wczesniej, ale przepuszczony przez biel:
        kazdy stopien ma okolo 30% krycia, wiec kolor jest obecny jako
        welon, a nie jako plama. */
+    /* Przebieg barw przesuniety ku szalwii i cieplym bielom z kadru:
+       zielen fartucha po lewej, roz logotypu tylko jako domkniecie. */
     linear-gradient(102deg,
-      rgba(221,192,184,.30)   0%,
-      rgba(201,182,185,.30)  10%,
-      rgba(176,171,185,.30)  20%,
-      rgba(158,158,180,.30)  30%,
-      rgba(185,158,174,.30)  40%,
-      rgba(227,166,167,.30)  50%,
-      rgba(230,174,173,.30)  60%,
-      rgba(234,182,182,.30)  70%,
-      rgba(234,188,186,.30)  80%,
-      rgba(237,195,193,.30)  90%,
-      rgba(239,202,197,.30) 100%),
+      rgba(203,210,195,.34)   0%,
+      rgba(167,174,152,.30)  16%,
+      rgba(142,160,137,.26)  32%,
+      rgba(178,186,168,.26)  48%,
+      rgba(214,203,193,.26)  64%,
+      rgba(230,196,190,.26)  80%,
+      rgba(237,203,198,.28) 100%),
     var(--kb-tlo);
 }
 
@@ -302,12 +305,6 @@
 .kb-doktor .kb-tekst-luzno:last-of-type{ margin-bottom:26px !important; }
 .kb-doktor .kb-naglowek{ margin:0 0 18px !important; }
 .kb-doktor .kb-motto{ margin:0 !important; }
-/* Akapit do napisania przez Panią Doktor — widoczny w edytorze,
-   ale bez krzykliwej ramki na gotowej stronie. */
-.kb-do-uzupelnienia{
-  border-left:2px solid rgba(227,166,167,.55); padding-left:16px;
-  font-style:italic; color:#6E5F5A;
-}
 
 /* =========================================================================
    WASZE SŁOWA — wypowiedzi rodziców
@@ -338,13 +335,17 @@
 /* Ramka powitalna z dwoma ujeciami — oba kadry leza na sobie
    i przenikaja sie w petli 18 s. Bez skryptu: dwie animacje
    przesuniete w fazie o polowe cyklu. */
-.kb-ramka-dwa{ position:relative; }
-.kb-ramka-dwa .kb-film-ramka{ margin:0 !important; }
+/* To ramka trzyma proporcje i wysokosc, a oba ujecia ja wypelniaja.
+   Dzieki temu drugie, lezace na pierwszym, ma dokladnie ten sam kadr. */
+.kb-ramka-dwa{
+  position:relative; aspect-ratio:9/16;
+  max-height:620px; max-width:349px; margin:0 auto !important;
+}
+.kb-ramka-dwa .kb-film-ramka{ margin:0 !important; height:100%; }
 .kb-ramka-dwa .kb-film--b{ position:absolute; inset:0; }
-.kb-ramka-dwa .kb-film--b video{ height:100%; }
-/* Kadrowanie ustawione osobno dla kazdego ujecia: wyzsze kadrowanie
-   bylo dobrane pod misia i przy filmie z gabinetu ucinalo twarze. */
-.kb-ramka-dwa .kb-film--a video{ object-position:center 42%; }
+.kb-ramka-dwa .kb-film--b video{ height:100%; object-fit:cover; }
+/* Oba ujecia ida w pelnych proporcjach, wiec nie trzeba juz
+   przesuwac kadru — nic nie jest przycinane. */
 .kb-ramka-dwa .kb-film--a{ animation:kb-przenikanie 18s ease-in-out infinite; }
 .kb-ramka-dwa .kb-film--b{ animation:kb-przenikanie 18s ease-in-out infinite -9s; }
 @keyframes kb-przenikanie{
@@ -484,13 +485,14 @@
   border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
 }
 .kb-btn-glowny .wp-block-button__link{
-  /* Przycisk jest teraz w przygaszonym rozu z logotypu zamiast
-     w mocnym fiolecie. Odcien dobrany tak, zeby bialy napis mial
-     4,6:1 — jasniej juz nie mozna. */
-  background:#A86064; color:#fff;
-  box-shadow:0 8px 20px -16px rgba(168,96,100,.4);
+  /* Przycisk jest jasny: wypelnienie w szalwii z kadru, napis
+     atramentowy. Ciemna plama odcinala sie od reszty strony,
+     a tak przycisk nadal czyta sie jak przycisk — atrament na
+     szalwii ma 9,8:1. */
+  background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
+  box-shadow:none;
 }
-.kb-btn-glowny .wp-block-button__link:hover{ background:#945558; transform:translateY(-2px); }
+.kb-btn-glowny .wp-block-button__link:hover{ background:#CBD5C2; transform:translateY(-2px); }
 .kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.8); color:var(--kb-atrament); border-color:var(--kb-linia); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
@@ -522,16 +524,25 @@
    miękka kropla, proporcja 4:5, pełna szerokość kolumny. Materiał jest
    pionowy 9:16, więc object-fit przycina górę i dół, zostawiając środek. */
 .kb-film-luk{ max-width:none; margin:0 !important; }
+/* Film idzie w swoich wlasnych proporcjach (9:16), wiec widac caly
+   kadr — wczesniej ramka 4:5 przycinala gore i dol. Nie ma juz ani
+   ksztaltu kropli, ani cienia: krawedzie sa wygaszone maska, wiec
+   obraz wtapia sie w tlo zamiast lezec na nim jako wycinanka. */
 .kb-film-luk video{
-  width:100%; aspect-ratio:4/5; height:auto; object-fit:cover;
-  /* Kadr przesuniety ku gorze materialu, dzieki czemu mis siedzi
-     nizej w ramie i ma nad soba wiecej powietrza. */
-  object-position:center 22%;
-  border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
-  box-shadow:0 24px 52px -42px rgba(69,56,58,.18);
-  /* Krawedz filmu rozmywa sie w tlo, zamiast konczyc sie twarda linia. */
-  -webkit-mask-image:radial-gradient(115% 115% at 50% 45%, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%);
-  mask-image:radial-gradient(115% 115% at 50% 45%, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%);
+  /* Kadr w oryginalnych proporcjach i w calosci: wysokosc ograniczona,
+     szerokosc wyliczana z proporcji. Przy samym max-height i szerokosci
+     100% obraz nadal bylby przycinany z gory i dolu. */
+  width:100%; height:100%; aspect-ratio:9/16; object-fit:cover;
+  display:block;
+  border-radius:0; box-shadow:none;
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+    linear-gradient(to right,  transparent 0, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+          mask-composite:intersect;
 }
 
 
@@ -615,7 +626,7 @@
    elementem strony i przecinala ja w polowie; jasne pasmo z cienkimi
    kreskami daje ten sam podzial, nie krzyczac. */
 .kb-atuty{
-  background:linear-gradient(100deg, rgba(158,158,180,.10), rgba(227,166,167,.10)) !important;
+  background:linear-gradient(100deg, rgba(142,160,137,.10), rgba(227,166,167,.09)) !important;
   border-top:1px solid var(--kb-linia); border-bottom:1px solid var(--kb-linia);
   color:var(--kb-atrament);
   padding-top:20px !important; padding-bottom:20px !important;
@@ -827,7 +838,7 @@
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
 <!-- wp:paragraph {"className":"kb-menu"} -->
-<p class="kb-menu"><a href="#kb-kontakt">Kontakt</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-pierwsza-pomoc">Pierwsza pomoc</a><a class="kb-menu-ig" href="https://www.instagram.com/doktorkasiapediatra" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a></p>
+<p class="kb-menu"><a href="#kb-kontakt">Kontakt</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-pierwsza-pomoc">Pierwsza pomoc</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
@@ -911,10 +922,8 @@
 <!-- ======================= DOKTOR KASIA =======================
   Zdjęcie po lewej, opowieść o praktyce po prawej.
 
-  TEKST W PRAWEJ KOLUMNIE JEST DO NAPISANIA WŁASNYMI SŁOWAMI.
-  Zostawiłam ramy narracji, żeby było od czego zacząć — klikasz
-  w akapit i piszesz. Akapit oznaczony [DO UZUPEŁNIENIA] wymaga
-  danych, których nie wymyślę: wykształcenie, staż, kursy.
+  TEKST W PRAWEJ KOLUMNIE MOŻNA SWOBODNIE PRZEPISAĆ WŁASNYMI SŁOWAMI —
+  klikasz w akapit i piszesz.
 -->
 <!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-o-praktyce"} -->
 <div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-o-praktyce">
@@ -957,10 +966,6 @@
 
 <!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
 <p class="kb-tekst kb-tekst-luzno">Z wizyty wychodzicie z jasnym planem: co podawać i w jakiej dawce, na co patrzeć w domu i kiedy wrócić. Jeśli coś zacznie niepokoić między wizytami, jestem pod SMS-em.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno kb-do-uzupelnienia"} -->
-<p class="kb-tekst kb-tekst-luzno kb-do-uzupelnienia">[DO UZUPEŁNIENIA — 2–4 zdania o drodze zawodowej: gdzie studia, gdzie specjalizacja, ile lat praktyki, kursy i obszary, które interesują Cię najbardziej. Ten akapit czytają rodzice, którzy szukają powodu, żeby Ci zaufać.]</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"kb-motto"} -->
@@ -1059,7 +1064,7 @@
   box-shadow:0 20px 44px -44px rgba(69,56,58,.2);
 }
 .kb-kalkulator *,.kb-kalkulator *::before{ box-sizing:border-box; }
-.kb-kalkulator :focus-visible{ outline:3px solid #A86064; outline-offset:2px; }
+.kb-kalkulator :focus-visible{ outline:3px solid var(--kb-szalwia-tekst); outline-offset:2px; }
 
 .kb-przelacznik{
   display:flex; gap:8px; background:var(--kb-tlo); border-radius:100px;
@@ -1070,7 +1075,7 @@
   cursor:pointer; font-family:inherit; font-weight:600; font-size:.92rem;
   color:var(--kb-atrament-2); transition:background .2s ease, color .2s ease;
 }
-.kb-przelacznik button[aria-pressed="true"]{ background:#A86064; color:#fff; }
+.kb-przelacznik button[aria-pressed="true"]{ background:var(--kb-szalwia-jasna); color:var(--kb-atrament); }
 
 .kb-pola{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
 .kb-pole label{
@@ -1082,7 +1087,7 @@
   border-radius:12px; background:#fff; font-family:inherit;
   font-size:.95rem; color:var(--kb-atrament);
 }
-.kb-pole select:focus,.kb-pole input:focus{ border-color:#A86064; }
+.kb-pole select:focus,.kb-pole input:focus{ border-color:var(--kb-szalwia-tekst); }
 
 .kb-kalkulator .kb-blad{
   display:none; align-items:flex-start; margin:0 0 16px;
@@ -1093,17 +1098,17 @@
 
 .kb-licz{
   width:100%; margin-top:6px; padding:16px 28px; border:0; cursor:pointer;
-  border-radius:100px; background:#A86064; color:#fff;
+  border-radius:100px; background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
   font-family:inherit; font-weight:600; font-size:.95rem;
   transition:background .2s ease, transform .2s ease;
 }
-.kb-licz:hover{ background:#945558; transform:translateY(-2px); }
+.kb-licz:hover{ background:#CBD5C2; transform:translateY(-2px); }
 
 .kb-kalkulator .kb-wynik{ display:none; margin-top:28px; }
 .kb-kalkulator .kb-wynik.kb-on{ display:block; }
 .kb-wynik-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:14px; margin-bottom:18px; }
 .kb-wynik-box{
-  background:linear-gradient(135deg,rgba(158,158,180,.10),rgba(227,166,167,.12));
+  background:linear-gradient(135deg,rgba(142,160,137,.12),rgba(227,166,167,.10));
   border-radius:14px; padding:16px; text-align:center;
 }
 .kb-wynik-box b{
