@@ -22,7 +22,6 @@
    (natywne, edytowalne klikiem)
    ustawione na: bez dźwięku, w pętli, autoodtwarzanie, bez kontrolek.
    Pliki gotowe do wgrania leżą w repozytorium w assets/wideo/:
-     estetyczna-01.mp4 + .jpg  — poczekalnia          (0,19 MB)
      estetyczna-02.mp4 + .jpg  — lekarka z pacjentem  (0,25 MB)
      estetyczna-03.mp4 + .jpg  — zabieg w trakcie     (0,28 MB)
      estetyczna-konsultacja.mp4 + .jpg — konsultacja  (1,16 MB)
@@ -112,14 +111,10 @@
 .estet .e-lead{font-size:1.02rem !important;max-width:46ch;}
 .estet .e-lead strong{font-weight:500;color:var(--e-ink);}
 .estet .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.2rem !important;color:var(--e-soft);}
-/* Motto praktyki — ta sama typografia co wczesniej, bez cudzyslowu.
-   To nie cytat, tylko obietnica gabinetu, wiec cudzyslow tu myli. */
-.estet .e-motto{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-style:italic;font-weight:400;
-  font-size:1.2rem !important;
-  color:var(--e-gold-t) !important;
-}
+/* Motto konczy zdanie wstepne, wiec idzie tym samym krojem i w tym
+   samym stopniu pisma — wyroznia je tylko kolor. Osobny akapit innym
+   krojem czytal sie jak urwany dopisek. */
+.estet .e-motto{ color:var(--e-gold-t); }
 .estet .e-small{font-size:.84rem !important;}
 /* Zamkniecie biogramu — zdanie o bezpieczenstwie i kwalifikacji.
    Wyroznione zlota kreska z boku, zeby nie ginelo miedzy akapitami. */
@@ -154,13 +149,12 @@
 .estet .e-ramka-dwa .e-klatka--3{position:absolute;inset:0;}
 .estet .e-ramka-dwa .e-klatka--2 video,
 .estet .e-ramka-dwa .e-klatka--3 video{height:100%;object-fit:cover;}
-.estet .e-ramka-dwa .e-klatka--1{animation:e-przenikanie 21s linear infinite;}
-.estet .e-ramka-dwa .e-klatka--2{animation:e-przenikanie 21s linear infinite -7s;}
-.estet .e-ramka-dwa .e-klatka--3{animation:e-przenikanie 21s linear infinite -14s;}
-/* 21 s cyklu: widoczna 0-6 s, gasnie do 7 s, wraca w ostatniej sekundzie. */
+.estet .e-ramka-dwa .e-klatka--1{animation:e-przenikanie 14s linear infinite;}
+.estet .e-ramka-dwa .e-klatka--3{animation:e-przenikanie 14s linear infinite -7s;}
+/* 14 s cyklu: widoczna 0-6 s, gasnie do 7 s, wraca w ostatniej sekundzie. */
 @keyframes e-przenikanie{
-  0%{opacity:1;} 28.6%{opacity:1;} 33.3%{opacity:0;}
-  95.2%{opacity:0;} 100%{opacity:1;}
+  0%{opacity:1;} 42.9%{opacity:1;} 50%{opacity:0;}
+  92.9%{opacity:0;} 100%{opacity:1;}
 }
 /* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie. */
 @media (prefers-reduced-motion:reduce){
@@ -271,10 +265,24 @@
    Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
    u osób, które w systemie wyłączyły animacje. */
 .estet .e-klatka--1{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
-.estet .e-klatka--2{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
 .estet .e-klatka--3{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
-/* Kadr w sekcji "O gabinecie" — plakat jako tlo, zanim wideo ruszy. */
-.estet .e-video--01{background-image:url('/wp-content/uploads/estetyczna-01.jpg');}
+/* Portret w sekcji "O gabinecie" — te same proporcje i to samo
+   wygaszenie krawedzi co kadry wideo, zeby siedzial w tym samym
+   jezyku wizualnym. */
+.estet figure.wp-block-image.e-portret{margin:0;}
+.estet figure.wp-block-image.e-portret img{
+  width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;
+  object-position:center 12%;
+  display:block;
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+    linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);
+          mask-composite:intersect;
+}
 @media (prefers-reduced-motion:reduce){
   .estet .e-video video{display:none;}
 }
@@ -322,7 +330,16 @@
 .estet .e-pillar p{font-size:.85rem !important;margin:0 !important;}
 
 /* Kroki */
-.estet .e-step{border-top:1px solid var(--e-line);padding-top:24px !important;position:relative;}
+/* Cztery kroki w jednym rzedzie: numer, tytul, zdanie. Dwa rzedy po
+   dwa zostawialy szeroka dziure w srodku sekcji i rozbijaly kolejnosc
+   czytania. */
+.estet .e-kroki{gap:0 !important;}
+.estet .e-step{
+  border-top:1px solid var(--e-line);padding:24px 22px 0 0 !important;
+  position:relative;
+}
+.estet .e-step h3{font-size:1.18rem;margin-bottom:8px;}
+.estet .e-step p{font-size:.95rem !important;line-height:1.7;margin:0 !important;max-width:30ch;}
 .estet .e-step::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:var(--e-gold);}
 /* Kroki wizyty stoja teraz na pelnej szerokosci sekcji, wiec
    tekst dostaje miare, ktora sie czyta, zamiast rozlewac sie. */
@@ -460,11 +477,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"e-lead","style":{"spacing":{"margin":{"top":"22px"}}}} -->
-<p class="e-lead" style="margin-top:22px">Terapie medycyny estetycznej tworzone indywidualnie, w oparciu o <strong>wiedzę, doświadczenie, anatomię i świadome planowanie</strong>.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"e-motto","style":{"spacing":{"margin":{"top":"20px"}}}} -->
-<p class="e-motto" style="margin-top:20px">By wydobyć Twoje naturalne piękno.</p>
+<p class="e-lead" style="margin-top:22px">Terapie medycyny estetycznej tworzone indywidualnie, w oparciu o <strong>wiedzę, doświadczenie, anatomię i świadome planowanie</strong> — <span class="e-motto">by wydobyć Twoje naturalne piękno</span>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"32px"}}}} -->
@@ -486,12 +499,11 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
-<!-- RAMKA Z TRZEMA UJECIAMI.
+<!-- RAMKA Z DWOMA UJECIAMI.
   Filmy leza jeden na drugim i przenikaja sie w kolko: po okolo 7 s
-  na kazde ujecie, w petli 21 s. Robi to sam arkusz stylow, bez skryptu.
+  na kazde ujecie, w petli 14 s. Robi to sam arkusz stylow, bez skryptu.
   Pliki (wszystkie z plakatami .jpg):
     estetyczna-02.mp4 — lekarka z pacjentem
-    estetyczna-01.mp4 — poczekalnia
     estetyczna-03.mp4 — zabieg w trakcie
   Zeby zdjac ujecie, usun jego blok wideo i popraw liczbe w regule
   .e-ramka-dwa (patrz arkusz stylow). -->
@@ -499,9 +511,6 @@
 <div class="wp-block-group e-ramka-dwa">
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-02.jpg","src":"/wp-content/uploads/estetyczna-02.mp4","className":"e-video e-klatka e-klatka--1"} -->
 <figure class="wp-block-video e-video e-klatka e-klatka--1"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-02.jpg" src="/wp-content/uploads/estetyczna-02.mp4" playsinline></video></figure>
-<!-- /wp:video -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-klatka e-klatka--2"} -->
-<figure class="wp-block-video e-video e-klatka e-klatka--2"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
 <!-- /wp:video -->
 <!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-03.jpg","src":"/wp-content/uploads/estetyczna-03.mp4","className":"e-video e-klatka e-klatka--3"} -->
 <figure class="wp-block-video e-video e-klatka e-klatka--3"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-03.jpg" src="/wp-content/uploads/estetyczna-03.mp4" playsinline></video></figure>
@@ -551,10 +560,12 @@
 
 <!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
-<!-- WIDEO: poczekalnia (estetyczna-01.mp4) -->
-<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/estetyczna-01.jpg","src":"/wp-content/uploads/estetyczna-01.mp4","className":"e-video e-video--01"} -->
-<figure class="wp-block-video e-video e-video--01"><video autoplay loop muted poster="/wp-content/uploads/estetyczna-01.jpg" src="/wp-content/uploads/estetyczna-01.mp4" playsinline></video></figure>
-<!-- /wp:video -->
+<!-- ZDJECIE lek. Katarzyny Bator. Plik: assets/grafika/portret-estetyczna.jpg
+     (kadr 4:5, 1000x1250). Wgraj do Biblioteki mediow, potem kliknij
+     w obrazek -> "Zastąp". -->
+<!-- wp:image {"url":"/wp-content/uploads/portret-estetyczna.jpg","className":"e-portret"} -->
+<figure class="wp-block-image e-portret"><img src="/wp-content/uploads/portret-estetyczna.jpg" alt="lek. Katarzyna Bator — Doktor Kasia Aesthetic"/></figure>
+<!-- /wp:image -->
 </div>
 <!-- /wp:column -->
 
@@ -623,7 +634,6 @@
 <!-- wp:group {"className":"e-info","style":{"spacing":{"margin":{"top":"30px"},"blockGap":"20px"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group e-info" style="margin-top:30px">
 <!-- wp:paragraph --><p><strong>Adres</strong>ul. St. Daneckiej 4/U6, Miechów</p><!-- /wp:paragraph -->
-<!-- wp:paragraph --><p><strong>Telefon</strong><a class="e-tel" href="tel:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
 <!-- wp:paragraph --><p><strong>Rejestracja SMS</strong><a class="e-tel" href="sms:+48535999565">535 999 565</a></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -757,8 +767,8 @@
 <h2 class="wp-block-heading has-text-align-center" style="margin-bottom:48px">Jak wygląda wizyta</h2>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"28px"}}}} -->
-<div class="wp-block-columns">
+<!-- wp:columns {"className":"e-kroki","style":{"spacing":{"blockGap":{"left":"0px"}}}} -->
+<div class="wp-block-columns e-kroki">
 <!-- wp:column {"className":"e-step"} -->
 <div class="wp-block-column e-step">
 <!-- wp:paragraph {"className":"e-step-num"} --><p class="e-step-num">01</p><!-- /wp:paragraph -->
@@ -773,11 +783,6 @@
 <!-- wp:paragraph --><p>Na podstawie konsultacji, badania i oceny anatomii tworzę indywidualny plan terapii — świadomie i z dbałością o naturalny efekt.</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"28px"},"margin":{"top":"36px"}}}} -->
-<div class="wp-block-columns" style="margin-top:36px">
 <!-- wp:column {"className":"e-step"} -->
 <div class="wp-block-column e-step">
 <!-- wp:paragraph {"className":"e-step-num"} --><p class="e-step-num">03</p><!-- /wp:paragraph -->

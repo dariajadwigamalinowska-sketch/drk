@@ -132,12 +132,13 @@
   /* --- kolory --- */
   --kb-tlo:          #F7F5F0;   /* ciepła biel z nutą szałwii            */
   --kb-tlo-2:        #FFFFFF;   /* czysta biel, co druga sekcja          */
-  --kb-blekit:       #A7AE98;   /* szałwia z kadru — poświata, gradienty */
-  /* Odcienie zdjęte z filmu z gabinetu: mięta fartucha, światła
-     i półcienie ściany. */
-  --kb-szalwia:      #8EA089;
-  --kb-szalwia-jasna:#DCE3D6;
-  --kb-szalwia-tekst:#5A6B54;
+  --kb-blekit:       #B9D6CC;   /* mięta z logotypu — poświata, gradienty */
+  /* Barwy zdjęte z logotypu: mięta stetoskopu i brzoskwinia napisu.
+     Odcienie "-tekst" to te same kolory przyciemnione tak, żeby
+     drobne pismo miało co najmniej 4,7:1 na tle strony. */
+  --kb-szalwia:      #8FBBAF;
+  --kb-szalwia-jasna:#DCE9E3;
+  --kb-szalwia-tekst:#56736B;
   --kb-ciemny:       #5C6488;   /* ciemne pasy, przyciski, ikony         */
   --kb-ciemny-2:     #4A5273;   /* przycisk po najechaniu                */
   --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
@@ -145,14 +146,11 @@
                                    leza takze na gradiencie powitania    */
   --kb-zloto:        #5C6688;   /* kreski przy nadtytułach, ikony        */
   --kb-zloto-tekst:  #5C6688;   /* drobne wersaliki — ma dobry kontrast  */
-  --kb-akcent:       #B4676B;   /* przygaszony róż — kursywa w tytule    */
-  /* Ten sam roz przyciemniony do drobnych napisow: #B4676B ma na
-     jasnym tle 3,8:1, wiec nadaje sie na duza kursywe, ale nie na
-     wersaliki i przypisy. */
-  --kb-akcent-tekst: #945055;
-  --kb-roz:          #E3A6A7;   /* różowa kreska ozdobna                 */
+  --kb-akcent:       #EFA97C;   /* brzoskwinia z logotypu — kursywa      */
+  --kb-akcent-tekst: #8F6347;
+  --kb-roz:          #F0C0A0;   /* brzoskwiniowa kreska ozdobna          */
   --kb-karta:        #FFFDFB;
-  --kb-zastepcze:    linear-gradient(150deg,rgba(142,160,137,.26),rgba(227,166,167,.26));
+  --kb-zastepcze:    linear-gradient(150deg,rgba(143,187,175,.26),rgba(239,169,124,.24));
   --kb-linia:        rgba(59,47,48,.09);
 
   /* --- kształty i odstępy --- */
@@ -223,14 +221,15 @@
        welon, a nie jako plama. */
     /* Przebieg barw przesuniety ku szalwii i cieplym bielom z kadru:
        zielen fartucha po lewej, roz logotypu tylko jako domkniecie. */
+    /* Przebieg jak w logotypie: mieta stetoskopu po lewej, przez
+       ciepla biel, do brzoskwini napisu po prawej. */
     linear-gradient(102deg,
-      rgba(203,210,195,.34)   0%,
-      rgba(167,174,152,.30)  16%,
-      rgba(142,160,137,.26)  32%,
-      rgba(178,186,168,.26)  48%,
-      rgba(214,203,193,.26)  64%,
-      rgba(230,196,190,.26)  80%,
-      rgba(237,203,198,.28) 100%),
+      rgba(185,214,204,.34)   0%,
+      rgba(143,187,175,.28)  18%,
+      rgba(198,220,212,.24)  38%,
+      rgba(232,224,212,.24)  58%,
+      rgba(243,206,175,.26)  80%,
+      rgba(239,169,124,.24) 100%),
     var(--kb-tlo);
 }
 
@@ -257,7 +256,7 @@
   font-size:clamp(2.3rem,4.6vw,3.6rem) !important; font-weight:600 !important;
   margin:0 0 .4em !important;
 }
-.kb-tytul em{ font-style:italic; font-weight:300; color:var(--kb-akcent); }
+.kb-tytul em{ font-style:italic; font-weight:300; color:var(--kb-akcent-tekst); }
 
 /* Marginesy poziome "auto", zeby !important nie skasowalo wysrodkowania
    z .kb-sekcja > * — inaczej naglowek stojacy bezposrednio w sekcji
@@ -268,17 +267,27 @@
 /* Tytul sekcji odcieta krotka rozowa kreska — ten sam zabieg co na
    stronie medycyny estetycznej, tylko w tutejszej palecie. Kreska
    idzie za naglowkiem, wiec nie trzeba jej wstawiac osobnym blokiem. */
+/* Kreska pod tytulem sekcji przechodzi z szalwii w roz — obie barwy
+   pochodza z materialu: zielen z kadru, roz z logotypu. */
 .kb-naglowek::after{
-  content:""; display:block; width:56px; height:2px;
+  content:""; display:block; width:64px; height:2px;
   margin:14px 0 0; border-radius:2px;
-  background:linear-gradient(to right,var(--kb-roz),rgba(227,166,167,0));
+  background:linear-gradient(to right,var(--kb-szalwia),rgba(239,169,124,.55) 70%,rgba(239,169,124,0));
 }
 .kb-naglowek.has-text-align-center::after{
-  margin-left:auto; margin-right:auto; width:96px;
-  background:linear-gradient(to right,rgba(227,166,167,0),var(--kb-roz) 50%,rgba(227,166,167,0));
+  margin-left:auto; margin-right:auto; width:104px;
+  background:linear-gradient(to right,rgba(143,187,175,0),var(--kb-szalwia) 50%,rgba(143,187,175,0));
 }
 /* W karcie kontaktu naglowek jest etykieta karty, nie tytulem sekcji. */
 .kb-karta-kontakt .kb-naglowek-maly::after{ display:none; }
+
+/* Nadtytul nad naglowkiem sekcji — drobne wersaliki w szalwii,
+   ten sam akcent co kreski pod tytulami. */
+.kb-nadtytul{
+  margin:0 0 10px !important; font-size:.72rem !important; font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--kb-szalwia-tekst); display:flex; align-items:center;
+}
 
 .kb-lead{
   font-size:1.08rem !important; color:var(--kb-atrament-2);
@@ -327,8 +336,8 @@
 /* Cudzyslowy dokladane stylem, zeby nie trzeba bylo ich wpisywac
    w edytorze. W linii, nie jako duzy znak nad tekstem — ten nachodzil
    na pierwsza linijke cytatu. */
-.kb-glos::before{ content:"„"; color:var(--kb-roz); }
-.kb-glos::after{  content:"”"; color:var(--kb-roz); }
+.kb-glos::before{ content:"„"; color:var(--kb-szalwia); }
+.kb-glos::after{  content:"”"; color:var(--kb-szalwia); }
 @media (max-width:1000px){ .kb-glosy-mur{ column-count:2; } }
 @media (max-width:640px){  .kb-glosy-mur{ column-count:1; } }
 
@@ -339,7 +348,7 @@
    Dzieki temu drugie, lezace na pierwszym, ma dokladnie ten sam kadr. */
 .kb-ramka-dwa{
   position:relative; aspect-ratio:9/16;
-  max-height:620px; max-width:349px; margin:0 auto !important;
+  width:100%; max-width:100%; margin:0 auto !important;
 }
 .kb-ramka-dwa .kb-film-ramka{ margin:0 !important; height:100%; }
 .kb-ramka-dwa .kb-film--b{ position:absolute; inset:0; }
@@ -399,7 +408,7 @@
 .kb-play::before{
   content:""; position:absolute; inset:0; margin:auto;
   width:0; height:0;
-  border-left:18px solid var(--kb-akcent-tekst);
+  border-left:18px solid var(--kb-szalwia-tekst);
   border-top:11px solid transparent; border-bottom:11px solid transparent;
   transform:translateX(-6px);
 }
@@ -411,7 +420,7 @@
   position:absolute; top:calc(50% - 30px); transform:translateY(-50%);
   z-index:2; width:44px; height:44px; border-radius:50%; cursor:pointer;
   border:1px solid rgba(69,56,58,.1); background:rgba(255,253,251,.92);
-  color:var(--kb-akcent-tekst); font-size:1.5rem; line-height:1;
+  color:var(--kb-szalwia-tekst); font-size:1.5rem; line-height:1;
   box-shadow:0 10px 26px -14px rgba(69,56,58,.45);
   transition:opacity .2s ease, transform .2s ease;
 }
@@ -492,7 +501,7 @@
   background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
   box-shadow:none;
 }
-.kb-btn-glowny .wp-block-button__link:hover{ background:#CBD5C2; transform:translateY(-2px); }
+.kb-btn-glowny .wp-block-button__link:hover{ background:#C9DCD3; transform:translateY(-2px); }
 .kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.8); color:var(--kb-atrament); border-color:var(--kb-linia); }
 .kb-btn-obrys  .wp-block-button__link:hover{ background:#fff; transform:translateY(-2px); }
 .wp-block-buttons{ gap:14px; }
@@ -535,13 +544,15 @@
   width:100%; height:100%; aspect-ratio:9/16; object-fit:cover;
   display:block;
   border-radius:0; box-shadow:none;
+  /* Wygaszenie tylko przy samych krawedziach. Przy 14% maska zjadala
+     po 49 px z kazdego boku i kadr wygladal na przyciety. */
   -webkit-mask-image:
-    linear-gradient(to right,  transparent 0, #000 14%, #000 86%, transparent 100%),
-    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+    linear-gradient(to right,  transparent 0, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
   -webkit-mask-composite:source-in;
           mask-image:
-    linear-gradient(to right,  transparent 0, #000 14%, #000 86%, transparent 100%),
-    linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+    linear-gradient(to right,  transparent 0, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
           mask-composite:intersect;
 }
 
@@ -626,7 +637,7 @@
    elementem strony i przecinala ja w polowie; jasne pasmo z cienkimi
    kreskami daje ten sam podzial, nie krzyczac. */
 .kb-atuty{
-  background:linear-gradient(100deg, rgba(142,160,137,.10), rgba(227,166,167,.09)) !important;
+  background:linear-gradient(100deg, rgba(143,187,175,.12), rgba(239,169,124,.10)) !important;
   border-top:1px solid var(--kb-linia); border-bottom:1px solid var(--kb-linia);
   color:var(--kb-atrament);
   padding-top:20px !important; padding-bottom:20px !important;
@@ -636,7 +647,7 @@
   margin:0 !important; font-size:.94rem !important; font-weight:500;
   display:flex; align-items:center; justify-content:center; line-height:1.5;
 }
-.kb-atut::before{ color:var(--kb-akcent); }
+.kb-atut::before{ color:var(--kb-szalwia-tekst); }
 /* Dwa hasla wysrodkowane w swoich polowach paska, rozdzielone
    cienka kreska — inaczej oba lgna do lewej i prawa polowa
    paska zostaje pusta. */
@@ -703,7 +714,7 @@
   margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
   color:var(--kb-atrament); display:flex; align-items:center;
 }
-.kb-kontakt-pozycja::before{ color:var(--kb-akcent-tekst); }
+.kb-kontakt-pozycja::before{ color:var(--kb-szalwia-tekst); }
 /* Numer w karcie kontaktu to glowna akcja strony — dostaje pole
    dotyku ~40 px zamiast wysokosci samej linijki tekstu. */
 .kb-tel{ display:inline-block; padding:10px 0; margin:-6px 0; }
@@ -1102,13 +1113,13 @@
   font-family:inherit; font-weight:600; font-size:.95rem;
   transition:background .2s ease, transform .2s ease;
 }
-.kb-licz:hover{ background:#CBD5C2; transform:translateY(-2px); }
+.kb-licz:hover{ background:#C9DCD3; transform:translateY(-2px); }
 
 .kb-kalkulator .kb-wynik{ display:none; margin-top:28px; }
 .kb-kalkulator .kb-wynik.kb-on{ display:block; }
 .kb-wynik-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:14px; margin-bottom:18px; }
 .kb-wynik-box{
-  background:linear-gradient(135deg,rgba(142,160,137,.12),rgba(227,166,167,.10));
+  background:linear-gradient(135deg,rgba(143,187,175,.14),rgba(239,169,124,.10));
   border-radius:14px; padding:16px; text-align:center;
 }
 .kb-wynik-box b{
