@@ -331,6 +331,24 @@
 .kb-doktor .kb-tekst-luzno:last-of-type{ margin-bottom:26px !important; }
 .kb-doktor .kb-naglowek{ margin:0 0 18px !important; }
 .kb-doktor .kb-motto{ margin:0 !important; }
+/* Zdanie otwierajace sekcje "Doktor Kasia" — stopien wieksze od
+   narracji ponizej, zeby bylo pierwszym, co sie czyta po tytule. */
+.kb-wstep{
+  font-size:1.12rem !important; font-weight:500;
+  color:var(--kb-atrament); max-width:46ch;
+  margin:0 0 18px !important; line-height:1.55;
+}
+/* Zaproszenie zamyka czesc informacyjna, zanim zacznie sie opowiesc
+   pierwszej osobie. Szalwia i kroj naglowkowy odrozniaja je od
+   zwyklego akapitu. */
+.kb-zaproszenie{
+  font-family:var(--kb-font-naglowki) !important; font-style:italic;
+  font-size:1.05rem !important; color:var(--kb-szalwia-tekst);
+  margin:0 0 24px !important;
+}
+@media (max-width:781px){
+  .kb-wstep{ font-size:1.06rem !important; }
+}
 
 /* =========================================================================
    WASZE SŁOWA — wypowiedzi rodziców
@@ -1145,6 +1163,18 @@
 <!-- wp:heading {"className":"kb-naglowek"} -->
 <h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor&nbsp;Kasi</h2>
 <!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-wstep"} -->
+<p class="kb-wstep">Nowoczesna opieka medyczna dla&nbsp;Dzieci. Diagnostyka dostępna podczas&nbsp;wizyty.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
+<p class="kb-tekst kb-tekst-luzno">Świadomie ograniczona liczba wizyt pozwala zapewnić każdemu Dziecku spokojną, indywidualną opiekę.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-zaproszenie"} -->
+<p class="kb-zaproszenie">Zapraszamy na konsultacje.</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
 <p class="kb-tekst kb-tekst-luzno">Do gabinetu przychodzą dzieci, które boją się lekarza, i rodzice, którzy boją się o dziecko. Zanim sięgnę po stetoskop, zwykle jest chwila na oswojenie się — czasem z misiem, czasem z rozmową o tym, co dziś wydarzyło się w przedszkolu.</p>
