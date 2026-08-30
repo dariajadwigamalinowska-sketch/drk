@@ -272,6 +272,22 @@
   margin:18px auto 0 !important;font-size:.94rem !important;
   line-height:1.7;max-width:62ch;
 }
+/* "Oferta specjalna" stoi pod tytulem sekcji jako etykieta, nie jako
+   drugi naglowek — tytulem calosci jest "Oferta zabiegowa". */
+.estet .e-cennik-nadtytul{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:.72rem !important;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--e-gold-t) !important;
+  margin:20px auto 8px !important;
+}
+.estet .e-cennik-wstep{max-width:64ch;margin:0 auto 44px !important;}
+/* Zdanie wprowadzajace pod naglowkiem grupy — mezoterapia i Plasma
+   Complex maja wyjasnienie, zanim zacznie sie lista pozycji. */
+.estet .e-cennik-wprowadzenie{
+  margin:0 auto 20px !important;font-size:.94rem !important;
+  line-height:1.7;max-width:62ch;color:var(--e-soft);
+}
 
 /* Przyciski — prostokątne, bez zaokrągleń */
 .estet .e-btn .wp-block-button__link{
@@ -599,10 +615,6 @@
 <!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
-
-<!-- wp:paragraph {"className":"e-small","style":{"spacing":{"margin":{"top":"28px"}}}} -->
-<p class="e-small" style="margin-top:28px">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; rejestracja SMS <a class="e-tel" href="sms:+48535999565">535 999 565</a></p>
-<!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 
@@ -939,70 +951,6 @@
 <!-- /wp:group -->
 
 
-<!-- ============================ 6. ZABIEGI ============================ -->
-<!-- wp:group {"tagName":"section","align":"full","className":"estet","anchor":"es-zabiegi","style":{"color":{"background":"#FBF8F3"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
-<section class="wp-block-group alignfull estet has-background" id="es-zabiegi" style="background-color:#FBF8F3;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
-
-<!-- wp:heading {"textAlign":"center"} -->
-<h2 class="wp-block-heading has-text-align-center">Zabiegi</h2>
-<!-- /wp:heading -->
-
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"}}}} -->
-<div class="wp-block-columns">
-<!-- wp:column {"className":"e-card"} -->
-<div class="wp-block-column e-card">
-<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">01</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Konsultacja lekarska</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Wywiad i badanie, ocena skóry oraz proporcji twarzy, omówienie oczekiwań i plan na najbliższe miesiące.</p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column {"className":"e-card"} -->
-<div class="wp-block-column e-card">
-<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">02</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Wypełniacze</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Kwas hialuronowy do modelowania i nawilżenia wybranych okolic twarzy — między innymi okolicy ust i bruzd nosowo-wargowych.</p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column {"className":"e-card"} -->
-<div class="wp-block-column e-card">
-<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">03</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Mezoterapia igłowa</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Substancje odżywcze podawane bezpośrednio w skórę właściwą — twarz, szyja, dekolt i skóra głowy. Koktajl dobieram do potrzeb, zwykle w serii zabiegów.</p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"16px"},"margin":{"top":"16px"}}}} -->
-<div class="wp-block-columns" style="margin-top:16px">
-<!-- wp:column {"className":"e-card"} -->
-<div class="wp-block-column e-card">
-<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">04</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Stymulatory tkankowe</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Preparaty pobudzające skórę do pracy, stosowane w seriach, z efektem rozłożonym w czasie. Wskazania oceniam na konsultacji.</p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column {"className":"e-card"} -->
-<div class="wp-block-column e-card">
-<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">05</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Peelingi medyczne</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Zabiegi złuszczające dobierane do problemu skórnego i pory roku — trądzik, niedoskonałości, przebarwienia.</p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column {"className":"e-card"} -->
-<div class="wp-block-column e-card">
-<!-- wp:paragraph {"className":"e-num"} --><p class="e-num">06</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Pielęgnacja i kontrola</h3><!-- /wp:heading -->
-<!-- wp:paragraph --><p>Dobór pielęgnacji domowej, zdjęcia kontrolne i wizyty sprawdzające efekty prowadzonej terapii.</p><!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-
-</section>
-<!-- /wp:group -->
-
-
 <!-- ============================ 7. PRZEBIEG WIZYTY ============================ -->
 <!-- wp:group {"tagName":"section","align":"full","className":"estet","style":{"color":{"background":"#FFFFFF"},"spacing":{"padding":{"top":"clamp(44px,4.5vw,72px)","bottom":"clamp(44px,4.5vw,72px)","right":"24px","left":"24px"}}},"layout":{"type":"constrained","contentSize":"1040px"}} -->
 <section class="wp-block-group alignfull estet has-background" style="background-color:#FFFFFF;padding-top:clamp(44px,4.5vw,72px);padding-right:24px;padding-bottom:clamp(44px,4.5vw,72px);padding-left:24px">
@@ -1060,8 +1008,12 @@
 <h2 class="wp-block-heading has-text-align-center">Oferta zabiegowa</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","className":"e-small","style":{"spacing":{"margin":{"bottom":"48px"}}}} -->
-<p class="has-text-align-center e-small" style="margin-bottom:48px">Przez ograniczony czas obowiązują specjalne ceny zabiegów. Zakres terapii oraz jej ostateczny koszt ustalane są indywidualnie podczas konsultacji lekarskiej.</p>
+<!-- wp:paragraph {"align":"center","className":"e-cennik-nadtytul"} -->
+<p class="has-text-align-center e-cennik-nadtytul">Oferta specjalna</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center","className":"e-small e-cennik-wstep"} -->
+<p class="has-text-align-center e-small e-cennik-wstep">Przez ograniczony czas obowiązują specjalne ceny zabiegów. Zakres terapii oraz jej ostateczny koszt ustalane są indywidualnie podczas konsultacji lekarskiej.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"className":"e-cennik-grupa"} -->
@@ -1126,6 +1078,69 @@
 <li><span class="n">Stopy</span><span class="v">od 1500 zł</span></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:heading {"level":3,"className":"e-cennik-grupa"} -->
+<h3 class="wp-block-heading e-cennik-grupa">Mezoterapia igłowa</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"e-cennik-wprowadzenie"} -->
+<p class="e-cennik-wprowadzenie">Preparat oraz plan terapii dobierane są indywidualnie podczas konsultacji lekarskiej, odpowiednio do potrzeb i kondycji skóry.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"e-price"} -->
+<ul class="wp-block-list e-price"><!-- wp:list-item -->
+<li><span class="n">Okolica oka</span><span class="v">od 450 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Twarz</span><span class="v">od 600 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Twarz + szyja</span><span class="v">od 800 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Twarz + szyja + dekolt</span><span class="v">od 950 zł</span></li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3,"className":"e-cennik-grupa"} -->
+<h3 class="wp-block-heading e-cennik-grupa">Plasma Complex — terapia autologiczna</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"e-cennik-wprowadzenie"} -->
+<p class="e-cennik-wprowadzenie">Terapia z wykorzystaniem autologicznej fibryny bogatopłytkowej. Zakres terapii dobierany jest indywidualnie podczas konsultacji lekarskiej.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"e-price"} -->
+<ul class="wp-block-list e-price"><!-- wp:list-item -->
+<li><span class="n">Twarz</span><span class="v">od 1100 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Twarz + szyja</span><span class="v">od 1300 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Twarz + szyja + dekolt</span><span class="v">od 1400 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Skóra głowy</span><span class="v">od 1100 zł</span></li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph {"className":"e-cennik-podgrupa"} -->
+<p class="e-cennik-podgrupa">Zastosowania medyczne</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"e-price"} -->
+<ul class="wp-block-list e-price"><!-- wp:list-item -->
+<li><span class="n">Terapia autologiczna w bruksizmie</span><span class="v">od 1100 zł</span></li>
+<!-- /wp:list-item -->
+<!-- wp:list-item -->
+<li><span class="n">Pozostałe wskazania medyczne</span><span class="v">wycena indywidualna</span></li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph {"className":"e-cennik-uwaga"} -->
+<p class="e-cennik-uwaga">Zakres terapii i cena ustalane są indywidualnie podczas konsultacji lekarskiej.</p>
+<!-- /wp:paragraph -->
 
 </section>
 <!-- /wp:group -->

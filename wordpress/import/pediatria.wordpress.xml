@@ -873,9 +873,20 @@
   margin:0 !important; font-size:.74rem !important; line-height:1.7;
   letter-spacing:.08em; color:var(--kb-atrament-2);
 }
-.kb-spoleczne{ margin-top:18px !important; }
-.kb-stopka .wp-block-social-links .wp-social-link{ background:rgba(55,81,72,.10); color:var(--kb-atrament); }
-.kb-stopka .wp-block-social-links .wp-social-link:hover{ background:var(--kb-szalwia); }
+/* Odnosniki do profilow — pigulki w tej samej szalwii, co reszta
+   stopki. Wysokosc 40 px plus odstep miedzy nimi daje pole dotyku,
+   w ktore palec trafia bez celowania. */
+.kb-spoleczne{ margin:18px 0 0 !important; display:flex; flex-wrap:wrap; gap:10px; }
+.kb-profil{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 15px; border-radius:999px;
+  background:rgba(55,81,72,.10); border:1px solid rgba(55,81,72,.16);
+  color:var(--kb-ciemny-2) !important; text-decoration:none;
+  font-size:.85rem; font-weight:600; line-height:1.2;
+  transition:background .18s ease, border-color .18s ease;
+}
+.kb-profil svg{ flex:none; display:block; }
+.kb-profil:hover{ background:var(--kb-szalwia); border-color:var(--kb-szalwia); }
 
 /* =========================================================================
    NOTA / ZASTRZEŻENIE
@@ -997,10 +1008,6 @@
 </div>
 <!-- /wp:buttons -->
 
-<!-- wp:paragraph {"className":"kb-drobne"} -->
-<p class="kb-drobne">ul. St. Daneckiej 4/U6, Miechów &nbsp;·&nbsp; rejestracja SMS <a class="kb-tel" href="sms:+48535999565">535 999 565</a></p>
-<!-- /wp:paragraph -->
-
 </div>
 <!-- /wp:column -->
 
@@ -1071,7 +1078,7 @@
 <!-- wp:group {"className":"kb-portret-ramka","layout":{"type":"constrained"}} -->
 <div class="wp-block-group kb-portret-ramka">
 <!-- wp:image {"url":"/wp-content/uploads/portret-kasia.jpg","className":"kb-portret"} -->
-<figure class="wp-block-image kb-portret"><img src="/wp-content/uploads/portret-kasia.jpg" alt="lek. Katarzyna Bator, specjalista pediatra, z pluszowym misiem"/></figure>
+<figure class="wp-block-image kb-portret"><img src="/wp-content/uploads/portret-kasia.jpg" alt="lek. Katarzyna Bator, specjalista pediatra, w gabinecie"/></figure>
 <!-- /wp:image -->
 <!-- wp:paragraph {"align":"center","className":"kb-portret-podpis"} -->
 <p class="has-text-align-center kb-portret-podpis">lek. Katarzyna Bator<br><span>specjalista pediatra</span></p>
@@ -1444,7 +1451,7 @@
     },
     paracetamol: {
       mgKg: 15, maxDobowaMg: 500,
-      dawekNaDobe: 5, odstep: 'co 4–6 godz.',
+      dawekNaDobe: 5, odstep: 'co 4 godz.',
       preparaty: [
         { nazwa: 'APAP dla dzieci FORTE',     mg: 200, ml: 5 },
         { nazwa: 'Calpol',                    mg: 120, ml: 5 },
@@ -1799,12 +1806,37 @@
 <!-- wp:paragraph {"className":"kb-podpis"} -->
 <p class="kb-podpis">Specjalista pediatra</p>
 <!-- /wp:paragraph -->
-<!-- wp:social-links {"className":"kb-spoleczne"} -->
-<ul class="wp-block-social-links kb-spoleczne">
-<!-- wp:social-link {"url":"https://www.facebook.com/doktorkasiapediatra","service":"facebook"} /-->
-<!-- wp:social-link {"url":"https://www.instagram.com/doktorkasiapediatra","service":"instagram"} /-->
-</ul>
-<!-- /wp:social-links -->
+<!-- ODNOSNIKI DO PROFILI.
+  Wczesniej byl tu blok "Ikony mediow spolecznosciowych" (wp:social-links).
+  Jest to blok dynamiczny: w zapisanej tresci zostaje sama pusta lista,
+  a odnosniki dokleja WordPress dopiero przy wyswietlaniu — w podgladzie
+  i w kazdym miejscu poza gotowa strona nie bylo ich w ogole widac,
+  a wyglad zalezal od arkusza biblioteki blokow.
+  Teraz sa to zwykle odnosniki z ikonami w SVG: widac je wszedzie
+  tak samo i nie potrzebuja niczego doczytywac.
+  Zeby zmienic adres profilu, popraw go w "href". -->
+<!-- wp:html -->
+<p class="kb-spoleczne">
+  <a class="kb-profil" href="https://www.facebook.com/doktorkasiapediatra"
+     target="_blank" rel="noopener" aria-label="Doktor Kasia Pediatra na Facebooku">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M14.5 8.5h2.2V5.6h-2.6c-2.5 0-3.9 1.5-3.9 3.9v1.6H8v2.9h2.2V21h3.1v-7h2.4l.4-2.9h-2.8v-1.3c0-.8.3-1.3 1.2-1.3Z"/>
+    </svg>
+    <span>Facebook</span>
+  </a>
+  <a class="kb-profil" href="https://www.instagram.com/doktorkasiapediatra"
+     target="_blank" rel="noopener" aria-label="Doktor Kasia Pediatra na Instagramie">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3.6" y="3.6" width="16.8" height="16.8" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+      </g>
+      <circle cx="16.9" cy="7.1" r="1.15" fill="currentColor"/>
+    </svg>
+    <span>Instagram</span>
+  </a>
+</p>
+<!-- /wp:html -->
 </div>
 <!-- /wp:column -->
 
