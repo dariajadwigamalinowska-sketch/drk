@@ -327,6 +327,12 @@
    DOKTOR KASIA — zdjęcie i narracja obok siebie
    ========================================================================= */
 .kb-doktor{ margin:0 auto !important; }
+/* Po skroceniu tekstu obok zdjecia kolumny mialy 543 px (karta)
+   przy 297 px (tekst) — po prawej zostawalo po ~120 px pustego
+   pola nad i pod napisami. Wezsza karta jest nizsza, bo jej
+   wysokosc wynika z proporcji zdjecia, wiec kadr nadal nie jest
+   przycinany, a obie kolumny sa podobnej wysokosci. */
+.kb-doktor .kb-portret-ramka{ max-width:306px; }
 .kb-doktor .kb-tekst-luzno{ margin-bottom:18px !important; max-width:52ch; }
 .kb-doktor .kb-tekst-luzno:last-of-type{ margin-bottom:26px !important; }
 .kb-doktor .kb-naglowek{ margin:0 0 18px !important; }
@@ -1175,22 +1181,6 @@
 <!-- wp:paragraph {"className":"kb-zaproszenie"} -->
 <p class="kb-zaproszenie">Zapraszamy na konsultacje.</p>
 <!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
-<p class="kb-tekst kb-tekst-luzno">Do gabinetu przychodzą dzieci, które boją się lekarza, i rodzice, którzy boją się o dziecko. Zanim sięgnę po stetoskop, zwykle jest chwila na oswojenie się — czasem z misiem, czasem z rozmową o tym, co dziś wydarzyło się w przedszkolu.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
-<p class="kb-tekst kb-tekst-luzno">Przyjmuję ograniczoną liczbę dzieci dziennie i jest to decyzja świadoma: tyle konsultacji, ile pozwala zbadać dziecko bez pośpiechu i odpowiedzieć na pytania rodziców — także te zadane po raz trzeci.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
-<p class="kb-tekst kb-tekst-luzno">Z wizyty wychodzicie z jasnym planem: co podawać i w jakiej dawce, na co patrzeć w domu i kiedy wrócić. Jeśli coś zacznie niepokoić między wizytami, jestem pod SMS-em.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kb-motto"} -->
-<p class="kb-motto">„Pediatria to nie zawód, to powołanie.”</p>
-<!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 
@@ -1746,10 +1736,6 @@
 -->
 <!-- wp:group {"className":"kb-sekcja kb-filmy","align":"full","anchor":"kb-pierwsza-pomoc"} -->
 <div class="wp-block-group alignfull kb-sekcja kb-filmy" id="kb-pierwsza-pomoc">
-
-<!-- wp:paragraph {"align":"center","className":"kb-nadtytul kb-nadtytul-srodek"} -->
-<p class="has-text-align-center kb-nadtytul kb-nadtytul-srodek">Projekt edukacyjny</p>
-<!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
 <h2 class="wp-block-heading has-text-align-center kb-naglowek">Pierwsza pomoc przedmedyczna</h2>
