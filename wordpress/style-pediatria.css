@@ -1,0 +1,1046 @@
+/* Opieka Pediatryczna Doktor Kasi
+   Wygenerowane przez wordpress/build.py — nie poprawiaj tu recznie,
+   tylko w pliku z blokami, i przebuduj.
+
+   Wklej calosc w Wyglad -> Dostosuj -> Dodatkowy CSS. To miejsce
+   nie przechodzi przez filtr kses, wiec arkusz przetrwa takze tam,
+   gdzie <style> w tresci wpisu jest usuwany. */
+
+/* Czcionki Google. UWAGA RODO: ładowanie z serwerów Google przekazuje im
+   adres IP odwiedzającego. Docelowo warto wgrać pliki czcionek na własny
+   serwer (robi to za Ciebie wtyczka "OMGF") albo usunąć poniższą linię. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* =========================================================================
+   USTAWIENIA — zmiana wartości poniżej przebudowuje wygląd całej strony
+   ========================================================================= */
+:root{
+  /* --- kolory --- */
+  --kb-tlo:          #F7F5F0;   /* ciepła biel z nutą szałwii            */
+  --kb-tlo-2:        #FFFFFF;   /* czysta biel, co druga sekcja          */
+  --kb-blekit:       #BADDCB;   /* mięta z logotypu — poświata, gradienty */
+  /* Barwy zdjęte z logotypu: mięta stetoskopu i brzoskwinia napisu.
+     Odcienie "-tekst" to te same kolory przyciemnione tak, żeby
+     drobne pismo miało co najmniej 4,7:1 na tle strony. */
+  --kb-szalwia:      #98C8B8;
+  --kb-szalwia-jasna:#DFEDE6;
+  --kb-szalwia-tekst:#537368;
+  /* Cztery ponizsze odcienie byly jeszcze fioletowo-granatowe
+     (#5C6488, #4A5273, #5C6688) z pierwszej wersji palety — koloru,
+     ktorego na tej stronie nie ma juz nigdzie indziej. Wchodzily
+     w ikony, liczby w kalkulatorze i drobne wersaliki pod portretem,
+     wiec odcinaly sie od mietowo-brzoskwiniowej reszty. Teraz to
+     ta sama szalwia, tylko przyciemniona. */
+  --kb-ciemny:       #46655A;   /* ikony, liczby wyniku                  */
+  --kb-ciemny-2:     #375148;   /* przycisk po najechaniu                */
+  --kb-atrament:     #3B2F30;   /* tekst główny, nagłówki                */
+  --kb-atrament-2:   #514541;   /* akapity, podpisy — ciemniejszy, bo
+                                   leza takze na gradiencie powitania    */
+  --kb-zloto:        var(--kb-szalwia-tekst); /* kreski, ikony           */
+  --kb-zloto-tekst:  var(--kb-szalwia-tekst); /* drobne wersaliki        */
+  --kb-akcent:       #F8C5A0;   /* brzoskwinia z logotypu — kursywa      */
+  --kb-akcent-tekst: #876750;
+  --kb-roz:          #F6CBAD;   /* brzoskwiniowa kreska ozdobna          */
+  --kb-karta:        #FFFDFB;
+  --kb-zastepcze:    linear-gradient(150deg,rgba(152,200,184,.28),rgba(248,197,160,.26));
+  --kb-linia:        rgba(59,47,48,.09);
+
+  /* --- kształty i odstępy --- */
+  --kb-promien:      22px;      /* miękkie zaokrąglenie kart             */
+  --kb-promien-luk:  0;         /* nieużywane — zdjęcie ma kształt kropli */
+  --kb-szerokosc:    1040px;
+  --kb-sekcja:       42px;
+
+  /* --- typografia --- */
+  --kb-font:          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --kb-font-naglowki: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+
+/* =========================================================================
+   SEKCJE
+   ========================================================================= */
+/* Nie polegamy na tym, ze motyw ustawi box-sizing. Bez tego padding
+   24px dokleja sie do szerokosci 100% i sekcje sa o 48px szersze niz
+   ekran — na telefonie strona przewijala sie w bok. */
+.kb-pasek,.kb-sekcja,.kb-stopka,
+.kb-pasek *,.kb-sekcja *,.kb-stopka *,
+.kb-pasek *::before,.kb-sekcja *::before,.kb-stopka *::before,
+.kb-pasek *::after,.kb-sekcja *::after,.kb-stopka *::after{ box-sizing:border-box; }
+
+.kb-sekcja{
+  font-family:var(--kb-font); font-weight:400;
+  color:var(--kb-atrament); line-height:1.6;
+  background:var(--kb-tlo); padding:var(--kb-sekcja) 24px;
+  position:relative;
+}
+/* Roznica miedzy sasiednimi sekcjami jest celowo minimalna — zamiast
+   pasow w dwoch kolorach strona ma byc jednym, spokojnym tlem. */
+.kb-sekcja-cieplo{ background:var(--kb-tlo-2); }
+/* Miekkie przejscie miedzy jasnymi sekcjami zamiast ostrej krawedzi.
+   Ciemne pasy sa z tego wylaczone — jasna woalka kladla sie na nich
+   i rozjasniala tlo pod bialym napisem az ponizej progu czytelnosci. */
+.kb-sekcja + .kb-sekcja:not(.kb-atuty):not(.kb-filmy)::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:90px;
+  background:linear-gradient(to bottom, var(--kb-tlo), transparent);
+  opacity:.55; pointer-events:none;
+}
+.kb-sekcja-cieplo + .kb-sekcja:not(.kb-sekcja-cieplo):not(.kb-atuty):not(.kb-filmy)::before{
+  background:linear-gradient(to bottom, var(--kb-tlo-2), transparent);
+}
+
+/* Poświata w sekcji powitalnej. Górna warstwa wygasza gradient tuż pod
+   paskiem nawigacji, żeby nie było widać szwu między pasami. */
+/* UWAGA: wcześniej reguła stała pod selektorem .kb-sekcja:first-of-type,
+   który nie pasował do niczego — pierwszym elementem tego typu jest
+   <style>, a zaraz po nim pasek górny bez klasy .kb-sekcja. Poświata
+   nigdy się nie pokazywała. Sekcja ma teraz własną klasę.
+
+   Tło sekcji powitalnej odwzorowuje gradient z przesłanej grafiki:
+   kremowa brzoskwinia, pas zamglonego błękitu, koralowy róż. Odtworzony
+   w CSS zamiast obrazka — skaluje się bez ograniczeń i nic nie waży.
+   Warstwa welonu u góry przygasza barwy pod tekstem, dolna wygasza
+   gradient w tło strony, żeby nie było widać szwu przy pasku atutów. */
+.kb-sekcja-powitalna{
+  padding-top:32px !important; padding-bottom:32px !important;
+  background:
+    linear-gradient(to bottom,
+      rgba(255,255,255,.55) 0,
+      rgba(255,255,255,.18) 200px,
+      rgba(247,245,240,.35) 62%,
+      rgba(247,245,240,.90) 92%,
+      var(--kb-tlo) 100%),
+    /* Ten sam przebieg barw co wczesniej, ale przepuszczony przez biel:
+       kazdy stopien ma okolo 30% krycia, wiec kolor jest obecny jako
+       welon, a nie jako plama. */
+    /* Przebieg barw przesuniety ku szalwii i cieplym bielom z kadru:
+       zielen fartucha po lewej, roz logotypu tylko jako domkniecie. */
+    /* Przebieg jak w logotypie: mieta stetoskopu po lewej, przez
+       ciepla biel, do brzoskwini napisu po prawej. */
+    linear-gradient(102deg,
+      rgba(186,221,203,.36)   0%,
+      rgba(152,200,184,.30)  18%,
+      rgba(203,226,215,.24)  38%,
+      rgba(236,228,216,.24)  58%,
+      rgba(246,203,173,.26)  80%,
+      rgba(248,197,160,.26) 100%),
+    var(--kb-tlo);
+}
+
+.kb-sekcja    > .wp-block-group__inner-container,
+.kb-pasek     > .wp-block-group__inner-container,
+.kb-stopka    > .wp-block-group__inner-container,
+.kb-sekcja    > *,
+.kb-pasek     > *,
+.kb-stopka    > *{ max-width:var(--kb-szerokosc); margin-left:auto; margin-right:auto; }
+
+.kb-sekcja h1,.kb-sekcja h2,.kb-sekcja h3,.kb-stopka h2{
+  font-family:var(--kb-font-naglowki); font-weight:600;
+  color:var(--kb-atrament); line-height:1.14; text-wrap:balance;
+}
+.kb-sekcja p{ margin-top:0; }
+.kb-sekcja[id]{ scroll-margin-top:24px; }
+.kb-sekcja a{ color:inherit; }
+
+/* =========================================================================
+   TYPOGRAFIA
+   ========================================================================= */
+
+.kb-tytul{
+  font-size:clamp(2.4rem,5.2vw,4.1rem) !important; font-weight:600 !important;
+  margin:0 0 .46em !important; letter-spacing:-.012em;
+}
+.kb-tytul em{ font-style:italic; font-weight:300; color:var(--kb-akcent-tekst); }
+
+/* Marginesy poziome "auto", zeby !important nie skasowalo wysrodkowania
+   z .kb-sekcja > * — inaczej naglowek stojacy bezposrednio w sekcji
+   przesuwa sie o pol roznicy szerokosci wzgledem reszty tresci. */
+.kb-naglowek{ font-size:clamp(1.7rem,2.8vw,2.4rem) !important; margin:0 auto .38em !important; }
+.kb-naglowek-maly{ font-size:clamp(1.4rem,2.2vw,1.75rem) !important; margin:0 auto .5em !important; }
+
+/* Tytul sekcji odcieta krotka rozowa kreska — ten sam zabieg co na
+   stronie medycyny estetycznej, tylko w tutejszej palecie. Kreska
+   idzie za naglowkiem, wiec nie trzeba jej wstawiac osobnym blokiem. */
+/* Kreska pod tytulem sekcji przechodzi z szalwii w roz — obie barwy
+   pochodza z materialu: zielen z kadru, roz z logotypu. */
+.kb-naglowek::after{
+  content:""; display:block; width:64px; height:2px;
+  margin:14px 0 0; border-radius:2px;
+  background:linear-gradient(to right,var(--kb-szalwia),rgba(248,197,160,.7) 70%,rgba(248,197,160,0));
+}
+.kb-naglowek.has-text-align-center::after{
+  margin-left:auto; margin-right:auto; width:104px;
+  background:linear-gradient(to right,rgba(152,200,184,0),var(--kb-szalwia) 50%,rgba(152,200,184,0));
+}
+/* W karcie kontaktu naglowek jest etykieta karty, nie tytulem sekcji. */
+.kb-karta-kontakt .kb-naglowek-maly::after{ display:none; }
+
+/* Nadtytul nad naglowkiem sekcji — drobne wersaliki w szalwii,
+   ten sam akcent co kreski pod tytulami. */
+.kb-nadtytul{
+  /* Marginesy poziome "auto" — inaczej !important kasuje
+     wysrodkowanie z .kb-sekcja > * i nadtytul stoi o 96 px
+     w lewo od naglowka, ktory jest pod nim. */
+  margin:0 auto 10px !important; font-size:.72rem !important; font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--kb-szalwia-tekst); display:flex; align-items:center;
+}
+
+.kb-lead{
+  font-size:1.08rem !important; color:var(--kb-atrament-2);
+  max-width:48ch; margin:0 0 26px !important;
+}
+.kb-tekst-srodek{ margin-left:auto !important; margin-right:auto !important; max-width:58ch; }
+.kb-tekst-luzno{ margin-bottom:22px !important; max-width:56ch; }
+.kb-tekst{ color:var(--kb-atrament-2); max-width:58ch; }
+/* Drobny wiersz pod przyciskami w oknie powitalnym: adres i numer
+   rejestracji. Zwykly akapit, nie flex — inaczej odnosnik z numerem
+   staje sie osobnym polem i wiersz nie zawija sie na telefonie. */
+.kb-drobne{
+  font-size:.9rem !important; color:var(--kb-atrament-2);
+  margin:26px 0 0 !important; line-height:1.7;
+}
+.kb-drobne .kb-tel{ font-weight:600; white-space:nowrap; }
+.kb-motto{
+  font-family:var(--kb-font-naglowki) !important; font-style:italic; font-weight:300;
+  /* Zostal tu jeszcze fioletowo-granatowy #454E6B z pierwszej wersji
+     palety. Cytat jest teraz w szalwii — tej samej, co nadtytuly
+     i kreski pod naglowkami. */
+  font-size:1.15rem !important; color:var(--kb-szalwia-tekst); max-width:38ch;
+  margin:0 0 28px !important;
+}
+
+/* =========================================================================
+   DOKTOR KASIA — zdjęcie i narracja obok siebie
+   ========================================================================= */
+.kb-doktor{ margin:0 auto !important; }
+/* Po skroceniu tekstu obok zdjecia kolumny mialy 543 px (karta)
+   przy 297 px (tekst) — po prawej zostawalo po ~120 px pustego
+   pola nad i pod napisami. Wezsza karta jest nizsza, bo jej
+   wysokosc wynika z proporcji zdjecia, wiec kadr nadal nie jest
+   przycinany, a obie kolumny sa podobnej wysokosci. */
+.kb-doktor .kb-portret-ramka{ max-width:306px; }
+.kb-doktor .kb-tekst-luzno{ margin-bottom:18px !important; max-width:52ch; }
+.kb-doktor .kb-tekst-luzno:last-of-type{ margin-bottom:26px !important; }
+.kb-doktor .kb-naglowek{ margin:0 0 18px !important; }
+.kb-doktor .kb-motto{ margin:0 !important; }
+/* Zdanie otwierajace sekcje "Doktor Kasia" — stopien wieksze od
+   narracji ponizej, zeby bylo pierwszym, co sie czyta po tytule. */
+.kb-wstep{
+  font-size:1.12rem !important; font-weight:500;
+  color:var(--kb-atrament); max-width:46ch;
+  margin:0 0 18px !important; line-height:1.55;
+}
+/* Zaproszenie zamyka czesc informacyjna, zanim zacznie sie opowiesc
+   pierwszej osobie. Szalwia i kroj naglowkowy odrozniaja je od
+   zwyklego akapitu. */
+.kb-zaproszenie{
+  font-family:var(--kb-font-naglowki) !important; font-style:italic;
+  font-size:1.05rem !important; color:var(--kb-szalwia-tekst);
+  margin:0 0 24px !important;
+}
+@media (max-width:781px){
+  .kb-wstep{ font-size:1.06rem !important; }
+}
+
+/* =========================================================================
+   WASZE SŁOWA — wypowiedzi rodziców
+   ========================================================================= */
+.kb-glosy-mur{
+  margin:14px auto 0 !important; max-width:var(--kb-szerokosc);
+  /* Uklad murkowy: cytaty maja rozna dlugosc, wiec zamiast siatki
+     z dziurami ustawiamy je w kolumnach, ktore same sie wyrownuja. */
+  column-count:3; column-gap:22px;
+}
+.kb-glos{
+  break-inside:avoid; -webkit-column-break-inside:avoid;
+  margin:0 0 16px !important; padding:20px 22px 22px;
+  background:#fff;
+  border:1px solid rgba(59,47,48,.11); border-radius:var(--kb-promien);
+  box-shadow:0 18px 40px -42px rgba(69,56,58,.18);
+  font-family:var(--kb-font-naglowki); font-style:italic; font-weight:300;
+  font-size:1rem !important; line-height:1.6; color:var(--kb-atrament);
+}
+/* Cudzyslowy dokladane stylem, zeby nie trzeba bylo ich wpisywac
+   w edytorze. W linii, nie jako duzy znak nad tekstem — ten nachodzil
+   na pierwsza linijke cytatu. */
+.kb-glos::before{ content:"„"; color:var(--kb-szalwia); }
+.kb-glos::after{  content:"”"; color:var(--kb-szalwia); }
+@media (max-width:1000px){ .kb-glosy-mur{ column-count:2; } }
+@media (max-width:640px){  .kb-glosy-mur{ column-count:1; } }
+
+/* Ramka powitalna z dwoma ujeciami — oba kadry leza na sobie
+   i przenikaja sie w petli 18 s. Bez skryptu: dwie animacje
+   przesuniete w fazie o polowe cyklu. */
+/* To ramka trzyma proporcje i wysokosc, a oba ujecia ja wypelniaja.
+   Dzieki temu drugie, lezace na pierwszym, ma dokladnie ten sam kadr. */
+/* Kadr bierze cala szerokosc, jaka zostaje w kolumnie — wczesniej
+   ograniczenie wysokosci do 600 px scinalo go do 338 px szerokosci.
+   Wysokosc wynika z proporcji 9:16, wiec nic nie jest przycinane,
+   a pole widoczne jest najwieksze, jakie sie w sekcji miesci. */
+.kb-ramka-dwa{
+  position:relative; aspect-ratio:9/16;
+  width:100%; max-width:100%;
+  margin:0 auto !important;
+}
+.kb-ramka-dwa .kb-film-ramka{ margin:0 !important; height:100%; }
+/* Zapas dla przegladarek bez "aspect-ratio" (Safari starsze niz 15,
+   Firefox starszy niz 89). Bez niego ramka nie ma skad wziac wysokosci
+   i oba ujecia zwijaja sie do zera. Odstep wewnetrzny 16/9 = 177,78%
+   daje te sama proporcje, a kadry lezą na nim bezwzglednie. */
+@supports not (aspect-ratio: 9 / 16){
+  .kb-ramka-dwa{ height:0; padding-top:177.78%; }
+  .kb-ramka-dwa .kb-film-ramka{
+    position:absolute; top:0; right:0; bottom:0; left:0; height:auto;
+  }
+}
+/* Rozpisane krawedzie obok skrotu "inset" — Safari zna go dopiero
+   od 14.1, a bez tego drugie ujecie wypadaloby z kadru. */
+.kb-ramka-dwa .kb-film--b{ position:absolute; top:0; right:0; bottom:0; left:0; inset:0; }
+.kb-ramka-dwa .kb-film--b video{ height:100%; object-fit:cover; }
+/* Oba ujecia ida w pelnych proporcjach, wiec nie trzeba juz
+   przesuwac kadru — nic nie jest przycinane. */
+.kb-ramka-dwa .kb-film--a{ animation:kb-przenikanie 18s ease-in-out infinite; }
+.kb-ramka-dwa .kb-film--b{ animation:kb-przenikanie 18s ease-in-out infinite -9s; }
+@keyframes kb-przenikanie{
+  0%,44%{ opacity:1; } 50%,94%{ opacity:0; } 100%{ opacity:1; }
+}
+/* Kto wylaczyl animacje w systemie, widzi tylko pierwsze ujecie. */
+@media (prefers-reduced-motion:reduce){
+  .kb-ramka-dwa .kb-film--a,.kb-ramka-dwa .kb-film--b{ animation:none; }
+  .kb-ramka-dwa .kb-film--b{ display:none; }
+}
+
+/* =========================================================================
+   KARUZELA Z FILMAMI
+   ========================================================================= */
+/* PROJEKT EDUKACYJNY — wlasny pas.
+   Sekcja stala miedzy "Waszymi slowami" a stopka, a wszystkie trzy
+   mialy to samo kremowe tlo, wiec blok nie odcinal sie od niczego.
+   Dostaje wlasny pas w miecie i brzoskwini z logotypu — ten sam
+   jezyk, co pas atutow — cienkie kreski u gory i u dolu oraz
+   nadtytul w formie plakietki. To nie jest oferta gabinetu, tylko
+   osobne przedsiewziecie finansowane przez powiat, wiec etykieta
+   ma to mowic od pierwszego spojrzenia. */
+.kb-filmy{
+  background:
+    linear-gradient(168deg, rgba(152,200,184,.22), rgba(248,197,160,.18)),
+    var(--kb-tlo-2);
+  /* Kreski w szalwii, nie w atramencie — pas graniczy teraz od dolu
+     z zielona stopka, wiec szara linia wypadalaby z palety. */
+  border-top:1px solid rgba(83,115,104,.28);
+  border-bottom:1px solid rgba(83,115,104,.28);
+  padding-top:calc(var(--kb-sekcja) + 10px);
+  padding-bottom:calc(var(--kb-sekcja) + 10px);
+}
+/* Stopka ma wlasna kreske u gory — obok kreski pasa dawalaby
+   podwojna linie. */
+.kb-filmy + .kb-stopka{ border-top:0; }
+/* Plakietka: "width:fit-content" zwiera pole do napisu, a marginesy
+   auto ustawiaja je na srodku. Nie robimy tego przez inline-flex,
+   bo wtedy wysrodkowanie z .kb-sekcja > * przestaje dzialac. */
+.kb-filmy .kb-nadtytul{
+  width:-moz-fit-content; width:fit-content; justify-content:center;
+  margin:0 auto 18px !important;
+  padding:7px 16px 6px; border-radius:999px;
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(152,200,184,.6);
+  color:var(--kb-szalwia-tekst);
+}
+.kb-karuzela{ position:relative; margin-top:24px; }
+.kb-tor{
+  display:flex; gap:20px; margin:0; padding:0 4px 6px; list-style:none;
+  overflow-x:auto; scroll-snap-type:x mandatory;
+  scrollbar-width:none; -ms-overflow-style:none;
+}
+.kb-tor::-webkit-scrollbar{ display:none; }
+.kb-slajd{
+  flex:0 0 calc((100% - 40px) / 3); min-width:0; scroll-snap-align:start;
+  margin:0; list-style:none;
+}
+.kb-slajd::marker{ content:""; }
+.kb-film-karta,
+.kb-slajd iframe{
+  display:block; width:100%; aspect-ratio:16/9; border:0;
+  border-radius:16px; overflow:hidden; background:var(--kb-zastepcze);
+}
+.kb-film-karta{
+  position:relative; padding:0; cursor:pointer;
+  box-shadow:0 22px 44px -34px rgba(69,56,58,.34);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.kb-film-karta:hover{ transform:translateY(-3px); box-shadow:0 26px 50px -32px rgba(69,56,58,.42); }
+/* Miniatura YouTube (hqdefault) to kadr 4:3 z czarnymi pasami u gory
+   i dolu — pasy zajmuja dokladnie po 12,5% wysokosci. Kafelek jest
+   16:9, wiec samo object-fit:cover zdejmuje je co do piksela.
+   Wczesniej bylo tu jeszcze transform:scale(1.34) — powiekszenie
+   obcinalo trzecia czesc kadru i rozmywalo miniature. */
+.kb-film-karta img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.kb-play{
+  position:absolute; inset:0; margin:auto; width:62px; height:62px;
+  border-radius:50%; background:rgba(255,253,251,.9);
+  box-shadow:0 8px 22px -8px rgba(69,56,58,.5);
+}
+/* Trojkat rysowany obramowaniem rosnie w prawo od punktu srodkowego,
+   wiec cofamy go o polowe szerokosci — inaczej stoi poza srodkiem kola. */
+.kb-play::before{
+  content:""; position:absolute; inset:0; margin:auto;
+  width:0; height:0;
+  border-left:18px solid var(--kb-szalwia-tekst);
+  border-top:11px solid transparent; border-bottom:11px solid transparent;
+  transform:translateX(-6px);
+}
+.kb-film-podpis{
+  margin:10px 2px 0 !important; font-size:.86rem !important;
+  color:var(--kb-atrament-2); line-height:1.5;
+}
+.kb-strzalka{
+  position:absolute; top:calc(50% - 30px); transform:translateY(-50%);
+  z-index:2; width:44px; height:44px; border-radius:50%; cursor:pointer;
+  border:1px solid rgba(69,56,58,.1); background:rgba(255,253,251,.92);
+  color:var(--kb-szalwia-tekst); font-size:1.5rem; line-height:1;
+  box-shadow:0 10px 26px -14px rgba(69,56,58,.45);
+  transition:opacity .2s ease, transform .2s ease;
+}
+.kb-strzalka:hover:not(:disabled){ transform:translateY(-50%) scale(1.06); }
+.kb-strzalka:disabled{ opacity:0; pointer-events:none; }
+.kb-strzalka-lewo{ left:-14px; }
+.kb-strzalka-prawo{ right:-14px; }
+
+/* =========================================================================
+   IKONY
+   Dodaj blokowi klasę "kb-i-…" w panelu po prawej: Zaawansowane →
+   Dodatkowa klasa CSS. Ikona pojawi się przed tekstem.
+   ========================================================================= */
+[class*="kb-i-"]::before{
+  content:""; display:inline-block; flex:none; vertical-align:-.15em;
+  width:1.1em; height:1.1em; margin-right:.6em; background:currentColor;
+  -webkit-mask:var(--kb-ikona) center/contain no-repeat;
+          mask:var(--kb-ikona) center/contain no-repeat;
+}
+.kb-i-pin      { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z'/%3E%3Ccircle cx='12' cy='11' r='2.6'/%3E%3C/svg%3E"); }
+.kb-i-telefon  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='2' width='12' height='20' rx='3'/%3E%3Cpath d='M11 18h2'/%3E%3C/svg%3E"); }
+/* Sam prostokat telefonu w rozmiarze 1,1 em czytal sie jak pusta
+   ramka. Ikona rejestracji ma teraz w srodku dwie kreski wiadomosci. */
+.kb-i-sms      { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='14' height='20' rx='3'/%3E%3Cpath d='M8.5 8h7M8.5 12h4.5'/%3E%3C/svg%3E"); }
+.kb-i-zegar    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E"); }
+.kb-i-kalendarz{ --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cpath d='M8 2v4M16 2v4M3 10h18'/%3E%3C/svg%3E"); }
+.kb-i-ptaszek  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E"); }
+.kb-i-serce    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5S3.5 15.4 3.5 9.7A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 8.5 2.1c0 5.7-8.5 10.8-8.5 10.8Z'/%3E%3C/svg%3E"); }
+.kb-i-puls     { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h4l2 8 4-16 2 8h4'/%3E%3C/svg%3E"); }
+.kb-i-uwaga    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 9v4M12 17h.01M10.3 3.9 2.15 18a1.5 1.5 0 0 0 1.3 2.25h17.1A1.5 1.5 0 0 0 21.85 18L13.7 3.9a1.5 1.5 0 0 0-2.6 0Z'/%3E%3C/svg%3E"); }
+.kb-i-iskra    { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 3l1.8 4.7L17.5 9.5l-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8Z'/%3E%3C/svg%3E"); }
+.kb-i-kropla   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3s6.2 6.3 6.2 10.2a6.2 6.2 0 0 1-12.4 0C5.8 9.3 12 3 12 3Z'/%3E%3C/svg%3E"); }
+.kb-i-tarcza   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7.5 3v5.2c0 4.6-3.1 8.4-7.5 9.8-4.4-1.4-7.5-5.2-7.5-9.8V6Z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E"); }
+.kb-i-rozmowa  { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 4H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v4l4.5-4H20a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Z'/%3E%3C/svg%3E"); }
+.kb-i-dyplom   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='9' r='5.5'/%3E%3Cpath d='M8.4 13.6 7 21.5l5-2.6 5 2.6-1.4-7.9'/%3E%3C/svg%3E"); }
+.kb-i-liscie   { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20c0-8 5-13 16-13 0 9-5 13-11 13a5 5 0 0 1-5 0Z'/%3E%3C/svg%3E"); }
+.kb-i-play     { --kb-ikona:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M10 8.5l6 3.5-6 3.5Z'/%3E%3C/svg%3E"); }
+
+/* =========================================================================
+   PASEK NAWIGACJI
+   Bez rozwijanego menu — na telefonie linki się zawijają.
+   ========================================================================= */
+.kb-pasek{
+  background:var(--kb-tlo); border-bottom:1px solid var(--kb-linia);
+  padding:18px 24px !important; font-family:var(--kb-font);
+}
+.kb-logo{
+  font-family:var(--kb-font-naglowki) !important; font-weight:600;
+  font-size:1.35rem !important; margin:0 !important; color:var(--kb-atrament);
+}
+.kb-podpis{
+  display:block; font-family:var(--kb-font); font-size:.72rem; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--kb-akcent-tekst); margin:5px 0 0 !important;
+}
+/* Logotyp trzyma sie lewej krawedzi, menu prawej. Wczesniej menu bylo
+   dosuniete do lewej swojej kolumny i wisialo w polowie paska, z dziura
+   po obu stronach. */
+.kb-menu{
+  margin:0 !important; display:flex; flex-wrap:wrap;
+  justify-content:flex-end; gap:6px 26px;
+  font-size:.9rem; font-weight:600;
+}
+.kb-menu a{
+  color:var(--kb-atrament-2); text-decoration:none;
+  /* Pionowy padding robi z odnosnika cel dotykowy ~36 px zamiast 20. */
+  display:inline-block; padding:8px 0 6px; border-bottom:2px solid transparent;
+}
+.kb-menu a:hover{ color:var(--kb-atrament); border-bottom-color:var(--kb-roz); }
+
+/* Profile w pasku gornym. Prawa kolumna paska jest rzedem: odnosniki
+   menu, a za nimi dwie okragle ikony. Na telefonie rzad sie zawija,
+   wiec ikony schodza pod menu, nie wypychajac go poza ekran. */
+.kb-pasek .wp-block-column:last-child{
+  display:flex; align-items:center; justify-content:flex-end;
+  gap:10px 20px; flex-wrap:wrap;
+}
+.kb-pasek-profile{ margin:0 !important; display:flex; gap:8px; }
+.kb-ikona-profil{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--kb-szalwia); background:rgba(152,200,184,.14);
+  color:var(--kb-ciemny-2); text-decoration:none;
+  transition:background .18s ease, border-color .18s ease;
+}
+.kb-ikona-profil svg{ display:block; }
+.kb-ikona-profil:hover{ background:var(--kb-szalwia); border-color:var(--kb-szalwia-tekst); }
+
+/* =========================================================================
+   PRZYCISKI — pigułki, jak w pierwotnym projekcie
+   ========================================================================= */
+.kb-btn-glowny .wp-block-button__link,
+.kb-btn-obrys  .wp-block-button__link{
+  border-radius:100px; padding:15px 30px; font-family:var(--kb-font);
+  font-weight:600; font-size:.95rem; letter-spacing:0; text-transform:none;
+  border:2px solid transparent; transition:background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.kb-btn-glowny .wp-block-button__link{
+  /* Przycisk jest jasny: wypelnienie w szalwii z kadru, napis
+     atramentowy. Ciemna plama odcinala sie od reszty strony,
+     a tak przycisk nadal czyta sie jak przycisk — atrament na
+     szalwii ma 9,8:1. */
+  /* Jasne wypelnienie potrzebuje obrysu, inaczej rozplywa sie
+     w tle i przestaje wygladac na element do klikniecia. */
+  background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
+  border-color:var(--kb-szalwia) !important;
+  box-shadow:0 1px 0 rgba(59,47,48,.04);
+}
+.kb-btn-glowny .wp-block-button__link:hover{ background:#CDE2D7; transform:translateY(-2px); }
+/* Obwodka w szalwii, ta sama co przy przycisku glownym — wczesniej
+   byla atramentowa i dwa przyciski obok siebie mialy ramki
+   w dwoch roznych kolorach. */
+.kb-btn-obrys  .wp-block-button__link{ background:rgba(255,255,255,.9); color:var(--kb-atrament); border-color:var(--kb-szalwia) !important; }
+.kb-btn-obrys  .wp-block-button__link:hover{ background:var(--kb-szalwia-jasna); transform:translateY(-2px); }
+.wp-block-buttons{ gap:14px; }
+
+/* =========================================================================
+   FILM (pas u góry, format poziomy)
+   ========================================================================= */
+.kb-film-ramka{
+  --kb-film-proporcje: 9/16;   /* format pionowy, jak rolka */
+  --kb-film-szerokosc: 420px;  /* wąski kadr — film nie zagarnia całego
+                                  pierwszego ekranu. Dla filmu poziomego
+                                  ustaw proporcje 16/9 i szerokość 940px. */
+  max-width:var(--kb-film-szerokosc); margin:0 auto !important;
+}
+.kb-film-ramka video,
+.kb-film-ramka iframe,
+.kb-film-ramka .wp-block-embed__wrapper{
+  display:block; width:100%; aspect-ratio:var(--kb-film-proporcje);
+  height:auto; border:0; object-fit:cover; border-radius:var(--kb-promien);
+  box-shadow:0 34px 68px -40px rgba(59,47,48,.5);
+}
+.kb-film-ramka .wp-block-embed__wrapper iframe{ height:100%; }
+.kb-film-ramka figcaption{
+  margin-top:14px !important; text-align:center;
+  font-size:.85rem !important; color:var(--kb-atrament-2);
+}
+
+/* Film w sekcji powitalnej — ten sam język kształtu co zdjęcie portretowe:
+   miękka kropla, proporcja 4:5, pełna szerokość kolumny. Materiał jest
+   pionowy 9:16, więc object-fit przycina górę i dół, zostawiając środek. */
+.kb-film-luk{ max-width:none; margin:0 !important; }
+/* Film idzie w swoich wlasnych proporcjach (9:16), wiec widac caly
+   kadr — wczesniej ramka 4:5 przycinala gore i dol. Nie ma juz ani
+   ksztaltu kropli, ani cienia: krawedzie sa wygaszone maska, wiec
+   obraz wtapia sie w tlo zamiast lezec na nim jako wycinanka. */
+.kb-film-luk video{
+  /* Kadr w oryginalnych proporcjach i w calosci: wysokosc ograniczona,
+     szerokosc wyliczana z proporcji. Przy samym max-height i szerokosci
+     100% obraz nadal bylby przycinany z gory i dolu. */
+  width:100%; height:100%; aspect-ratio:9/16; object-fit:cover;
+  display:block;
+  border-radius:0; box-shadow:none;
+  /* Wygaszenie tylko przy samych krawedziach. Przy 14% maska zjadala
+     po 49 px z kazdego boku i kadr wygladal na przyciety; przy 6%
+     nadal schodzilo po 26 px. Zostaje 3% — miekka krawedz zamiast
+     twardego ciecia, a widac praktycznie caly kadr. */
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0, #000 3%, #000 97%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 3%, #000 97%, transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+    linear-gradient(to right,  transparent 0, #000 3%, #000 97%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 3%, #000 97%, transparent 100%);
+          mask-composite:intersect;
+}
+
+
+/* =========================================================================
+   FILMY PIONOWE (9:16) — pas na krótkie klipy
+   Proporcje zmienia --kb-pion-proporcje. Blok wideo jest pusty:
+   w edytorze klikasz go i wgrywasz plik.
+   ========================================================================= */
+
+/* Puste miejsca na media — żeby przed wgraniem plików strona nie miała
+   dziur. Gutenberg zapisuje pusty blok wideo jako <figure> bez treści,
+   a pusty blok obrazka jako <img> bez atrybutu src. */
+.kb-film-ramka:empty::after,
+.kb-film-ramka:empty::after{
+  content:"Miejsce na film pionowy"; aspect-ratio:var(--kb-film-proporcje); width:100%;
+  background:var(--kb-zastepcze);
+}
+.kb-foto img:not([src]),
+.kb-logotyp img:not([src]){
+  width:100%; background:var(--kb-zastepcze); min-height:80px;
+}
+.kb-logotyp img:not([src]){ aspect-ratio:22/7; max-height:74px; }
+
+/* Logotyp praktyki w pasku górnym — osobna klasa, żeby nie mieszać się
+   z logotypami patronackimi nad stopką. */
+.kb-logo-obraz{ margin:0 0 8px !important; }
+.kb-logo-obraz img{ max-height:72px; width:auto; }
+.kb-logo-obraz img:not([src]){
+  width:190px; aspect-ratio:19/5; background:var(--kb-zastepcze); border-radius:6px;
+}
+
+/* =========================================================================
+   ZDJĘCIA
+   kb-foto-luk    – portret w miękkim, organicznym kształcie (jak w oryginale)
+   kb-foto-prosta – zaokrąglony prostokąt
+   ========================================================================= */
+.kb-foto{ margin:0 !important; }
+.kb-foto img{ width:100%; display:block; object-fit:cover; }
+.kb-foto-luk img{
+  aspect-ratio:4/5;
+  border-radius:44% 56% 62% 38% / 46% 40% 60% 54%;
+  box-shadow:0 34px 66px -32px rgba(59,47,48,.45);
+}
+.kb-foto-prosta img{
+  aspect-ratio:3/3.6; border-radius:var(--kb-promien);
+  box-shadow:0 34px 66px -36px rgba(59,47,48,.45);
+}
+
+/* Portret w ramce — passe-partout jak w oprawionym zdjęciu: jasna
+   plansza, cienki obrys, zdjęcie w środku, podpis pod spodem. */
+.kb-portret-ramka{
+  max-width:370px; margin:0 auto !important;
+  background:#fff; border:1px solid rgba(59,47,48,.13);
+  border-radius:var(--kb-promien);
+  padding:18px 18px 24px !important;
+  box-shadow:0 20px 44px -42px rgba(69,56,58,.2);
+}
+.kb-portret{ margin:0 !important; }
+.kb-portret img{
+  width:100%; display:block; aspect-ratio:3/4; object-fit:cover;
+  border-radius:calc(var(--kb-promien) - 8px);
+}
+.kb-portret img:not([src]){ background:var(--kb-zastepcze); }
+.kb-portret-podpis{
+  margin:16px 0 0 !important; text-align:center; font-family:var(--kb-font-naglowki);
+  font-size:1.05rem !important; color:var(--kb-atrament); line-height:1.3;
+}
+.kb-portret-podpis span{
+  display:block; margin-top:4px; font-family:var(--kb-font);
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--kb-zloto-tekst);
+}
+
+/* =========================================================================
+   PAS Z ATUTAMI
+   ========================================================================= */
+/* Pas jest krycy — przezroczystosc rozjasniala go tak, ze bialy napis
+   schodzil ponizej 3:1 i przestawal byc czytelny. Lagodnosc bierze sie
+   teraz z samego koloru i z gradientu, nie z przepuszczania tla. */
+/* Pas atutow jest teraz jasny. Ciemna plyta byla najmocniejszym
+   elementem strony i przecinala ja w polowie; jasne pasmo z cienkimi
+   kreskami daje ten sam podzial, nie krzyczac. */
+.kb-atuty{
+  background:linear-gradient(100deg, rgba(152,200,184,.26), rgba(248,197,160,.22)) !important;
+  border-top:1px solid var(--kb-linia); border-bottom:1px solid var(--kb-linia);
+  color:var(--kb-atrament);
+  padding-top:24px !important; padding-bottom:24px !important;
+}
+.kb-atuty h2,.kb-atuty h3{ color:var(--kb-atrament); }
+.kb-atut{
+  margin:0 !important; font-size:.94rem !important; font-weight:500;
+  display:flex; align-items:center; justify-content:center; line-height:1.5;
+}
+.kb-atut::before{ color:var(--kb-szalwia-tekst); }
+/* Dwa hasla wysrodkowane w swoich polowach paska, rozdzielone
+   cienka kreska — inaczej oba lgna do lewej i prawa polowa
+   paska zostaje pusta. */
+.kb-atuty .wp-block-column{ position:relative; }
+.kb-atuty .wp-block-column + .wp-block-column::before{
+  content:""; position:absolute; left:-1em; top:50%;
+  transform:translateY(-50%); width:1px; height:1.7em;
+  background:rgba(59,47,48,.14);
+}
+@media (max-width:781px){
+  .kb-atuty .wp-block-column + .wp-block-column::before{ display:none; }
+}
+
+/* =========================================================================
+   FILARY — miękkie kafelki
+   ========================================================================= */
+.kb-filary{ margin-top:34px !important; gap:18px !important; align-items:stretch !important; }
+.kb-filar{
+  background:rgba(255,255,255,.6); border:1px solid var(--kb-linia);
+  border-radius:16px; padding:22px !important;
+}
+.kb-filar h3{ font-size:1.05rem !important; margin:0 0 6px !important; }
+.kb-filar h3::before{ color:var(--kb-ciemny); }
+.kb-filar p{ font-size:.88rem !important; color:var(--kb-atrament-2); margin:0 !important; }
+
+/* =========================================================================
+   ZABIEGI I KROKI — nieużywane na tej stronie, style zostawione na wypadek,
+   gdyby ktoś przeniósł tu sekcję z drugiej strony
+   ========================================================================= */
+.kb-zabiegi{ margin-top:40px !important; gap:20px !important; align-items:stretch !important; }
+.kb-zabieg{
+  background:var(--kb-karta); border:1px solid var(--kb-linia);
+  border-radius:var(--kb-promien); padding:26px !important;
+  display:flex; flex-direction:column;
+}
+.kb-zabieg h3{ font-size:1.15rem !important; margin:0 0 8px !important; }
+.kb-zabieg h3::before{ display:block; margin:0 0 12px; width:1.5em; height:1.5em; color:var(--kb-ciemny); }
+.kb-zabieg p{ font-size:.9rem !important; color:var(--kb-atrament-2); margin:0 !important; }
+.kb-zabieg .kb-czas{
+  margin-top:auto !important; padding-top:14px; font-size:.72rem !important;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--kb-ciemny);
+  border-top:1px solid var(--kb-linia);
+}
+.kb-kroki{ margin-top:40px !important; gap:26px !important; counter-reset:kb-krok; align-items:stretch !important; }
+.kb-krok{ position:relative; padding-top:56px !important; }
+.kb-krok::before{
+  counter-increment:kb-krok; content:counter(kb-krok,decimal-leading-zero);
+  position:absolute; top:0; left:0;
+  font-family:var(--kb-font-naglowki); font-size:2.1rem; font-weight:600;
+  color:var(--kb-ciemny); line-height:1;
+}
+.kb-krok h3{ font-size:1.15rem !important; margin:0 0 8px !important; }
+.kb-krok p{ font-size:.9rem !important; color:var(--kb-atrament-2); margin:0 !important; }
+
+/* =========================================================================
+   KONTAKT
+   ========================================================================= */
+.kb-karta-kontakt{
+  background:#fff; border:1px solid rgba(59,47,48,.13);
+  border-radius:var(--kb-promien); padding:34px 32px !important;
+  box-shadow:0 20px 44px -36px rgba(69,56,58,.2);
+}
+.kb-kontakt-pozycja{
+  margin:0 0 3px !important; font-size:.95rem !important; font-weight:600;
+  color:var(--kb-atrament); display:flex; align-items:center;
+}
+.kb-kontakt-pozycja::before{ color:var(--kb-szalwia-tekst); }
+/* Numer w karcie kontaktu to glowna akcja strony — dostaje pole
+   dotyku ~40 px zamiast wysokosci samej linijki tekstu. */
+.kb-tel{ display:inline-block; padding:10px 0; margin:-6px 0; }
+.kb-kontakt-dane{
+  margin:0 0 22px !important; font-size:.95rem !important;
+  color:var(--kb-atrament-2); padding-left:1.7em;
+}
+.kb-kontakt-dane a{ color:inherit; text-decoration:none; border-bottom:1px solid var(--kb-linia); }
+.kb-kontakt-dane a:hover{ color:var(--kb-atrament); border-bottom-color:var(--kb-roz); }
+.kb-mapa-ramka{
+  border:1px solid var(--kb-linia); border-radius:var(--kb-promien);
+  overflow:hidden; height:100%; min-height:380px;
+}
+.kb-mapa-ramka iframe{ width:100%; height:100%; min-height:380px; border:0; display:block; }
+
+/* =========================================================================
+   STOPKA
+   ========================================================================= */
+/* Stopka krycy — jak pas atutow. Napisy leza na niej bezposrednio,
+   wiec tlo nie moze przepuszczac jasnego tla strony. */
+/* Stopka w zieleni ze strony — tej samej szalwii, co kreski pod
+   tytulami, pas atutow i pas projektu edukacyjnego. Jest jasna:
+   ciemna plyta na koncu strony ciagnela oko mocniej niz tresc nad nia.
+   Wszystkie barwy pisma sa dobrane pod to tlo tak, zeby drobne litery
+   trzymaly sie powyzej 4,5:1 — wczesniejsza brzoskwinia (#876750)
+   dawala na zieleni 3,7:1 i schodzila ponizej progu. */
+.kb-stopka{
+  background:linear-gradient(168deg, var(--kb-szalwia-jasna), #C9E2D6);
+  border-top:1px solid var(--kb-szalwia);
+  color:var(--kb-atrament-2);
+  padding:44px 24px 24px !important; font-family:var(--kb-font);
+}
+.kb-stopka .kb-logo{ color:var(--kb-atrament); margin:0 !important; }
+.kb-stopka .kb-podpis{ color:var(--kb-ciemny-2); margin:2px 0 0 !important; }
+
+/* Etykiety kolumn — drobne wersaliki, ta sama miara co reszta drobnego pisma */
+.kb-stopka-etykieta{
+  margin:0 0 12px !important; font-size:.72rem !important; font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--kb-ciemny-2);
+}
+/* Numer jest w stopce najwazniejszy, wiec dostaje kroj naglowkowy i skale */
+.kb-stopka-numer{ margin:0 !important; font-family:var(--kb-font-naglowki); font-size:1.6rem !important; line-height:1.1 !important; }
+.kb-stopka-numer a{ color:var(--kb-atrament); text-decoration:none; border-bottom:1px solid rgba(55,81,72,.35); }
+.kb-stopka-numer a:hover{ color:var(--kb-ciemny-2); border-bottom-color:var(--kb-ciemny-2); }
+.kb-stopka-drobne{ margin:8px 0 0 !important; font-size:.8rem !important; color:var(--kb-atrament-2); }
+.kb-stopka-adres{ margin:16px 0 0 !important; font-size:.9rem !important; color:var(--kb-atrament-2); line-height:1.6; }
+
+.kb-stopka-link{ margin:0 0 4px !important; font-size:.92rem !important; }
+.kb-stopka-link a{
+  display:inline-block; padding:6px 0;
+  color:var(--kb-atrament); text-decoration:none;
+  border-bottom:1px solid rgba(83,115,104,.55);
+}
+.kb-stopka-link a:hover{ color:var(--kb-ciemny-2); border-bottom-color:var(--kb-ciemny-2); }
+
+/* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
+/* Kreska idzie przez cala szerokosc stopki. Wczesniej byla obrysem
+   gornym waskiego akapitu, wiec urywala sie w polowie. */
+/* Marginesy poziome zostaja "auto" — inaczej !important zabija
+   wysrodkowanie z .kb-stopka > * i kreska rozjezdza sie z kolumnami. */
+.kb-stopka-kreska{
+  margin:34px auto 22px !important; border:0; height:1px;
+  background:rgba(55,81,72,.22);
+}
+.kb-stopka-dol-wiersz{ margin:0 auto !important; }
+.kb-stopka-uwaga{
+  margin:0 !important; max-width:62ch;
+  font-size:.82rem !important; line-height:1.75; color:var(--kb-atrament-2);
+}
+/* Numer alarmowy zostaje cieply, zeby odcinal sie od zieleni,
+   ale w odcieniu, ktory na tym tle daje 5,3:1 zamiast 3,7:1. */
+.kb-stopka-uwaga strong{ color:#7A4A2C; }
+
+.kb-stopka-dol{
+  margin:0 !important; font-size:.74rem !important; line-height:1.7;
+  letter-spacing:.08em; color:var(--kb-atrament-2);
+}
+/* Odnosniki do profilow — pigulki w tej samej szalwii, co reszta
+   stopki. Wysokosc 40 px plus odstep miedzy nimi daje pole dotyku,
+   w ktore palec trafia bez celowania. */
+.kb-spoleczne{ margin:18px 0 0 !important; display:flex; flex-wrap:wrap; gap:10px; }
+.kb-profil{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 15px; border-radius:999px;
+  background:rgba(55,81,72,.10); border:1px solid rgba(55,81,72,.16);
+  color:var(--kb-ciemny-2) !important; text-decoration:none;
+  font-size:.85rem; font-weight:600; line-height:1.2;
+  transition:background .18s ease, border-color .18s ease;
+}
+.kb-profil svg{ flex:none; display:block; }
+.kb-profil:hover{ background:var(--kb-szalwia); border-color:var(--kb-szalwia); }
+
+/* =========================================================================
+   NOTA / ZASTRZEŻENIE
+   ========================================================================= */
+.kb-nota{
+  margin-top:36px !important; padding:20px 24px !important;
+  /* Roz #D98F92 zostal z pierwszej palety. Ostrzezenie ma teraz
+     brzoskwinie z logotypu, tylko gestsza — sygnal zostaje,
+     a kolor nie wypada z reszty strony. */
+  background:rgba(248,197,160,.30); border-radius:16px;
+  font-size:.85rem !important; color:var(--kb-atrament-2);
+  display:flex; align-items:flex-start;
+}
+.kb-nota::before{ color:var(--kb-ciemny); margin-top:.2em; }
+
+/* =========================================================================
+   TELEFONY I TABLETY
+   ========================================================================= */
+@media (max-width:781px){
+  :root{ --kb-sekcja:58px; }
+  .kb-karta-kontakt{ padding:26px 22px !important; }
+  /* Pod logotypem menu czyta sie lepiej od lewej niz od prawej. */
+  .kb-menu{ justify-content:flex-start; }
+  .kb-logotypy{ gap:24px !important; }
+  .kb-logotyp img{ max-height:56px; }
+  .kb-motto{ font-size:1.05rem !important; }
+  /* Po zlozeniu kolumn copyright ciagnie sie do prawej krawedzi
+     tuz pod zastrzezeniem — na waskim ekranie czyta sie to lepiej
+     do lewej, z odstepem. */
+  .kb-stopka-dol-wiersz{ gap:18px !important; }
+  .kb-stopka-dol.has-text-align-right{ text-align:left; }
+  .kb-stopka-uwaga{ max-width:none; }
+  /* Karuzela: jeden film na ekran, strzalki wchodza do srodka,
+     zeby nie wystawaly poza kadr telefonu. */
+  .kb-slajd{ flex-basis:86%; }
+  .kb-strzalka-lewo{ left:0; }
+  .kb-strzalka-prawo{ right:0; }
+  .kb-doktor .kb-portret-ramka{ max-width:320px; }
+  .kb-doktor{ gap:34px !important; }
+
+  /* CELE DOTYKOWE
+     Palec trafia pewnie w pole o wysokosci okolo 44 px; odnosniki
+     w menu, w stopce i numery telefonu mialy 29–32 px. Powiekszamy
+     je samym odstepem wewnetrznym, a ujemny margines zdejmuje ten
+     odstep z ukladu — litery i odstepy miedzy wierszami zostaja
+     dokladnie tam, gdzie byly. */
+  .kb-menu{ gap:0 22px; }
+  .kb-menu a{ padding:12px 0 10px; }
+  /* Po zlozeniu kolumn menu i ikony ida od lewej, jak logotyp. */
+  .kb-pasek .wp-block-column:last-child{ justify-content:flex-start; }
+  .kb-ikona-profil{ width:44px; height:44px; }
+  /* Przyciski powitania staja jeden pod drugim. Przy szerokosci
+     "do tresci" wychodza dwie rozne pigulki jedna nad druga i uklad
+     wyglada przypadkowo — kazdy zajmuje wiec caly wiersz. */
+  .kb-sekcja-powitalna .wp-block-buttons{ gap:10px; }
+  .kb-sekcja-powitalna .wp-block-button{ width:100%; }
+  .kb-sekcja-powitalna .wp-block-button__link{ width:100%; text-align:center; }
+  .kb-tel{ padding:16px 0; margin:-13px 0; }
+  .kb-stopka-link a,
+  .kb-stopka-numer a,
+  .kb-stopka-dol a{ display:inline-block; padding:11px 0; margin:-11px 0; }
+}
+@media (min-width:782px) and (max-width:1000px){
+  .kb-slajd{ flex-basis:calc((100% - 20px) / 2); }
+}
+
+.kb-kalkulator{
+  background:#fff; border:1px solid rgba(59,47,48,.13);
+  border-radius:var(--kb-promien); padding:32px 30px;
+  max-width:760px; margin:0 auto;
+  font-family:var(--kb-font); color:var(--kb-atrament);
+  box-shadow:0 20px 44px -44px rgba(69,56,58,.2);
+}
+.kb-kalkulator *,.kb-kalkulator *::before{ box-sizing:border-box; }
+.kb-kalkulator :focus-visible{ outline:3px solid var(--kb-szalwia-tekst); outline-offset:2px; }
+
+.kb-przelacznik{
+  display:flex; gap:8px; background:var(--kb-tlo); border-radius:100px;
+  padding:6px; margin-bottom:26px;
+}
+.kb-przelacznik button{
+  flex:1; border:0; background:transparent; padding:13px 10px; border-radius:100px;
+  cursor:pointer; font-family:inherit; font-weight:600; font-size:.92rem;
+  color:var(--kb-atrament-2); transition:background .2s ease, color .2s ease;
+}
+.kb-przelacznik button[aria-pressed="true"]{ background:var(--kb-szalwia-jasna); color:var(--kb-atrament); }
+
+/* --- lista preparatow ---------------------------------------------
+   Karty zamiast listy rozwijanej: widac od razu, co jest do wyboru,
+   i jaki preparat jest zaznaczony. Pod spodem sa zwykle pola radio,
+   wiec strzalki na klawiaturze i czytnik ekranu dzialaja same. */
+.kb-pole-tytul{
+  margin:0 0 10px !important; font-size:.82rem !important; font-weight:600;
+  color:var(--kb-atrament);
+}
+.kb-leki{
+  max-height:290px; overflow-y:auto; margin-bottom:20px;
+  border:1px solid var(--kb-linia); border-radius:14px; background:#fff;
+  /* Cienki pasek przewijania, zeby lista nie wygladala jak formularz. */
+  scrollbar-width:thin; scrollbar-color:rgba(59,47,48,.2) transparent;
+}
+.kb-leki::-webkit-scrollbar{ width:8px; }
+.kb-leki::-webkit-scrollbar-thumb{ background:rgba(59,47,48,.18); border-radius:8px; }
+.kb-lek{
+  /* Kotwica dla ukrytego pola radio ponizej. Bez niej pole ladowalo
+     w rogu calej strony i przeskakiwanie po liscie klawiatura
+     przewijalo widok gdzie indziej. */
+  position:relative;
+  display:flex; align-items:center; gap:14px; cursor:pointer;
+  padding:10px 16px; border-bottom:1px solid rgba(59,47,48,.06);
+  transition:background .15s ease;
+}
+.kb-lek:last-child{ border-bottom:0; }
+.kb-lek:hover{ background:rgba(152,200,184,.10); }
+.kb-lek input{
+  /* Pole radio jest niewidoczne, ale nadal ostawia fokus i obsluge
+     klawiatury — zaznaczenie pokazujemy kolorem calej karty. */
+  position:absolute; opacity:0; width:1px; height:1px; margin:0;
+}
+/* Miniatura preparatu. Rysowana w SVG na miejscu — zadnych zdjec
+   opakowan, wiec nic sie nie doczytuje i nie ma pytania o prawa
+   do fotografii producentow. Trzy odcienie plynu odpowiadaja mocy
+   preparatu, waski ksztalt oznacza krople. */
+.kb-lek-ikona{ flex:none; display:block; width:28px; height:36px; }
+.kb-lek-ikona svg{ display:block; }
+.kb-lek-ikona .k{ fill:var(--kb-akcent-tekst); opacity:.55; }
+.kb-lek-ikona .s{ fill:#fff; stroke:rgba(59,47,48,.22); stroke-width:1.1; }
+.kb-lek-ikona .p{ fill:var(--kb-szalwia); opacity:.55; }
+.kb-lek-ikona--2 .p{ fill:var(--kb-szalwia); opacity:.8; }
+.kb-lek-ikona--3 .p{ fill:var(--kb-szalwia-tekst); opacity:.75; }
+.kb-lek-ikona--krople .k{ fill:var(--kb-szalwia-tekst); opacity:.65; }
+.kb-lek:has(input:checked) .kb-lek-ikona .s{ stroke:rgba(59,47,48,.3); }
+.kb-lek-nazwa{ flex:1; font-size:.95rem; color:var(--kb-atrament); }
+.kb-lek-stezenie{
+  flex:none; font-size:.8rem; color:var(--kb-atrament-2);
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.kb-lek:has(input:checked){
+  background:var(--kb-szalwia-jasna);
+}
+.kb-lek:has(input:checked) .kb-lek-nazwa{ font-weight:600; }
+.kb-lek:has(input:focus-visible){ outline:3px solid var(--kb-szalwia-tekst); outline-offset:-3px; }
+/* Bez :has() cala karta nie dostaje obrysu, a samo pole radio ma
+   1 px i fokusu na nim nie widac — osoba idaca po liscie klawiatura
+   nie wiedzialaby, gdzie stoi. Tam obrys rysujemy na nazwie leku.
+   Gdzie :has() dziala, obrys karty wystarcza i ten znika. */
+.kb-lek input:focus ~ .kb-lek-nazwa{
+  outline:2px solid var(--kb-szalwia-tekst); outline-offset:3px;
+}
+@supports selector(:has(*)){
+  .kb-lek input:focus ~ .kb-lek-nazwa{ outline:none; }
+}
+/* Przegladarki bez :has() nie podswietla calej karty, wiec tam
+   zaznaczenie pokazuje kropka przed nazwa. Gdzie :has() dziala,
+   kropka jest zbedna i znika. */
+.kb-lek input:checked ~ .kb-lek-nazwa::before{
+  content:"● "; color:var(--kb-szalwia-tekst); font-size:.7em;
+}
+@supports selector(:has(*)){
+  .kb-lek input:checked ~ .kb-lek-nazwa::before{ content:none; }
+}
+@media (max-width:781px){
+  .kb-leki{ max-height:232px; }
+  .kb-lek{ padding:11px 14px; gap:8px; }
+  .kb-lek-nazwa{ font-size:.9rem; }
+}
+
+.kb-pola{ display:grid; grid-template-columns:1fr; gap:18px; margin-bottom:18px; }
+.kb-pole label{
+  display:block; font-size:.82rem; font-weight:600;
+  color:var(--kb-atrament-2); margin-bottom:8px;
+}
+.kb-pole select,.kb-pole input{
+  width:100%; padding:13px 14px; border:1.5px solid var(--kb-linia);
+  border-radius:12px; background:#fff; font-family:inherit;
+  font-size:.95rem; color:var(--kb-atrament);
+}
+.kb-pole select:focus,.kb-pole input:focus{ border-color:var(--kb-szalwia-tekst); }
+
+.kb-kalkulator .kb-blad{
+  display:none; align-items:flex-start; margin:0 0 16px;
+  color:#8E2F26; font-size:.85rem; font-weight:600;
+}
+.kb-kalkulator .kb-blad.kb-on{ display:flex; }
+.kb-kalkulator .kb-blad::before{ color:#8E2F26; margin-top:.15em; }
+
+.kb-licz{
+  width:100%; margin-top:6px; padding:16px 28px; cursor:pointer;
+  border-radius:100px; background:var(--kb-szalwia-jasna); color:var(--kb-atrament);
+  border:2px solid var(--kb-szalwia);
+  font-family:inherit; font-weight:600; font-size:.95rem;
+  transition:background .2s ease, transform .2s ease;
+}
+.kb-licz:hover{ background:#CDE2D7; transform:translateY(-2px); }
+
+.kb-kalkulator .kb-wynik{ display:none; margin-top:28px; }
+.kb-kalkulator .kb-wynik.kb-on{ display:block; }
+.kb-wynik-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:14px; margin-bottom:18px; }
+.kb-wynik-box{
+  background:linear-gradient(135deg,rgba(152,200,184,.16),rgba(248,197,160,.12));
+  border-radius:14px; padding:16px; text-align:center;
+}
+.kb-wynik-box b{
+  display:block; font-family:var(--kb-font-naglowki); font-weight:600;
+  font-size:clamp(1rem,1.6vw,1.3rem); line-height:1.2;
+  color:var(--kb-ciemny); white-space:nowrap;
+}
+.kb-wynik-box span{ display:block; font-size:.74rem; color:var(--kb-atrament-2); margin-top:4px; }
+.kb-kalkulator .kb-uwaga{
+  display:flex; align-items:flex-start; margin:0;
+  /* Ta sama brzoskwinia co w nocie, o stopien gestsza — kalkulator
+     stoi na bieli, wiec ostrzezenie musi byc od niej wyrazniejsze. */
+  background:rgba(248,197,160,.38); border-radius:14px; padding:14px 16px;
+  font-size:.83rem; color:#6B4526; line-height:1.55;
+}
+.kb-kalkulator .kb-uwaga::before{ color:#9A5A33; margin-top:.2em; }
+.kb-kalkulator .kb-uwaga + .kb-uwaga{ margin-top:12px; }
+/* Regula wyzej ustawia display:flex i bije wbudowane [hidden],
+   wiec ostrzezenie o niskiej masie ciala wyswietlalo sie zawsze —
+   takze przy 15 kg. Ten wiersz przywraca dzialanie atrybutu. */
+.kb-kalkulator .kb-uwaga[hidden]{ display:none !important; }
+
+@media (max-width:781px){
+  .kb-kalkulator{ padding:24px 20px; }
+  .kb-pola{ grid-template-columns:1fr; }
+}

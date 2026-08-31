@@ -7,10 +7,21 @@ Zrodlem prawdy sa:
 
 Skrypt wytwarza z nich:
   * wordpress/import/*.wordpress.xml  — paczki importu WXR dla WordPressa
+  * wordpress/style-*.css             — arkusze do "Dodatkowy CSS"
+  * wordpress/skrypty-*.js            — skrypty do wtyczki z fragmentami
   * podglady HTML (poza repozytorium) — samodzielne pliki z mediami
     wklejonymi jako data URI, do obejrzenia w przegladarce bez WordPressa
 
-Uruchomienie:  python3 wordpress/build.py [katalog_na_podglady]
+Arkusze i skrypty sa wydzielane, bo WordPress usuwa <style> i <script>
+z tresci wpisu wszedzie tam, gdzie uzytkownik nie ma uprawnienia
+"unfiltered_html" — a nie maja go m.in. administratorzy instalacji
+wielowitrynowych i czesc hostingow. Wtedy strona wchodzi bez wygladu
+i bez kalkulatora. Wklejone osobno, arkusz i skrypt sa od tego filtru
+niezalezne. Szczegoly: wordpress/przenosnosc.py i INSTRUKCJA.md.
+
+Uruchomienie:
+    python3 wordpress/build.py [katalog_na_podglady]
+    python3 wordpress/build.py --media https://adres/wp-content/uploads/2026/08
 """
 
 import base64
@@ -28,6 +39,8 @@ STRONY = [
     {
         "blok": ZRODLA / "pediatria-gutenberg.html",
         "xml": ZRODLA / "import" / "pediatria.wordpress.xml",
+        "css": ZRODLA / "style-pediatria.css",
+        "js": ZRODLA / "skrypty-pediatria.js",
         "podglad": "pediatria-podglad.html",
         "artefakt": "artefakt-pediatria.html",
         "tytul": "Opieka Pediatryczna Doktor Kasi",
@@ -42,6 +55,8 @@ STRONY = [
     {
         "blok": ZRODLA / "medycyna-estetyczna-gutenberg.html",
         "xml": ZRODLA / "import" / "medycyna-estetyczna.wordpress.xml",
+        "css": ZRODLA / "style-medycyna-estetyczna.css",
+        "js": ZRODLA / "skrypty-estetyczna.js",
         "podglad": "medycyna-estetyczna-podglad.html",
         "artefakt": "artefakt-estetyczna.html",
         "tytul": "Doktor Kasia Aesthetic",
@@ -163,12 +178,68 @@ def zapisz_xml(sciezka_xml, tresc):
     return nowy
 
 
+def wytnij(html, znacznik):
+    """Zwraca zawartosc wszystkich <znacznik>...</znacznik>, po kolei."""
+    return [m.group(1) for m in re.finditer(
+        r"<%s\b[^>]*>(.*?)</%s>" % (znacznik, znacznik), html, re.S | re.I)]
+
+
+def zapisz_arkusz(sciezka, kawalki, tytul):
+    naglowek = (
+        "/* %s\n"
+        "   Wygenerowane przez wordpress/build.py — nie poprawiaj tu recznie,\n"
+        "   tylko w pliku z blokami, i przebuduj.\n\n"
+        "   Wklej calosc w Wyglad -> Dostosuj -> Dodatkowy CSS. To miejsce\n"
+        "   nie przechodzi przez filtr kses, wiec arkusz przetrwa takze tam,\n"
+        "   gdzie <style> w tresci wpisu jest usuwany. */\n\n" % tytul
+    )
+    sciezka.write_text(naglowek + "\n\n".join(k.strip() for k in kawalki) + "\n",
+                       encoding="utf-8")
+
+
+def zapisz_skrypty(sciezka, kawalki, tytul):
+    naglowek = (
+        "/* %s\n"
+        "   Wygenerowane przez wordpress/build.py — nie poprawiaj tu recznie,\n"
+        "   tylko w pliku z blokami, i przebuduj.\n\n"
+        "   Wklej w dowolna wtyczke od fragmentow kodu (np. WPCode) jako\n"
+        "   JavaScript w stopce, albo dolacz plikiem w motywie potomnym.\n"
+        "   Kazdy fragment sam sprawdza, czy jego elementy sa na stronie,\n"
+        "   wiec nie przeszkadza na podstronach, gdzie ich nie ma. */\n\n" % tytul
+    )
+    sciezka.write_text(naglowek + "\n\n".join(k.strip() for k in kawalki) + "\n",
+                       encoding="utf-8")
+
+
 def main():
-    katalog_podgladow = Path(sys.argv[1]) if len(sys.argv) > 1 else None
+    baza_mediow = None
+    argumenty = sys.argv[1:]
+    if "--media" in argumenty:
+        i = argumenty.index("--media")
+        baza_mediow = argumenty[i + 1].rstrip("/")
+        del argumenty[i:i + 2]
+    katalog_podgladow = Path(argumenty[0]) if argumenty else None
+
     for strona in STRONY:
         bloki = strona["blok"].read_text(encoding="utf-8")
-        zapisz_xml(strona["xml"], bloki)
-        print("XML   %s (%d znakow tresci)" % (strona["xml"].name, len(bloki)))
+
+        arkusze = wytnij(bloki, "style")
+        if arkusze:
+            zapisz_arkusz(strona["css"], arkusze, strona["tytul"])
+            print("CSS   %s (%d znakow)" % (
+                strona["css"].name, strona["css"].stat().st_size))
+        skrypty = wytnij(bloki, "script")
+        if skrypty:
+            zapisz_skrypty(strona["js"], skrypty, strona["tytul"])
+            print("JS    %s (%d znakow)" % (
+                strona["js"].name, strona["js"].stat().st_size))
+
+        tresc_xml = bloki
+        if baza_mediow:
+            tresc_xml = tresc_xml.replace("/wp-content/uploads", baza_mediow)
+            print("      media -> %s" % baza_mediow)
+        zapisz_xml(strona["xml"], tresc_xml)
+        print("XML   %s (%d znakow tresci)" % (strona["xml"].name, len(tresc_xml)))
 
         if katalog_podgladow is None:
             continue

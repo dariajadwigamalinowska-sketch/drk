@@ -1,0 +1,477 @@
+/* Doktor Kasia Aesthetic
+   Wygenerowane przez wordpress/build.py — nie poprawiaj tu recznie,
+   tylko w pliku z blokami, i przebuduj.
+
+   Wklej calosc w Wyglad -> Dostosuj -> Dodatkowy CSS. To miejsce
+   nie przechodzi przez filtr kses, wiec arkusz przetrwa takze tam,
+   gdzie <style> w tresci wpisu jest usuwany. */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@400;500;600&display=swap');
+
+.estet{
+  --e-cream:#FBF8F3;
+  --e-cream-2:#F4EFE6;
+  --e-white:#FFFFFF;
+  /* Kolory zdjete wprost z logotypu DKA: czern podpisu i trzy poziomy
+     zlota z gradientu znaku. */
+  --e-ink:#1A1613;
+  --e-soft:#5E574D;
+  --e-gold:#B69554;     /* kreski, ramki, akcenty na jasnym tle       */
+  --e-gold-l:#CBAC68;   /* bazowe zloto znaku — napisy na czerni      */
+  /* Zloto do napisow na jasnym tle. Odcien znaku ma na kremie 2,7:1,
+     wiec do tekstu bierzemy ten sam kolor przyciemniony do 5,1:1. */
+  --e-gold-t:#7D6840;
+  --e-line:rgba(26,22,19,.16);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--e-soft);
+  /* Podstawa pisma podniesiona z domyslnych 16 px: strona jest
+     przewiewna, wiec tekst moze byc wiekszy i luzniej zlozony. */
+  font-size:1.03rem;
+  line-height:1.72;
+}
+/* Nie polegamy na tym, ze motyw ustawi box-sizing — inaczej padding
+   dodaje sie do szerokosci i ramki wychodza szersze, niz zalozono. */
+.estet,.estet *,.estet *::before,.estet *::after{box-sizing:border-box;}
+/* Szerokość treści nie zależy od tego, czy motyw obsługuje układ
+   "constrained" — sekcje same ograniczają swoje dzieci, tak jak robi
+   to strona pediatryczna. Bez tego przy motywie bez obsługi układu
+   treść rozlewałaby się na całą szerokość ekranu. */
+.estet > *{ max-width:1040px; margin-left:auto; margin-right:auto; }
+.estet > .alignfull, .estet > .alignwide{ max-width:none; }
+.estet#es-cennik > *{ max-width:820px; }
+.estet h1,.estet h2,.estet h3{
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;line-height:1.16;color:var(--e-ink);
+}
+.estet h1{font-size:clamp(2.5rem,1.6rem + 3.8vw,4rem);font-weight:300;}
+.estet h1 em{font-style:italic;color:var(--e-gold-t);}
+.estet h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,2.8rem);font-weight:300;}
+.estet h3{font-size:1.35rem;}
+
+/* Tytul sekcji odcieta krotka zlota kreska. Kreska idzie za tytulem,
+   wiec nie trzeba jej wstawiac osobnym blokiem — wystarczy naglowek
+   drugiego stopnia. Sroduje sie razem z tytulem, bo margines poziomy
+   jest "auto" tylko przy wyrownaniu do srodka. */
+.estet h2::after{
+  content:"";display:block;width:56px;height:1px;
+  margin:22px 0 0;
+  background:linear-gradient(to right,var(--e-gold),rgba(201,169,106,0));
+}
+.estet h2.has-text-align-center::after{
+  margin-left:auto;margin-right:auto;
+  background:linear-gradient(to right,rgba(201,169,106,0),var(--e-gold) 50%,rgba(201,169,106,0));
+  width:96px;
+}
+/* W karcie kontaktu i w stopce naglowek nie jest tytulem sekcji,
+   tylko etykieta — tam kreska tylko przeszkadza. */
+.estet .e-box h2::after,
+.estet.estet-footer h2::after{display:none;}
+.estet a{color:var(--e-gold-t);}
+.estet a:hover{color:var(--e-ink);}
+/* Numery telefonu w tekscie — pole dotyku ~40 px, bez zmiany ukladu. */
+.estet a.e-tel{ display:inline-block; padding:10px 0; margin:-8px 0; }
+
+
+.estet .e-lead{font-size:1.12rem !important;line-height:1.7;max-width:44ch;}
+.estet .e-lead strong{font-weight:500;color:var(--e-ink);}
+.estet .e-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.2rem !important;color:var(--e-soft);}
+/* Motto konczy zdanie wstepne, wiec idzie tym samym krojem i w tym
+   samym stopniu pisma — wyroznia je tylko kolor. Osobny akapit innym
+   krojem czytal sie jak urwany dopisek. */
+.estet .e-motto{ color:var(--e-gold-t); }
+.estet .e-small{font-size:.92rem !important;line-height:1.7;}
+/* Zamkniecie biogramu — zdanie o bezpieczenstwie i kwalifikacji.
+   Wyroznione zlota kreska z boku, zeby nie ginelo miedzy akapitami. */
+.estet .e-lead-mocny{
+  border-left:2px solid var(--e-gold);padding-left:18px;
+  color:var(--e-ink) !important;
+}
+/* Filary: pierwsze zdanie jest teza karty, reszta ja rozwija. */
+.estet .e-filary .e-pillar p strong{
+  display:block;margin-bottom:8px;
+  font-weight:500;font-size:1.04rem;color:var(--e-ink);
+}
+/* Zdanie wprowadzajace do oferty i do cennika — wieksze od drobnego
+   pisma, ale ciszej niz naglowek. */
+.estet .e-lead-oferta{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.28rem !important;line-height:1.6;
+  color:var(--e-ink) !important;
+  max-width:44ch;
+  margin-left:auto !important;margin-right:auto !important;
+}
+
+/* RAMKA POWITALNA — ujecia jedno po drugim.
+
+   Wczesniej robil to sam arkusz stylow: kazda klatka miala wlasna
+   animacje krycia, przesunieta w fazie. To nie moglo dzialac, bo
+   kazde <video> mialo swoja petle ("loop"), niezalezna od cyklu
+   przenikania. Ujecie trwa 2–4 s, a caly cykl 8,5 s, wiec plik
+   zdazyl w tym czasie przewinac sie kilka razy i okno widocznosci
+   trafialo za kazdym razem w inny jego moment — stad wrazenie, ze ten
+   sam material powtarza sie sam w sobie, w dodatku od przypadkowej
+   klatki. Zadne dobranie procentow w @keyframes tego nie naprawia:
+   dwa niezalezne zegary nie zejda sie ze soba.
+
+   Teraz kolejnosc prowadzi skrypt (na dole sekcji). Odtwarzacz ma
+   wylaczona wlasna petle; kazde ujecie gra raz, od pierwszej do
+   ostatniej klatki, i dopiero na ostatnich 0,9 s rozplywa sie
+   w nastepne. Arkusz odpowiada juz tylko za samo przenikanie. */
+.estet .e-ramka-dwa{position:relative;}
+.estet .e-ramka-dwa .e-video{margin:0;}
+/* Pierwsza klatka stoi w ukladzie i nadaje ramce wysokosc,
+   pozostale leza na niej. */
+/* Rozpisane krawedzie obok skrotu "inset" — Safari zna go dopiero
+   od 14.1, a bez tego drugie ujecie wypadaloby z kadru. */
+.estet .e-ramka-dwa .e-klatka--2{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;opacity:0;}
+.estet .e-ramka-dwa .e-klatka--2 video{height:100%;object-fit:cover;}
+/* Sciezka ze skryptem. Bez niego (skrypt zablokowany, stara
+   przegladarka) zostaje samo pierwsze ujecie w swojej petli. */
+.estet .e-ramka-dwa.e-petla-js .e-klatka{
+  opacity:0;transition:opacity .9s ease-in-out;
+}
+.estet .e-ramka-dwa.e-petla-js .e-klatka.e-widoczna{opacity:1;}
+/* Kto ma wylaczone animacje w systemie, widzi tylko pierwsze ujecie —
+   skrypt sam sie wtedy nie uruchamia. */
+@media (prefers-reduced-motion:reduce){
+  .estet .e-ramka-dwa .e-klatka--2{display:none;}
+}
+
+/* Film z konsultacji idzie w swoich proporcjach 9:16, wiec widac caly
+   kadr. Wczesniej byl sciety do 5:4 i wiekszosc obrazu przepadala. */
+/* Selektor celowo bardziej szczegolowy niz regula bazowa .e-video,
+   ktora narzuca 4:5 i stoi nizej w arkuszu — bez tego film byl
+   sciety do 0,8 zamiast isc w swoich proporcjach. */
+.estet figure.e-video.e-video--oferta{aspect-ratio:9/16;width:100%;height:auto;}
+.estet figure.e-video.e-video--oferta video{height:100%;object-fit:cover;}
+
+/* Kolumna z tekstem ma wypelnic swoja wysokosc, a nie zawisnac
+   posrodku pustego pola: wieksze pismo i wieksze odstepy. */
+.estet .e-konsultacja h2{margin-bottom:20px;}
+.estet .e-konsultacja .e-lead-oferta{
+  font-size:1.42rem !important;line-height:1.55;
+  max-width:26ch;
+  margin:0 0 20px !important;
+}
+.estet .e-konsultacja-drugi{
+  font-size:1.02rem !important;line-height:1.75;
+  max-width:34ch;margin:0 !important;
+}
+@media (max-width:781px){
+  .estet .e-konsultacja .e-lead-oferta{font-size:1.24rem !important;max-width:none;}
+  .estet .e-konsultacja-drugi{max-width:none;}
+}
+
+/* Cennik: nazwa grupy zabiegow, podgrupa i uwaga pod pozycja */
+.estet .e-cennik-grupa{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:.74rem !important;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--e-gold-t) !important;
+  margin:44px auto 14px !important;
+}
+.estet .e-cennik-grupa::after{display:none;}
+.estet .e-cennik-grupa:first-of-type{margin-top:0 !important;}
+.estet .e-cennik-podgrupa{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.26rem !important;color:var(--e-ink) !important;
+  margin:26px auto 6px !important;
+}
+.estet .e-cennik-uwaga{
+  margin:18px auto 0 !important;font-size:.94rem !important;
+  line-height:1.7;max-width:62ch;
+}
+/* "Oferta specjalna" stoi pod tytulem sekcji jako etykieta, nie jako
+   drugi naglowek — tytulem calosci jest "Oferta zabiegowa". */
+.estet .e-cennik-nadtytul{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:.72rem !important;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--e-gold-t) !important;
+  margin:20px auto 8px !important;
+}
+.estet .e-cennik-wstep{max-width:64ch;margin:0 auto 44px !important;}
+/* Zdanie wprowadzajace pod naglowkiem grupy — mezoterapia i Plasma
+   Complex maja wyjasnienie, zanim zacznie sie lista pozycji. */
+.estet .e-cennik-wprowadzenie{
+  margin:0 auto 20px !important;font-size:.94rem !important;
+  line-height:1.7;max-width:62ch;color:var(--e-soft);
+}
+
+/* Przyciski — prostokątne, bez zaokrągleń */
+.estet .e-btn .wp-block-button__link{
+  border-radius:2px !important;padding:16px 34px !important;
+  font-size:.76rem !important;font-weight:500 !important;
+  letter-spacing:.14em;text-transform:uppercase;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.estet .e-btn--solid .wp-block-button__link{background:var(--e-ink) !important;color:var(--e-cream) !important;}
+.estet .e-btn--solid .wp-block-button__link:hover{background:var(--e-gold-t) !important;color:#fff !important;}
+.estet .e-btn--ghost .wp-block-button__link{
+  background:transparent !important;color:var(--e-ink) !important;border:1px solid var(--e-ink) !important;
+}
+.estet .e-btn--ghost .wp-block-button__link:hover{background:var(--e-ink) !important;color:var(--e-cream) !important;}
+.estet .e-btn--gold .wp-block-button__link{background:var(--e-gold-t) !important;color:#fff !important;}
+.estet .e-btn--gold .wp-block-button__link:hover{background:var(--e-ink) !important;}
+
+/* Logotyp — wysrodkowany znak otwierajacy strone.
+   Selektor jest celowo bardziej szczegolowy niz regula dla zdjec
+   (.estet figure.wp-block-image img), ktora ustawia szerokosc 100% —
+   inaczej znak rozciagalby sie na cala kolumne i splaszczal. */
+.estet .e-logo-obraz{margin:0 auto !important;text-align:center;}
+.estet figure.wp-block-image.e-logo-obraz img{
+  width:auto;height:auto;max-width:min(340px,100%);
+  display:block;margin:0 auto;
+}
+/* Puste miejsce, dopóki logotyp nie zostanie wgrany. */
+.estet figure.wp-block-image.e-logo-obraz img:not([src]){
+  width:280px;height:136px;background:var(--e-cream-2);
+  border:1px dashed var(--e-line);
+}
+@media (max-width:781px){
+  .estet figure.wp-block-image.e-logo-obraz img{max-width:min(260px,100%);}
+}
+
+/* Zdjęcia */
+.estet .e-photo{
+  aspect-ratio:4/5;max-height:560px;background:var(--e-cream-2);border:1px solid var(--e-line);
+  display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+}
+.estet .e-photo p{margin:0 !important;font-size:.85rem !important;padding:20px;letter-spacing:.06em;}
+.estet .e-photo img{width:100%;height:100%;object-fit:cover;}
+.estet figure.wp-block-image{margin:0;}
+.estet figure.wp-block-image img{width:100%;}
+
+/* Wideo w miejscu zdjęcia — pełny kadr pionowy 9:16, bez dźwięku, w pętli.
+   Wysokość ograniczona, szerokość wyliczana z proporcji, więc nic nie jest
+   obcinane; na wąskich ekranach kadr rozciąga się na całą szerokość kolumny. */
+.estet .e-video{
+  margin:0;border:0;overflow:hidden;
+  background:var(--e-cream-2) center/cover no-repeat;
+  /* Kadr wypelnia kolumne w proporcji 4:5 — wczesniej byl waskim slupkiem
+     9:16 z duza iloscia wolnego miejsca po bokach. */
+  width:100%;height:auto;aspect-ratio:4/5;max-width:none;
+  /* Wszystkie cztery krawedzie wygaszone maska — kadr wtapia sie w tlo
+     zamiast konczyc sie ostra linia. */
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 8%,#000 92%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 8%,#000 92%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:
+    linear-gradient(to right,transparent 0,#000 8%,#000 92%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 8%,#000 92%,transparent 100%);
+  mask-composite:intersect;
+}
+.estet .e-video video{display:block;width:100%;height:100%;object-fit:cover;}
+/* Zapas dla przegladarek bez "aspect-ratio" (Safari starsze niz 15,
+   Firefox starszy niz 89). Bez niego kadr nie ma skad wziac wysokosci
+   i zwija sie do zera. Odstep wewnetrzny 5/4 = 125% daje te sama
+   proporcje 4:5, a film lezy na nim bezwzglednie. */
+@supports not (aspect-ratio: 4 / 5){
+  .estet .e-video{position:relative;height:0;padding-top:125%;}
+  .estet .e-video video{position:absolute;top:0;right:0;bottom:0;left:0;}
+  .estet figure.e-video.e-video--oferta{height:0;padding-top:177.78%;}
+}
+.estet .e-video figcaption{display:none;}
+/* [ŚCIEŻKI] — jeden raz podmień na adresy plakatów z Biblioteki mediów.
+   Plakat jest tłem kadru: widać go zanim wideo się wczyta i zamiast wideo
+   u osób, które w systemie wyłączyły animacje. */
+.estet .e-klatka--1{background-image:url('/wp-content/uploads/estetyczna-02.jpg');}
+.estet .e-klatka--2{background-image:url('/wp-content/uploads/estetyczna-03.jpg');}
+/* Portret w sekcji "O gabinecie" — te same proporcje i to samo
+   wygaszenie krawedzi co kadry wideo, zeby siedzial w tym samym
+   jezyku wizualnym. */
+.estet figure.wp-block-image.e-portret{margin:0;}
+.estet figure.wp-block-image.e-portret img{
+  width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;
+  object-position:center 12%;
+  display:block;
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+    linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 6%,#000 94%,transparent 100%);
+          mask-composite:intersect;
+}
+@media (prefers-reduced-motion:reduce){
+  .estet .e-video video{display:none;}
+}
+
+/* Pasek faktów — trzy rowne pola, kazde wysrodkowane, rozdzielone
+   cienka zlota kreska. Wczesniej hasla byly dosuniete do lewej
+   krawedzi swoich kolumn i rozjezdzaly sie po pasku. */
+.estet-facts{background:var(--e-ink) !important;}
+.estet-facts .wp-block-columns{align-items:center;}
+.estet-facts .wp-block-column{position:relative;display:flex;align-items:center;justify-content:center;}
+.estet-facts .wp-block-column + .wp-block-column::before{
+  content:"";position:absolute;left:-1em;top:50%;transform:translateY(-50%);
+  width:1px;height:1.7em;background:rgba(201,169,106,.4);
+}
+.estet-facts p{
+  color:var(--e-cream) !important;margin:0 !important;text-align:center;
+  font-size:.72rem !important;letter-spacing:.18em;text-transform:uppercase;line-height:1.5;
+}
+
+/* Karty zabiegów — siatka na włoskowych liniach */
+.estet .e-karty-oferty{align-items:start !important;}
+/* Karty oferty: wieksze pismo i wyzsza interlinia. Karty nie sa juz
+   rozciagane do rownej wysokosci — 306 px karty przy 75 px tresci
+   dawalo 231 px pustego dna w kazdej z szesciu. */
+.estet .e-card{
+  background:var(--e-cream);border:1px solid var(--e-line);
+  padding:30px 28px 28px !important;transition:background .2s ease;
+  align-self:start;
+}
+.estet .e-card:hover{background:var(--e-white);}
+.estet .e-num{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:.7rem !important;font-weight:600;letter-spacing:.24em;
+  color:var(--e-gold-t);margin:0 0 14px !important;
+}
+.estet .e-card h3{font-size:1.48rem;margin-bottom:14px;line-height:1.2;}
+.estet .e-card p{font-size:1.03rem !important;line-height:1.74;margin:0 !important;}
+.estet .e-card ul{list-style:none !important;padding-left:0 !important;margin:14px 0 0 !important;display:grid;gap:7px;}
+.estet .e-card li{font-size:.84rem;padding-left:18px;position:relative;}
+.estet .e-card li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--e-gold);}
+
+/* Filary */
+.estet .e-pillar{background:var(--e-white);border:1px solid var(--e-line);padding:30px 26px !important;}
+.estet .e-pillar h3{font-size:1.32rem;margin-bottom:10px;}
+.estet .e-pillar p{font-size:.98rem !important;line-height:1.7;margin:0 !important;}
+
+/* Kroki */
+/* Cztery kroki w jednym rzedzie: numer, tytul, zdanie. Dwa rzedy po
+   dwa zostawialy szeroka dziure w srodku sekcji i rozbijaly kolejnosc
+   czytania. */
+.estet .e-kroki{gap:0 !important;}
+.estet .e-step{
+  border-top:1px solid var(--e-line);padding:24px 22px 0 0 !important;
+  position:relative;
+}
+.estet .e-step::before{content:"";position:absolute;top:-1px;left:0;width:46px;height:1px;background:var(--e-gold);}
+/* Selektor musi zawierac "p", bo numer kroku jest akapitem, a regula
+   ".estet .e-step p" ponizej jest od niego specyficzniejsza. Bez tego
+   "!important" przy 2,2 rem przegrywalo i numery szly rozmiarem
+   zwyklego tekstu — 15,7 px zamiast 35 px. */
+.estet .e-step p.e-step-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.2rem !important;color:var(--e-gold-t);
+  line-height:1 !important;margin:0 0 10px !important;max-width:none;
+}
+/* Naglowek i opis kroku mialy tu po dwie reguly z dwoch kolejnych
+   podejsc — wygrywala pozniejsza, drobniejsza (1,2 rem i 0,86 rem),
+   a wieksza lezala martwa. Zostaje jedna, w rozmiarze, ktory
+   wypelnia kolumne: kroki wizyty stoja na pelnej szerokosci sekcji,
+   wiec tekst dostaje miare, ktora sie czyta, zamiast rozlewac sie. */
+.estet .e-step h3{font-size:1.24rem;margin-bottom:8px;}
+.estet .e-step p{
+  font-size:.98rem !important;line-height:1.7;
+  margin:0 !important;max-width:34ch;
+}
+
+/* Cennik */
+.estet .e-price{list-style:none !important;padding-left:0 !important;margin:0 auto !important;border-top:1px solid var(--e-line);}
+.estet .e-price li{
+  display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  padding:20px 4px;border-bottom:1px solid var(--e-line);
+}
+.estet .e-price .n{font-family:'Cormorant Garamond',serif;font-size:1.42rem;color:var(--e-ink);}
+.estet .e-price .n small{display:block;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--e-soft);margin-top:2px;}
+.estet .e-price .v{font-family:'Cormorant Garamond',serif;font-size:1.34rem;color:var(--e-gold-t);white-space:nowrap;}
+
+/* Kontakt */
+.estet .e-info p{margin:0 0 3px !important;}
+.estet .e-info strong{
+  display:block;color:var(--e-ink);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px;
+}
+.estet .e-box{background:var(--e-cream);border:1px solid var(--e-line);padding:40px 36px !important;}
+.estet .e-map{border:1px solid var(--e-line);overflow:hidden;height:100%;min-height:400px;filter:grayscale(1);}
+.estet .e-map iframe{display:block;width:100%;height:100%;min-height:400px;border:0;}
+
+/* Stopka */
+.estet-footer{ color:#EFE9E0; }
+.estet-footer p{ color:#B7B0A6; }
+.estet-footer a{ color:#EFE9E0; }
+
+.estet-stopka-nic{}
+.estet .e-stopka-marka{
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem !important;
+  letter-spacing:.14em;text-transform:uppercase;color:#fff !important;margin:0 !important;
+}
+/* Etykiety kolumn — ta sama miara drobnego pisma co w tresci strony.
+   Tu tlo jest czarne, wiec zloto musi byc jasne: ciemniejszy odcien
+   do napisow na kremie dawalby na czerni tylko 3,9:1. */
+.estet .e-stopka-etykieta{
+  margin:0 0 12px !important;font-size:.72rem !important;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--e-gold-l) !important;
+}
+/* Numer to najwazniejsza rzecz w stopce, wiec dostaje kroj naglowkowy */
+.estet .e-stopka-numer{
+  margin:0 !important;font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.75rem !important;line-height:1.1 !important;
+}
+.estet .e-stopka-numer a{
+  color:#fff !important;text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.28);
+}
+.estet .e-stopka-numer a:hover{ border-bottom-color:var(--e-gold-l); }
+.estet .e-stopka-drobne{ margin:8px 0 0 !important;font-size:.78rem !important;color:#9C958A !important;letter-spacing:.04em; }
+.estet .e-stopka-adres{ margin:16px 0 0 !important;font-size:.97rem !important;color:#EFE9E0 !important;line-height:1.7; }
+.estet .e-stopka-link{ margin:0 0 4px !important;font-size:.98rem !important; }
+.estet .e-stopka-link a{
+  display:inline-block;padding:6px 0;
+  color:#EFE9E0 !important;text-decoration:none;
+  border-bottom:1px solid rgba(201,169,106,.5);
+}
+.estet .e-stopka-link a:hover{ color:#fff !important;border-bottom-color:var(--e-gold-l); }
+
+/* Zastrzezenie wydzielone linia, wezsza kolumna i wyzsza interlinia */
+/* Kreska idzie przez cala szerokosc stopki — wczesniej byla obrysem
+   gornym waskiego akapitu i urywala sie w polowie. */
+/* Marginesy poziome zostaja "auto" — inaczej !important zabija
+   wysrodkowanie z .estet > * i kreska rozjezdza sie z kolumnami. */
+.estet .e-stopka-kreska{
+  margin:34px auto 22px !important;border:0;height:1px;
+  background:rgba(255,255,255,.16);
+}
+.estet .e-stopka-dol-wiersz{ margin:0 auto !important; }
+.estet .e-stopka-uwaga{
+  margin:0 !important;max-width:62ch;
+  font-size:.9rem !important;line-height:1.75;
+  color:var(--e-gold-l) !important;
+}
+.estet .e-stopka-dol{
+  margin:0 !important;font-size:.72rem !important;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,224,.45) !important;
+}
+
+.estet[id]{scroll-margin-top:90px;}
+
+@media (max-width:781px){
+  .estet .e-price li{flex-wrap:wrap;gap:6px;}
+  /* Fakty jedno pod drugim — wymuszony rzad lamal slowa w polowie.
+     Pionowe kreski miedzy kolumnami znikaja razem z rzedem. */
+  .estet-facts .wp-block-columns{flex-direction:column;gap:12px;}
+  .estet-facts .wp-block-column + .wp-block-column::before{display:none;}
+  /* Po zlozeniu kolumn copyright ciagnie sie do prawej krawedzi
+     tuz pod zastrzezeniem — na waskim ekranie czyta sie to lepiej
+     do lewej, z odstepem. */
+  .estet .e-stopka-dol-wiersz{gap:18px !important;}
+  .estet .e-stopka-dol.has-text-align-right{text-align:left;}
+  .estet .e-stopka-uwaga{max-width:none;}
+
+  /* CELE DOTYKOWE
+     Palec trafia pewnie w pole o wysokosci okolo 44 px; numer
+     telefonu mial 32 px. Powiekszamy go samym odstepem wewnetrznym,
+     a ujemny margines zdejmuje ten odstep z ukladu — wiersz zostaje
+     dokladnie tam, gdzie byl. */
+  .estet a.e-tel{padding:16px 0;margin:-14px 0;}
+  /* Przyciski powitania staja jeden pod drugim. Przy szerokosci
+     "do tresci" wychodza dwa rozne prostokaty jeden nad drugim
+     i uklad wyglada przypadkowo — kazdy zajmuje wiec caly wiersz. */
+  .estet #es-start .wp-block-buttons{gap:10px;}
+  .estet #es-start .wp-block-button{width:100%;}
+  .estet #es-start .wp-block-button__link{width:100%;text-align:center;}
+  .estet .e-stopka-numer a,
+  .estet .e-stopka-link a{display:inline-block;padding:10px 0;margin:-10px 0;}
+}

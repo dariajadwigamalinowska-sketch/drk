@@ -743,6 +743,27 @@
       var v = film(klatki[biezaca]);
       if (v.paused) { graj(v); }
     });
+
+    /* GDY ODTWARZANIE W OGOLE NIE RUSZY.
+       Petla jest prowadzona zdarzeniem "timeupdate", czyli tym, co
+       naprawde gra. Jesli przegladarka odmowi odtworzenia — tryb
+       oszczedzania energii w telefonie, ustawienie "blokuj
+       autoodtwarzanie", brak kodeka — zadne "timeupdate" nie przyjdzie
+       i kadr zamarlby na pierwszym plakacie na zawsze. Sprawdzamy wiec
+       po sekundzie, czy material ruszyl z miejsca; jesli nie, ujecia
+       zmieniaja sie z zegara i widac przynajmniej kolejne plakaty. */
+    window.setTimeout(function () {
+      var v = film(klatki[biezaca]);
+      if (v.currentTime > 0.05) { return; }   /* gra normalnie */
+      var CZAS_PLAKATU = 4000;
+      window.setInterval(function () {
+        if (document.hidden) { return; }
+        var biezacy = film(klatki[biezaca]);
+        if (biezacy.currentTime > 0.05) { return; }  /* odtwarzanie wrocilo */
+        wTrakcie = false;
+        nastepne();
+      }, CZAS_PLAKATU);
+    }, 1000);
   } catch (err) {
     if (window.console && window.console.error) { window.console.error('e-petla:', err); }
   }
