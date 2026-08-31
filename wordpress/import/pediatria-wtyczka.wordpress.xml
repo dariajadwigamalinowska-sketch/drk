@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  PLIK IMPORTU WORDPRESSA (WXR 1.2)
+
+  JAK UZYC:
+  1. Kokpit → Narzedzia → Import → WordPress → "Uruchom importer".
+     (Za pierwszym razem WordPress poprosi o instalacje importera.)
+  2. Wybierz ten plik i kliknij "Wyslij plik i zaimportuj".
+  3. Przypisz autora do swojego konta. Pole "Pobierz i zaimportuj
+     zalaczniki" zostaw ODZNACZONE - pliki mediow wgrywasz osobno.
+  4. Strona pojawi sie w Strony jako SZKIC pod adresem pediatria.
+     Otworz ja, sprawdz i opublikuj.
+
+  WAZNE:
+  - Importuj z konta Administratora. Strona zawiera blok "HTML wlasny"
+    z arkuszem stylow; konto bez uprawnienia unfiltered_html straci go
+    przy zapisie i strona pokaze sama trescc bez formatowania.
+  - Pliki wideo i plakaty wgraj wczesniej do Biblioteki mediow, a potem
+    w edytorze kliknij kazdy blok wideo → "Zastap" i wskaz plik.
+    Alternatywnie popraw adresy /wp-content/uploads/... w kodzie.
+-->
+<rss version="2.0"
+  xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+  <title>Opieka Pediatryczna Doktor Kasi</title>
+  <link>https://przyklad.pl</link>
+  <description>Strona przygotowana do zaimportowania</description>
+  <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
+  <language>pl-PL</language>
+  <wp:wxr_version>1.2</wp:wxr_version>
+  <wp:base_site_url>https://przyklad.pl</wp:base_site_url>
+  <wp:base_blog_url>https://przyklad.pl</wp:base_blog_url>
+  <wp:author>
+    <wp:author_id>1</wp:author_id>
+    <wp:author_login><![CDATA[admin]]></wp:author_login>
+    <wp:author_email><![CDATA[admin@przyklad.pl]]></wp:author_email>
+    <wp:author_display_name><![CDATA[admin]]></wp:author_display_name>
+    <wp:author_first_name><![CDATA[]]></wp:author_first_name>
+    <wp:author_last_name><![CDATA[]]></wp:author_last_name>
+  </wp:author>
+  <generator>https://wordpress.org/?v=6.7</generator>
+
+  <item>
+    <title>Opieka Pediatryczna Doktor Kasi</title>
+    <link>https://przyklad.pl/pediatria/</link>
+    <pubDate>Sat, 29 Aug 2026 12:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[admin]]></dc:creator>
+    <guid isPermaLink="false">https://przyklad.pl/?page_id=1001</guid>
+    <description></description>
+    <content:encoded><![CDATA[
+
+<!-- wp:group {"className":"kb-pasek","align":"full"} -->
+<div class="wp-block-group alignfull kb-pasek">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center","width":"26%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:26%">
+<!-- LOGOTYP praktyki. Plik: assets/grafika/logo-pediatria.png
+     — miętowy stetoskop z napisem "Doktor Kasia", biel wycięta,
+     tło przezroczyste, 1000 px szerokości. Cała kolorystyka strony
+     jest zdjęta z tego pliku. Żeby go podmienić, kliknij w obrazek
+     → "Zastąp". Nazwa praktyki jest już w samym znaku, więc nie
+     powtarzamy jej obok tekstem. -->
+<!-- wp:image {"url":"/wp-content/uploads/logo-pediatria.png","className":"kb-logo-obraz"} -->
+<figure class="wp-block-image kb-logo-obraz"><img src="/wp-content/uploads/logo-pediatria.png" alt="Opieka Pediatryczna Doktor Kasi — lek. Katarzyna Bator, specjalista pediatra"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:paragraph {"className":"kb-menu"} -->
+<p class="kb-menu"><a href="#kb-kontakt">Kontakt</a><a href="#kb-kalkulator">Kalkulator dawek</a><a href="#kb-pierwsza-pomoc">Pierwsza pomoc</a></p>
+<!-- /wp:paragraph -->
+
+<!-- PROFILE W PASKU GORNYM. Same ikony, bez podpisow — pasek ma
+     zostac waski. Nazwa serwisu siedzi w "aria-label", wiec czytnik
+     ekranu i tak ja przeczyta. Adresy zmienia sie w "href". -->
+<!-- wp:shortcode -->
+[dk_pedi_pasek_profile]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-powitalna","align":"full"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-powitalna">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
+
+<!-- wp:heading {"level":1,"className":"kb-tytul"} -->
+<h1 class="wp-block-heading kb-tytul">Uważne badanie.<br><em>Czas</em> dla dziecka i&nbsp;rodzica.</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-lead"} -->
+<p class="kb-lead">Gabinet pediatryczny <strong>lek. Katarzyny Bator</strong>, specjalisty pediatrii. Wizyty bez pośpiechu — z czasem na pytania, spokojne badanie i&nbsp;wyjaśnienie zaleceń.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"kb-btn-glowny"} -->
+<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="#kb-kontakt">Umów wizytę</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"kb-btn-obrys"} -->
+<div class="wp-block-button kb-btn-obrys"><a class="wp-block-button__link wp-element-button" href="#kb-kalkulator">Kalkulator dawek</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- RAMKA POWITALNA — dwa ujecia jedno na drugim.
+  Przenikaja sie w kolko: 9 s widac film z gabinetu, potem detale.
+  Robi to sam arkusz stylow, bez skryptu.
+  Pliki w assets/wideo/: pediatria-gabinet.mp4 (1,35 MB) i
+  pediatria-detale.mp4 (1,61 MB), oba z plakatami .jpg.
+  Kadry sa lekko ocieplone, zeby mietowy gabinet nie odcinal sie
+  chlodem od brzoskwiniowego tla strony.
+  Zeby zostawic jedno ujecie, usun drugi blok wideo. -->
+<!-- wp:group {"className":"kb-ramka-dwa","layout":{"type":"default"}} -->
+<div class="wp-block-group kb-ramka-dwa">
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-gabinet.jpg","src":"/wp-content/uploads/pediatria-gabinet.mp4","className":"kb-film-ramka kb-film-luk kb-film--a"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--a"><video autoplay loop muted poster="/wp-content/uploads/pediatria-gabinet.jpg" src="/wp-content/uploads/pediatria-gabinet.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+<!-- wp:video {"autoplay":true,"loop":true,"muted":true,"playsInline":true,"poster":"/wp-content/uploads/pediatria-detale.jpg","src":"/wp-content/uploads/pediatria-detale.mp4","className":"kb-film-ramka kb-film-luk kb-film--b"} -->
+<figure class="wp-block-video kb-film-ramka kb-film-luk kb-film--b"><video autoplay loop muted poster="/wp-content/uploads/pediatria-detale.jpg" src="/wp-content/uploads/pediatria-detale.mp4" playsinline></video></figure>
+<!-- /wp:video -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-atuty","align":"full"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-atuty">
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph {"className":"kb-atut kb-i-zegar"} -->
+<p class="kb-atut kb-i-zegar">Badanie bez pośpiechu</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:paragraph {"className":"kb-atut kb-i-sms"} -->
+<p class="kb-atut kb-i-sms">Rejestracja SMS</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- ======================= DOKTOR KASIA =======================
+  Zdjęcie po lewej, opowieść o praktyce po prawej.
+
+  TEKST W PRAWEJ KOLUMNIE MOŻNA SWOBODNIE PRZEPISAĆ WŁASNYMI SŁOWAMI —
+  klikasz w akapit i piszesz.
+-->
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-o-praktyce"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-o-praktyce">
+
+<!-- wp:columns {"verticalAlignment":"center","className":"kb-doktor","style":{"spacing":{"blockGap":{"left":"52px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center kb-doktor">
+
+<!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
+<!-- wp:group {"className":"kb-portret-ramka","layout":{"type":"constrained"}} -->
+<div class="wp-block-group kb-portret-ramka">
+<!-- wp:image {"url":"/wp-content/uploads/portret-kasia.jpg","className":"kb-portret"} -->
+<figure class="wp-block-image kb-portret"><img src="/wp-content/uploads/portret-kasia.jpg" alt="lek. Katarzyna Bator, specjalista pediatra, w gabinecie"/></figure>
+<!-- /wp:image -->
+<!-- wp:paragraph {"align":"center","className":"kb-portret-podpis"} -->
+<p class="has-text-align-center kb-portret-podpis">Katarzyna Bator<br><span>specjalista pediatra</span></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
+<!-- wp:paragraph {"className":"kb-nadtytul"} -->
+<p class="kb-nadtytul">Poznajmy się</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"kb-naglowek"} -->
+<h2 class="wp-block-heading kb-naglowek">Opieka Pediatryczna Doktor&nbsp;Kasi</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-wstep"} -->
+<p class="kb-wstep">Nowoczesna opieka medyczna dla&nbsp;Dzieci. Diagnostyka dostępna podczas&nbsp;wizyty.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-tekst kb-tekst-luzno"} -->
+<p class="kb-tekst kb-tekst-luzno">Świadomie ograniczona liczba wizyt pozwala zapewnić każdemu Dziecku spokojną, indywidualną opiekę.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-zaproszenie"} -->
+<p class="kb-zaproszenie">Zapraszamy na konsultacje.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kontakt"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kontakt">
+<!-- wp:columns -->
+<div class="wp-block-columns">
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"className":"kb-karta-kontakt"} -->
+<div class="wp-block-group kb-karta-kontakt">
+
+<!-- wp:heading {"className":"kb-naglowek-maly"} -->
+<h2 class="wp-block-heading kb-naglowek-maly">Umów wizytę</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-pin"} -->
+<p class="kb-kontakt-pozycja kb-i-pin">Adres</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
+<p class="kb-kontakt-dane">ul. St. Daneckiej 4/U6, Miechów</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"className":"kb-kontakt-pozycja kb-i-sms"} -->
+<p class="kb-kontakt-pozycja kb-i-sms">Rejestracja SMS</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-kontakt-dane"} -->
+<p class="kb-kontakt-dane"><a class="kb-tel" href="sms:+48535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"kb-btn-glowny"} -->
+<div class="wp-block-button kb-btn-glowny"><a class="wp-block-button__link wp-element-button" href="sms:+48535999565">Umów się</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:shortcode -->
+[dk_pedi_mapa_ramka]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-sekcja kb-sekcja-cieplo","align":"full","anchor":"kb-kalkulator"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-sekcja-cieplo" id="kb-kalkulator">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Kalkulator ibuprofenu&nbsp;/ paracetamolu</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","className":"kb-tekst kb-tekst-srodek kb-tekst-luzno"} -->
+<p class="has-text-align-center kb-tekst kb-tekst-srodek kb-tekst-luzno">Narzędzie poglądowe. Nie zastępuje konsultacji lekarskiej ani ulotki preparatu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:shortcode -->
+[dk_pedi_kalkulator]
+<!-- /wp:shortcode -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- ======================== WASZE SŁOWA ========================
+  Wypowiedzi rodziców. Żeby dodać kolejną, skopiuj jeden akapit
+  i podmień tekst — cudzysłowy dokłada arkusz stylów, więc nie
+  wpisuj ich ręcznie.
+
+  UWAGA PRZED PUBLIKACJĄ: opinie pacjentów publikuj za ich zgodą
+  i bez danych, które pozwalałyby kogoś rozpoznać.
+-->
+<!-- wp:group {"className":"kb-sekcja kb-glosy","align":"full","anchor":"kb-wasze-slowa"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-glosy" id="kb-wasze-slowa">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Wasze słowa</h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"className":"kb-glosy-mur","layout":{"type":"default"}} -->
+<div class="wp-block-group kb-glosy-mur">
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Jak zawsze, kiedy przychodzę do Pani Doktor, jestem spokojna… Wiem, że moje dzieci są dokładnie zbadane.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">…pod wrażeniem Pani skrupulatności i fachowej opieki nad małym pacjentem. Cieszę się, że mamy tak wspaniałego pediatrę. Dzieci są właściwie zaopiekowane i uwielbiają swoją Doktor Kasię.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Pani Doktor, dziękujemy bardzo za wsparcie. Nie spotkaliśmy się nigdy wcześniej z tak indywidualnym podejściem do pacjenta. Jesteśmy ogromnie wdzięczni.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Pediatra z super podejściem do dziecka, z wiedzą, ale i przede wszystkim z wielką empatią! (…) Mam trójkę maluchów i każde powierzam w ręce Pani Doktor! Nie wyobrażam sobie nikogo innego, kto mógłby lepiej się zaopiekować moimi dziećmi.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Po prostu jesteś niesamowita naprawdę (…) po raz kolejny uratowałaś nas. Jeszcze raz dziękuję za Twoje podejście do małego i nieocenioną pomoc. (…) No i nie ukrywam, że dzięki Tobie mogę spokojnie spać.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-glos"} -->
+<p class="kb-glos">Choćbyśmy byli na końcu świata, i tak przyjedziemy do Pani. ❤️</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
+
+
+<!-- ==================== FILMY: PIERWSZA POMOC ====================
+  Karuzela z trzema filmami z YouTube. Miniatury ładują się od razu,
+  ale sam odtwarzacz YouTube startuje dopiero po kliknięciu — dzięki
+  temu strona nie osadza cookies YouTube u każdego odwiedzającego.
+  Filmy idą przez youtube-nocookie.com z tego samego powodu.
+
+  Żeby podmienić film, zmień identyfikator w dwóch miejscach karty:
+  w atrybucie data-yt i w adresie miniatury.
+-->
+<!-- wp:group {"className":"kb-sekcja kb-filmy","align":"full","anchor":"kb-pierwsza-pomoc"} -->
+<div class="wp-block-group alignfull kb-sekcja kb-filmy" id="kb-pierwsza-pomoc">
+
+<!-- wp:heading {"textAlign":"center","className":"kb-naglowek"} -->
+<h2 class="wp-block-heading has-text-align-center kb-naglowek">Pierwsza pomoc przedmedyczna</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[dk_pedi_karuzela]
+<!-- /wp:shortcode -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"kb-stopka","align":"full"} -->
+<div class="wp-block-group alignfull kb-stopka">
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"40px"}}}} -->
+<div class="wp-block-columns">
+
+<!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%">
+<!-- wp:paragraph {"className":"kb-logo"} -->
+<p class="kb-logo">Katarzyna Bator</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-podpis"} -->
+<p class="kb-podpis">Specjalista pediatra</p>
+<!-- /wp:paragraph -->
+<!-- ODNOSNIKI DO PROFILI.
+  Wczesniej byl tu blok "Ikony mediow spolecznosciowych" (wp:social-links).
+  Jest to blok dynamiczny: w zapisanej tresci zostaje sama pusta lista,
+  a odnosniki dokleja WordPress dopiero przy wyswietlaniu — w podgladzie
+  i w kazdym miejscu poza gotowa strona nie bylo ich w ogole widac,
+  a wyglad zalezal od arkusza biblioteki blokow.
+  Teraz sa to zwykle odnosniki z ikonami w SVG: widac je wszedzie
+  tak samo i nie potrzebuja niczego doczytywac.
+  Zeby zmienic adres profilu, popraw go w "href". -->
+<!-- wp:shortcode -->
+[dk_pedi_spoleczne]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"38%"} -->
+<div class="wp-block-column" style="flex-basis:38%">
+<!-- wp:paragraph {"className":"kb-stopka-etykieta"} -->
+<p class="kb-stopka-etykieta">Kontakt</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-stopka-numer"} -->
+<p class="kb-stopka-numer"><a href="sms:+48535999565">535 999 565</a></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-stopka-drobne"} -->
+<p class="kb-stopka-drobne">Rejestracja SMS · odpowiadam między wizytami</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-stopka-adres"} -->
+<p class="kb-stopka-adres">ul. St. Daneckiej 4/U6<br>32-200 Miechów</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"28%"} -->
+<div class="wp-block-column" style="flex-basis:28%">
+<!-- wp:paragraph {"className":"kb-stopka-etykieta"} -->
+<p class="kb-stopka-etykieta">Zobacz też</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-stopka-link"} -->
+<p class="kb-stopka-link"><a href="/medycyna-estetyczna/">Medycyna estetyczna</a></p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"kb-stopka-link"} -->
+<p class="kb-stopka-link"><a href="/polityka-prywatnosci/">Polityka prywatności</a></p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:separator {"className":"kb-stopka-kreska"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity kb-stopka-kreska"/>
+<!-- /wp:separator -->
+
+<!-- wp:columns {"verticalAlignment":"center","className":"kb-stopka-dol-wiersz","style":{"spacing":{"blockGap":{"left":"32px"}}}} -->
+<div class="wp-block-columns are-vertically-aligned-center kb-stopka-dol-wiersz">
+<!-- wp:column {"verticalAlignment":"center","width":"66%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:66%">
+<!-- wp:paragraph {"className":"kb-stopka-uwaga"} -->
+<p class="kb-stopka-uwaga">Treści na tej stronie mają charakter informacyjny i nie zastępują konsultacji lekarskiej. Kalkulator dawek jest narzędziem poglądowym. W stanie zagrożenia życia dzwoń pod numer <strong>112</strong>.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+<!-- wp:column {"verticalAlignment":"center","width":"34%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:34%">
+<!-- wp:paragraph {"align":"right","className":"kb-stopka-dol"} -->
+<p class="has-text-align-right kb-stopka-dol">© Katarzyna Bator<br>Opieka Pediatryczna Doktor Kasi</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->
+]]></content:encoded>
+    <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+    <wp:post_id>1001</wp:post_id>
+    <wp:post_date><![CDATA[2026-08-29 12:00:00]]></wp:post_date>
+    <wp:post_date_gmt><![CDATA[2026-08-29 12:00:00]]></wp:post_date_gmt>
+    <wp:post_modified><![CDATA[2026-08-29 12:00:00]]></wp:post_modified>
+    <wp:post_modified_gmt><![CDATA[2026-08-29 12:00:00]]></wp:post_modified_gmt>
+    <wp:comment_status><![CDATA[closed]]></wp:comment_status>
+    <wp:ping_status><![CDATA[closed]]></wp:ping_status>
+    <wp:post_name><![CDATA[pediatria]]></wp:post_name>
+    <wp:status><![CDATA[draft]]></wp:status>
+    <wp:post_parent>0</wp:post_parent>
+    <wp:menu_order>0</wp:menu_order>
+    <wp:post_type><![CDATA[page]]></wp:post_type>
+    <wp:post_password><![CDATA[]]></wp:post_password>
+    <wp:is_sticky>0</wp:is_sticky>
+    <wp:postmeta>
+      <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+      <wp:meta_value><![CDATA[default]]></wp:meta_value>
+    </wp:postmeta>
+  </item>
+</channel>
+</rss>

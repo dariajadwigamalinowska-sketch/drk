@@ -47,20 +47,44 @@ Wtedy domyślne adresy pasują bez żadnej podmiany.
 
 ---
 
-## 2. Import stron
+## 2. Import stron — dwie drogi
 
-**Narzędzia → Importuj → WordPress** i wskaż plik z `wordpress/import/`.
+Są dwie paczki na stronę. Wybierz jedną.
 
-### Sprawdź od razu, czy treść przetrwała
+### A. Z wtyczką — działa wszędzie (zalecane)
 
-Otwórz zaimportowaną stronę. Jeśli **nie ma żadnych kolorów ani
-układu** — sam tekst jeden pod drugim — to znaczy, że WordPress usunął
-arkusz stylów. Przejdź do punktu 3.
+1. **Wtyczki → Dodaj nową → Wyślij wtyczkę** i wskaż
+   `wordpress/wtyczka-doktor-kasia.zip`. Włącz ją.
+2. **Narzędzia → Importuj → WordPress** i wskaż paczkę **`-wtyczka`**:
+   - `import/pediatria-wtyczka.wordpress.xml`
+   - `import/medycyna-estetyczna-wtyczka.wordpress.xml`
 
-**Dlaczego tak się dzieje.** WordPress przepuszcza treść wpisu przez
-filtr `wp_kses_post()` dla każdego, kto nie ma uprawnienia
-`unfiltered_html`. Na liście dozwolonych znaczników nie ma `<style>`
-ani `<script>`. Uprawnienie to mają administratorzy i redaktorzy
+W tym wariancie treść strony nie zawiera **nic**, co WordPress mógłby
+wyciąć — sprawdzone maszynowo, zero znaczników z listy do usunięcia.
+Arkusz, skrypty, kalkulator, karuzela, ikony profili i mapa siedzą we
+wtyczce i wstawiają się przez krótkie znaczniki (`[dk_pedi_kalkulator]`
+i podobne), które są zwykłym tekstem.
+
+Treść wpisu jest przy tym pięć razy krótsza (17 kB zamiast 94 kB na
+pediatrii), więc edytor działa płynnie, a strony łatwiej się redaguje.
+
+### B. Bez wtyczki — wszystko w treści strony
+
+**Narzędzia → Importuj → WordPress** i wskaż paczkę bez `-wtyczka`.
+Zadziała **tylko wtedy**, gdy importujesz jako administrator zwykłej
+(nie wielowitrynowej) instalacji, bez wtyczki bezpieczeństwa odbierającej
+uprawnienie `unfiltered_html`.
+
+Jak sprawdzić, czy się udało: otwórz zaimportowaną stronę. Jeśli **nie
+ma kolorów ani układu** — sam tekst jeden pod drugim — to znaczy, że
+WordPress usunął arkusz. Wróć do wariantu A.
+
+### Dlaczego tak się dzieje
+
+WordPress przepuszcza treść wpisu przez filtr `wp_kses_post()` dla
+każdego, kto nie ma uprawnienia `unfiltered_html`. Na liście dozwolonych
+znaczników nie ma `<style>`, `<script>`, `<iframe>`, `<button>`,
+`<input>` ani `<svg>`. Uprawnienie to mają administratorzy i redaktorzy
 zwykłej instalacji, ale **nie mają go**:
 
 - administratorzy instalacji wielowitrynowej (tam ma je tylko super
@@ -69,22 +93,15 @@ zwykłej instalacji, ale **nie mają go**:
   w niższych planach),
 - wszyscy tam, gdzie odbiera je wtyczka bezpieczeństwa.
 
-Importer WXR zapisuje strony przez `wp_insert_post()`, więc filtr
-działa także w czasie importu. Na pediatrii dotyczy to **75%** treści,
-na medycynie estetycznej **46%** — stąd wrażenie, że „część rzeczy nie
-działa".
-
-**Najprościej jest tego uniknąć**: zaimportować jako administrator
-zwykłej (nie wielowitrynowej) instalacji, z chwilowo wyłączoną wtyczką
-bezpieczeństwa. Wtedy wszystko wchodzi w całości i punkt 3 jest
-niepotrzebny.
+Importer WXR zapisuje strony przez `wp_insert_post()`, więc filtr działa
+także w czasie importu. W paczce bez wtyczki dotyczy to **75%** treści
+pediatrii i **47%** medycyny estetycznej.
 
 ---
 
-## 3. Jeśli style i skrypty zostały usunięte
+## 3. Jeśli mimo wszystko wolisz wariant B, a filtr zadziałał
 
-Wszystko, co filtr wycina, leży też w osobnych plikach — te same treści,
-tylko poza wpisem, więc filtr ich nie dotyczy.
+Wszystko, co filtr wycina, leży też w osobnych plikach.
 
 ### Arkusz stylów
 
@@ -94,28 +111,21 @@ tylko poza wpisem, więc filtr ich nie dotyczy.
 - `wordpress/style-medycyna-estetyczna.css`
 
 Oba można wkleić jeden pod drugim — klasy się nie mieszają
-(`kb-` kontra `estet`). To miejsce nie przechodzi przez `kses`, więc
-arkusz przetrwa.
+(`kb-` kontra `estet`). To miejsce nie przechodzi przez `kses`.
 
 ### Skrypty
 
-Kalkulator dawek, karuzela z filmami i pętla ujęć w oknie powitalnym
-potrzebują JavaScriptu. Wklej do dowolnej wtyczki od fragmentów kodu
-(np. WPCode), jako **JavaScript w stopce**:
+Do wtyczki od fragmentów kodu (np. WPCode), jako **JavaScript
+w stopce**:
 
 - `wordpress/skrypty-pediatria.js`
 - `wordpress/skrypty-estetyczna.js`
 
-Każdy fragment sam sprawdza, czy jego elementy są na stronie, więc na
-podstronach bez nich nic nie robi i niczego nie psuje.
+### Czego to nie przywróci
 
-### Czego to nie naprawi
-
-Filtr usuwa także `<button>`, `<svg>` i `<iframe>` z treści. Jeśli
-strona przeszła przez filtr, znikną razem z nimi: przyciski kalkulatora,
-ikony profili, strzałki karuzeli i mapa dojazdu — a tego wklejenie
-arkusza i skryptu nie przywróci, bo brakuje samego kodu strony.
-Dlatego jeśli tylko się da, lepiej zaimportować bez filtru (punkt 2).
+Przycisków kalkulatora, pola na masę ciała, ikon profili, strzałek
+karuzeli i mapy — bo filtr usunął sam kod strony, a nie tylko arkusz.
+Dlatego istnieje wariant A.
 
 ---
 
@@ -152,13 +162,19 @@ wordpress/pediatria-gutenberg.html
 wordpress/medycyna-estetyczna-gutenberg.html
 ```
 
-Wszystko inne — paczki XML, arkusze CSS, pliki JS — jest z nich
-generowane. Po każdej poprawce:
+Wszystko inne — paczki XML (obie wersje), arkusze CSS, pliki JS,
+wtyczka i jej `.zip` — jest z nich generowane. Po każdej poprawce:
 
 ```
 python3 wordpress/build.py                       # bez podmiany adresów
 python3 wordpress/build.py --media <adres>       # z podmianą
 ```
 
-Nie poprawiaj `style-*.css` ani `skrypty-*.js` ręcznie — przy
-najbliższym przebudowaniu zmiany zostaną nadpisane.
+Nie poprawiaj ręcznie `style-*.css`, `skrypty-*.js` ani niczego
+w `wtyczka-doktor-kasia/` — przy najbliższym przebudowaniu zmiany
+zostaną nadpisane.
+
+Jeśli poprawka dotyczyła fragmentu obsługiwanego przez wtyczkę
+(kalkulator, karuzela, ikony, mapa), po przebudowaniu wgraj wtyczkę
+jeszcze raz — sama treść strony w WordPressie się nie zmienia, bo
+zawiera tylko krótki znacznik.

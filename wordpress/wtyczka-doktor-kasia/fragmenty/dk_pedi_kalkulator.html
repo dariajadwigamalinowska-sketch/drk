@@ -1,0 +1,35 @@
+<div class="kb-kalkulator">
+
+
+  <div class="kb-przelacznik" role="group" aria-label="Wybór substancji czynnej">
+    <button type="button" id="kbBtnIbu"  aria-pressed="true">Ibuprofen</button>
+    <button type="button" id="kbBtnPara" aria-pressed="false">Paracetamol</button>
+  </div>
+
+  <p class="kb-pole-tytul" id="kbLekiTytul">Wybierz lek</p>
+  <div class="kb-leki" id="kbLeki" role="radiogroup" aria-labelledby="kbLekiTytul"></div>
+
+  <div class="kb-pola">
+    <div class="kb-pole">
+      <label for="kbWaga">Masa ciała dziecka (kg)</label>
+      <input type="text" id="kbWaga" inputmode="decimal" autocomplete="off"
+             placeholder="np. 14" aria-describedby="kbBlad">
+    </div>
+  </div>
+
+  <p class="kb-blad kb-i-uwaga" id="kbBlad" role="alert"><span id="kbBladTresc">Podaj masę ciała dziecka w zakresie 3–60 kg.</span></p>
+
+  <button type="button" class="kb-licz" id="kbOblicz">Oblicz dawkę</button>
+
+  <div class="kb-wynik" id="kbWynik" aria-live="polite">
+    <div class="kb-wynik-grid">
+      <div class="kb-wynik-box"><b id="kbDawka">–</b><span>dawka jednorazowa</span></div>
+      <div class="kb-wynik-box"><b id="kbOdstep">–</b><span>odstęp między dawkami</span></div>
+      <div class="kb-wynik-box"><b id="kbLiczba">–</b><span>dawek na dobę</span></div>
+      <div class="kb-wynik-box"><b id="kbDoba">–</b><span>na dobę łącznie</span></div>
+    </div>
+
+    <p class="kb-uwaga kb-i-uwaga"><span>Wynik ma charakter <strong>wyłącznie poglądowy</strong>. Przed podaniem leku zawsze zweryfikuj dawkę z ulotką konkretnego preparatu i skonsultuj się z lekarzem lub farmaceutą.</span></p>
+    <p class="kb-uwaga kb-i-uwaga" id="kbUwagaWiek" hidden><span>Przy tak niskiej masie ciała (poniżej 6 kg) dawkowanie <strong>zawsze</strong> ustala lekarz. Ibuprofenu nie podaje się dzieciom poniżej 3. miesiąca życia.</span></p>
+  </div>
+</div>

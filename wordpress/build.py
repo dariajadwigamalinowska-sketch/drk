@@ -26,6 +26,7 @@ Uruchomienie:
 
 import base64
 import mimetypes
+import shutil
 import re
 import sys
 import xml.dom.minidom
@@ -34,12 +35,14 @@ from pathlib import Path
 KORZEN = Path(__file__).resolve().parent.parent
 ZRODLA = KORZEN / "wordpress"
 MEDIA = [KORZEN / "assets" / "wideo", KORZEN / "assets" / "grafika"]
+WERSJA_WTYCZKI = "1.0.0"
 
 STRONY = [
     {
         "blok": ZRODLA / "pediatria-gutenberg.html",
         "xml": ZRODLA / "import" / "pediatria.wordpress.xml",
         "css": ZRODLA / "style-pediatria.css",
+        "prefiks": "pedi",
         "js": ZRODLA / "skrypty-pediatria.js",
         "podglad": "pediatria-podglad.html",
         "artefakt": "artefakt-pediatria.html",
@@ -56,6 +59,7 @@ STRONY = [
         "blok": ZRODLA / "medycyna-estetyczna-gutenberg.html",
         "xml": ZRODLA / "import" / "medycyna-estetyczna.wordpress.xml",
         "css": ZRODLA / "style-medycyna-estetyczna.css",
+        "prefiks": "estet",
         "js": ZRODLA / "skrypty-estetyczna.js",
         "podglad": "medycyna-estetyczna-podglad.html",
         "artefakt": "artefakt-estetyczna.html",
@@ -211,6 +215,165 @@ def zapisz_skrypty(sciezka, kawalki, tytul):
                        encoding="utf-8")
 
 
+
+# =========================================================================
+#  WARIANT ODPORNY NA FILTR KSES
+#
+#  WordPress usuwa z tresci wpisu wszystko, czego nie ma na liscie
+#  $allowedposttags: <style>, <script>, <iframe>, <button>, <input>
+#  i <svg>. Na obu stronach cale to "wrazliwe" wnetrze siedzi wylacznie
+#  w blokach wp:html — sprawdzone skryptem przenosnosc.py. Da sie wiec
+#  zrobic rzecz czysta: przeniesc te fragmenty do wtyczki i zostawic
+#  w tresci sam krotki shortcode, ktory jest zwyklym tekstem i filtr go
+#  nie rusza. Wtyczka wypisuje fragment po stronie serwera, wiec
+#  odtwarza sie w calosci niezaleznie od uprawnien uzytkownika.
+# =========================================================================
+
+BLOK_HTML = re.compile(r"<!-- wp:html -->(.*?)<!-- /wp:html -->", re.S)
+
+
+def slug_fragmentu(html):
+    """Nazwa shortcode wyprowadzona z pierwszej klasy we fragmencie,
+    zeby byla czytelna i za kazdym razem taka sama."""
+    m = re.search(r'class="([\w-]+)', html)
+    podstawa = m.group(1) if m else "fragment"
+    podstawa = re.sub(r"^(kb|e)-", "", podstawa)
+    return podstawa.replace("-", "_")
+
+
+def sam_markup(srodek):
+    """Zdejmuje z bloku arkusz i skrypt — te ida osobnymi plikami —
+    i zwraca to, co zostaje. Blok kalkulatora ma i jedno, i drugie
+    obok wlasciwej tresci, wiec nie wolno pomijac calego bloku tylko
+    dlatego, ze cos w nim jest.
+
+    Zwraca pusty napis takze wtedy, gdy zostaly same komentarze:
+    blok z arkuszem zaczyna sie dluga instrukcja dla edytora i bez
+    tego sprawdzenia robil sie z niej osobny, pusty shortcode."""
+    bez = re.sub(r"<style\b[^>]*>.*?</style>", "", srodek, flags=re.S | re.I)
+    bez = re.sub(r"<script\b[^>]*>.*?</script>", "", bez, flags=re.S | re.I)
+    bez = bez.strip()
+    if not re.sub(r"<!--.*?-->", "", bez, flags=re.S).strip():
+        return ""
+    return bez
+
+
+def fragmenty(html):
+    """Zwraca [(slug, tresc, caly_blok)] dla blokow wp:html, w ktorych
+    po zdjeciu arkusza i skryptu zostaje jeszcze jakas tresc."""
+    wynik = []
+    for m in BLOK_HTML.finditer(html):
+        markup = sam_markup(m.group(1).strip())
+        if not markup:
+            continue
+        wynik.append((slug_fragmentu(markup), markup, m.group(0)))
+    return wynik
+
+
+def tresc_na_shortcode(html, prefiks):
+    """Zamienia bloki wp:html na bloki shortcode. Arkusze i skrypty
+    znikaja z tresci zupelnie — dostarcza je wtyczka."""
+    def zamien(m):
+        markup = sam_markup(m.group(1).strip())
+        if not markup:
+            return ""
+        nazwa = "dk_%s_%s" % (prefiks, slug_fragmentu(markup))
+        return ("<!-- wp:shortcode -->\n[%s]\n<!-- /wp:shortcode -->" % nazwa)
+    return BLOK_HTML.sub(zamien, html)
+
+
+NAGLOWEK_WTYCZKI = """<?php
+/**
+ * Plugin Name: Doktor Kasia — bloki stron
+ * Description: Arkusze, skrypty i te fragmenty stron, ktore WordPress
+ *              usuwa z tresci wpisu (style, skrypty, przyciski, pola
+ *              formularza, ikony SVG i ramki iframe). Wtyczka wypisuje
+ *              je po stronie serwera, wiec dzialaja niezaleznie od
+ *              uprawnien uzytkownika, ktory importowal strony.
+ * Version:     %(wersja)s
+ * Author:      Opieka Pediatryczna Doktor Kasi
+ * License:     GPL-2.0-or-later
+ *
+ * PLIK JEST GENEROWANY przez wordpress/build.py — nie poprawiaj go
+ * recznie, tylko zrodla w wordpress/*-gutenberg.html i przebuduj.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+define( 'DK_WERSJA', '%(wersja)s' );
+
+/**
+ * Arkusze i skrypty. Klasy sa nazwane z przedrostkami (kb- oraz estet),
+ * wiec nie mieszaja sie z motywem ani ze soba; kazdy skrypt sam
+ * sprawdza, czy jego elementy sa na stronie. Zeby wczytywac je tylko
+ * na wybranych stronach, opakuj tresc ponizej warunkiem is_page().
+ */
+function dk_zasoby() {
+	$baza = plugin_dir_url( __FILE__ );
+%(zasoby)s}
+add_action( 'wp_enqueue_scripts', 'dk_zasoby' );
+
+/**
+ * Wypisuje fragment strony trzymany w pliku obok wtyczki.
+ * Nazwa pliku pochodzi wylacznie z kodu ponizej, ale basename()
+ * zostaje jako zabezpieczenie na wypadek pozniejszych zmian.
+ * Zwracana tresc jest naszym wlasnym kodem strony, wiec nie
+ * przepuszczamy jej przez zadne czyszczenie — o to wlasnie chodzi.
+ */
+function dk_fragment( $plik ) {
+	$sciezka = plugin_dir_path( __FILE__ ) . 'fragmenty/' . basename( $plik );
+	if ( ! is_readable( $sciezka ) ) {
+		return '';
+	}
+	return file_get_contents( $sciezka );
+}
+
+%(shortcode)s"""
+
+
+def zbuduj_wtyczke(katalog, strony, wersja):
+    """Sklada wtyczke: arkusze, skrypty i fragmenty jako shortcode."""
+    katalog.mkdir(parents=True, exist_ok=True)
+    (katalog / "fragmenty").mkdir(exist_ok=True)
+
+    zasoby, shortcode, ile = [], [], 0
+    for strona in strony:
+        html = strona["blok"].read_text(encoding="utf-8")
+
+        for zrodlo, rodzaj in ((strona["css"], "style"), (strona["js"], "script")):
+            if not zrodlo.is_file():
+                continue
+            cel = katalog / zrodlo.name
+            cel.write_text(zrodlo.read_text(encoding="utf-8"), encoding="utf-8")
+            uchwyt = "dk-" + zrodlo.stem
+            if rodzaj == "style":
+                zasoby.append(
+                    "\twp_enqueue_style( '%s', $baza . '%s', array(), DK_WERSJA );"
+                    % (uchwyt, zrodlo.name))
+            else:
+                zasoby.append(
+                    "\twp_enqueue_script( '%s', $baza . '%s', array(), DK_WERSJA, true );"
+                    % (uchwyt, zrodlo.name))
+
+        for slug, tresc, _ in fragmenty(html):
+            nazwa = "dk_%s_%s" % (strona["prefiks"], slug)
+            plik = nazwa + ".html"
+            (katalog / "fragmenty" / plik).write_text(tresc + "\n", encoding="utf-8")
+            shortcode.append(
+                "add_shortcode( '%s', function () {\n"
+                "\treturn dk_fragment( '%s' );\n"
+                "} );" % (nazwa, plik))
+            ile += 1
+
+    (katalog / "doktor-kasia.php").write_text(
+        NAGLOWEK_WTYCZKI % {
+            "wersja": wersja,
+            "zasoby": "\n".join(zasoby) + "\n",
+            "shortcode": "\n\n".join(shortcode) + "\n",
+        }, encoding="utf-8")
+    return ile
+
+
 def main():
     baza_mediow = None
     argumenty = sys.argv[1:]
@@ -241,6 +404,17 @@ def main():
         zapisz_xml(strona["xml"], tresc_xml)
         print("XML   %s (%d znakow tresci)" % (strona["xml"].name, len(tresc_xml)))
 
+        # Wariant na shortcode — tresc bez niczego, co wycina filtr kses.
+        krotka = tresc_na_shortcode(tresc_xml, strona["prefiks"])
+        sciezka_krotka = strona["xml"].with_name(
+            strona["xml"].name.replace(".wordpress.xml", "-wtyczka.wordpress.xml"))
+        if not sciezka_krotka.is_file():
+            sciezka_krotka.write_text(
+                strona["xml"].read_text(encoding="utf-8"), encoding="utf-8")
+        zapisz_xml(sciezka_krotka, krotka)
+        print("XML   %s (%d znakow — wariant dla wtyczki)"
+              % (sciezka_krotka.name, len(krotka)))
+
         if katalog_podgladow is None:
             continue
         katalog_podgladow.mkdir(parents=True, exist_ok=True)
@@ -257,6 +431,15 @@ def main():
             zbuduj_podglad(strona, bez_mapy(tresc)), encoding="utf-8"
         )
         print("HTML  %s (%.1f MB)" % (artefakt.name, artefakt.stat().st_size / 1e6))
+
+    katalog_wtyczki = ZRODLA / "wtyczka-doktor-kasia"
+    ile = zbuduj_wtyczke(katalog_wtyczki, STRONY, WERSJA_WTYCZKI)
+    print("WTYCZKA %s (%d fragmentow)" % (katalog_wtyczki.name, ile))
+    archiwum = shutil.make_archive(
+        str(ZRODLA / "wtyczka-doktor-kasia"), "zip",
+        root_dir=str(ZRODLA), base_dir="wtyczka-doktor-kasia")
+    print("ZIP   %s (%.0f kB)"
+          % (Path(archiwum).name, Path(archiwum).stat().st_size / 1024))
 
 
 if __name__ == "__main__":

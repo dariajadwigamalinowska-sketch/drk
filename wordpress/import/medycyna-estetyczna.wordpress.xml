@@ -768,6 +768,36 @@
     if (window.console && window.console.error) { window.console.error('e-petla:', err); }
   }
 })();
+
+/* ATRYBUTY WIDEO USTAWIANE Z KODU.
+   Filtr kses przepuszcza <video>, ale tylko z lista atrybutow, na
+   ktorej nie ma "playsinline". Bez niego iOS otwiera film na pelnym
+   ekranie zamiast odtwarzac go w kadrze i nie startuje sam. Ustawiamy
+   go wiec z JavaScriptu — tam zaden filtr nie siega. Przy okazji
+   pilnujemy wyciszenia, bo bez niego przegladarki blokuja
+   autoodtwarzanie. */
+(function () {
+  'use strict';
+  function ustaw() {
+    try {
+      var filmy = document.querySelectorAll('.estet video');
+      for (var i = 0; i < filmy.length; i++) {
+        filmy[i].playsInline = true;
+        filmy[i].setAttribute('playsinline', '');
+        filmy[i].muted = true;
+      }
+    } catch (err) { /* film po prostu zostaje jak byl */ }
+  }
+  /* Czekamy na koniec wczytywania dokumentu. Skrypt stoi w tresci
+     strony, wiec w chwili uruchomienia czesc filmow moze byc jeszcze
+     nizej i querySelectorAll by ich nie zobaczylo. Wczytany z wtyczki
+     w stopce dziala tak samo — warunek jest wtedy od razu spelniony. */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ustaw);
+  } else {
+    ustaw();
+  }
+})();
 </script>
 <!-- /wp:html -->
 
