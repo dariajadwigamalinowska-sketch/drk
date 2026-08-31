@@ -374,6 +374,113 @@ def zbuduj_wtyczke(katalog, strony, wersja):
     return ile
 
 
+
+CZYTAJ_NAJPIERW = """# Doktor Kasia — komplet do wdrozenia
+
+Wszystko, czego potrzeba, w jednym miejscu. Struktura:
+
+    podglad/     dwie strony jako samodzielne pliki HTML — otwierasz
+                 dwuklikiem w przegladarce, media sa w srodku, nie
+                 trzeba niczego instalowac ani miec internetu
+                 (poza krojami pisma z Google)
+
+    import/      paczki do WordPressa, po dwie na strone:
+                   *-wtyczka.wordpress.xml  — z wtyczka, dziala wszedzie
+                   *.wordpress.xml          — wszystko w tresci strony
+
+    wtyczka/     wtyczka-doktor-kasia.zip — wgrywasz przez
+                 Wtyczki -> Dodaj nowa -> Wyslij wtyczke
+
+    media/       zdjecia i filmy do wgrania w Media -> Dodaj nowy
+
+    osobno/      arkusz CSS i skrypty JS na wypadek, gdyby trzeba
+                 bylo wkleic je recznie
+
+    zrodla/      pliki, z ktorych wszystko powyzsze jest generowane,
+                 razem ze skryptem budujacym
+
+## Najkrotsza droga
+
+1. Wgraj do Mediow wszystko z `media/`.
+2. Wtyczki -> Dodaj nowa -> Wyslij wtyczke -> `wtyczka/wtyczka-doktor-kasia.zip`,
+   wlacz.
+3. Narzedzia -> Importuj -> WordPress -> pliki `import/*-wtyczka.wordpress.xml`.
+4. Jesli zdjecia sie nie pokazuja, przeczytaj punkt 1 instrukcji —
+   chodzi o podkatalogi rocznik/miesiac w adresach mediow.
+
+Pelna instrukcja: `INSTRUKCJA.md`.
+"""
+
+
+def zbuduj_pakiet(katalog_roboczy, katalog_podgladow):
+    """Sklada jedno archiwum ze wszystkim: podglady, paczki importu,
+    wtyczka, media, arkusze i skrypty osobno oraz zrodla."""
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        korzen = Path(tmp) / "doktor-kasia-pakiet"
+        for nazwa in ("podglad", "import", "wtyczka", "media", "osobno", "zrodla"):
+            (korzen / nazwa).mkdir(parents=True)
+
+        (korzen / "CZYTAJ-TO-NAJPIERW.md").write_text(
+            CZYTAJ_NAJPIERW, encoding="utf-8")
+        instrukcja = ZRODLA / "INSTRUKCJA.md"
+        if instrukcja.is_file():
+            shutil.copy2(instrukcja, korzen / "INSTRUKCJA.md")
+
+        for strona in STRONY:
+            zrodlo = katalog_podgladow / strona["podglad"] if katalog_podgladow else None
+            if zrodlo and zrodlo.is_file():
+                shutil.copy2(zrodlo, korzen / "podglad" / strona["podglad"])
+            shutil.copy2(strona["blok"], korzen / "zrodla" / strona["blok"].name)
+            for klucz in ("css", "js"):
+                if strona[klucz].is_file():
+                    shutil.copy2(strona[klucz], korzen / "osobno" / strona[klucz].name)
+
+        for x in sorted((ZRODLA / "import").glob("*.xml")):
+            shutil.copy2(x, korzen / "import" / x.name)
+
+        zip_wtyczki = ZRODLA / "wtyczka-doktor-kasia.zip"
+        if zip_wtyczki.is_file():
+            shutil.copy2(zip_wtyczki, korzen / "wtyczka" / zip_wtyczki.name)
+
+        # Do pakietu ida tylko te pliki, do ktorych strony naprawde
+        # sie odwoluja. Wczesniejsze wersje mialy w assets takze
+        # material odlozony (ujecie z poczekalni, kadr z misiem,
+        # zrodlowy gradient) — wrzucenie go do "media do wgrania"
+        # kazaloby wgrywac pliki, ktorych nic nie uzywa.
+        uzywane = set()
+        for strona in STRONY:
+            html = strona["blok"].read_text(encoding="utf-8")
+            uzywane.update(re.findall(
+                r"/wp-content/uploads/([\w-]+\.\w+)", html))
+        pominiete = []
+        for katalog in MEDIA:
+            cel = korzen / "media" / katalog.name
+            cel.mkdir(parents=True, exist_ok=True)
+            for plik in sorted(katalog.iterdir()):
+                if not plik.is_file():
+                    continue
+                if plik.name in uzywane:
+                    shutil.copy2(plik, cel / plik.name)
+                else:
+                    pominiete.append(plik.name)
+        if pominiete:
+            print("      media pominiete (nieuzywane): %s"
+                  % ", ".join(sorted(pominiete)))
+
+        for narzedzie in ("build.py", "przenosnosc.py"):
+            sciezka = ZRODLA / narzedzie
+            if sciezka.is_file():
+                shutil.copy2(sciezka, korzen / "zrodla" / narzedzie)
+
+        cel_zip = katalog_roboczy / "doktor-kasia-pakiet"
+        archiwum = shutil.make_archive(
+            str(cel_zip), "zip", root_dir=str(korzen.parent),
+            base_dir="doktor-kasia-pakiet")
+        return Path(archiwum)
+
+
 def main():
     baza_mediow = None
     argumenty = sys.argv[1:]
@@ -440,6 +547,10 @@ def main():
         root_dir=str(ZRODLA), base_dir="wtyczka-doktor-kasia")
     print("ZIP   %s (%.0f kB)"
           % (Path(archiwum).name, Path(archiwum).stat().st_size / 1024))
+
+    if katalog_podgladow is not None:
+        pakiet = zbuduj_pakiet(katalog_podgladow, katalog_podgladow)
+        print("PAKIET %s (%.1f MB)" % (pakiet.name, pakiet.stat().st_size / 1e6))
 
 
 if __name__ == "__main__":
